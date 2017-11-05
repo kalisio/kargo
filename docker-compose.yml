@@ -47,7 +47,7 @@ services:
     command: mapproxy http
     hostname: mapproxy
     environment:
-	    - VIRTUAL_HOST=mapproxy.kalisio.xyz
+      - VIRTUAL_HOST=mapproxy.kalisio.xyz
       - VIRTUAL_PORT=8080
     volumes:
       - ./mapproxy-data:/mapproxy
