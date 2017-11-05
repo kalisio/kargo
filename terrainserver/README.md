@@ -1,0 +1,1 @@
+# CesiumTerrainServer data directory
