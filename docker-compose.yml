@@ -50,7 +50,7 @@ services:
       - VIRTUAL_HOST=mapproxy.kalisio.xyz
       - VIRTUAL_PORT=8080
     volumes:
-      - ./mapproxy-data:/mapproxy
+      - ./mapproxy:/mapproxy
     ports:
       - "8083:8080"
     depends_on:
