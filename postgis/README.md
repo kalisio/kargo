@@ -1,1 +1,0 @@
-# Postgis data directory
