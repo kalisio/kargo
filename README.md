@@ -1,12 +1,18 @@
 # kargo
 A Docker container based solution to deploy geospatial services
 
-## Prerequisites
+## Overview of kargo
+
+TODO
+
+## Installing kargo
+
+### Prerequisites
 
 To install Kargo, you should have a version of Docker Engine and Docker Compose installed supporting version 3 of compose file. 
 If not installed, please follow the instructions on https://docs.docker.com/engine/installation/ and https://docs.docker.com/compose/install/.
 
-## Installation
+## Install kargo
 
 1. Clone the kargo repository in the directory of your choice
 
@@ -20,7 +26,7 @@ If not installed, please follow the instructions on https://docs.docker.com/engi
 
 `docker-compose up -d` 
 
-## Adding a reverse proxy
+## Adding additional services
 
 If you need to expose all the services behind a reverse proxy, we recomend to use the solution proposed by Jason Wilder:
 https://github.com/jwilder/nginx-proxy
