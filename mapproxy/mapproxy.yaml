@@ -1,0 +1,48 @@
+# -------------------------------
+# MapProxy example configuration.
+# -------------------------------
+#
+# This is a minimal MapProxy configuration.
+# See full_example.yaml and the documentation for more options.
+#
+
+# Starts the following services:
+# Demo:
+#     http://localhost:8080/demo
+# WMS:
+#     capabilities: http://localhost:8080/service?REQUEST=GetCapabilities
+# WMTS:
+#     capabilities: http://localhost:8080/wmts/1.0.0/WMTSCapabilities.xml
+#     first tile: http://localhost:8080/wmts/osm/webmercator/0/0/0.png
+# Tile service (compatible with OSM/etc.)
+#     first tile: http://localhost:8080/tiles/osm/webmercator/0/0/0.png
+# TMS:
+#     note: TMS is not compatible with OSM/Google Maps/etc.
+#     fist tile: http://localhost:8080/tms/1.0.0/osm/webmercator/0/0/0.png
+# KML:
+#     initial doc: http://localhost:8080/kml/osm/webmercator
+
+services:
+  demo:
+  wms:
+    version: ['1.3.0']
+  tms:
+  wmts:
+
+layers:
+  - name: osm
+    title: OpenStreetMap
+    sources: [osm_cache]
+
+caches:
+  osm_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [osm_tileserver]
+
+sources:
+  osm_tileserver:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileserver-gl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
+ 
+  
