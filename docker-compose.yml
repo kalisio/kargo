@@ -60,19 +60,6 @@ services:
     networks:
       - kargo
       
-  terainserver:
-    image: geodata/cesium-terrain-server
-    container_name: terrainserver
-    hostname: terrainserver
-    environment:
-      - VIRTUAL_HOST=terrainserver.kalisio.xyz
-    volumes:
-      - ./terrainserver:/data/tilesets/terrain
-    ports:
-      - "8084:8080"
-    networks:
-      - kargo
-      
 networks:
     kargo:
        external:
