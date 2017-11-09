@@ -1,0 +1,23 @@
+{
+  "options": {
+    "paths": {
+      "root": "",
+      "styles": "styles",
+      "fonts": "fonts",
+      "mbtiles": "/mnt/geodata"
+    }
+  },
+  "styles": {
+    "osm-bright": {
+      "style": "osm-bright/style.json"
+    }
+  },
+  "data": {
+    "midipy": {
+      "mbtiles": "midipy.mbtiles"
+    },
+    "airport_midipy": {
+      "mbtiles": "airport_midipy.mbtiles"
+    }
+  }
+}
