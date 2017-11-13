@@ -14,7 +14,7 @@ A Docker container based solution to deploy geospatial services.
 3. **MapProxy**: https://mapproxy.org/, https://hub.docker.com/r/yagajs/mapproxy/
 4. **TileServer-GL**: http://tileserver.org/, https://hub.docker.com/r/klokantech/tileserver-gl/
 
-> Even if **kargo** let you configure and manage all the services using one YAML file, we assume you are enough familiar with these tools to be able to customise their configurations in order to address your needs.
+> Even if **kargo** let you configure and manage all the services using a single YAML file, we assume you are enough familiar with these tools to be able to customise their configurations in order to address your needs.
 
 ### Overview
 
