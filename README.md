@@ -6,15 +6,15 @@ A Docker container based solution to deploy geospatial services.
 
 ### What is Kargo ?
 
-*kargo* is a docker-compose file for defining and running multi-container Docker geospatial applications supporting most of the OGC standards. 
+**kargo** is a docker-compose file for defining and running multi-container Docker geospatial applications supporting most of the OGC standards. 
 
-*kargo* relies on the following open source solutions:
-1. *PostGis*: http://postgis.net/
-2. *GeoServer*: http://geoserver.org/
-3. *MapProxy*: https://mapproxy.org/
-4. *TileServer-GL*: http://tileserver.org/
+**kargo** relies on the following open source projects and docker solutions:
+1. **PostGis**: http://postgis.net/, https://hub.docker.com/r/mdillon/postgis/
+2. **GeoServer**: http://geoserver.org/, https://hub.docker.com/r/winsent/geoserver/
+3. **MapProxy**: https://mapproxy.org/, https://hub.docker.com/r/yagajs/mapproxy/
+4. **TileServer-GL**: http://tileserver.org/, https://hub.docker.com/r/klokantech/tileserver-gl/
 
-> Even if *kargo* let you configure and manage all the services using one YAML file, we assume you are enough familiar with these tools to be able to customise their configurations in order to address your needs.
+> Even if **kargo** let you configure and manage all the services using one YAML file, we assume you are enough familiar with these tools to be able to customise their configurations in order to address your needs.
 
 ### Overview
 
@@ -22,16 +22,16 @@ A Docker container based solution to deploy geospatial services.
 
 ### Prerequisites
 
-To install Kargo, you should have a version of Docker Engine and Docker Compose installed supporting version 3 of compose file. 
+To install **kargo**, you should have a version of Docker Engine and Docker Compose installed supporting version 3 of compose file. 
 If not installed, please follow the instructions on https://docs.docker.com/engine/installation/ and https://docs.docker.com/compose/install/.
 
 ## Install kargo
 
-1. Clone the *kargo* repository in the directory of your choice
+1. Clone the **kargo** repository in the directory of your choice
 
 `git clone https://github.com/kalisio/kargo.git`
 
-1. Create a network named *kargo*
+1. Create a network named **kargo**
 
 `docker network create kargo`
 
