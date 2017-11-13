@@ -4,7 +4,7 @@ A Docker container based solution to deploy geospatial services.
 
 ## Overview of kargo
 
-## What is Kargo ?
+### What is Kargo ?
 
 *kargo* is a docker-compose file for defining and running multi-container Docker geospatial applications supporting most of the OGC standards. 
 
