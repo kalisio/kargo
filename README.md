@@ -16,7 +16,11 @@ A Docker container based solution to deploy geospatial services.
 
 > Even if **kargo** let you configure and manage all the services using a single YAML file, we assume you are enough familiar with these tools to be able to customise their configurations in order to address your needs.
 
-### Overview
+### How does it work ?
+
+The following diagram illustrates how the containers interact:
+
+![Kargo overview](https://raw.githubusercontent.com/kalisio/kargo/master/kargo.png)
 
 ## Installing kargo
 
