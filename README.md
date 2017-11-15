@@ -20,7 +20,7 @@ A Docker container based solution to deploy geospatial services.
 
 The following diagram illustrates how the containers interact:
 
-![Kargo overview](https://raw.githubusercontent.com/kalisio/kargo/master/kargo.png)
+![Kargo overview](https://raw.githubusercontent.com/kalisio/kargo/master/kargo-diagram.png)
 
 ## Installing kargo
 
