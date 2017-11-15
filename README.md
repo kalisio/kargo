@@ -33,15 +33,21 @@ If not installed, please follow the instructions on https://docs.docker.com/engi
 
 1. Clone the **kargo** repository in the directory of your choice
 
-`git clone https://github.com/kalisio/kargo.git`
+```
+git clone https://github.com/kalisio/kargo.git
+```
 
 1. Create a network named **kargo**
 
-`docker network create kargo`
+```
+docker network create kargo
+```
 
 2. Setting up the services
 
-`docker-compose up -d` 
+```
+docker-compose up -d
+```
 
 ## Using a reverse proxy
 
@@ -50,10 +56,14 @@ https://github.com/jwilder/nginx-proxy
 
 1. Run the container
 
-`docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy`
+```
+docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+```
 
 2. Attach the container to the kargo network (https://github.com/jwilder/nginx-proxy#multiple-networks)
 
-`docker network connect kargo nginx-proxy`
+```
+docker network connect kargo nginx-proxy
+```
 
 
