@@ -26,12 +26,12 @@ services:
     networks:
       - ${NETWORK}
       
-  tileserver:
+  tileserver-gl:
     image: klokantech/tileserver-gl:v2.2.0
     container_name: tileserver-gl
     hostname: tileserver-gl
     volumes:
-      - ./tileserver-gl-conf:/data
+      - ./tileservergl-conf:/data
       - ${DATA_PATH}:/mnt/data
     ports:
       - "8082:80"
