@@ -11,8 +11,8 @@ A Docker container based solution to deploy geospatial services.
 **kargo** relies on the following open source projects and docker solutions:
 1. [**PostGis**](http://postgis.net/): https://hub.docker.com/r/mdillon/postgis/
 2. [**GeoServer**](http://geoserver.org/): https://hub.docker.com/r/winsent/geoserver/
-3. [**MapProxy**](https://mapproxy.org/), https://hub.docker.com/r/yagajs/mapproxy/
-4. [**TileServer-GL**](http://tileserver.org/), https://hub.docker.com/r/klokantech/tileserver-gl/
+3. [**MapProxy**](https://mapproxy.org/): https://hub.docker.com/r/yagajs/mapproxy/
+4. [**TileServer-GL**](http://tileserver.org/): https://hub.docker.com/r/klokantech/tileserver-gl/
 
 The following diagram illustrates how the containers interact:
 
