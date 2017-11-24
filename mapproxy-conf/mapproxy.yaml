@@ -43,6 +43,6 @@ sources:
   osm_tileserver:
     type: tile
     grid: GLOBAL_WEBMERCATOR
-    url: http://tileserver-gl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
+    url: http://tileserver/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
   
