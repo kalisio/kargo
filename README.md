@@ -69,7 +69,7 @@ NETWORK=kargo
 # Uncomment and update the above lines if you use an nginx-proxy based solutions in front of kargo
 #GEOSERVER_VHOST=geoserver.your-domain.com
 #MAPPROXY_VHOST=mapproxy.your-domain.com
-#TILESERVERGL_VHOST=tileserver-gl.your-domain.com
+#TILESERVERGL_VHOST=tileservergl.your-domain.com
 ```
 
 5. Tell docker to start the services
