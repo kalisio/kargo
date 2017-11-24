@@ -95,6 +95,7 @@ docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.so
 
 ```
 docker network connect kargo nginx-proxy
+docker-compose -f docker-compose.yml -f docker-compose.nginx.yml up -d
 ```
 
 
