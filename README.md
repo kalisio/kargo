@@ -28,7 +28,9 @@ Using **kargo**, you will be able to deliver your own data in a few minutes usin
 
 Installing **kargo** is quite easy. Howerver, you need to have a version of Docker Engine and Docker Compose installed supporting version 3 of compose file. 
 
-If you already have these, congratulations ! If not, please follow the installation instructions on https://docs.docker.com/engine/installation/ and https://docs.docker.com/compose/install/.
+If you already have these, congratulations ! If not, please follow the installation instructions on :
+1. Docker Engine: https://docs.docker.com/engine/installation/
+2. Docker Compose: https://docs.docker.com/compose/install/.
 
 ### Install kargo
 
@@ -66,7 +68,7 @@ PGDATA=/mnt/data/postgis
 NETWORK=kargo
 
 # Virtual hosts 
-# Uncomment and update the above lines if you use an nginx-proxy based solutions in front of kargo
+# Uncomment and update the lines below if you use an nginx-proxy based solution in front of kargo
 #GEOSERVER_VHOST=geoserver.your-domain.com
 #MAPPROXY_VHOST=mapproxy.your-domain.com
 #TILESERVERGL_VHOST=tileservergl.your-domain.com
@@ -78,7 +80,7 @@ NETWORK=kargo
 docker-compose up -d
 ```
 
-## Using a reverse proxy
+## Using nginx with kargo
 
 If you need to expose all the services behind a reverse proxy, we recomend to use the solution proposed by Jason Wilder:
 https://github.com/jwilder/nginx-proxy
