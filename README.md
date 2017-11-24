@@ -20,7 +20,7 @@ The following diagram illustrates how the containers interact:
 
 ### Why use kargo ?
 
-Using **kargo**, you will be able to deliver your own data in a few minutes using open standards. Indeed, **kargo** relies on well known Open Sources geospatial solutions and take advantages of their strongest features. It is designed to be highly interoperable and could be easily extended. 
+Using **kargo**, you will be able to deliver your own data in a few minutes using open standards. Indeed, **kargo** relies on well known Open Sources geospatial solutions and takes advantages of their strongest features. It is designed to be highly interoperable and could be easily extended. 
 
 > Even if **kargo** let you configure and manage all the services using a single YAML file, we assume you are enough familiar with the underlying technologies to be able to customise their configurations in order to address your needs.
 
@@ -71,7 +71,7 @@ NETWORK=kargo
 # Uncomment and update the above lines if you use an nginx-proxy based solutions in front of kargo
 #GEOSERVER_VHOST=geoserver.your-domain.com
 #MAPPROXY_VHOST=mapproxy.your-domain.com
-#TILSERVERGL_VHOST=tileserver-gl.your-domain.com
+#TILESERVERGL_VHOST=tileserver-gl.your-domain.com
 ```
 
 5. Tell docker to start the services
