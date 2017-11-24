@@ -28,7 +28,7 @@ Using **kargo**, you will be able to deliver your own data in a few minutes usin
 
 Installing **kargo** is quite easy. Howerver, you need to have a version of Docker Engine and Docker Compose installed supporting version 3 of compose file. 
 
-If you already have these, congratulations ! If not, please follow the installation instructions on :
+If you already have these, congratulations ! If not, please follow the installation instructions:
 1. Docker Engine: https://docs.docker.com/engine/installation/
 2. Docker Compose: https://docs.docker.com/compose/install/.
 
