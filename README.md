@@ -1,26 +1,24 @@
 # kargo
 
-A Docker container based solution to deploy geospatial services.
+A Docker container based solution to enable geospatial web services deployment.
 
 ## Overview of kargo
 
 ### What is kargo ?
 
-**kargo** is a docker-compose file for defining and running multi-container Docker geospatial applications supporting most of the OGC standards. 
-
-**kargo** relies on the following open source projects and docker solutions:
+**kargo** consists in a docker-compose file which allows you to set up and deploy the following geospatial web applications: 
 1. [**PostGis**](http://postgis.net/): https://hub.docker.com/r/mdillon/postgis/
 2. [**GeoServer**](http://geoserver.org/): https://hub.docker.com/r/winsent/geoserver/
 3. [**MapProxy**](https://mapproxy.org/): https://hub.docker.com/r/yagajs/mapproxy/
 4. [**TileServer-GL**](http://tileserver.org/): https://hub.docker.com/r/klokantech/tileserver-gl/
 
-The following diagram illustrates how the containers interact:
+The diagram below illustrates how the containers interact:
 
 ![Kargo overview](https://raw.githubusercontent.com/kalisio/kargo/master/kargo-diagram.png)
 
 ### Why use kargo ?
 
-Using **kargo**, you will be able to deliver your own data in a few minutes using open standards. Indeed, **kargo** relies on well known Open Sources geospatial solutions and takes advantages of their strongest features. It is designed to be highly interoperable and could be easily extended. 
+Using **kargo**, you will be able to deliver your own data in a few minutes using open standards. Indeed, **kargo** relies on well known Open Source geospatial solutions and takes advantages of their strongest features. It is designed to be highly interoperable and could be easily extended.
 
 > Even if **kargo** let you configure and manage all the services using a single YAML file, we assume you are enough familiar with the underlying technologies to be able to customise their configurations in order to address your needs.
 
