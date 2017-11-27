@@ -8,7 +8,7 @@ services:
       - ./postgis-conf:/var/lib/postgresql/data
       - ${DATA_PATH}:/mnt/data
     networks:
-      - ${NETWORK}
+      - kargo_network
   
   geoserver:
     image: winsent/geoserver:2.12.0
@@ -18,25 +18,25 @@ services:
       - ./geoserver-conf:/opt/geoserver/data_dir
       - ${DATA_PATH}:/mnt/data
     ports:
-      - "8081:8080"
+      - "${GEOSERVER_PORT}:8080"
     depends_on:
       - postgis
     links:
       - postgis:postgis
     networks:
-      - ${NETWORK}
+      - kargo_network
       
-  tileserver-gl:
+  tileservergl:
     image: klokantech/tileserver-gl:v2.2.0
-    container_name: tileserver-gl
-    hostname: tileserver-gl
+    container_name: tileservergl
+    hostname: tileservergl
     volumes:
       - ./tileservergl-conf:/data
       - ${DATA_PATH}:/mnt/data
     ports:
-      - "8082:80"
+      - "${TILESERVERGL_PORT}:80"
     networks:
-      - ${NETWORK}
+      - kargo_network
 
   mapproxy:
     image: yagajs/mapproxy:1.10.4-alpine
@@ -47,15 +47,15 @@ services:
       - ./mapproxy-conf:/mapproxy
       - ${DATA_PATH}:/mnt/data
     ports:
-      - "8083:8080"
+      - "${MAPPROXY_PORT}:8080"
     depends_on:
-      - tileserver-gl
+      - tileservergl
     links:
-      - tileserver-gl:tileserver-gl
+      - tileservergl:tileservergl
     networks:
-      - ${NETWORK}
+      - kargo_network
       
 networks:
-    kargo:
+    kargo_network:
        external:
           name: ${NETWORK}
