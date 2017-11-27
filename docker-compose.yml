@@ -39,7 +39,7 @@ services:
       - kargo_network
 
   mapproxy:
-    image: yagajs/mapproxy:1.10.4-alpine
+    build: https://github.com/yagajs/docker-mapproxy.git#version/1.10.4-alpine
     container_name: mapproxy
     command: mapproxy http
     hostname: mapproxy
