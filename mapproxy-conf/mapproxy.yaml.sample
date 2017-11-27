@@ -25,7 +25,6 @@
 services:
   demo:
   wms:
-    version: ['1.3.0']
   tms:
   wmts:
 
@@ -38,11 +37,15 @@ caches:
   osm_cache:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [osm_tileserver]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: osm
 
 sources:
   osm_tileserver:
     type: tile
     grid: GLOBAL_WEBMERCATOR
-    url: http://tileserver/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
+    url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
   
