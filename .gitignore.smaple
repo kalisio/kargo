@@ -1,5 +1,29 @@
-# Mapproxy-conf
+#
+# GeoServer
+# http://docs.geoserver.org/latest/en/user/datadirectory/structure.html
+#
+/geoserver-conf/logs
+/geoserver-conf/global.xml
+/geoserver-conf/gwc/
+/geoserver-conf/gwc-gs.xml
+/geoserver-conf/gwc-layers/
+/geoserver-conf/legendsamples/
+/geoserver-conf/logging.xml
+/geoserver-conf/printing/
+/geoserver-conf/security/
+/geoserver-conf/styles/
+/geoserver-conf/palettes/
+/geoserver-conf/workspaces/
+
+#
+# MapProxy
+# https://mapproxy.org/docs/latest/configuration.html
+#
 /maprpoxy-conf/app.py
 /mapproxy-conf/cache_data/
+
+#
+# TileServer-GL
+#
 
 
