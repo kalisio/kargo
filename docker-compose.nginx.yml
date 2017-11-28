@@ -4,7 +4,7 @@ services:
     environment:
       - VIRTUAL_HOST=${GEOSERVER_VHOST}   
 
-  tileserver-gl:
+  tileservergl:
     environment:
       - VIRTUAL_HOST=${TILESERVERGL_VHOST}
 
