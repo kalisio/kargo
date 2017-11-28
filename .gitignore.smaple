@@ -19,7 +19,7 @@
 # MapProxy
 # https://mapproxy.org/docs/latest/configuration.html
 #
-/maprpoxy-conf/app.py
+/mapproxy-conf/app.py
 /mapproxy-conf/cache_data/
 
 #
