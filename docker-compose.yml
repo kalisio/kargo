@@ -5,7 +5,7 @@ services:
     container_name: postgis
     hostname: postgis
     volumes:
-      - ./postgis-conf:/var/lib/postgresql/data
+      - ./config/postgis:/var/lib/postgresql/data
       - ${DATA_PATH}:/mnt/data
     networks:
       - kargo_network
@@ -15,7 +15,7 @@ services:
     container_name: geoserver
     hostname: geoserver
     volumes:
-      - ./geoserver-conf:/opt/geoserver/data_dir
+      - ./config/geoserver:/opt/geoserver/data_dir
       - ${DATA_PATH}:/mnt/data
     ports:
       - "${GEOSERVER_PORT}:8080"
@@ -31,7 +31,7 @@ services:
     container_name: tileservergl
     hostname: tileservergl
     volumes:
-      - ./tileservergl-conf:/data
+      - ./config/tileservergl:/data
       - ${DATA_PATH}:/mnt/data
     ports:
       - "${TILESERVERGL_PORT}:80"
@@ -44,7 +44,7 @@ services:
     command: mapproxy http
     hostname: mapproxy
     volumes:
-      - ./mapproxy-conf:/mapproxy
+      - ./config/mapproxy:/mapproxy
       - ${DATA_PATH}:/mnt/data
     ports:
       - "${MAPPROXY_PORT}:8080"

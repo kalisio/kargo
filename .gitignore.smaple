@@ -2,28 +2,29 @@
 # GeoServer
 # http://docs.geoserver.org/latest/en/user/datadirectory/structure.html
 #
-/geoserver-conf/logs
-/geoserver-conf/global.xml
-/geoserver-conf/gwc/
-/geoserver-conf/gwc-gs.xml
-/geoserver-conf/gwc-layers/
-/geoserver-conf/legendsamples/
-/geoserver-conf/logging.xml
-/geoserver-conf/printing/
-/geoserver-conf/security/
-/geoserver-conf/styles/
-/geoserver-conf/palettes/
-/geoserver-conf/workspaces/
+/config/geoserver/logs
+/config/geoserver/global.xml
+/config/geoserver/gwc/
+/config/geoserver/gwc-gs.xml
+/config/geoserver/gwc-layers/
+/config/geoserver/legendsamples/
+/config/geoserver/logging.xml
+/config/geoserver/printing/
+/config/geoserver/security/
+/config/geoserver/styles/
+/config/geoserver/palettes/
+/config/geoserver/workspaces/
 
 #
 # MapProxy
 # https://mapproxy.org/docs/latest/configuration.html
 #
-/mapproxy-conf/app.py
-/mapproxy-conf/cache_data/
+/config/mapproxy/app.py
+/config/mapproxy/cache_data/
 
 #
 # TileServer-GL
+# No extra files generated
 #
 
 
