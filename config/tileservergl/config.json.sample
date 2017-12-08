@@ -14,7 +14,7 @@
   },
   "data": {
     "osm": {
-      "mbtiles": "features/osm/osm.mbtiles"
+      "mbtiles": "features/OSM/osm.mbtiles"
     }
   }
 }
