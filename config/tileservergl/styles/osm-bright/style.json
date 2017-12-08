@@ -48,11 +48,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "mbtiles://{midipy}"
-    },
-    "kalisio": {
-      "type": "vector",
-      "url": "mbtiles://{airport_midipy}"
+      "url": "mbtiles://{osm}"
     }
   },
   "sprite": "{styleJsonFolder}/sprite",
@@ -5378,63 +5374,6 @@
         "text-color": "#334",
         "text-halo-width": 2,
         "text-halo-color": "rgba(255,255,255,0.8)"
-      }
-    },
-    {
-      "id": "aeroway-runway-label",
-      "type": "symbol",
-      "source": "kalisio",
-      "source-layer": "aeroway",
-      "minzoom": 12,
-      "filter": [
-        "all",
-        [
-          "==",
-          "class",
-          "runway"
-        ]
-      ],
-      "layout": {
-        "text-field": "{ref}",
-        "symbol-placement": "line"
-      },
-      "paint": {
-        "text-color": "rgba(102, 102, 102, 1)",
-        "text-halo-color": "rgba(255, 255, 255, 1)",
-        "text-halo-width": 1,
-        "text-halo-blur": 0.5,
-        "text-translate-anchor": "map"
-      }
-    },
-    {
-      "id": "aeroway-taxiway-label",
-      "type": "symbol",
-      "source": "kalisio",
-      "source-layer": "aeroway",
-      "minzoom": 13,
-      "filter": [
-        "all",
-        [
-          "==",
-          "class",
-          "taxiway"
-        ]
-      ],
-      "layout": {
-        "text-field": "{ref}",
-        "text-pitch-alignment": "auto",
-        "text-rotation-alignment": "auto",
-        "text-justify": "center",
-        "symbol-placement": "point",
-        "symbol-avoid-edges": false,
-        "symbol-spacing": 250
-      },
-      "paint": {
-        "text-color": "rgba(102, 102, 102, 1)",
-        "text-halo-width": 1,
-        "text-halo-blur": 0.5,
-        "text-halo-color": "rgba(255, 255, 255, 1)",
-        "icon-color": "rgba(0, 0, 0, 0)"
       }
     }
   ]
