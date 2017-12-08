@@ -38,9 +38,7 @@ caches:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [osm_tileserver]
     cache:
-      type: s3
-      bucket_name: kargo
-      directory: osm
+      type: file
 
 sources:
   osm_tileserver:
