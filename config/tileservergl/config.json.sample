@@ -4,7 +4,7 @@
       "root": "",
       "styles": "styles",
       "fonts": "fonts",
-      "mbtiles": "/mnt/geodata"
+      "mbtiles": "/mnt/data"
     }
   },
   "styles": {
@@ -13,11 +13,8 @@
     }
   },
   "data": {
-    "midipy": {
-      "mbtiles": "midipy.mbtiles"
-    },
-    "airport_midipy": {
-      "mbtiles": "airport_midipy.mbtiles"
+    "osm": {
+      "mbtiles": "features/osm/planet.mbtiles"
     }
   }
 }
