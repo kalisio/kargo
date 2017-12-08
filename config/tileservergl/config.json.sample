@@ -14,7 +14,7 @@
   },
   "data": {
     "osm": {
-      "mbtiles": "features/osm/planet.mbtiles"
+      "mbtiles": "features/osm/osm.mbtiles"
     }
   }
 }
