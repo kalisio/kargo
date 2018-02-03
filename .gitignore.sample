@@ -3,17 +3,7 @@
 # http://docs.geoserver.org/latest/en/user/datadirectory/structure.html
 #
 /config/geoserver/logs
-/config/geoserver/global.xml
-/config/geoserver/gwc/
-/config/geoserver/gwc-gs.xml
-/config/geoserver/gwc-layers/
 /config/geoserver/legendsamples/
-/config/geoserver/logging.xml
-/config/geoserver/printing/
-/config/geoserver/security/
-/config/geoserver/styles/
-/config/geoserver/palettes/
-/config/geoserver/workspaces/
 
 #
 # MapProxy
