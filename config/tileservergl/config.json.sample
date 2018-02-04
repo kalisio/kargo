@@ -5,7 +5,7 @@
       "styles": "styles",
       "fonts": "fonts",
       "sprites": "sprites",
-      "mbtiles": "/mnt/data"
+      "mbtiles": "path_to_data"
     }
   },
   "styles": {
@@ -15,7 +15,7 @@
   },
   "data": {
     "osm": {
-      "mbtiles": "osm.mbtiles"
+      "mbtiles": "path_to_osm.mbtiles"
     }
   }
 }
