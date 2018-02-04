@@ -85,16 +85,16 @@ docker-compose up -d
 If you need to expose all the services behind a reverse proxy, we recomend to use the solution proposed by Jason Wilder:
 https://github.com/jwilder/nginx-proxy
 
-1. Run the container
-
+1. Run the `nginx-proxy` container
 ```
 docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
 ```
-
 2. Attach the container to the kargo network (https://github.com/jwilder/nginx-proxy#multiple-networks)
-
 ```
 docker network connect kargo nginx-proxy
+```
+3. Run the services using the `docker-compose.nginx.yml` file to enable them to work with `nginx-proxy`
+```
 docker-compose -f docker-compose.yml -f docker-compose.nginx.yml up -d
 ```
 
