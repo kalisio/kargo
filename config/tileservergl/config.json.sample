@@ -4,17 +4,18 @@
       "root": "",
       "styles": "styles",
       "fonts": "fonts",
+      "sprites": "sprites",
       "mbtiles": "/mnt/data"
     }
   },
   "styles": {
     "osm-bright": {
-      "style": "osm-bright/style.json"
+      "style": "osm-bright.json"
     }
   },
   "data": {
     "osm": {
-      "mbtiles": "features/OSM/osm.mbtiles"
+      "mbtiles": "osm.mbtiles"
     }
   }
 }
