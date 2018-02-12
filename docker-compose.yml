@@ -11,7 +11,11 @@ services:
       - kargo_network
   
   geoserver:
-    image: winsent/geoserver:2.12.0
+    build: 
+      context: ./build/geoserver/
+      args:
+        VERSION: ${GEOSERVER_VERSION}
+        PLUGINS: ${GEOSERVER_PLUGINS}
     container_name: geoserver
     hostname: geoserver
     volumes:
