@@ -50,6 +50,19 @@ RUN for PLUGIN in $PLUGINS; \
       rm geoserver-$VERSION-$PLUGIN-plugin.zip ; \
     done
 
+# Replace GDAL Java bindings
+RUN rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/imageio-ext-gdal-bindings-1.9.2.jar
+RUN cp /usr/share/java/gdal.jar /opt/geoserver/webapps/geoserver/WEB-INF/lib/gdal.jar
+
+# Remove old JAI from geoserver
+RUN rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_codec-1.1.3.jar && \
+    rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_core-1.1.3.jar && \
+    rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_imageio-1.1.jar
+
+
+# Enable JAI-EXT
+RUN sed -i '/-jar start.jar/ s/$/-Dorg.geotools.coverage.jaiext.enabled=true/' /opt/geoserver/bin/startup.sh
+
 # Enable CORS
 # Reminder: GeoServer binary is bundled inside Jetty
 RUN sed -i '\:</web-app>:i\
@@ -63,14 +76,7 @@ RUN sed -i '\:</web-app>:i\
         <url-pattern>/*</url-pattern>\
     </filter-mapping>' /opt/geoserver/webapps/geoserver/WEB-INF/web.xml
 
-# Remove old JAI from geoserver
-RUN rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_codec-1.1.3.jar && \
-    rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_core-1.1.3.jar && \
-    rm -rf /opt/geoserver/webapps/geoserver/WEB-INF/lib/jai_imageio-1.1.jar
-
-# Expose GeoServer's default port
-EXPOSE 8080
-
+# Define Healthcheck
 HEALTHCHECK --interval=5m --timeout=3s \
     CMD curl -f "http://localhost:8080/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities" || exit 1
 
@@ -82,4 +88,8 @@ ENV GEOSERVER_HOME /opt/geoserver
 ENV PATH $GDAL_PATH:$PATH
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
 
+# Expose GeoServer's default port
+EXPOSE 8080
+
+# Run GeoServer
 CMD ["/opt/geoserver/bin/startup.sh"]
