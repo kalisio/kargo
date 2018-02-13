@@ -14,10 +14,6 @@ ENV GEOSERVER_HOME /opt/geoserver
 ENV PATH $GDAL_PATH:$PATH
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
 
-# Install Java
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN dpkg-divert --local --rename --add /sbin/initctl
-
 RUN \
   apt-get -y update --fix-missing && \
   apt-get -y install unzip software-properties-common && \
