@@ -6,9 +6,18 @@ ARG PLUGINS
 
 RUN echo "Building GeoServer $VERSION"
 
+# Environment setup
 ENV DEBIAN_FRONTEND noninteractive
+ENV GDAL_PATH /usr/share/gdal
+ENV GDAL_DATA $GDAL_PATH/1.10
+ENV GEOSERVER_HOME /opt/geoserver
+ENV PATH $GDAL_PATH:$PATH
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
 
 # Install Java
+RUN export DEBIAN_FRONTEND=noninteractive
+RUN dpkg-divert --local --rename --add /sbin/initctl
+
 RUN \
   apt-get -y update --fix-missing && \
   apt-get -y install unzip software-properties-common && \
@@ -80,16 +89,9 @@ RUN sed -i '\:</web-app>:i\
 HEALTHCHECK --interval=5m --timeout=3s \
     CMD curl -f "http://localhost:8080/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities" || exit 1
 
-# Setup environment variables
-ENV JAVA_OPTS "-Xms768m -Xmx2048m -XX:+UseConcMarkSweepGC -XX:NewSize=48m"
-ENV GDAL_PATH /usr/share/gdal
-ENV GDAL_DATA $GDAL_PATH/1.10
-ENV GEOSERVER_HOME /opt/geoserver
-ENV PATH $GDAL_PATH:$PATH
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jni:/usr/share/java
-
 # Expose GeoServer's default port
 EXPOSE 8080
 
 # Run GeoServer
+ENV JAVA_OPTS "-Xms768m -Xmx2048m -XX:+UseConcMarkSweepGC -XX:NewSize=48m"
 CMD ["/opt/geoserver/bin/startup.sh"]
