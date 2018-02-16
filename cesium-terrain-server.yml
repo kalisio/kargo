@@ -3,7 +3,7 @@ services:
   cesiumterrainserver:
     image: geodata/cesium-terrain-server
     container_name: cesiumterrainserver
-    hostname: postgis
+    hostname: cesiumterrainserver
     volumes:
       - /mnt/data/tilesets/terrain:/data/tilesets/terrain
       - ${DATA_PATH}:/mnt/data
