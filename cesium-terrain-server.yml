@@ -1,0 +1,13 @@
+version: '3'
+services:
+  cesiumterrainserver:
+    image: geodata/cesium-terrain-server
+    container_name: cesiumterrainserver
+    hostname: postgis
+    volumes:
+      - /mnt/data/tilesets/terrain:/data/tilesets/terrain
+      - ${DATA_PATH}:/mnt/data
+    ports:
+      - "${CESIUMTERRAINSERVER_PORT}:8000"
+    networks:
+      - kargo_network
