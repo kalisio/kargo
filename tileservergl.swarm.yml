@@ -23,5 +23,5 @@ volumes:
   tileservergl_conf:
     driver: "vieux/sshfs:latest"
     driver_opts:
-      sshcmd: "root@"10.14.111.15:/root/kargo/configs/tileservergl"
+      sshcmd: "root@10.14.111.15:/root/kargo/configs/tileservergl"
       allow_other: "" 
