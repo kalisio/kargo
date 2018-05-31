@@ -12,6 +12,7 @@ services:
         - "traefik.mapproxy.backend=mapproxy"
         - "traefik.mapproxy.enable=true"
         - "traefik.mapproxy.frontend.entryPoints=http,https"
+        - "traefik.mapproxy.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.mapproxy.frontend.rule=Host:mapproxy.${INFRASTRUCTURE}.${DOMAIN}"
         - "traefik.mapproxy.port=8080"
         - "traefik.wmts.backend=mapproxy"
