@@ -1,0 +1,7 @@
+version: '3.3'
+
+services:
+  mapproxy:
+    volumes:
+      - ./config/mapproxy:/mapproxy
+

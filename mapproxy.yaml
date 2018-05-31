@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  mapproxy:
+    build: https://github.com/yagajs/docker-mapproxy.git#version/1.10.4-alpine
+    command: mapproxy http
+    volumes:
+      - ${DATA_PATH}:/mnt/data
+    depends_on:
+      - tileservergl
+    networks:
+      - kargo-network
+      
+networks:
+    kargo-network:
+       external:
+          name: ${NETWORK}
