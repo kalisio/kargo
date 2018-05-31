@@ -6,6 +6,13 @@ services:
       - source: tileservergl_config
         target: /data
     deploy:
+      labels:
+        - "traefik.backend=tileservergl"
+        - "traefik.docker.network=${NETWORK}"
+        - "traefik.enable=true"
+        - "traefik.port=80"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:tileservergl.${SUBDOMAIN}"
       replicas: 1
       placement:
         constraints:
