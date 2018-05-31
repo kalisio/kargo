@@ -3,5 +3,5 @@ version: '3.3'
 services:
   mapproxy:
     volumes:
-      - ./config/tileservergl:/data
+      - ./configs/tileservergl:/data
 

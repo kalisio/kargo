@@ -22,4 +22,4 @@ services:
 
 configs:
   tileservergl_config:
-    file: ./config/tileservergl
+    file: ./configs/tileservergl

@@ -1,0 +1,20 @@
+{
+  "options": {
+    "paths": {
+      "root": "",
+      "styles": "styles",
+      "fonts": "fonts",
+      "mbtiles": "/mnt/data"
+    }
+  },
+  "styles": {
+    "osm-bright": {
+      "style": "osm-bright.json"
+    }
+  },
+  "data": {
+    "osm": {
+      "mbtiles": "OpenMapTiles/osm.mbtiles"
+    }
+  }
+}

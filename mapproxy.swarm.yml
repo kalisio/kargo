@@ -3,7 +3,6 @@ version: '3.3'
 services:
   mapproxy:
     configs:
-     ./config/mapproxy
       - source: mapproxy_config
         target: /mapproxy
     deploy:
@@ -34,4 +33,4 @@ services:
 
 configs:
   mapproxy_config:
-    file: ./config/mapproxy
+    file: ./configs/mapproxy
