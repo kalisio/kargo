@@ -35,4 +35,5 @@ volumes:
     driver: "vieux/sshfs:latest"
     driver_opts:
       sshcmd: "root@10.14.111.15:/root/kargo/configs/mapproxy"
+      IdentityFile: "/root/.ssh/ssh.key"
       allow_other: "" 
