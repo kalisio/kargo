@@ -2,9 +2,8 @@ version: '3.3'
 
 services:
   mapproxy:
-    configs:
-      - source: mapproxy_config
-        target: /mapproxy
+    volumes:
+      - mapproxy_conf:/data
     deploy:
       labels:
         - "traefik.docker.network=${NETWORK}"
@@ -31,6 +30,9 @@ services:
       restart_policy:
         condition: on-failure
 
-configs:
-  mapproxy_config:
-    file: ./configs/mapproxy
+volumes:
+  mapproxy_conf:
+    driver: "vieux/sshfs:latest"
+    driver_opts:
+      sshcmd: "root@10.14.111.15:/root/kargo/configs/mapproxy"
+      allow_other: "" 
