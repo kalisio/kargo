@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   mapproxy:
-    build: https://github.com/yagajs/docker-mapproxy.git#version/1.10.4-alpine
+    image: yagajs/mapproxy:1.11-alpine
     command: mapproxy http
     volumes:
       - ${DATA_PATH}:/mnt/data
