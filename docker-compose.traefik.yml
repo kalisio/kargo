@@ -8,11 +8,11 @@ services:
     labels:
       - "traefik.geoserver.backend=geoserver"
       - "traefik.geoserver.enable=true"
-      - "traefik.geoserver.frontend.rule=Host:geoserver.${PLATFORM}.${DOMAIN}"
+      - "traefik.geoserver.frontend.rule=Host:geoserver.${INFRASTRUCTURE}.${DOMAIN}"
       - "traefik.geoserver.port=8080"
       - "traefik.wcs.backend=geoserver"
       - "traefik.wcs.enable=true"
-      - "traefik.wcs.frontend.rule=Host:${PLATFORM}.${DOMAIN};PathPrefixStrip:/wcs;AddPrefix:/geoserver/wcs"
+      - "traefik.wcs.frontend.rule=Host:${INFRASTRUCTURE}.${DOMAIN};PathPrefixStrip:/wcs;AddPrefix:/geoserver/wcs"
       - "traefik.wcs.port=8080"
       - "traefik.docker.network=kargo_network"
 
@@ -20,15 +20,15 @@ services:
     labels:
       - "traefik.mapproxy.backend=mapproxy"
       - "traefik.mapproxy.enable=true"
-      - "traefik.mapproxy.frontend.rule=Host:mapproxy.${PLATFORM}.${DOMAIN}"
+      - "traefik.mapproxy.frontend.rule=Host:mapproxy.${INFRASTRUCTURE}.${DOMAIN}"
       - "traefik.mapproxy.port=8080"
       - "traefik.wmts.backend=mapproxy"
       - "traefik.wmts.enable=true"
-      - "traefik.wmts.frontend.rule=Host:${PLATFORM}.${DOMAIN};PathPrefix:/wmts"
+      - "traefik.wmts.frontend.rule=Host:${INFRASTRUCTURE}.${DOMAIN};PathPrefix:/wmts"
       - "traefik.wmts.port=8080"
       - "traefik.wms.backend=mapproxy"
       - "traefik.wms.enable=true"
-      - "traefik.wms.frontend.rule=Host:${PLATFORM}.${DOMAIN};PathPrefixStrip:/wms;AddPrefix:/service"
+      - "traefik.wms.frontend.rule=Host:${INFRASTRUCTURE}.${DOMAIN};PathPrefixStrip:/wms;AddPrefix:/service"
       - "traefik.wms.port=8080"
       - "traefik.docker.network=kargo_network"
 
@@ -36,6 +36,6 @@ services:
     labels:
       - "traefik.backend=tileservergl"
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:tileservergl.${PLATFORM}.${DOMAIN}"
+      - "traefik.frontend.rule=Host:tileservergl.${INFRASTRUCTURE}.${DOMAIN}"
       - "traefik.port=80"
       - "traefik.docker.network=kargo_network"
