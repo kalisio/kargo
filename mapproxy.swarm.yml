@@ -3,7 +3,7 @@ version: '3.3'
 services:
   mapproxy:
     volumes:
-      - mapproxy_conf:/data
+      - mapproxy_conf:/mapproxy
     deploy:
       labels:
         - "traefik.docker.network=${NETWORK}"
