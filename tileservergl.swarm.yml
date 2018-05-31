@@ -2,9 +2,8 @@ version: '3.3'
 
 services:
   tileservergl:
-    configs:
-      - source: tileservergl_config
-        target: /data
+    volumes:
+      - tileservergl_conf:/data
     deploy:
       labels:
         - "traefik.backend=tileservergl"
@@ -20,6 +19,9 @@ services:
       restart_policy:
         condition: on-failure
 
-configs:
-  tileservergl_config:
-    file: ./configs/tileservergl
+volumes:
+  tileservergl_conf:
+    driver: "vieux/sshfs:latest"
+    driver_opts:
+      sshcmd: "root@"10.14.111.15:/root/kargo/configs/tileservergl"
+      allow_other: "" 
