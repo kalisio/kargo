@@ -11,6 +11,7 @@ services:
         - "traefik.enable=true"
         - "traefik.port=80"
         - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:tileservergl.${INFRASTRUCTURE}.${DOMAIN}"
       replicas: 1
       placement:
