@@ -21,11 +21,11 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "7a3d20528d7d414ffdd84a5077460991"
+    "revision": "5585b9b3b9697bf39f1506c2ede27120"
   },
   {
-    "url": "assets/css/4.styles.024faf6a.css",
-    "revision": "7a781fcbd7dab1de5a3f2e24635f4efe"
+    "url": "assets/css/4.styles.c7554976.css",
+    "revision": "d5671a09a97d902114e04b4ae8ea0680"
   },
   {
     "url": "assets/img/kargo-diagram.46a449cd.png",
@@ -36,40 +36,40 @@ self.__precacheManifest = [
     "revision": "83621669651b9a3d4bf64d1a670ad856"
   },
   {
-    "url": "assets/js/0.6bec6429.js",
-    "revision": "8d5a67b7576c9f17fc9568f1c185a1f7"
+    "url": "assets/js/0.e0aa667e.js",
+    "revision": "ff06b438c66b6e90ddc188655345aff2"
   },
   {
-    "url": "assets/js/1.edfb1d70.js",
-    "revision": "f1799f0e15c3797ab4e4c994655a46b6"
+    "url": "assets/js/1.8f02bcc6.js",
+    "revision": "d3be7b5edecef2ae51ec0892fe98155c"
   },
   {
-    "url": "assets/js/2.eb86d3fa.js",
-    "revision": "36ad7b3708cd93663f56621715c419bd"
+    "url": "assets/js/2.dfc2c385.js",
+    "revision": "e56434479d4d99904c0769c51c3d96dc"
   },
   {
-    "url": "assets/js/3.b470a261.js",
-    "revision": "32ae220b5d33688fbc9dcfb20009ad90"
+    "url": "assets/js/3.82be4153.js",
+    "revision": "a2095ba47e3ef01011e65c10e77be9d2"
   },
   {
-    "url": "assets/js/app.3336f778.js",
-    "revision": "13c8b152586b6c48c8b5ad1188b1a8a1"
+    "url": "assets/js/app.653cbbee.js",
+    "revision": "e7c6533596513d83f648b4bba3d06bd5"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "1445f87e9f6e68ab17c506b155217064"
+    "revision": "02850d5da8ac87ecca782863ca9e0038"
   },
   {
     "url": "how-to-use-it/index.html",
-    "revision": "8bf03f007d3e887c3ea536e27de0b819"
+    "revision": "d05f9d3d36eb67c6508693f1a986b3d1"
   },
   {
     "url": "index.html",
-    "revision": "8b902c18a2f1fbf1300bb5cf2c6b1eed"
+    "revision": "fc3791facea966178eb3ce970ce03554"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "3c9f18b70b2b79d3adbbdac91a2d6637"
+    "revision": "93d0cbb7273012949e61a72f6cc77881"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
