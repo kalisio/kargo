@@ -9,7 +9,7 @@
 
 **Kargo** is designed to be deployed on Docker based infrastructures and specifically on Docker Swarm cluster. Benefit from [Kaabah](https://kalisio.github.io/kaabah/) to create your infrastructure and manage your platform of services with ease.
 
-::: tip Sponsored by **Kalisio**
+::: tip Sponsored by Kalisio
 **Kargo** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary Geospatial Services we need to support our development.<br/><br/>
 ![kalisio](https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png)<br/>
 *Unleashing the potential of spatial information*

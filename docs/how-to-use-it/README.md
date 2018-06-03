@@ -1,6 +1,6 @@
 # How to use it ?
 
-::: Warning
+::: warning
 Even if **kargo** let you configure and manage all the services using the simplicity of Docker, we assume you are enough familiar with the underlying technologies (i.e. TileserverGL, Mapproxy, GeoServer, Postgis) to be able to customize their configurations in order to address your needs.
 :::
 
