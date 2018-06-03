@@ -9,7 +9,7 @@ features:
 - title: Operate your platform with ease
   details: Manage your services and scale the platform in a minute with the simplicity of Docker
 - title: Highly interoperable
-  details: Support most of the Geospatial Open Standards defined by the [OGC](http://www.opengeospatial.org/)
+  details: Support most of the Geospatial Open Standards defined by the OGC
 footer: MIT Licensed | Copyright © 2018-Kalisio
 ---
 
