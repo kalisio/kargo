@@ -9,4 +9,4 @@
 
 The diagram below illustrates how the containers interact:
 
-![Kargo overview](./assets/kargo-diagram.png)
+![Kargo overview](./../assets/kargo-diagram.png)

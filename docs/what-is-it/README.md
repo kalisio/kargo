@@ -9,6 +9,10 @@ Indeed, **kargo** relies on well known Open Source geospatial solutions and take
 3. [**MapProxy**](https://mapproxy.org/)
 4. [**TileServer-GL**](http://tileserver.org/)
 
-
+::: tip Note
+The **Kargo** project was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary Geospatial Services we need to support our development.<br/><br/>
+![kalisio](./../assets/kalisio-banner.png)<br/>
+<i>Unleashing the potential of spatial information</i>
+::: 
 
 
