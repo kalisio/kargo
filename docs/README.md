@@ -1,5 +1,6 @@
 ---
 home: true
+heroImage: https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kargo/kargo-logo-256.png
 actionText: Show me more →
 actionLink: /what-is-it/
 features:
