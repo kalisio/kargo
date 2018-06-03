@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # What is it ?
 
 **kargo** allows you to deliver your own data in a few minutes using Geospatial Open Standards such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... Indeed, **kargo** relies on well known Open Source geospatial solutions and takes advantages of their strongest features:
