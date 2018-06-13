@@ -10,5 +10,6 @@ services:
 
 networks:
     kargo-network:
-       external:
-          name: ${NETWORK}
+      name: ${DOCKER_NETWORK}
+      external: true
+          

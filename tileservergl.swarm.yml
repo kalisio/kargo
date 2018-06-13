@@ -12,7 +12,7 @@ services:
         - "traefik.port=80"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:tileservergl.${INFRASTRUCTURE}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:tileservergl.${DOMAIN}"
       replicas: 1
       placement:
         constraints:
@@ -25,5 +25,5 @@ volumes:
     driver: "vieux/sshfs:latest"
     driver_opts:
       sshcmd: "${SSH_USER}@{MANAGER_PRIVATE_IP}:/${SSH_USER}/kargo/configs/tileservergl"
-      IdentityFile: "/root/.ssh/${INFRASTRUCTURE}.pem"
+      IdentityFile: "/root/.ssh/ssh.pem"
       allow_other: "" 
