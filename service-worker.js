@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "078a806d1a07b746bc445154d5447835"
+    "revision": "86b207a57f440467cb46d9cb6f0d805a"
   },
   {
     "url": "assets/css/4.styles.c7554976.css",
@@ -52,24 +52,24 @@ self.__precacheManifest = [
     "revision": "a2095ba47e3ef01011e65c10e77be9d2"
   },
   {
-    "url": "assets/js/app.aa274490.js",
-    "revision": "e09fa2de6f2202c8d34316e358004cff"
+    "url": "assets/js/app.b7e6eada.js",
+    "revision": "786b929f34729f69f0eda309e97796e9"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "3dd9211ab1e8fe2da3b5d6a1856c7857"
+    "revision": "585732e99516d956dd468445f29bf6bc"
   },
   {
     "url": "how-to-use-it/index.html",
-    "revision": "33923a81317d3b9af14f68a2670f1998"
+    "revision": "30bfa3101ce3da68d5a5980c0c920313"
   },
   {
     "url": "index.html",
-    "revision": "2ea97fbdfac573903a9d3c872548c38d"
+    "revision": "8afa9825af8be8f6aab8b53c2c0d6ba4"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "230fb3ac6d08e55c7ccb6db6c8472a07"
+    "revision": "c9b21b46b76be787a1a7c94b5d581999"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
