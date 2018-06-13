@@ -6,7 +6,7 @@ services:
       - mapproxy_conf:/mapproxy
     deploy:
       labels:
-        - "traefik.docker.network=${NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.backend=mapproxy"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"

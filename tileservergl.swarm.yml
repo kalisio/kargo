@@ -7,7 +7,7 @@ services:
     deploy:
       labels:
         - "traefik.backend=tileservergl"
-        - "traefik.docker.network=${NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.enable=true"
         - "traefik.port=80"
         - "traefik.frontend.entryPoints=http,https"
