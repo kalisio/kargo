@@ -7,12 +7,17 @@ services:
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.backend=mapproxy"
-        - "traefik.enable=true"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:mapproxy.${DOMAIN}"
-        - "traefik.port=8080"
+        - "traefik.mapproxy.backend=mapproxy"
+        - "traefik.mapproxy.enable=true"
+        - "traefik.mapproxy.frontend.entryPoints=http,https"
+        - "traefik.mapproxy.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.mapproxy.frontend.rule=Host:mapproxy.${DOMAIN}"
+        - "traefik.mapproxy.port=8080"
+        - "traefik.wmts.backend=mapproxy"
+        - "traefik.wmts.enable=true"
+        - "traefik.wmts.frontend.entryPoints=http,https"
+        - "traefik.wmts.frontend.rule=Host:${DOMAIN};PathPrefix:/wmts"
+        - "traefik.wmts.port=8080"
       replicas: 1
       placement:
         constraints:
