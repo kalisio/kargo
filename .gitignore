@@ -11,3 +11,5 @@ yarn-error.log*
 # Node
 node_modules
 
+# Mapproxy
+configs/mapproxy/app.py

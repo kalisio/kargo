@@ -10,7 +10,6 @@ services:
         - "traefik.backend=mapproxy"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:mapproxy.${DOMAIN}"
         - "traefik.port=8080"
       replicas: 1
