@@ -6,7 +6,7 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kargo/kargo-icon-32x32.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  serviceWorker: true,
+  serviceWorker: false,
   theme: 'vue',
   themeConfig: {
     docsDir: 'docs',

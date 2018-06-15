@@ -2,15 +2,15 @@
 # GeoServer
 # http://docs.geoserver.org/latest/en/user/datadirectory/structure.html
 #
-/config/geoserver/logs
-/config/geoserver/legendsamples/
+/configs/geoserver/logs
+/configs/geoserver/legendsamples/
 
 #
 # MapProxy
 # https://mapproxy.org/docs/latest/configuration.html
 #
-/config/mapproxy/app.py
-/config/mapproxy/cache_data/
+/configs/mapproxy/app.py
+/configs/mapproxy/cache_data/
 
 #
 # TileServer-GL
