@@ -20,6 +20,6 @@ footer: MIT Licensed | Copyright © 2018-Kalisio
 <p>
 
 <p align="center">
-  <a href="https://kalisio.xyz"><img src="https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png"></a>
+  <a href="https://kalisio.com"><img src="https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png"></a>
 </p>
 
