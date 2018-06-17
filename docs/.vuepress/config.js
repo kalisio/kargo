@@ -3,7 +3,7 @@ module.exports = {
   title: 'Kargo',
   description: 'A Docker based solution to deploy Geospatial Services',
   head: [
-    ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kargo/kargo-icon-32x32.png` }],
+    ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-32x32.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
   serviceWorker: false,
