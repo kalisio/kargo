@@ -11,5 +11,8 @@ yarn-error.log*
 # Node
 node_modules
 
+# VuePress
+docs/.vuepress/dist
+
 # Mapproxy
 configs/mapproxy/app.py
