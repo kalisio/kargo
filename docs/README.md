@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kargo/kargo-icon-256x256.png
+heroImage: https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-256x256.png
 actionText: Show me more →
 actionLink: /what-is-it/
 features:
@@ -20,6 +20,6 @@ footer: MIT Licensed | Copyright © 2018-Kalisio
 <p>
 
 <p align="center">
-  <a href="https://kalisio.com"><img src="https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png"></a>
+  <a href="https://kalisio.com"><img src="https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-256x84.png"></a>
 </p>
 
