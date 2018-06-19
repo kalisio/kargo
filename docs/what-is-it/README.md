@@ -15,6 +15,6 @@ sidebar: auto
 
 ::: tip Sponsored by Kalisio
 **Kargo** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary Geospatial Services we need to support our development.<br/><br/>
-![kalisio](https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png)<br/>
+![kalisio](https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-black-256x84.png)<br/>
 *Unleashing the potential of spatial information*
 ::: 
