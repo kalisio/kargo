@@ -1,0 +1,27 @@
+{
+  "version": 8,
+  "name": "BD Ortho",
+  "metadata": {
+  },
+  "sources": {
+    "bdortho": {
+      "type": "raster",
+      "url": "mbtiles://{bdortho}",
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "rgb(4,7,14)"
+      }
+    },
+    {
+      "id": "bdortho",
+      "type": "raster",
+      "source": "bdortho"
+    }
+  ]
+}

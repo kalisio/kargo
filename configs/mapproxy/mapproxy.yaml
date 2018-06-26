@@ -29,25 +29,40 @@ services:
   wmts:
 
 layers:
-  - name: osm
+  - name: omt_osm
     title: OpenStreetMap
+    sources: [omt_osm_cache]
+
+  - name: omt_osm_terrain
+    title: OpenStreetMap & Terrain data
     sources: [osm_cache]
      
 caches:
-  osm_cache:
+  omt_osm_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [osm_source]
+    sources: [omt_osm_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/osm
+
+  omt_osm_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [omt_osm_source]
     cache:
       type: s3
       bucket_name: kargo
       directory: cache/osm
 
 sources:
-  osm_source:
+  omt_osm_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
- 
+  omt_osm__terrain_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
 
   

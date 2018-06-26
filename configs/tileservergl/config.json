@@ -13,8 +13,14 @@
     }
   },
   "data": {
-    "osm": {
+    "omt_osm": {
       "mbtiles": "OpenMapTiles/osm.mbtiles"
-    }
+    },
+	 "omt_contourlines": {
+      "mbtiles": "OpenMapTiles/contourlines.mbtiles"
+    },
+	"omt_hillshading" : {
+	  "mbtiles": "OpenMapTiles/hillshading.mbtiles"
+	}
   }
 }
