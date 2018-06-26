@@ -1,0 +1,20 @@
+version: '3.5'
+
+services: 
+  vigicrues:
+    image: kalisio/k-vigicrues
+    networks:
+      - kargo-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          

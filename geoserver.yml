@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+ geoserver:
+    build: 
+      context: ./build/geoserver/
+      args:
+        VERSION: ${GEOSERVER_VERSION}
+        PLUGINS: ${GEOSERVER_PLUGINS}
+    volumes:
+      - ${DATA_PATH}:/mnt/data
+    networks:
+      - kargo_network
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
