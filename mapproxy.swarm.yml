@@ -23,6 +23,6 @@ volumes:
   mapproxy_conf:
     driver: "vieux/sshfs:latest"
     driver_opts:
-      sshcmd: "${SSH_USER}@${MANAGER_PRIVATE_IP}:/${SSH_USER}/kargo/configs/mapproxy"
-      IdentityFile: "/root/.ssh/ssh.pem"
+      sshcmd: "${SSH_USER}@${MANAGER_PRIVATE_IP}:${HOME}/kargo/configs/mapproxy"
+      IdentityFile: "${HOME}/.ssh/ssh.pem"
       allow_other: "" 
