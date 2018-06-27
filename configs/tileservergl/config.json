@@ -10,6 +10,9 @@
   "styles": {
     "osm-bright": {
       "style": "osm-bright.json"
+    },
+    "osm-terrain": {
+      "style": "osm-terrain.json"
     }
   },
   "data": {
