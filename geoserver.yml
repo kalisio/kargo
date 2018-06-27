@@ -8,6 +8,7 @@ services:
         VERSION: ${GEOSERVER_VERSION}
         PLUGINS: ${GEOSERVER_PLUGINS}
     volumes:
+      - ./config/geoserver:/opt/geoserver/data_dir    
       - ${DATA_PATH}:/mnt/data
     networks:
       - kargo_network

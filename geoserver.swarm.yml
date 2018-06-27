@@ -2,8 +2,6 @@ version: '3.5'
 
 services:
   geoserver:
-    volumes:
-      - geoserver_conf:/data
     deploy:
       labels:
         - "traefik.backend=geoserver"
@@ -19,11 +17,3 @@ services:
          - node.role == worker
       restart_policy:
         condition: on-failure
-
-volumes:
-  tileservergl_conf:
-    driver: "vieux/sshfs:latest"
-    driver_opts:
-      sshcmd: "${SSH_USER}@${MANAGER_PRIVATE_IP}:${HOME}/kargo/configs/geoserver"
-      IdentityFile: "${HOME}/.ssh/ssh.pem"
-      allow_other: "" 
