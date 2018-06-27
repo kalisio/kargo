@@ -11,16 +11,16 @@
   "sources": {
     "osm": {
       "type": "vector",
-      "url": "mbtiles://{osm}"
+      "url": "mbtiles://{omt_osm}"
     },
     "hillshading": {
       "type": "raster",
-      "url": "mbtiles://{hillshading}",
+      "url": "mbtiles://{omt_hillshading}",
       "tileSize": 256
     },
     "contourlines": {
       "type": "vector",
-      "url": "mbtiles://{contourlines}"
+      "url": "mbtiles://{omt_contourlines}"
     }
   },
   "glyphs": "{fontstack}/{range}.pbf",
