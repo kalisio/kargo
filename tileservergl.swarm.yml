@@ -2,8 +2,6 @@ version: '3.5'
 
 services:
   tileservergl:
-    volumes:
-      - tileservergl_conf:/data
     deploy:
       labels:
         - "traefik.backend=tileservergl"
@@ -21,10 +19,3 @@ services:
       restart_policy:
         condition: on-failure
 
-volumes:
-  tileservergl_conf:
-    driver: "vieux/sshfs:latest"
-    driver_opts:
-      sshcmd: "${SSH_USER}@${MANAGER_PRIVATE_IP}:${HOME}/kargo/configs/tileservergl"
-      IdentityFile: "${HOME}/.ssh/ssh.pem"
-      allow_other: "" 

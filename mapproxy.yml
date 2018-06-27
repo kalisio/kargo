@@ -8,6 +8,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     command: mapproxy http
     volumes:
+      - ./configs/mapproxy:/mapproxy    
       - ${DATA_PATH}:/mnt/data
     depends_on:
       - tileservergl
