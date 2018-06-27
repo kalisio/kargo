@@ -52,7 +52,7 @@ caches:
     cache:
       type: s3
       bucket_name: kargo
-      directory: cache/osm
+      directory: cache/osm-terrain
 
 sources:
   omt_osm_source:
