@@ -35,7 +35,7 @@ layers:
 
   - name: omt_osm_terrain
     title: OpenStreetMap & Terrain data
-    sources: [osm_cache]
+    sources: [omt_osm_terrain_cache]
      
 caches:
   omt_osm_cache:
@@ -46,9 +46,9 @@ caches:
       bucket_name: kargo
       directory: cache/osm
 
-  omt_osm_cache:
+  omt_osm_terrain_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [omt_osm_source]
+    sources: [omt_osm_terrain_source]
     cache:
       type: s3
       bucket_name: kargo
@@ -60,7 +60,7 @@ sources:
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
-  omt_osm__terrain_source:
+  omt_osm_terrain_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
