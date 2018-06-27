@@ -4,7 +4,7 @@ services:
   tileservergl:
     image: klokantech/tileserver-gl:v2.3.1
     volumes:
-      - ./configs/mapproxy:/data
+      - ./configs/tileservergl:/data
       - ${DATA_PATH}:/mnt/data
     networks:
       - kargo-network

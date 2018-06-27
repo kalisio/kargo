@@ -1,6 +1,0 @@
-version: '3.5'
-
-services:
-  mapproxy:
-    volumes:
-      - ./config/geoserver:/opt/geoserver/data_dir
