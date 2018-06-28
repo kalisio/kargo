@@ -10,7 +10,8 @@ services:
     networks:
       - kargo-network
     configs:
-      - vigicrues_jobfile
+      - source: vigicrues_jobfile
+        target: /jobfile.js
     deploy:
       replicas: 1
       placement:
