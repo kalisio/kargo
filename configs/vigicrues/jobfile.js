@@ -2,13 +2,13 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = {
-  id: 'vigicrue',
+  id: 'vigicrues',
   store: 'memory',
   options: {
     //workersLimit: 1
   },
   tasks: [{
-    id: 'vigicrue',
+    id: 'vigicrues',
     type: 'http',
     options: {
       url: 'https://www.vigicrues.gouv.fr/services/vigicrues.geojson'
