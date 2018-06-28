@@ -4,7 +4,7 @@ sidebar: auto
 
 # Tips
 
-## Using GDAL Utilities
+## How to use GDAL Utilities ?
 
 To be able to use [GDAL Utilities ](http://www.gdal.org/gdal_utilities.html), we recommend to run a GDAL container and mount the data partition:
 
@@ -36,7 +36,7 @@ Here are the basics to know:
 Check the [doc](https://www.gnu.org/software/screen/manual/screen.html) to learn more.
 :::
 
-## Clipping rasters with Geojson polygons
+## How to clip rasters with Geojson polygons ?
 
 ```bash
 $gdalwarp -of MBTILES -crop_to_cutline -cutline france.geojson bdortho_5m.mbtiles bdortho_5m_cut.mbtiles
