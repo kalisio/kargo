@@ -9,20 +9,6 @@ services:
       - S3_BUCKET=${S3_BUCKET}
     networks:
       - kargo-network
-    configs:
-      - source: vigicrues_jobfile
-        target: /jobfile.js
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-         - node.role == worker
-      restart_policy:
-        condition: on-failure
-
-configs:
-  vigicrues_jobfile:
-    file: ./configs/vigicrues/jobfile.js
 
 networks:
   kargo-network:

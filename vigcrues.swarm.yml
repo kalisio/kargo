@@ -1,0 +1,20 @@
+version: '3.5'
+
+services: 
+  vigicrues:
+    configs:
+      - source: vigicrues_jobfile
+        target: /jobfile.js
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+
+configs:
+  vigicrues_jobfile:
+    file: ./configs/vigicrues/jobfile.js
+
+          
