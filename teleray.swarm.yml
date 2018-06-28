@@ -1,7 +1,6 @@
 version: '3.5'
 
 services: 
-  vigicrues:
     configs:
       - source: teleray_jobfile
         target: /jobfile.js
