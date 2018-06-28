@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  k-vigicrues:
+  vigicrues:
     image: kalisio/k-vigicrues:0.1.0
     networks:
       - kargo-network
@@ -17,7 +17,7 @@ services:
 
 configs:
   jobfile:
-    file: ./jobfile.js
+    file: ./configs/vigicrues/jobfile.js
 
 networks:
   kargo-network:
