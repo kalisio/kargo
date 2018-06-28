@@ -1,6 +1,7 @@
 version: '3.5'
 
-services: 
+services:
+  teleray:
     configs:
       - source: teleray_jobfile
         target: /jobfile.js
