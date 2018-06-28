@@ -1,10 +1,12 @@
 version: '3.5'
 
 services: 
-  vigicrues:
+  k-vigicrues:
     image: kalisio/k-vigicrues:0.1.0
     networks:
       - kargo-network
+    configs:
+      - jobfile
     deploy:
       replicas: 1
       placement:
@@ -13,8 +15,12 @@ services:
       restart_policy:
         condition: on-failure
 
+configs:
+  jobfile:
+    file: ./jobfile.js
+
 networks:
-    kargo-network:
-      name: ${DOCKER_NETWORK}
-      external: true
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
           
