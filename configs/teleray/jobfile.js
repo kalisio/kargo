@@ -2,32 +2,27 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = {
-  id: 'vigicrues',
+  id: 'teleray',
   store: 'memory',
   options: {
     //workersLimit: 1
   },
   tasks: [{
-    id: 'vigicrues',
+    id: 'teleray',
     type: 'http',
     options: {
-      url: 'https://www.vigicrues.gouv.fr/services/vigicrues.geojson'
+      url: 'http://teleray.irsn.fr//TelerayService/service/measure'
     }
   }],
   hooks: {
     tasks: {
       after: {
         readJson: {},
-        transformJson: {
-          transformPath: 'features',
-          filter: { 'properties.NivSituVigiCruEnt': { $gt: 0 } }, // Filter according to alert level
-          // Leaflet style
-          //mapping: { 'properties.NivSituVigiCruEnt': { path: 'style.color', values: { 1: 'green', 2: 'yellow', 3: 'orange', 4: 'red' }, delete: false } }
-          // Simplespec style
-          mapping: { 'properties.NivSituVigiCruEnt': { path: 'properties.stroke', values: { 1: '#00FF00', 2: '#FFFF00', 3: '#FFBF00', 4: '#FF0000' }, delete: false } }
+        convertToGeoJson: {
+          latitude: 'location.lat',
+          longitude: 'location.lon'
         },
-        reprojectGeoJson: { from: 'EPSG:2154' },
-        /* For DEBUG purpose only
+        /* For DEBUG purpose
         writeJsonFS: {
           hook: 'writeJson',
           store: 'fs'
