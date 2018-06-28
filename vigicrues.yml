@@ -10,7 +10,7 @@ services:
     networks:
       - kargo-network
     configs:
-      - jobfile
+      - vigicrues_jobfile
     deploy:
       replicas: 1
       placement:
@@ -20,7 +20,7 @@ services:
         condition: on-failure
 
 configs:
-  jobfile:
+  vigicrues_jobfile:
     file: ./configs/vigicrues/jobfile.js
 
 networks:
