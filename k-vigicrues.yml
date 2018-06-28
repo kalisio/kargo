@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   vigicrues:
-    image: kalisio/k-vigicrues
+    image: kalisio/k-vigicrues:0.1.0
     networks:
       - kargo-network
     deploy:
