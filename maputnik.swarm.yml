@@ -10,7 +10,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
         - "traefik.frontend.rule=Host:maputnik.${DOMAIN}"
-        - "traefik.port=8080"
+        - "traefik.port=8888"
       replicas: 1
       placement:
         constraints:
