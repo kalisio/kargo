@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  maputnik:
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=maputnik"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:maputnik.${DOMAIN}"
+        - "traefik.port=8080"
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+         - node.labels.mbtiles == true
+      restart_policy:
+        condition: on-failure

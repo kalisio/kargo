@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  maputnik:
+    image: maputnik/editor
+    volumes:  
+      - ${DATA_PATH}:/mnt/data
+    networks:
+      - kargo-network
+      
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          
