@@ -33,10 +33,14 @@ layers:
     title: OpenStreetMap
     sources: [omt_osm_cache]
 
-  - name: omt_osm_terrain
+  - name: omt_osm-terrain
     title: OpenStreetMap & Terrain data
-    sources: [omt_osm_terrain_cache]
+    sources: [omt_osm-terrain_cache]
      
+  - name: ign_bdortho-5m
+    title: IGN BDORTHO (5m)
+    sources: [bdortho-5m_cache]
+
 caches:
   omt_osm_cache:
     grids: [GLOBAL_WEBMERCATOR]
@@ -46,13 +50,21 @@ caches:
       bucket_name: kargo
       directory: cache/osm
 
-  omt_osm_terrain_cache:
+  omt_osm-terrain_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [omt_osm_terrain_source]
+    sources: [omt_osm-terrain_source]
     cache:
       type: s3
       bucket_name: kargo
       directory: cache/osm-terrain
+
+  bdortho-5m_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [bdortho-5m_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/bdortho-5m
 
 sources:
   omt_osm_source:
@@ -60,9 +72,15 @@ sources:
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
-  omt_osm_terrain_source:
+  omt_osm-terrain_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
 
-  
+  bdortho-5m_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
+    coverage:
+      bbox: [-5,41,10,51]
+      srs: 'EPSG:4326'  

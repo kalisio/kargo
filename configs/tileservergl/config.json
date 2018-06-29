@@ -22,8 +22,11 @@
 	 "omt_contourlines": {
       "mbtiles": "OpenMapTiles/contourlines.mbtiles"
     },
-	"omt_hillshading" : {
-	  "mbtiles": "OpenMapTiles/hillshading.mbtiles"
-	}
+    "omt_hillshading" : {
+      "mbtiles": "OpenMapTiles/hillshading.mbtiles"
+    },
+    "ign_bdortho-5m" : {
+      "mbtiles": "IGN/bdortho-5m.mbtiles"
+    }
   }
 }

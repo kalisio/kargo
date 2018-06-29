@@ -1,0 +1,27 @@
+{
+  "version": 8,
+  "name": "BD Ortho (5m)",
+  "center": [
+    1.43,
+    46.3
+  ],
+  "zoom": 11.6,
+  "bearing": 0,
+  "pitch": 0,
+  "metadata": {
+  },
+  "sources": {
+    "bdortho-5m": {
+      "type": "raster",
+      "url": "mbtiles://{ign_bdortho-5m}",
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "bdortho-5m",
+      "type": "raster",
+      "source": "bdortho-5m"
+    }
+  ]
+}
