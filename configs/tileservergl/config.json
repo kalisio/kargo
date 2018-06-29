@@ -13,6 +13,9 @@
     },
     "osm-terrain": {
       "style": "osm-terrain.json"
+    },
+    "bdortho-5m": {
+      "style": "bdortho-5m.json"
     }
   },
   "data": {
