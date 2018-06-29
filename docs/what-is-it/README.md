@@ -4,14 +4,21 @@ sidebar: auto
 
 # What is it ?
 
-**kargo** allows you to deliver your own data in a few minutes using Geospatial Open Standards such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... Indeed, **kargo** relies on well known Open Source geospatial solutions and takes advantages of their strongest features:
+**Kargo** allows you to deliver your own data in a few minutes using Geospatial Open Standards such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... Indeed, **Kargo** relies on well known Open Source geospatial solutions and takes advantages of their strongest features:
 
-1. [**PostGis**](http://postgis.net/)
-2. [**GeoServer**](http://geoserver.org/)
-3. [**MapProxy**](https://mapproxy.org/)
-4. [**TileServer-GL**](http://tileserver.org/)
+1. [PostGis](http://postgis.net/)
+2. [GeoServer](http://geoserver.org/)
+3. [MapProxy](https://mapproxy.org/)
+4. [TileServer-GL](http://tileserver.org/)
+
+In addition, **kargo** lets you deploy [Krawler](https://kalisio.github.io/krawler/) based services:
+
+1. [vigicrues](https://github.com/kalisio/k-vigicrues): a service to download data from French flood warning system [Vigicrues](https://www.vigicrues.gouv.fr/)
+2. [teleray](https://github.com/kalisio/k-teleray): a service to download from the French gamma dose rate alert network [TELERAY](http://teleray.irsn.fr/aide.htm#mappage)
 
 **Kargo** is designed to be deployed on Docker based infrastructures and specifically on Docker Swarm cluster. Benefit from [Kaabah](https://kalisio.github.io/kaabah/) to create your infrastructure and manage your platform of services with ease.
+
+![kargo-overview](./../assets/kargo-overview.svg)
 
 ::: tip Sponsored by Kalisio
 **Kargo** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary Geospatial Services we need to support our development.<br/><br/>
