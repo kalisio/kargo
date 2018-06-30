@@ -16,7 +16,7 @@ It comes with:
 - the **helper scripts** to deploy and remove the services.
 
 ::: tip
-**Kargo** has been mainly designed to be easily deployable on [Kaabah](https://kalisio.github.io/kaabah/) based infrastructures. We recommend to use **Kaabah** to build your infrastructure but it is not mandatory. 
+**Kargo** has been mainly designed to be easily deployable on [Kaabah](https://kalisio.github.io/kaabah/) based infrastructures. You should take a look at **Kaabah** if you need to setup an infrastructure.  
 :::
 
 ## Global overview

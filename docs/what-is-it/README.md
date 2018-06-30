@@ -19,13 +19,8 @@ In addition, **Kargo** lets you deploy [Krawler](https://kalisio.github.io/krawl
 **Kargo** is designed to be deployed on [Docker](https://www.docker.com/) based infrastructures and especially on [Swarm mode](https://docs.docker.com/engine/swarm/). Moreover, **Kargo** let you take advantages of using [Traefik](https://traefik.io/) to route the internet traffic to your geospatial infrastructure. 
 
 ::: tip
-Benefit from [Kaabah](https://kalisio.github.io/kaabah/) to create your infrastructure and manage your platform of services with ease.
+Benefit from the project [Kaabah](https://kalisio.github.io/kaabah/) to create your infrastructure and manage your platform of services with ease.
 :::
 
 ![kargo-overview](./../assets/kargo-overview.svg)
 
-::: tip Sponsored by Kalisio
-**Kargo** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary Geospatial Services we need to support our development.<br/><br/>
-![kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)<br/>
-*Unleashing the potential of spatial information*
-::: 
