@@ -120,6 +120,6 @@ sources:
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
     transparent: true
     coverage:
-      bbox: [-5,41,10,51]
-      srs: 'EPSG:4326'  
+      datasource: france.geojson
+      
 
