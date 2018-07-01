@@ -16,19 +16,22 @@
     },
     "bdortho-5m": {
       "style": "bdortho-5m.json"
+    },
+    "hybrid": {
+      "style": "hybrid.json"
     }
   },
   "data": {
-    "omt_osm": {
+    "osm": {
       "mbtiles": "OpenMapTiles/osm.mbtiles"
     },
-	 "omt_contourlines": {
+	 "contourlines": {
       "mbtiles": "OpenMapTiles/contourlines.mbtiles"
     },
-    "omt_hillshading" : {
+    "hillshading" : {
       "mbtiles": "OpenMapTiles/hillshading.mbtiles"
     },
-    "ign_bdortho-5m" : {
+    "bdortho-5m" : {
       "mbtiles": "IGN/bdortho-5m.mbtiles"
     }
   }

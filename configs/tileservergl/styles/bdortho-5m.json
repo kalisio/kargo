@@ -13,7 +13,7 @@
   "sources": {
     "bdortho-5m": {
       "type": "raster",
-      "url": "mbtiles://{ign_bdortho-5m}",
+      "url": "mbtiles://{bdortho-5m}",
       "tileSize": 256
     }
   },
@@ -21,7 +21,9 @@
     {
       "id": "bdortho-5m",
       "type": "raster",
-      "source": "bdortho-5m"
+      "source": "bdortho-5m",
+      "minzoom": 10,
+      "maxzoom": 16
     }
   ]
 }

@@ -48,7 +48,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "mbtiles://{omt_osm}"
+      "url": "mbtiles://{osm}"
     }
   },
   "glyphs": "{fontstack}/{range}.pbf",
