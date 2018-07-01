@@ -14,8 +14,8 @@
     "osm-terrain": {
       "style": "osm-terrain.json"
     },
-    "osm-hybrid": {
-      "style": "osm-hybrid.json"
+    "osm-overlay": {
+      "style": "osm-overlay.json"
     },
     "bdortho-5m": {
       "style": "bdortho-5m.json"

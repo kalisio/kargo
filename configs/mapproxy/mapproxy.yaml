@@ -85,7 +85,7 @@ caches:
 
   mosaik_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [s2_source, bdortho-5m_source, osm-hybrid_source]
+    sources: [s2_source, bdortho-5m_source, osm-overlay_source]
     format: image/jpeg
     cache:
       type: s3
@@ -103,10 +103,11 @@ sources:
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
 
-  osm-hybrid_source:
+  osm-overlay_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-hybrid/%(z)s/%(x)s/%(y)s.png
+    transparent: true
 
   s2_source:
     type: tile
@@ -117,6 +118,7 @@ sources:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
+    transparent: true
     coverage:
       bbox: [-5,41,10,51]
       srs: 'EPSG:4326'  
