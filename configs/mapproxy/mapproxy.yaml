@@ -39,7 +39,11 @@ layers:
      
   - name: ign_bdortho-5m
     title: IGN BDORTHO (5m)
-    sources: [bdortho-5m_cache]
+    sources: [ign_bdortho-5m_cache]
+
+  - name: esa_s2
+    title: ESA S2
+    sources: [esa_s2_cache]
 
 caches:
   omt_osm_cache:
@@ -58,13 +62,22 @@ caches:
       bucket_name: kargo
       directory: cache/osm-terrain
 
-  bdortho-5m_cache:
+  ign_bdortho-5m_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [bdortho-5m_source]
+    sources: [ign_bdortho-5m_source]
     cache:
       type: s3
       bucket_name: kargo
       directory: cache/bdortho-5m
+
+  esa_s2_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [esa_s2_source]
+    format: image/jpeg
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/s2
 
 sources:
   omt_osm_source:
@@ -77,10 +90,16 @@ sources:
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
 
-  bdortho-5m_source:
+  ign_bdortho-5m_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
     coverage:
       bbox: [-5,41,10,51]
       srs: 'EPSG:4326'  
+
+  esa_s2_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/%(z)s/%(y)s/%(x)s.jpg
+
