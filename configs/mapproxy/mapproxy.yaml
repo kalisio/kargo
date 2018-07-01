@@ -120,6 +120,6 @@ sources:
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
     transparent: true
     coverage:
-      datasource: france.geojson
-      
+      datasource: coverages/france.geojson
+
 
