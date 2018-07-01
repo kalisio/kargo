@@ -90,7 +90,7 @@ caches:
     cache:
       type: s3
       bucket_name: kargo
-      directory: cache/s2
+      directory: cache/mosaik
 
 sources:
   osm_source:
