@@ -120,6 +120,8 @@ sources:
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
     transparent: true
     coverage:
-      datasource: coverages/france.geojson
+      clip: true
+      intersection:
+        datasource: coverages/france.geojson
 
 
