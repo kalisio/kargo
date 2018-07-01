@@ -106,7 +106,7 @@ sources:
   osm-overlay_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
-    url: http://tileservergl/styles/osm-hybrid/%(z)s/%(x)s/%(y)s.png
+    url: http://tileservergl/styles/osm-overlay/%(z)s/%(x)s/%(y)s.png
     transparent: true
 
   s2_source:
