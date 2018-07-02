@@ -182,9 +182,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=VERTICAL_VELOCITY_PRESSURE__ISOBARIC_SURFACE&style=VV__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=VERTICAL_VELOCITY_PRESSURE__ISOBARIC_SURFACE&style=VV__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: VERTICAL_VELOCITY_PRESSURE__ISOBARIC_SURFACE
       styles: VV__ISOBARIC__NO_SHADING
       transparent: true
@@ -197,9 +197,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=DEW_POINT_TEMPERATURE__ISOBARIC_SURFACE&style=TD__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=DEW_POINT_TEMPERATURE__ISOBARIC_SURFACE&style=TD__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: DEW_POINT_TEMPERATURE__ISOBARIC_SURFACE
       styles: TD__ISOBARIC__NO_SHADING
       transparent: true
@@ -212,9 +212,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TEMPERATURE__ISOBARIC_SURFACE&style=T__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TEMPERATURE__ISOBARIC_SURFACE&style=T__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: TEMPERATURE__ISOBARIC_SURFACE
       styles: T__ISOBARIC__NO_SHADING
       transparent: true
@@ -227,9 +227,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TOTAL_WATER_PRECIPITATION__GROUND_OR_WATER_SURFACE&style=EAU__GROUND__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TOTAL_WATER_PRECIPITATION__GROUND_OR_WATER_SURFACE&style=EAU__GROUND__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: TOTAL_WATER_PRECIPITATION__GROUND_OR_WATER_SURFACE
       styles: EAU__GROUND__NO_SHADING
       transparent: true
@@ -242,9 +242,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=SPECIFIC_CLOUD_ICE_WATER_CONTENT__ISOBARIC_SURFACE&style=CIWC__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=SPECIFIC_CLOUD_ICE_WATER_CONTENT__ISOBARIC_SURFACE&style=CIWC__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: SPECIFIC_CLOUD_ICE_WATER_CONTENT__ISOBARIC_SURFACE
       styles: CIWC__ISOBARIC__NO_SHADING
       transparent: true
@@ -257,9 +257,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND_SPEED__ISOBARIC_SURFACE&style=FF__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND_SPEED__ISOBARIC_SURFACE&style=FF__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: WIND_SPEED__ISOBARIC_SURFACE
       styles: FF__ISOBARIC__NO_SHADING
       transparent: true
@@ -272,9 +272,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND_SPEED_GUST__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND&style=FF_RAF__HEIGHT__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND_SPEED_GUST__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND&style=FF_RAF__HEIGHT__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: WIND_SPEED_GUST__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND
       styles: FF_RAF__HEIGHT__NO_SHADING
       transparent: true
@@ -287,9 +287,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND__ISOBARIC_SURFACE&style=UV__ISOBARIC__BEAUF_NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=WIND__ISOBARIC_SURFACE&style=UV__ISOBARIC__BEAUF_NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: WIND__ISOBARIC_SURFACE
       styles: UV__ISOBARIC__BEAUF_NO_SHADING
       transparent: true
@@ -302,9 +302,9 @@ sources:
     wms_opts:
       version: 1.3.0
       legendgraphic: true
-      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TURBULENT_KINETIC_ENERGY__ISOBARIC_SURFACE&style=TKE__ISOBARIC__NO_SHADING&format=image/png
+      legendurl: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?service=WMS&version=1.3.0&sld_version=1.1.0&request=GetLegendGraphic&layer=TURBULENT_KINETIC_ENERGY__ISOBARIC_SURFACE&style=TKE__ISOBARIC__NO_SHADING&format=image/png
     req:
-      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
+      url: http://geoservices.meteofrance.fr/api/__qEMDoIC2ogPRlSoRQLGUBOomaxJyxdEd__/MF-NWP-GLOBAL-ARPEGE-05-GLOBE-WMS?
       layers: TURBULENT_KINETIC_ENERGY__ISOBARIC_SURFACE
       styles: TKE__ISOBARIC__NO_SHADING
       transparent: true

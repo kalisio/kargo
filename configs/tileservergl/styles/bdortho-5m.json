@@ -22,8 +22,7 @@
       "id": "bdortho-5m",
       "type": "raster",
       "source": "bdortho-5m",
-      "minzoom": 10,
-      "maxzoom": 16
+      "minzoom": 8
     }
   ]
 }
