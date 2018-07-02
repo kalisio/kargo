@@ -120,10 +120,8 @@ sources:
     url: http://tileservergl/styles/bdortho-5m/%(z)s/%(x)s/%(y)s.png
     transparent: true
     coverage:
-      clip: true
-      intersection:
-        datasource: coverages/france.geojson
-        srs: 'EPSG:4326'
+      bbox: [-5, 41, 10, 51]
+      srs: 'EPSG:4326'
 
 
 
