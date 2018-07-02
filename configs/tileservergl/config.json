@@ -12,7 +12,7 @@
       "style": "osm-bright.json"
     },
     "osm-dark": {
-      "style": "osm-bright.json"
+      "style": "osm-dark.json"
     },
     "osm-terrain": {
       "style": "osm-terrain.json"
