@@ -29,9 +29,13 @@ services:
   wmts:
 
 layers:
-  - name: osm
-    title: OpenStreetMap
-    sources: [osm_cache]
+  - name: osm-bright
+    title: OpenStreetMap (bright rendering)
+    sources: [osm-bright_cache]
+
+  - name: osm-dark
+    title: OpenStreetMap (dark rendering)
+    sources: [osm-dark_cache]
 
   - name: osm-terrain
     title: OpenStreetMap & Terrain data
@@ -86,13 +90,21 @@ layers:
     sources: [ARPEGE_05_TURBULENT_KINETIC_ENERGY__ISOBARIC_SURFACE_source]
 
 caches:
-  osm_cache:
+  osm-bright_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [osm_source]
+    sources: [osm-bright_source]
     cache:
       type: s3
       bucket_name: kargo
-      directory: cache/osm
+      directory: cache/osm-bright
+
+  osm-dark_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [osm-dark_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/osm-dark
 
   osm-terrain_cache:
     grids: [GLOBAL_WEBMERCATOR]
@@ -129,11 +141,16 @@ caches:
       directory: cache/mosaik
 
 sources:
-  osm_source:
+  osm-bright_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
  
+  osm-dark_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/osm-dark/%(z)s/%(x)s/%(y)s.png
+
   osm-terrain_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
