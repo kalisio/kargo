@@ -11,6 +11,9 @@
     "osm-bright": {
       "style": "osm-bright.json"
     },
+    "osm-dark": {
+      "style": "osm-bright.json"
+    },
     "osm-terrain": {
       "style": "osm-terrain.json"
     },
