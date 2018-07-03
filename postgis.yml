@@ -13,6 +13,7 @@ services:
     networks:
       - kargo-network
 
-networks: 
-  name: ${DOCKER_NETWORK}
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
     external: true
