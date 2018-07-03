@@ -11,7 +11,7 @@ services:
       - ./config/geoserver:/opt/geoserver/data_dir    
       - ${DATA_PATH}:/mnt/data
     networks:
-      - kargo_network
+      - kargo-network
 
 networks:
     kargo-network:

@@ -10,4 +10,8 @@ services:
       - ./config/postgis:/var/lib/postgresql/data
       - ${DATA_PATH}:/mnt/data
     networks:
-      - kargo_network
+      - kargo-network
+
+kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
