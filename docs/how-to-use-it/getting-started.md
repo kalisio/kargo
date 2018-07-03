@@ -70,3 +70,4 @@ $./deploy-kargo.sh
 $./remove-kargo.sh
 ```
 
+## Swarm mode

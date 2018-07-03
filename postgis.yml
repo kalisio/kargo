@@ -6,7 +6,6 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGDATA=${POSTGRES_DATA_PATH}
     volumes:
       - ./config/postgis:/var/lib/postgresql/data
       - ${DATA_PATH}:/mnt/data
