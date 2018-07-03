@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  postgis:
+    image: mdillon/postgis:9.6-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=${POSTGRES_DATA_PATH}
+    volumes:
+      - ./config/postgis:/var/lib/postgresql/data
+      - ${DATA_PATH}:/mnt/data
+    networks:
+      - kargo_network
