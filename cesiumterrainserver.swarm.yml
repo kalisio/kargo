@@ -7,5 +7,6 @@ services:
       placement:
         constraints:
          - node.role == worker
+         - node.labels.cts == true
       restart_policy:
         condition: on-failure
