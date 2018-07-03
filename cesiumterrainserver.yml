@@ -1,13 +1,15 @@
-version: '3'
+version: '3.5'
+
 services:
   cesiumterrainserver:
     image: geodata/cesium-terrain-server
-    container_name: cesiumterrainserver
-    hostname: cesiumterrainserver
     volumes:
       - /mnt/data/tilesets/terrain:/data/tilesets/terrain
       - ${DATA_PATH}:/mnt/data
-    ports:
-      - "${CESIUMTERRAINSERVER_PORT}:8000"
     networks:
-      - kargo_network
+      - kargo-network
+
+networks: 
+  name: ${DOCKER_NETWORK}
+    external: true
+

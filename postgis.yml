@@ -1,4 +1,5 @@
 version: '3.5'
+
 services:
   postgis:
     image: mdillon/postgis:9.6-alpine
