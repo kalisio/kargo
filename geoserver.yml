@@ -4,7 +4,7 @@ services:
  geoserver:
     image: kalisio/k-geoserver:0.1.0
     volumes:
-      - ./config/geoserver:/opt/geoserver/data_dir    
+      - ./configs/geoserver:/opt/geoserver/data_dir    
       - ${DATA_PATH}:/mnt/data
     networks:
       - kargo-network
