@@ -71,3 +71,20 @@ $./remove-kargo.sh
 ```
 
 ## Swarm mode
+
+To be able to deploy the services on a Swarm infrastructure, the services should be able to access the required data. Therefore, is it needed to:
+1. Mount the data required by the services on the different nodes.
+1. Define Swarm placement constraints on the nodes to force the deployment strategy
+
+### Mount data on the nodes
+
+
+
+### Define placement constraints on the nodes
+
+Define the placement constraints on the nodes you want to host the serv
+
+```bash
+$sudo docker node update --label-add postgis=true {node}
+```
+
