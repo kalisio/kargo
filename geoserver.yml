@@ -2,11 +2,6 @@ version: '3.5'
 
 services:
  geoserver:
-    build: 
-      context: ./build/geoserver/
-      args:
-        VERSION: ${GEOSERVER_VERSION}
-        PLUGINS: ${GEOSERVER_PLUGINS}
     volumes:
       - ./config/geoserver:/opt/geoserver/data_dir    
       - ${DATA_PATH}:/mnt/data
