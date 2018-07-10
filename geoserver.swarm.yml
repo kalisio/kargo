@@ -10,7 +10,7 @@ services:
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:geoserver.${DOMAIN}"
+        - "traefik.frontend.rule=Host:geoserver.${DOMAIN};AddPrefix:/geoserver"
       replicas: 1
       placement:
         constraints:
