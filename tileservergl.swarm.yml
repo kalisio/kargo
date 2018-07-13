@@ -2,6 +2,9 @@ version: '3.5'
 
 services:
   tileservergl:
+   configs:
+      - source: tileservergl_conf
+        target: /data/config.json
     deploy:
       labels:
         - "traefik.backend=tileservergl"
@@ -19,3 +22,6 @@ services:
       restart_policy:
         condition: on-failure
 
+configs:
+  tileservergl_conf:
+    file: ./configs/tileservergl/config.json
