@@ -2,6 +2,9 @@ version: '3.5'
 
 services:
   mapproxy:
+    configs:
+      - source: mapproxy_conf
+        target: /mapproxy/mapproxy.yaml
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
@@ -16,3 +19,7 @@ services:
          - node.role == worker
       restart_policy:
         condition: on-failure
+
+configs:
+  vigicrues_jobfile:
+    file: ./configs/mapproxy/mapproxy.yaml
