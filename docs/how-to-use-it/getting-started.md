@@ -5,7 +5,7 @@ sidebar: auto
 # Getting started
 
 ::: warning
-Even if **kargo** let you configure and manage all the services using a single YAML file, we assume you are enough familiar with the underlying technologies to be able to customize their configurations in order to address your needs.
+Even if **Kargo** let you deploy a complete stack of services using a single command, we assume you are enough familiar with the underlying technologies to be able to customize their configurations in order to address your needs.
 :::
 
 ## Prerequisites
@@ -20,19 +20,27 @@ If you already have these, congratulations ! If not, please follow the installat
 
 1. Clone the **kargo** repository in the directory of your choice
 
-```
-git clone https://github.com/kalisio/kargo.git
-```
-
-2. Create a network with the name of your choice, here: **kargo**
-
-```
-docker network create kargo
+```bash
+$git clone https://github.com/kalisio/kargo.git
 ```
 
-3. Make a copy of our `.env.sample` and rename it to `.env`
+2. In swarm mode only, install SSHFS on each worker to share the `configs` directory
 
-4. Update the file with your preferences:
+```bash
+sudo apt-get install sshfs
+# Edit fuse conf to enable the allow_other option
+sudo nano /etc/fuse.conf and uncomment the line
+#user_allow_other
+# Mount the remote file system
+mkdir -p /home/ubuntu/kargo/configs
+sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/configs /home/ubuntu/kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other
+```
+
+## Configure kargo
+
+1. Make a copy of our `.env.sample` and rename it to `.env`
+
+2. Update the file with your preferences:
 
 ```
 #
@@ -82,7 +90,7 @@ To be able to deploy the services on a Swarm infrastructure, the services should
 
 ### Define placement constraints on the nodes
 
-Define the placement constraints on the nodes you want to host the serv
+Define the placement constraints on the nodes you want to host
 
 ```bash
 $sudo docker node update --label-add postgis=true {node}

@@ -9,7 +9,7 @@ sidebar: auto
 To be able to use [GDAL Utilities ](http://www.gdal.org/gdal_utilities.html), we recommend to run a GDAL container and mount the data partition:
 
 ```bash
-$docker run  -v /mnt/data:/data -t -i webmapp/gdal-docker:latest /bin/bash
+$docker run  -v /mnt/data:/data -t -i geodata/gdal:latest /bin/bash
 ```
 
 You are now able to use GDAL:
