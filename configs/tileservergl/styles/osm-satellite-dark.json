@@ -65,33 +65,7 @@
       },
       "paint": {
         "fill-color": "rgba(89, 89, 89, 1)",
-        "fill-antialias": true
-      }
-    },
-    {
-      "id": "landcover_glacier",
-      "type": "fill",
-      "source": "openmaptiles",
-      "source-layer": "landcover",
-      "maxzoom": 8,
-      "filter": [
-        "all",
-        [
-          "==",
-          "$type",
-          "Polygon"
-        ],
-        [
-          "==",
-          "subclass",
-          "glacier"
-        ]
-      ],
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "fill-color": "rgba(53, 53, 53, 0)",
+        "fill-opacity": 0.5,
         "fill-antialias": true
       }
     },
@@ -109,7 +83,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(189, 204, 208, 0.15)",
+        "line-color": "rgba(189, 204, 208, 1)",
         "line-opacity": 0.5
       }
     },
@@ -295,7 +269,7 @@
       "paint": {
         "line-color": "rgba(255, 255, 255, 1)",
         "line-width": {
-          "base": 1.5,
+          "base": 1.25,
           "stops": [
             [
               11,
