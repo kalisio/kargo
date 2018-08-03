@@ -15,6 +15,9 @@
     "osm-dark": {
       "style": "osm-dark.json"
     },
+    "osm-fjord": {
+      "style": "osm-fjord.json"
+    },
     "osm-terrain": {
       "style": "osm-terrain.json"
     },
