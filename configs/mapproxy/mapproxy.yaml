@@ -156,7 +156,7 @@ caches:
 
   satellite_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [satelite_source]
+    sources: [satellite_source]
     cache:
       type: s3
       bucket_name: kargo
