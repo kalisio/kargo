@@ -42,7 +42,10 @@
     {
       "id": "satellite",
       "type": "raster",
-      "source": "satellite"
+      "source": "satellite",
+      "layout": {
+        "visibility": "visible"
+      }
     },
     {
       "id": "water",

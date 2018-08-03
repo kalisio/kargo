@@ -212,7 +212,7 @@ sources:
   osm-satellite-dark_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
-    url: http://tileservergl/styles/osm-terrain-dark/%(z)s/%(x)s/%(y)s.png
+    url: http://tileservergl/styles/osm-satellite-dark/%(z)s/%(x)s/%(y)s.png
 
   osm-fjord_source:
     type: tile
