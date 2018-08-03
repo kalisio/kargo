@@ -45,7 +45,7 @@ layers:
     title: OpenStreetMap & Terrain (dark rendering)
     sources: [osm-terrain-dark_cache]
 
-- name: osm-satellite-dark
+  - name: osm-satellite-dark
     title: OpenStreetMap & Satellite (dark rendering)
     sources: [osm-satellite-dark_cache]
 
