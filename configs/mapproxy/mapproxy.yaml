@@ -33,18 +33,30 @@ layers:
     title: OpenStreetMap (bright rendering)
     sources: [osm-bright_cache]
 
+  - name: osm-terrain-bright
+    title: OpenStreetMap & Terrain data (bright rendering)
+    sources: [osm-terrain-bright_cache]
+
   - name: osm-dark
     title: OpenStreetMap (dark rendering)
     sources: [osm-dark_cache]
 
+  - name: osm-terrain-dark
+    title: OpenStreetMap & Terrain (dark rendering)
+    sources: [osm-terrain-dark_cache]
+
+- name: osm-satellite-dark
+    title: OpenStreetMap & Satellite (dark rendering)
+    sources: [osm-satellite-dark_cache]
+
   - name: osm-fjord
     title: OpenStreetMap (dark blue rendering)
     sources: [osm-fjord_cache]
-
-  - name: osm-terrain
-    title: OpenStreetMap & Terrain data
-    sources: [osm-terrain_cache]
      
+  - name: satellite
+    title: Satellite
+    sources: [satellite_cache]
+
   - name: s2
     title: ESA S2
     sources: [s2_cache]
@@ -102,6 +114,14 @@ caches:
       bucket_name: kargo
       directory: cache/osm-bright
 
+  osm-terrain-bright_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [osm-terrain-bright_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/osm-terrain-bright
+
   osm-dark_cache:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [osm-dark_source]
@@ -109,6 +129,22 @@ caches:
       type: s3
       bucket_name: kargo
       directory: cache/osm-dark
+
+  osm-terrain-dark_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [osm-terrain-dark_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/osm-terrain-dark
+
+  osm-satellite-dark_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [osm-satellite-dark_source]
+    cache:
+      type: s3
+      bucket_name: kargo
+      directory: cache/osm-satellite-dark
 
   osm-fjord_cache:
     grids: [GLOBAL_WEBMERCATOR]
@@ -118,13 +154,13 @@ caches:
       bucket_name: kargo
       directory: cache/osm-fjord
 
-  osm-terrain_cache:
+  satellite_cache:
     grids: [GLOBAL_WEBMERCATOR]
-    sources: [osm-terrain_source]
+    sources: [satelite_source]
     cache:
       type: s3
       bucket_name: kargo
-      directory: cache/osm-terrain
+      directory: cache/satellite
 
   bdortho-5m_cache:
     grids: [GLOBAL_WEBMERCATOR]
@@ -157,27 +193,42 @@ sources:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-bright/%(z)s/%(x)s/%(y)s.png
- 
+
+  osm-terrain-bright_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/osm-terrain-bright/%(z)s/%(x)s/%(y)s.png
+
   osm-dark_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-dark/%(z)s/%(x)s/%(y)s.png
+
+  osm-terrain-dark_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/osm-terrain-dark/%(z)s/%(x)s/%(y)s.png
+
+  osm-satellite-dark_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/osm-terrain-dark/%(z)s/%(x)s/%(y)s.png
 
   osm-fjord_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-fjord/%(z)s/%(x)s/%(y)s.png
 
-  osm-terrain_source:
-    type: tile
-    grid: GLOBAL_WEBMERCATOR
-    url: http://tileservergl/styles/osm-terrain/%(z)s/%(x)s/%(y)s.png
-
   osm-overlay_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: http://tileservergl/styles/osm-overlay/%(z)s/%(x)s/%(y)s.png
     transparent: true
+
+  satellite_source:
+    type: tile
+    grid: GLOBAL_WEBMERCATOR
+    url: http://tileservergl/styles/satellite/%(z)s/%(x)s/%(y)s.png
 
   s2_source:
     type: tile

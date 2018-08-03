@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "OSM Bright",
+  "name": "OSM (bright rendering)",
   "metadata": {
     "mapbox:type": "template",
     "mapbox:groups": {

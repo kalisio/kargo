@@ -12,17 +12,26 @@
     "osm-bright": {
       "style": "osm-bright.json"
     },
+    "osm-terrain-bright": {
+      "style": "osm-terrain-bright.json"
+    },
     "osm-dark": {
       "style": "osm-dark.json"
+    },
+    "osm-terrain-dark": {
+      "style": "osm-terrain-dark.json"
+    },
+    "osm-satellite-dark": {
+      "style": "osm-satellite-dark.json"
     },
     "osm-fjord": {
       "style": "osm-fjord.json"
     },
-    "osm-terrain": {
-      "style": "osm-terrain.json"
-    },
     "osm-overlay": {
       "style": "osm-overlay.json"
+    },
+    "satellite": {
+      "style": "satellite.json"
     },
     "bdortho-5m": {
       "style": "bdortho-5m.json"
@@ -37,6 +46,9 @@
     },
     "hillshading" : {
       "mbtiles": "OpenMapTiles/hillshading.mbtiles"
+    },
+    "satellite" : {
+      "mbtiles": "OpenMapTiles/satellite.mbtiles"
     },
     "bdortho-5m" : {
       "mbtiles": "IGN/bdortho-5m.mbtiles"

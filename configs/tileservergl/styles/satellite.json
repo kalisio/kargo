@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "name": "Satellite",
+  "center": [
+    1.43,
+    46.3
+  ],
+  "zoom": 11.6,
+  "bearing": 0,
+  "pitch": 0,
+  "metadata": {
+  },
+  "sources": {
+    "satellite": {
+      "type": "raster",
+      "url": "mbtiles://{satellite}",
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "satellite",
+      "type": "raster",
+      "source": "satellite",
+      "layout": {
+        "visibility": "visible"
+      }
+    }
+  ]
+}
