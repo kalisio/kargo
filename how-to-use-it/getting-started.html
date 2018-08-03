@@ -8,7 +8,7 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-32x32.png">
   <link rel="manifest" href="/kargo/manifest.json">
     
-    <link rel="preload" href="/kargo/assets/css/6.styles.1ee9126c.css" as="style"><link rel="preload" href="/kargo/assets/js/app.b576f9e2.js" as="script"><link rel="preload" href="/kargo/assets/js/3.25a1cf63.js" as="script"><link rel="prefetch" href="/kargo/assets/js/2.e9ff9e98.js"><link rel="prefetch" href="/kargo/assets/js/0.86fcb894.js"><link rel="prefetch" href="/kargo/assets/js/1.1f933a48.js"><link rel="prefetch" href="/kargo/assets/js/4.94f24f41.js"><link rel="prefetch" href="/kargo/assets/js/5.b43f2cc7.js">
+    <link rel="preload" href="/kargo/assets/css/6.styles.1ee9126c.css" as="style"><link rel="preload" href="/kargo/assets/js/app.e7033706.js" as="script"><link rel="preload" href="/kargo/assets/js/3.25a1cf63.js" as="script"><link rel="prefetch" href="/kargo/assets/js/2.e9ff9e98.js"><link rel="prefetch" href="/kargo/assets/js/0.86fcb894.js"><link rel="prefetch" href="/kargo/assets/js/1.1f933a48.js"><link rel="prefetch" href="/kargo/assets/js/4.94f24f41.js"><link rel="prefetch" href="/kargo/assets/js/5.b43f2cc7.js">
     <link rel="stylesheet" href="/kargo/assets/css/6.styles.1ee9126c.css">
   </head>
   <body>
@@ -51,6 +51,6 @@ NETWORK=kargo
 </code></pre></div><h2 id="stop-kargo"><a href="#stop-kargo" aria-hidden="true" class="header-anchor">#</a> Stop kargo</h2><div class="language-bash extra-class"><pre class="language-bash"><code>$./remove-kargo.sh
 </code></pre></div><h2 id="swarm-mode"><a href="#swarm-mode" aria-hidden="true" class="header-anchor">#</a> Swarm mode</h2><p>To be able to deploy the services on a Swarm infrastructure, the services should be able to access the required data. Therefore, is it needed to:</p><ol><li>Mount the data required by the services on the different nodes.</li><li>Define Swarm placement constraints on the nodes to force the deployment strategy</li></ol><h3 id="mount-data-on-the-nodes"><a href="#mount-data-on-the-nodes" aria-hidden="true" class="header-anchor">#</a> Mount data on the nodes</h3><h3 id="define-placement-constraints-on-the-nodes"><a href="#define-placement-constraints-on-the-nodes" aria-hidden="true" class="header-anchor">#</a> Define placement constraints on the nodes</h3><p>Define the placement constraints on the nodes you want to host</p><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$sudo</span> docker node update --label-add postgis<span class="token operator">=</span>true <span class="token punctuation">{</span>node<span class="token punctuation">}</span>
 </code></pre></div></div><div class="content edit-link"><!----><!----></div><!----></div></div></div>
-    <script src="/kargo/assets/js/3.25a1cf63.js" defer></script><script src="/kargo/assets/js/app.b576f9e2.js" defer></script>
+    <script src="/kargo/assets/js/3.25a1cf63.js" defer></script><script src="/kargo/assets/js/app.e7033706.js" defer></script>
   </body>
 </html>
