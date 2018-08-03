@@ -15,6 +15,5 @@ services:
       placement:
         constraints:
          - node.role == worker
-         - node.labels.mbtiles == true
       restart_policy:
         condition: on-failure

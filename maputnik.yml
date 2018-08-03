@@ -2,7 +2,9 @@ version: '3.5'
 
 services:
   maputnik:
-    image: maputnik/editor
+    image: kalisio/k-maputnik:0.1.0
+    environment:
+      - DOMAIN=${DOMAIN}
     volumes:  
       - ${DATA_PATH}:/mnt/data
     networks:
