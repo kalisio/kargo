@@ -145,7 +145,7 @@
           "stops": [
             [
               11,
-              1.5
+              1
             ],
             [
               20,
@@ -164,7 +164,7 @@
       },
       "source": "openmaptiles",
       "source-layer": "aeroway",
-      "minzoom": 10,
+      "minzoom": 12,
       "filter": [
         "all",
         [
@@ -184,8 +184,8 @@
           "base": 1.5,
           "stops": [
             [
-              9,
-              5
+              12,
+              4
             ],
             [
               17,
@@ -247,7 +247,7 @@
       },
       "source": "openmaptiles",
       "source-layer": "aeroway",
-      "minzoom": 9,
+      "minzoom": 10,
       "filter": [
         "all",
         [
@@ -272,8 +272,8 @@
           "base": 1.5,
           "stops": [
             [
-              9,
-              3
+              10,
+              2
             ],
             [
               17,
