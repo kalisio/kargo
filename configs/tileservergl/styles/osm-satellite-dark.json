@@ -42,7 +42,7 @@
     {
       "id": "satellite",
       "type": "raster",
-      "source": "satellite",
+      "source": "satellite"
     },
     {
       "id": "water",
@@ -58,7 +58,8 @@
         "visibility": "visible"
       },
       "paint": {
-        "fill-color": "rgba(89, 89, 89, 0.25)",
+        "fill-color": "rgba(89, 89, 89, 1)",
+        "fill-opacity": 0.75,
         "fill-antialias": true
       }
     },
@@ -85,8 +86,8 @@
         "visibility": "visible"
       },
       "paint": {
-        "fill-color": "rgba(53, 53, 53, 0,25)",
-        "fill-antialias": true
+        "fill-color": "rgba(53, 53, 53, 0)",
+        "fill-opacity": 0.75
       }
     },
     {
