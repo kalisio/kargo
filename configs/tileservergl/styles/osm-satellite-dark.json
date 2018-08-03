@@ -181,7 +181,7 @@
       "paint": {
         "line-color": "hsl(0, 0%, 88%)",
         "line-width": {
-          "base": 1.5,
+          "base": 1.25,
           "stops": [
             [
               11,
