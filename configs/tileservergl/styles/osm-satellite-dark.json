@@ -44,7 +44,7 @@
       "type": "raster",
       "source": "satellite",
       "paint": {
-        "background-color": "rgba(58, 58, 58, 1)"
+        "fill-opacity": 0.5
       }
     },
     {
