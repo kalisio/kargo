@@ -1373,7 +1373,7 @@
         "text-justify": "left",
         "visibility": "visible",
         "text-offset": [
-          0.75,
+          1,
           0
         ],
         "icon-size": 1.2,
