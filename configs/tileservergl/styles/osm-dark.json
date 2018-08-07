@@ -1232,8 +1232,7 @@
         "text-halo-color": "rgba(255, 255, 255, 1)",
         "text-halo-width": 0,
         "text-halo-blur": 0,
-        "icon-color": "rgba(255, 255, 255,1)",
-        "icon-opacity": 1
+        "icon-color": "rgba(255, 255, 255,1)"s
       }
     },
     {
@@ -1294,7 +1293,7 @@
         "text-justify": "left",
         "visibility": "visible",
         "text-offset": [
-          2,
+          1,
           0
         ],
         "icon-size": 1,
