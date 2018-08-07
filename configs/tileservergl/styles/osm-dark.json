@@ -25,6 +25,7 @@
       "url": "mbtiles://{osm}"
     }
   },
+  "sprite": "icons",
   "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
@@ -1190,7 +1191,7 @@
           "stops": [
             [
               0,
-              "circle-11"
+              "circle_11"
             ],
             [
               8,
@@ -1276,7 +1277,7 @@
           "stops": [
             [
               0,
-              "circle-11"
+              "circle_11"
             ],
             [
               8,
@@ -1356,7 +1357,7 @@
           "stops": [
             [
               0,
-              "star-11"
+              "star_11"
             ],
             [
               8,
@@ -1373,7 +1374,7 @@
         "visibility": "visible",
         "text-offset": [
           0.5,
-          0.2
+          0.1
         ],
         "icon-size": 1,
         "text-anchor": {
@@ -1396,7 +1397,8 @@
         "text-halo-color": "rgba(255, 255, 255, 1)",
         "text-halo-width": 0.4,
         "text-halo-blur": 0,
-        "icon-opacity": 0.7
+        "icon-color": "rgba(255, 255, 255, 1)",
+        "icon-opacity": 1
       }
     },
     {
@@ -1442,7 +1444,7 @@
           "stops": [
             [
               0,
-              "circle-11"
+              "circle_11"
             ],
             [
               8,
@@ -1740,5 +1742,5 @@
       }
     }
   ],
-  "id": "positron"
+  "id": "Kalisio dark"
 }
