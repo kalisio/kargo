@@ -51,6 +51,7 @@
       "url": "mbtiles://{osm}"
     }
   },
+  "sprite": "sprites",
   "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
