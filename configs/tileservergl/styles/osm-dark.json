@@ -25,7 +25,7 @@
       "url": "mbtiles://{osm}"
     }
   },
-  "sprite": "icons",
+  "sprite": "{styleJsonFolder}",
   "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
