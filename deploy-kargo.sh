@@ -12,7 +12,7 @@ fi
 # Deploy the required services only
 SERVICES_TO_DEPLOY=
 for SERVICE in $SERVICES; do
-  SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $SERVICE.yml -c $SERVICE.swarm.yml"
+  SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $SERVICE.yml"
 done
 docker stack deploy $SERVICES_TO_DEPLOY kargo
 
