@@ -1,10 +1,10 @@
-version: '3.3'
+version: '3.5'
 
 services:
   mongodb:
     image: mongo:3.6.5
     volumes:
-      - mongodb_volume:/data/db
+      - mongodb_data:/data/db
     networks:
       - kargo-network
     deploy:
@@ -16,7 +16,7 @@ services:
         condition: on-failure
 
 volumes:
-  mongodb_volume:
+  mongodb_data: {}
 
 networks:
   kargo-network:
