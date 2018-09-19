@@ -4,5 +4,5 @@ set -a
 set +a
 
 if [ "$WEACAST_MODELS" != "" ]; then
-  sh scripts/build-weacast.sh $WEACAST_MODELS
+  sh scripts/build-weacast.sh $MANAGER_IP $WEACAST_MODELS 
 fi
