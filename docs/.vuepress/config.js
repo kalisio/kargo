@@ -6,10 +6,13 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-32x32.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  serviceWorker: false,
+  serviceWorker: true,
   theme: 'kalisio',
   themeConfig: {
     docsDir: 'docs',
+    serviceWorker: {
+      updatePopup: true
+    },
     nav: [
       {
         text: 'What is it ?',

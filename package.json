@@ -3,10 +3,9 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
-  "devDependencies": {
-    "vuepress": "^0.10.0"
-  },
+  "devDependencies": {},
   "dependencies": {
+    "vuepress": "^0.14.4",
     "vuepress-theme-kalisio": "https://github.com/kalisio/vuepress-theme-kalisio"
   }
 }
