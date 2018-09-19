@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  mongodb:
+    image: mongo:3.6.5
+    volumes:
+      - mongodb_volume:/data/db
+    networks:
+      - kargo-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.labels.mongodb == true
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  mongodb_volume:
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+
