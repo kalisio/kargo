@@ -29,13 +29,13 @@ module.exports = {
           { text: 'Tips', link: '/how-to-use-it/tips' }
         ]
       },
-	  {
-		text: 'License',
-		link: '/license/'
-	  },
       {
-        text: 'GitHub',
-        link: 'https://github.com/kalisio/kargo'
+        text: '   ?',
+        items: [
+          { text: 'GitHub', link: 'https://github.com/kalisio/kargo' },
+          { text: 'Contributing', link: '/CONTRIBUTING.md' },
+          { text: 'License', link: '/LICENSE.md' }
+        ]
       }
     ]
   }
