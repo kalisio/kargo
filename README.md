@@ -1,4 +1,4 @@
-# Kaabah
+# Kargo
 
 A Docker based solution to deploy Geospatial Services
 
