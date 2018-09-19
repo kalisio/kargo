@@ -14,7 +14,7 @@ services:
       replicas: 1
       placement:
         constraints:
-         - node.role == weacast
+         - node.labels.weacast == true
       restart_policy:
         condition: on-failure
 
