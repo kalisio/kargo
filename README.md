@@ -1,6 +1,6 @@
 ![Kargo](https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-logo-black-512x168.png)
 
-A Docker based solution to deploy Geospatial Services
+_A Docker based solution to deploy Geospatial Services_
 
 ## Documentation
 
