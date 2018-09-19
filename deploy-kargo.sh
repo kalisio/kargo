@@ -18,7 +18,6 @@ for SERVICE in $SERVICES; do
     SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $SERVICE.yml"
   fi
 done
-echo Deploying $SERVICES_TO_DEPLOY
 docker stack deploy $SERVICES_TO_DEPLOY kargo
 
 
