@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "8aa087565a39aa9c7d269aefa15d3469"
+    "revision": "eb0a3161d90b05500a2d6636bc552ff1"
   },
   {
     "url": "assets/css/1.styles.36c1a3fe.css",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "revision": "df7c35ec8029dbbde0735a45f875eaf7"
   },
   {
-    "url": "assets/css/styles.7e81987f.css",
+    "url": "assets/css/styles.73c6864b.css",
     "revision": "c1703aa2a4d7eef65645a2158d133a03"
   },
   {
@@ -92,40 +92,40 @@ self.__precacheManifest = [
     "revision": "99be267dc53af274527dd3e8770d6a50"
   },
   {
-    "url": "assets/js/app.7e81987f.js",
-    "revision": "87fa0469fce6e350004950fc80efac11"
+    "url": "assets/js/app.73c6864b.js",
+    "revision": "d10e426a4363fad3eb874f62e988e06d"
   },
   {
     "url": "CONTRIBUTING.html",
-    "revision": "7a6ce8ffa47c81c8536b1a83b6fb0791"
+    "revision": "b4a2850307a44a5ba87418cedc27d523"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "048e47b899231510345d06e60df1ebcf"
+    "revision": "4c645246c017e7ac03e6052a42f9408e"
   },
   {
     "url": "how-to-use-it/getting-started.html",
-    "revision": "2e39ed402776d56ee79cda043ccd1159"
+    "revision": "a248ab74873dc8c856b5089141808630"
   },
   {
     "url": "how-to-use-it/tips.html",
-    "revision": "29759566ddb9312c6ddc5bc1d596d2c4"
+    "revision": "50ae6ad1033dffd69beacd752c12c399"
   },
   {
     "url": "index.html",
-    "revision": "5035ed2a4ab12e2911c3ec4561b9e4af"
+    "revision": "ec86d5231da3aa561f6cc77f9be3f6d2"
   },
   {
     "url": "LICENSE.html",
-    "revision": "a202eaa534cb6de655ec80dd13a70a36"
+    "revision": "a13e417f902f3ec3de24d3dd5366191a"
   },
   {
     "url": "license/index.html",
-    "revision": "0ea08a09c9ada12c90f22c8158e74dea"
+    "revision": "650a09b680aded05b4caf7eb08128686"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "3650c9b2410643e51e1f70e798c6093a"
+    "revision": "b8e6c5d0c7e6f1624a874586ad35ca80"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
