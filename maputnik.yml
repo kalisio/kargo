@@ -7,6 +7,21 @@ services:
       - DOMAIN=${DOMAIN}
     volumes:  
       - ${DATA_PATH}:/mnt/data
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=maputnik"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
+        - "traefik.frontend.rule=Host:maputnik.${DOMAIN}"
+        - "traefik.port=8888"
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
     networks:
       - kargo-network
       

@@ -7,8 +7,22 @@ services:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
       - S3_BUCKET=${S3_BUCKET}
+    configs:
+      - source: teleray_jobfile
+        target: /jobfile.js
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
     networks:
       - kargo-network
+    
+configs:
+  teleray_jobfile:
+    file: ./configs/teleray/jobfile.js
 
 networks:
   kargo-network:

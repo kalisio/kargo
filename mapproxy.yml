@@ -9,9 +9,30 @@ services:
     command: mapproxy http
     volumes:
       - ${DATA_PATH}:/mnt/data
+    configs:
+      - source: mapproxy_conf
+        target: /mapproxy/mapproxy.yaml
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=mapproxy"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:mapproxy.${DOMAIN}"
+        - "traefik.port=8080"
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
     networks:
       - kargo-network
       
+configs:
+  mapproxy_conf:
+    file: ./configs/mapproxy/mapproxy.yaml
+    
 networks:
     kargo-network:
       name: ${DOCKER_NETWORK}

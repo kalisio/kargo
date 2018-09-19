@@ -6,6 +6,13 @@ services:
     volumes:
       - /mnt/data/tilesets/terrain:/data/tilesets/terrain
       - ${DATA_PATH}:/mnt/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
     networks:
       - kargo-network
 

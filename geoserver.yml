@@ -12,6 +12,22 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    deploy:
+      labels:
+        - "traefik.backend=geoserver"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.enable=true"
+        - "traefik.port=8080"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.frontend.rule=Host:geoserver.${DOMAIN};AddPrefix:/geoserver"
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+          - node.labels.geoserver == true
+      restart_policy:
+        condition: on-failure
     networks:
       - kargo-network
 
