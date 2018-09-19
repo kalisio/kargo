@@ -12,7 +12,11 @@ fi
 # Deploy the required services only
 SERVICES_TO_DEPLOY=
 for SERVICE in $SERVICES; do
-  SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $SERVICE.yml"
+  if [ "$SERVICE" = "weacast"]; then
+    sh scripts/deploy_weacast.sh
+  else
+    SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $SERVICE.yml"
+  fi
 done
 docker stack deploy $SERVICES_TO_DEPLOY kargo
 
