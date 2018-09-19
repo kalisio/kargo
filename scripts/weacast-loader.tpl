@@ -9,7 +9,7 @@ services:
       - kargo-network
     configs:
       - source: weacast-WEACAST_MODEL_jobfile
-        target: /jobfile.js
+        target: /jobfile-WEACAST_MODEL.js
     deploy:
       replicas: 1
       placement:
