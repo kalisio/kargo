@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   thredds:
-    image: {THREDDS_IMAGE}:{THREDDS_TAG}
+    image: ${THREDDS_IMAGE}:${THREDDS_TAG}
     volumes:
       - ./../configs/thredds/logs/tomcat/:/usr/local/tomcat/logs/
       - ./../configs/thredds/logs/:/usr/local/tomcat/content/thredds/logs/
