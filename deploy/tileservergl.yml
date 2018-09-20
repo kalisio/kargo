@@ -4,7 +4,7 @@ services:
   tileservergl:
     image: ${TILESERVERGL_IMAGE}:${TILESERVERGL_TAG}
     volumes:
-      - ./configs/tileservergl:/data
+      - ./../configs/tileservergl:/data
       - ${TILESERVERGL_DATA}:/mnt/data
     configs:
       - source: tileservergl_conf
