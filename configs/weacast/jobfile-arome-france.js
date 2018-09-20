@@ -2,7 +2,7 @@ const createJob = require('./job-arome')
 
 // Setup job name, model name, bounds and generation parameters
 module.exports = createJob({
-  id: 'weacast-arpege-arome',
+  id: 'weacast-arome-france',
   model: 'arome-france',
   request: {
     url: 'https://geoservices.meteofrance.fr/services/MF-NWP-HIGHRES-AROME-0025-FRANCE-WCS'
