@@ -77,8 +77,6 @@ sudo nano /etc/fuse.conf and uncomment the line
 #user_allow_other
 ```
 
-#### Install a local registry
-
 ### Install kargo
 
 1. Clone the **Kargo** repository
@@ -89,7 +87,7 @@ On the manager node, clone the repository in your home directory:
 $git clone https://github.com/kalisio/kargo.git
 ```
 
-1. Share the **Kargo** configuration with the workers.
+2. Share the **Kargo** configuration with the workers.
 
 On each worker, use `sshfs` to share the `configs` directory. The path to the shared directory must be the same on the workers as on the manager.
 
@@ -120,10 +118,9 @@ $docker node update --label-add weacast=true wfr5hwhfd5413p2ql9hwitbkw
 # On worker-2
 $docker node update --label-add mongodb=true 8980x3d76x1r7kxoa7h5lzob8
 $docker node update --label-add postgis=true 8980x3d76x1r7kxoa7h5lzob8
-
 ```
 
-Check your configuration using the command ` docker node ls -q | xargs sudo docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}`
+Check your node labels mapping: 
 
 ```bash
 $docker node ls -q | xargs sudo docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
@@ -131,7 +128,6 @@ jqtuxajexk18ypiylk6i6dv0q [worker-0]: map[tileservergl:true]
 x6tc2sqi99vp106icwf2nmyp0 [manager]: map[]
 wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
 8980x3d76x1r7kxoa7h5lzob8 [worker-2]: map[mongodb:true postgis:true]
-
 ```
 
 ## Setup the services
