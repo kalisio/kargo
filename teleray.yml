@@ -2,11 +2,11 @@ version: '3.5'
 
 services: 
   teleray:
-    image: kalisio/k-teleray:0.1.0
+    image: ${TELERAY_IMAGE}:{TELERAY_TAG}
     environment:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - S3_BUCKET=${S3_BUCKET}
+      - S3_BUCKET=${TELERAY_S3_BUCKET}
     configs:
       - source: teleray_jobfile
         target: /jobfile.js

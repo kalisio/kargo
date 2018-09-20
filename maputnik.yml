@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   maputnik:
-    image: kalisio/k-maputnik:0.1.0
+    image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
       - DOMAIN=${DOMAIN}
     volumes:  

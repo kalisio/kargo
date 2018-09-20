@@ -2,10 +2,9 @@ version: '3.5'
 
 services:
   cesiumterrainserver:
-    image: geodata/cesium-terrain-server
+    image: ${CESIUMTERRAINSERVER_IMAGE}:${CESIUMTERRAINSERVER_TAG}
     volumes:
-      - /mnt/data/tilesets/terrain:/data/tilesets/terrain
-      - ${DATA_PATH}:/mnt/data
+      - ${CESIUMTERRAINSERVER_DATA}:/data/tilesets/terrain
     deploy:
       replicas: 1
       placement:

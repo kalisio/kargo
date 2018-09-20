@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   tileservergl:
-    image: klokantech/tileserver-gl:v2.3.1
+    image: ${TILESERVERGL_IMAGE}:{TILESERVERGL_TAG}
     volumes:
       - ./configs/tileservergl:/data
       - ${DATA_PATH}:/mnt/data
@@ -29,7 +29,7 @@ services:
 configs:
   tileservergl_conf:
     file: ./configs/tileservergl/config.json
-    
+
 networks:
     kargo-network:
       name: ${DOCKER_NETWORK}

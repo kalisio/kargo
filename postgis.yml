@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   postgis:
-    image: mdillon/postgis:9.6-alpine
+    image: ${POSTGIS_IMAGE}:${POSTGIS_TAG}
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
