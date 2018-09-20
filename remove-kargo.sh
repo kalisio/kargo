@@ -1,6 +1,6 @@
 #!/bin/bash
-sh ./remove-krawlers.sh
-sh ./remove-weacast.sh
-sh ./remove-apps.sh
-sh ./remove-dbs.sh
+./remove-stack.sh krawlers
+./remove-stack.sh weacast
+./remove-stack.sh apps
+./remove-stack.sh dbs
 
