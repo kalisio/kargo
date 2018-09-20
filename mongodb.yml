@@ -11,6 +11,7 @@ services:
       replicas: 1
       placement:
         constraints:
+         - node.role == worker
          - node.labels.mongodb == true
       restart_policy:
         condition: on-failure
