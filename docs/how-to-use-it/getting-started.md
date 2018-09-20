@@ -10,7 +10,9 @@ Using **kargo** is quite easy and basically the approach to setup your Geospatia
 2. Setup **Kargo**: install **Kargo**, configures and build, if necessary, the services you want to deploy
 3. Manage **Kargo**: deploy, update and stop the services
 
-In the following sections, we will explain how to deploy a complete set of services as presented in the previous chapter. 
+In the following sections, we will explain how to deploy a complete set of services such as illustrated in this diagram:
+
+
 
 We are assuming, you already have a running Swarm infrastructure with:
 * A manager node 
@@ -37,10 +39,9 @@ If you do not have such an infrastructure, you may have a look at [**Kaabah**](h
 
 #### Install a local Registry
 
-Some of the services proposed by **Kargo** need to be build before you can deploy it. For these reason, it is necessary to have a local Registry on the Manager node.
-To install it you can run the command `docker stack deploy -c registry.yml registry`
+Some of the services proposed by **Kargo** need to be built before you can deploy it. For this reason, it is necessary to have a local Registry on the Manager node to store the images.
 
-where the Compose file `registry.yml` has the following content:
+To install it you can run the command `docker stack deploy -c registry.yml registry` where the Compose file `registry.yml` has the following content:
 
 ```
 version: '3.5'
@@ -251,11 +252,31 @@ $./build-kargo.sh
 
 ### Deploy the services
 
+You can either deploy a given stack or deploy all the stacks.
+
+* Deploy a stack
+
+```bash
+$./deploy-stack.sh <apps|dbs|jobs|weacast>
+```
+
+* Deploy all the stacks
+
 ```bash
 $./deploy-kargo.sh
 ```
 
-### Stop the services
+### Remove the services
+
+You can either remove a given stack or remove all the stacks.
+
+* Stop a stack
+
+```bash
+$./remove-stack.sh <apps|dbs|jobs|weacast>
+```
+
+* Stop all the stacks
 
 ```bash
 $./remove-kargo.sh
