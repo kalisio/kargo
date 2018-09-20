@@ -12,7 +12,7 @@ fi
 # Deploy the required services only
 DB_SERVICES_TO_DEPLOY=
 for DB_SERVICE in $DBS_STACK; do
-  DB_SERVICES_TO_DEPLOY="$DB_SERVICES_TO_DEPLOY -c stacks/dbs/$DB_SERVICE.yml"
+  DB_SERVICES_TO_DEPLOY="$DB_SERVICES_TO_DEPLOY -c deploy/$DB_SERVICE.yml"
 done
 docker stack deploy $DB_SERVICES_TO_DEPLOY kargo-dbs
 

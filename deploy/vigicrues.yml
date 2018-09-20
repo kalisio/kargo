@@ -1,0 +1,31 @@
+version: '3.5'
+
+services: 
+  vigicrues:
+    image: ${VIGICRUES_IMAGE}:${VIGICRUES_TAG}
+    environment:
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - S3_BUCKET=${VIGICRUES_S3_BUCKET}
+    configs:
+      - source: vigicrues_jobfile
+        target: /jobfile.js
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+configs:
+  vigicrues_jobfile:
+    file: ./../configs/vigicrues/jobfile.js
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+          
