@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   tileservergl:
-    image: ${TILESERVERGL_IMAGE}:{TILESERVERGL_TAG}
+    image: ${TILESERVERGL_IMAGE}:${TILESERVERGL_TAG}
     volumes:
       - ./configs/tileservergl:/data
       - ${DATA_PATH}:/mnt/data
@@ -21,6 +21,7 @@ services:
       placement:
         constraints:
          - node.role == worker
+         - node.labels.tileservergl == true
       restart_policy:
         condition: on-failure
     networks:

@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   teleray:
-    image: ${TELERAY_IMAGE}:{TELERAY_TAG}
+    image: ${TELERAY_IMAGE}:${TELERAY_TAG}
     environment:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
