@@ -22,8 +22,8 @@ configs/mapproxy/app.py
 
 # Weacast
 # Generated deploy file
-weacast-arpege-world.yml
-weacast-arpege-europe.yml
-weacast-arome-france.yml
-weacast-gfs-world.yml
+deploy/weacast-arpege-world.yml
+deploy/weacast-arpege-europe.yml
+deploy/weacast-arome-france.yml
+deploy/weacast-gfs-world.yml
 
