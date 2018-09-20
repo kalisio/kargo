@@ -1,4 +1,5 @@
 #!/bin/bash
-docker stack rm kargo
-
-
+sh ./remove-krawlers
+sh ./remove-weacast
+sh ./remove-apps
+sh ./remove-dbs

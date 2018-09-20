@@ -10,7 +10,9 @@ Using **kargo** is quite easy and basically the approach to setup your Geospatia
 2. Setup **Kargo**: install **Kargo**, configures and build, if necessary, the services you want to deploy
 3. Manage **Kargo**: deploy, update and stop the services
 
-In the following sections, we will explain how to deploy a complete set of services as presented in the [How does it work](../how-does-it-work/README.md) chapter. We are assuming, you already have a running Swarm infrastructure with:
+In the following sections, we will explain how to deploy a complete set of services as presented in the previous chapter. 
+
+We are assuming, you already have a running Swarm infrastructure with:
 * A manager node 
 * Multiple worker nodes with sufficient disk space to store the data
 
@@ -36,9 +38,7 @@ If you not have such a prerequisite infrastructure, you may have a look at [**Ka
 #### Install a local Registry
 
 Some of the services proposed by **Kargo** need to be build before you can deploy it. For these reason, it is necessary to have a local Registry on the Manager node.
-To install it you can run the command:
-
-`docker stack deploy -c registry.yml registry`
+To install it you can run the command `docker stack deploy -c registry.yml registry`
 
 where `registry.yml` has the following content:
 

@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  cesiumterrainserver:
+    image: ${CESIUMTERRAINSERVER_IMAGE}:${CESIUMTERRAINSERVER_TAG}
+    volumes:
+      - ${CESIUMTERRAINSERVER_DATA}:/data/tilesets/terrain
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+
