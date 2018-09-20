@@ -153,9 +153,6 @@ AUTH_PASSWORD=your authentication password to access the services. It must be en
 S3_ACCESS_KEY=your access key id to access S3
 S3_SECRET_ACCESS_KEY=your secret key to access S3
 
-# The path to your datasets
-DATA_PATH=/mnt/data
-
 # Docker network to be used
 DOCKER_NETWORK=kargo
 
@@ -167,6 +164,7 @@ SERVICES="tileservergl mappoxy vigicrues teleray maputnik"
 #
 TILESERVERGL_IMAGE="klokantech/tileserver-gl"
 TILESERVERGL_TAG="v2.3.1"
+TILESERVERGL_DATA="/mnt/data"
 
 #
 # Maputnik Configuration
@@ -179,6 +177,7 @@ MAPUTNIK_TAG="0.1.0"
 #
 MAPPROXY_IMAGE="yagajs/mapproxy"
 MAPPROXY_TAG="1.11-alpine"
+MAPPROXY_DATA="/mnt/data"
 
 #
 # CesiumTerrainServer
@@ -199,7 +198,8 @@ POSTGRES_PASSWORD=postgres
 # GeoServer configuration
 #
 GEOSERVER_VERSION=2.12.1
-GEOSERVER_PLUGINS=css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow 
+GEOSERVER_PLUGINS="css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"
+GEOSERVER_DATA="/mnt/data"
 
 #
 # MongoDB configuration

@@ -8,7 +8,7 @@ services:
       - AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
     command: mapproxy http
     volumes:
-      - ${DATA_PATH}:/mnt/data
+      - ${MAPPROXY_DATA}:/mnt/data
     configs:
       - source: mapproxy_conf
         target: /mapproxy/mapproxy.yaml

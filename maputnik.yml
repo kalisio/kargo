@@ -5,8 +5,6 @@ services:
     image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
       - DOMAIN=${DOMAIN}
-    volumes:  
-      - ${DATA_PATH}:/mnt/data
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
