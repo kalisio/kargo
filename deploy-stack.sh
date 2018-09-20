@@ -9,12 +9,14 @@ if [ "$EXISTING_DOCKER_NETWORK" = "" ]; then
   docker network create -d overlay --attachable $DOCKER_NETWORK
 fi
 
-STACK_NAME_UPPERCASE=${1^^}
-STACK_SERVICES=${!STACK_STACK_NAME_UPPERCASE}
+STACK_NAME=${1^^}_STACK
+echo $STACK_NAME
+STACK=${!STACK_NAME}
+echo $STACK
 
 # Deploy the required services only
 SERVICES_TO_DEPLOY=
-for SERVICE in $STACK_SERVICES; do
+for SERVICE in $STACK; do
   SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
 done
 docker stack deploy $SERVICES_TO_DEPLOY kargo-$1
