@@ -10,7 +10,7 @@ Using **kargo** is quite easy and basically the approach to setup your Geospatia
 2. Setup **Kargo**: install **Kargo**, configures and build, if necessary, the services you want to deploy
 3. Manage **Kargo**: deploy, update and stop the services
 
-In the following sections, we will explain how to deploy a complete set of services as presented in the [How does it work](./how-does-it-work/README.md) chapter. We are assuming, you already have a running Swarm infrastructure with:
+In the following sections, we will explain how to deploy a complete set of services as presented in the [How does it work](./../how-does-it-work/README.md) chapter. We are assuming, you already have a running Swarm infrastructure with:
 * A manager node 
 * Multiple worker nodes with sufficient disk space to store the data
 
