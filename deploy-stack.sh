@@ -1,4 +1,9 @@
 #!/bin/bash
+if [[ ! "$1" =~ ^(apps|dbs|weacast|jobs)$ ]]; then
+  echo "usage: deploy-stack.sh <apps|dbs|weacast|jobs>"
+  exit 1
+fi
+
 set -a
 . ./.env
 set +a
@@ -10,9 +15,7 @@ if [ "$EXISTING_DOCKER_NETWORK" = "" ]; then
 fi
 
 STACK_NAME=${1^^}_STACK
-echo $STACK_NAME
 STACK=${!STACK_NAME}
-echo $STACK
 
 # Deploy the required services only
 SERVICES_TO_DEPLOY=
