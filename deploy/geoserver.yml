@@ -21,7 +21,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:geoserver.${DOMAIN};AddPrefix:/geoserver"
-      replicas: 1
+      replicas: ${GEOSERVER_REPLICAS}
       placement:
         constraints:
           - node.role == worker

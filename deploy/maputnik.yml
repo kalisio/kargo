@@ -14,7 +14,7 @@ services:
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
         - "traefik.frontend.rule=Host:maputnik.${DOMAIN}"
         - "traefik.port=8888"
-      replicas: 1
+      replicas: ${MAPUTNIK_REPLICAS}
       placement:
         constraints:
          - node.role == worker

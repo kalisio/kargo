@@ -16,7 +16,7 @@ We are assuming, you already have a running Swarm infrastructure with:
 * A manager node 
 * Multiple worker nodes with sufficient disk space to store the data
 
-Check your infrastructure using the command `docker node ls`, you should a response similar to:
+Check your infrastructure using the command `docker node ls`, you should have a response similar to:
 
 ```bash
 $docker node ls
@@ -28,7 +28,7 @@ wfr5hwhfd5413p2ql9hwitbkw     worker-1            Ready               Active    
 ```
 
 ::: warning Prerequisites
-If you not have such a prerequisite infrastructure, you may have a look at [**Kaabah**](https://kalisio.github.io/kaabah/).
+If you do not have such an infrastructure, you may have a look at [**Kaabah**](https://kalisio.github.io/kaabah/). 
 :::
 
 ## Prepare the infrastructure
@@ -40,9 +40,9 @@ If you not have such a prerequisite infrastructure, you may have a look at [**Ka
 Some of the services proposed by **Kargo** need to be build before you can deploy it. For these reason, it is necessary to have a local Registry on the Manager node.
 To install it you can run the command `docker stack deploy -c registry.yml registry`
 
-where `registry.yml` has the following content:
+where the Compose file `registry.yml` has the following content:
 
-```yaml
+```
 version: '3.5'
 
 services:
@@ -157,34 +157,55 @@ S3_SECRET_ACCESS_KEY=your secret key to access S3
 DOCKER_NETWORK=kargo
 
 # Services to be deployed
-SERVICES="tileservergl mappoxy vigicrues teleray maputnik"
+APPS_STACK="tileservergl mapproxy mapputnik"
+DBS_STACK="mongodb"
+WEACAST_STACK="arpege-world arpege-europe arome-france gfs-world"
+KRAWLERS_STACK="vigicrues teleray"
 
 #
 # TileserverGL configuration
 #
 TILESERVERGL_IMAGE="klokantech/tileserver-gl"
 TILESERVERGL_TAG="v2.3.1"
-TILESERVERGL_DATA="/mnt/data"
+TILESERVERGL_DATA="/mnt/data0"
+TILESERVERGL_REPLICAS="1"
 
 #
 # Maputnik Configuration
 #
 MAPUTNIK_IMAGE="kalisio/k-maputnik"
 MAPUTNIK_TAG="0.1.0"
+MAPUTNIK_REPLICAS="1"
 
 #
 # MapProxy configuration
 #
 MAPPROXY_IMAGE="yagajs/mapproxy"
 MAPPROXY_TAG="1.11-alpine"
-MAPPROXY_DATA="/mnt/data"
+MAPPROXY_DATA="/mnt/data0"
+MAPPROXY_REPLICAS="1"
 
 #
 # CesiumTerrainServer
 #
 CESIUMTERRAINSERVER_IMAGE="geodata/cesium-terrain-server"
 CESIUMTERRAINSERVER_TAG="latest"
-CESIUMTERRAINSERVER_DATA="/mnt/data/tilesets/terrain"
+CESIUMTERRAINSERVER_DATA="/mnt/data0/tilesets/terrain"
+CESIUMTERRAINSERVER_REPLICAS="1"
+
+#
+# GeoServer configuration
+#
+GEOSERVER_VERSION=2.12.1
+GEOSERVER_PLUGINS="css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"
+GEOSERVER_DATA="/mnt/data0"
+GEOSERVER_REPLICAS="1"
+
+#
+# MongoDB configuration
+#
+MONGODB_IMAGE="mongo"
+MONGODB_TAG="3.6.5"
 
 #
 # Postgis configuration
@@ -193,19 +214,6 @@ POSTGIS_IMAGE="mdillon/postgis"
 POSTGIS_TAG="9.6-alpine"
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-
-#
-# GeoServer configuration
-#
-GEOSERVER_VERSION=2.12.1
-GEOSERVER_PLUGINS="css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"
-GEOSERVER_DATA="/mnt/data"
-
-#
-# MongoDB configuration
-#
-MONGODB_IMAGES="mongo"
-MONGODB_TAG="3.6.5"
 
 #
 # Teleray configuration
@@ -224,7 +232,6 @@ VIGICRUES_S3_BUCKET="kargo"
 #
 #  Weacast configuration
 #
-WEACAST_MODELS="arpege-world arpege-europe arome-france gfs-world"
 WEACAST_ARPEGE_WORLD_TAG="latest"
 WEACAST_ARPEGE_EUROPE_TAG="latest"
 WEACAST_AROME_FRANCE_TAG="latest"

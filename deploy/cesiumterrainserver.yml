@@ -6,7 +6,7 @@ services:
     volumes:
       - ${CESIUMTERRAINSERVER_DATA}:/data/tilesets/terrain
     deploy:
-      replicas: 1
+      replicas: ${CESIUMTERRAINSERVER_REPLICAS}
       placement:
         constraints:
          - node.role == worker

@@ -20,7 +20,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:mapproxy.${DOMAIN}"
         - "traefik.port=8080"
-      replicas: 1
+      replicas: ${MAPPROXY_REPLICAS}
       placement:
         constraints:
          - node.role == worker

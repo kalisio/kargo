@@ -17,7 +17,7 @@ services:
         - "traefik.port=80"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:tileservergl.${DOMAIN}"
-      replicas: 1
+      replicas: ${TILESERVERGL_REPLICAS}
       placement:
         constraints:
          - node.role == worker
