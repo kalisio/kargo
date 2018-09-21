@@ -3,10 +3,10 @@ version: '3.5'
 services: 
   thredds:
     image: ${THREDDS_IMAGE}:${THREDDS_TAG}
+    environment:
+      - THREDDS_XMX_SIZE
+      - THREDDS_XMS_SIZE
     volumes:
-      - ./../configs/thredds/logs/:/usr/local/tomcat/logs/
-      - ./../configs/thredds/logs/:/usr/local/tomcat/content/thredds/logs/
-      - ./../configs/thredds/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ${THREDDS_DATA}:/usr/local/tomcat/content/thredds
     deploy:
       labels:
