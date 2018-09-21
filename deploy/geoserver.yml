@@ -6,12 +6,6 @@ services:
     volumes:
       - ./../configs/geoserver:/opt/geoserver/data_dir    
       - ${GEOSERVER_DATA}:/mnt/data
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     deploy:
       labels:
         - "traefik.backend=geoserver"
@@ -20,7 +14,7 @@ services:
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:geoserver.${DOMAIN};AddPrefix:/geoserver"
+        - "traefik.frontend.rule=Host:geoserver.${DOMAIN}"
       replicas: ${GEOSERVER_REPLICAS}
       placement:
         constraints:
