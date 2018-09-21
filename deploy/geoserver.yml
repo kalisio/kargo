@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
  geoserver:
-    image: kalisio/k-geoserver:0.1.0
+    image: ${GEOSERVER_IMAGE}:${GEOSERVER_TAG}
     volumes:
       - ./../configs/geoserver:/opt/geoserver/data_dir    
       - ${GEOSERVER_DATA}:/mnt/data
