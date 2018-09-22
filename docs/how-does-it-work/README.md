@@ -6,7 +6,7 @@ sidebar: auto
 
 ## Main concepts
 
-**kargo** consists in a Docker based solution which allows you to set up and deploy the following geospatial web apps. 
+**kargo** consists in a **Docker Swarm** based solution which allows you to set up and deploy a Geospatial infrastructure.
 
 It comes with:
 - the **Docker compose files** to use to deploy the services. For each service, **Kargo** define:
@@ -15,29 +15,28 @@ It comes with:
 - the **settings of the services** to deploy. Note that, these settings are provided as an example and they should be overridden to match your implementation.
 - the **helper scripts** to deploy and remove the services.
 
-::: tip
-**Kargo** has been mainly designed to be easily deployable on Docker swarm based infrastructures. You should have a look at [Kaabah](https://kalisio.github.io/kaabah/) if you need to setup such an infrastructure.  
-:::
-
 ## Global overview
-
-Designed to work either on normal mode or swarm mode of Docker, **Kargo** should be flexible enough to be used in different type of infrastructures. It is up to you to define your architecture and to adjust the settings. 
-
-In the following, we present 2 approaches according to whether the infrastructure is in normal mode or swarm mode.
-
-### Normal mode
-
-![kargo-normal](./../assets/kargo-normal.svg)
-
-### Swarm mode
 
 ![kargo-swarm](./../assets/kargo-swarm.svg)
 
 ## What is inside ?
 
-**Kargo** comes with the following apps and services:
+**Kargo** comes with 4 stacks of applications and services:
 
-1. [**PostGis**](http://postgis.net/): https://hub.docker.com/r/mdillon/postgis/
+### The `apps` stack
+
 2. [**GeoServer**](http://geoserver.org/): **Kargo** provides its own Dockerfile to build GeoServer
 3. [**MapProxy**](https://mapproxy.org/): https://hub.docker.com/r/yagajs/mapproxy/
 4. [**TileServer-GL**](http://tileserver.org/): https://hub.docker.com/r/klokantech/tileserver-gl/
+
+### The `dbs` stack
+
+1. [**PostGis**](http://postgis.net/): https://hub.docker.com/r/mdillon/postgis/
+2. [**MongoDB**](https://www.mongodb.com/): https://hub.docker.com/_/mongo/
+
+### The `weacast` stack
+
+### The `jobs` stack
+
+3. [vigicrues](https://github.com/kalisio/k-vigicrues): a service to download data from French flood warning system [Vigicrues](https://www.vigicrues.gouv.fr/)
+4. [teleray](https://github.com/kalisio/k-teleray): a service to download from the French gamma dose rate alert network [TELERAY](http://teleray.irsn.fr/aide.htm#mappage)

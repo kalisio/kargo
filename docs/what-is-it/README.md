@@ -4,23 +4,16 @@ sidebar: auto
 
 # What is it ?
 
-**Kargo** allows you to deliver your own data in a few minutes using Geospatial Open Standards such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... Indeed, **Kargo** relies on well known Open Source geospatial solutions to take advantage of their strongest features:
+**Kargo** offers the capabilities to let you design, build and operate a Geospatial infrastructure on server cluster. 
+Rather than imposing an architecture, Kargo allows you to design the infrastructure that fits your needs and gives you all the necessary tools to implement it. 
 
-1. [PostGis](http://postgis.net/)
-2. [GeoServer](http://geoserver.org/)
-3. [MapProxy](https://mapproxy.org/)
-4. [TileServer-GL](http://tileserver.org/)
-
-In addition, **Kargo** lets you deploy [Krawler](https://kalisio.github.io/krawler/) based services:
-
-1. [vigicrues](https://github.com/kalisio/k-vigicrues): a service to download data from French flood warning system [Vigicrues](https://www.vigicrues.gouv.fr/)
-2. [teleray](https://github.com/kalisio/k-teleray): a service to download from the French gamma dose rate alert network [TELERAY](http://teleray.irsn.fr/aide.htm#mappage)
-
-**Kargo** is designed to be deployed on [Docker](https://www.docker.com/) based infrastructures and especially on [Swarm mode](https://docs.docker.com/engine/swarm/). Moreover, **Kargo** let you take advantages of using [Traefik](https://traefik.io/) to route the internet traffic to your geospatial infrastructure. 
-
-::: tip
-Benefit from the project [Kaabah](https://kalisio.github.io/kaabah/) to create your infrastructure and manage your platform of services with ease.
-:::
+Indeed, **Kargo** relies on the ease of [Docker Swarm](https://docs.docker.com/swarm/overview/) to deploy and operate your services on the cluster and is shipped with a set of **Compose files** to let you choose the services or applications you want to deploy. Of course, most of the well-known Open Source solutions ([MapServer](https://mapserver.org/), [GeoServer](http://geoserver.org), [PostGis](http://postgis.net/)...) can be easily deployed allowing you to deliver your data using Geospatial Open Standards services such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... But even more, **Kargo** provides the easiest way to deploy [Weacast](https://weacast.gitbooks.io/weacast-docs/) services and more generally [Krawler](https://kalisio.github.io/krawler/) based services such as [Vigicrues](https://mapserver.org/) or [Teleray](ttps://github.com/kalisio/k-teleray)
 
 ![kargo-overview](./../assets/kargo-overview.svg)
+
+::: tip Benefit from the Kaabah solution
+A mentioned above, **Kargo** is designed to be used on a **Docker Swarm** infrastructure. If you do not have such an operational infrastructure, you may have a look at [Kabbah](https://kalisio.github.io/kaabah/). In addition to providing you with the means to design and create your infrastructure, Kaabah also offers tools to facilitate its maintenance.
+:::
+
+
 
