@@ -9,9 +9,7 @@ sidebar: auto
 **kargo** consists in a **Docker Swarm** based solution which allows you to set up and deploy a Geospatial infrastructure.
 
 It comes with:
-- the **Docker compose files** to use to deploy the services. For each service, **Kargo** define:
-  1. a base compose file to be used when running Docker in a normal mode: `<service>.yml` 
-  2. a swarm compose file to be used when running Docker in a swarm mode: `<service.swarm.yml`. This file extends the base configuration. Read [this article](https://docs.docker.com/compose/extends/) to get more information on extending services in **Docker compose**.
+- the **Docker compose files** to use to deploy the services. 
 - the **settings of the services** to deploy. Note that, these settings are provided as an example and they should be overridden to match your implementation.
 - the **helper scripts** to deploy and remove the services.
 
