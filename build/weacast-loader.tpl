@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   WEACAST_MODEL:
-    image: localhost:5000/weacast-WEACAST_MODEL
+    image: ${WEACAST_WEACAST_MODEL_IMAGE}/${WEACAST_WEACAST_MODEL_TAG}
     environment:
       - DB_URL=mongodb://mongodb:27017/weacast
     networks:
