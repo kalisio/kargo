@@ -3,7 +3,7 @@ version: '3.5'
 services: 
   weacast:
     image: ${WEACAST_IMAGE}:${WEACAST_TAG}
-    environement:
+    environment:
       - USE_LOADER=true
       - DB_URL=mongodb://mongodb:27017/weacast
     deploy:
