@@ -1,0 +1,30 @@
+version: '3.5'
+
+services: 
+  weacast:
+    image: ${WEACAST_IMAGE}:${WEACAST_TAG}
+    environement:
+      - USE_LOADER=true
+      - DB_URL=mongodb://mongodb:27017/weacast
+    deploy:
+      labels:
+        - "traefik.backend=weacast"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.enable=true"
+        - "traefik.port=8081"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:weacast.${DOMAIN}"
+      replicas: ${WEACAST_REPLICAS}
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          
