@@ -1,0 +1,29 @@
+version: '3.5'
+
+services: 
+  arpege-europe-loader:
+    image: ${ARPEGE_EUROPE_LOADER_IMAGE}/${ARPEGE_EUROPE_LOADER_TAG}
+    environment:
+      - DB_URL=mongodb://mongodb:27017/weacast
+    networks:
+      - kargo-network
+    configs:
+      - source: arpege-europe-loader_jobfile
+        target: /jobfile-arpege-europe.js
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.labels.weacast == true
+      restart_policy:
+        condition: on-failure
+
+configs:
+   arpege-europe-loader_jobfile:
+    file: ./../configs/weacast/jobfile-arpege-europe.js
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+          

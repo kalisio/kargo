@@ -1,0 +1,29 @@
+version: '3.5'
+
+services: 
+  arome-france-loader:
+    image: ${AROME_FRANCE_LOADER_IMAGE}/${AROME_FRANCE_LOADER_TAG}
+    environment:
+      - DB_URL=mongodb://mongodb:27017/weacast
+    networks:
+      - kargo-network
+    configs:
+      - source: arome-france-loader_jobfile
+        target: /jobfile-arome-france.js
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.labels.weacast == true
+      restart_policy:
+        condition: on-failure
+
+configs:
+  arome-france-loader_jobfile:
+    file: ./../configs/weacast/jobfile-arome-france.js
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+          

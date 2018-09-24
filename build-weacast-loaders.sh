@@ -8,5 +8,4 @@ for WEACAST_MODEL in $WEACAST_MODELS; do
   docker build https://github.com/weacast/weacast-loader.git -f dockerfile.$WEACAST_MODEL -t $WEACAST_MODEL-loader
   docker tag $WEACAST_MODEL-loader localhost:5000/weacast-$WEACAST_MODEL:latest
   docker push localhost:5000/$WEACAST_MODEL-loader:latest
-  sed -e "s/WEACAST_MODEL/$WEACAST_MODEL/g" build/weacast-loader.tpl > deploy/$WEACAST_MODEL-loader.yml
 done
