@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   arpege-europe-loader:
-    image: ${ARPEGE_EUROPE_LOADER_IMAGE}/${ARPEGE_EUROPE_LOADER_TAG}
+    image: ${ARPEGE_EUROPE_LOADER_IMAGE}:${ARPEGE_EUROPE_LOADER_TAG}
     environment:
       - DB_URL=mongodb://mongodb:27017/weacast
     networks:
