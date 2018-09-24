@@ -19,7 +19,7 @@ services:
         condition: on-failure
 
 configs:
-  arepege-world-loader_jobfile:
+  arpege-world-loader_jobfile:
     file: ./../configs/weacast/jobfile-arpege-world.js
 
 networks:
