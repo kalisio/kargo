@@ -18,22 +18,15 @@ But even more, **Kargo** provides the easiest way to deploy [Weacast](https://we
 ![kargo-overview](./../assets/kargo-overview.svg)
 
 
-The **Kargo** has been designed to be highly:
+**Kargo** has been designed to be highly:
 * *Interoperable*: use well known Open Source solutions relying on Web standards and especially on [OGC](http://www.opengeospatial.org/) standards.
 * *Flexible*: setup the infrastructure that just fits your requirements
 * *Scalable*: scale the infrastructure and the services according your usage
 * *Extensible*: fork the repository to add your own stack of services
 
 ::: tip Benefit from the Kaabah solution
-As mentioned above, **Kargo** is designed to be used on a **Docker Swarm** based infrastructure. If you do not have such an operational cluster, you may have a look at [Kabbah](https://kalisio.github.io/kaabah/). In addition to providing you with the means to design and create your own infrastructure, **Kaabah** also offers some efficient tools to maintain it.
+As mentioned above, **Kargo** is designed to be used on a **Docker Swarm** infrastructure. If you do not have such an operational cluster, you may have a look at [Kabbah](https://kalisio.github.io/kaabah/). Indeed, **Kaabah** provides you with the tools to design, build and operate your own infrastructure with ease !
 :::
-
-::: tip Sponsored by Kalisio
-
-[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
-
-*Unleashing the potential of spatial information*
-::: 
 
 
 
