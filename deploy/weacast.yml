@@ -4,6 +4,8 @@ services:
   weacast:
     image: ${WEACAST_IMAGE}:${WEACAST_TAG}
     environment:
+      - LOG_LEVEL=${WEACAST_LOG_LEVEL}
+      - DEBUG=${WEACAST_DEBUG}
       - USE_LOADER=true
       - DB_URL=mongodb://mongodb:27017/weacast
     deploy:
