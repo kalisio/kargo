@@ -4,7 +4,10 @@ services:
   mongodb:
     image: ${MONGODB_IMAGE}:${MONGODB_TAG}
     volumes:
-      - mongodb_data:/data/db
+      - mongo_data:/data/db
+    configs:
+      - source: mongo_conf
+        target: /etc/mongo/mongod.conf
     networks:
       - kargo-network
     deploy:
@@ -12,12 +15,16 @@ services:
       placement:
         constraints:
          - node.role == worker
-         - node.labels.mongodb == true
+         - node.labels.mongo == true
       restart_policy:
         condition: on-failure
 
+configs:
+  mongo_conf:
+    file: ./../configs/mongo/mongod.conf
+
 volumes:
-  mongodb_data: {}
+  mongo_data: {}
 
 networks:
   kargo-network:
