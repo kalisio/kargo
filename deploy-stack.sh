@@ -4,6 +4,8 @@ if [[ ! "$1" =~ ^(apps|dbs|weacast|jobs)$ ]]; then
   exit 1
 fi
 
+cd .kargo
+
 set -a
 . ./.env
 set +a

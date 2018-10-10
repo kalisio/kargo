@@ -20,5 +20,6 @@ docs/.vuepress/dist
 # Mapproxy
 configs/mapproxy/app.py
 
-# Workspaces
+# Kargo
+.kargo
 workspaces
