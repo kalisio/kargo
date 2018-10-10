@@ -20,10 +20,5 @@ docs/.vuepress/dist
 # Mapproxy
 configs/mapproxy/app.py
 
-# Weacast
-# Generated deploy file
-deploy/arpege-world.yml
-deploy/arpege-europe.yml
-deploy/arome-france.yml
-deploy/gfs-world.yml
-
+# Workspaces
+workspaces
