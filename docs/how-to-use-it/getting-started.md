@@ -94,8 +94,8 @@ $git clone https://github.com/kalisio/kargo.git
 On each worker, use `sshfs` to share the `configs` directory. The path to the shared directory must be the same on the workers as on the manager.
 
 ```bash
-mkdir -p /home/ubuntu/kargo/configs
-sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/configs /home/ubuntu/kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other
+mkdir -p /home/ubuntu/kargo/.kargo/configs
+sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other
 ```
 
 ### Provision the data

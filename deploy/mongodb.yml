@@ -4,7 +4,7 @@ services:
   mongodb:
     image: ${MONGODB_IMAGE}:${MONGODB_TAG}
     volumes:
-      - mongo_data:/data/db
+      - mongodb_data:/data/db
     configs:
       - source: mongo_conf
         target: /etc/mongo/mongod.conf
@@ -15,12 +15,12 @@ services:
       placement:
         constraints:
          - node.role == worker
-         - node.labels.mongo == true
+         - node.labels.mongodb == true
       restart_policy:
         condition: on-failure
 
 configs:
-  mongo_conf:
+  mongodb_conf:
     file: ./../configs/mongo/mongod.conf
 
 volumes:
