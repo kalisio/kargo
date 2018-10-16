@@ -9,6 +9,7 @@ services:
     command: mapproxy http
     volumes:
       - ${MAPPROXY_DATA}:/mnt/data
+      - ${MAPPROXY_CACHE}:/mnt/cache
     configs:
       - source: mapproxy_conf
         target: /mapproxy/mapproxy.yaml
