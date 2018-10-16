@@ -39,19 +39,19 @@
   },
   "data": {
     "osm": {
-      "mbtiles": "OpenMapTiles/osm.mbtiles"
+      "mbtiles": "osm.mbtiles"
     },
 	 "contourlines": {
-      "mbtiles": "OpenMapTiles/contourlines.mbtiles"
+      "mbtiles": "contourlines.mbtiles"
     },
     "hillshading" : {
-      "mbtiles": "OpenMapTiles/hillshading.mbtiles"
+      "mbtiles": "hillshading.mbtiles"
     },
     "satellite" : {
-      "mbtiles": "OpenMapTiles/satellite.mbtiles"
+      "mbtiles": "satellite.mbtiles"
     },
     "bdortho-5m" : {
-      "mbtiles": "IGN/bdortho-5m.mbtiles"
+      "mbtiles": "bdortho-5m.mbtiles"
     }
   }
 }
