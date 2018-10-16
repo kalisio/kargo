@@ -1,6 +1,6 @@
 #!/bin/bash
 set -a
-. ./.env
+. ./.kargo/.env
 set +a
 
 # Build the images for the different models

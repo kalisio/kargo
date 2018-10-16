@@ -6,7 +6,7 @@ services:
     volumes:
       - mongodb_data:/data/db
     configs:
-      - source: mongo_conf
+      - source: mongodb_conf
         target: /etc/mongo/mongod.conf
     networks:
       - kargo-network
@@ -24,7 +24,7 @@ configs:
     file: ./../configs/mongo/mongod.conf
 
 volumes:
-  mongo_data: {}
+  mongodb_data: {}
 
 networks:
   kargo-network:
