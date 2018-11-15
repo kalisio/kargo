@@ -1,8 +1,8 @@
 version: '3.5'
 
 services: 
-  vigicrues:
-    image: ${VIGICRUES_IMAGE}:${VIGICRUES_TAG}
+  sections:
+    image: ${VIGICRUES_SECTIONS_IMAGE}:${VIGICRUES_SECTIONS_TAG}
     environment:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}

@@ -1,0 +1,24 @@
+version: '3.5'
+
+services: 
+  observations:
+    image: ${VIGICRUES_OBSERVATIONS_IMAGE}:${VIGICRUES_OBSERVATIONS_TAG}
+    environment:
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - S3_BUCKET=${VIGICRUES_S3_BUCKET}
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+          

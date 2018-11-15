@@ -1,6 +1,6 @@
 #!/bin/bash
-if [[ ! "$1" =~ ^(apps|dbs|weacast|jobs)$ ]]; then
-  echo "usage: deploy-stack.sh <apps|dbs|weacast|jobs>"
+if [[ ! "$1" =~ ^(apps|dbs|weacast|vigicrues|jobs)$ ]]; then
+  echo "usage: deploy-stack.sh <apps|dbs|weacast|vigicrues|jobs>"
   exit 1
 fi
 
