@@ -7,11 +7,14 @@ services:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
       - S3_BUCKET=${VIGICRUES_S3_BUCKET}
+    volumes:
+      - ${VIGICRUES_DATA}:/vigicrues
     deploy:
       replicas: 1
       placement:
         constraints:
          - node.role == worker
+         - node.labels.vigicrues == true
       restart_policy:
         condition: on-failure
     networks:
