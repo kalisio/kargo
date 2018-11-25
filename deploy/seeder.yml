@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  seeder:
+    image: ${SEEDER_IMAGE}:${SEEDER_TAG}
+    environment:
+      - DOCKER_HOST_IP
+      - DOCKER_HOST_PORT
+      - AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - SEEDER_MAPPROXY_CONFIG_PATH=./../configs/mapproxy
+    volumes:
+      - ${MAPPROXY_DATA}:/mnt/data
+      - ${MAPPROXY_CACHE}:/mnt/cache
+      - ${DOCKER_CERT_PATH}:/certs
+    configs:
+      - source: config
+        target: /config.json
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+         - node.labels.mapproxy == true
+    networks:
+      - kargo-network
+      
+configs:
+  config:
+    file: ./../configs/seeder/config.json
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          
