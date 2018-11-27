@@ -8,12 +8,13 @@ services:
       - DOCKER_HOST_PORT
       - AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - MAPPROXY_DATA_PATH=${MAPPROXY_DATA}
+      - MAPPROXY_CACHE_PATH=${MAPPROXY_CACHE}
+      - MAPPROXY_CONFIG_PATH=/home/ubuntu/kargo/.kargo/configs/mapproxy
+      - SEEDER_CONFIG_PATH=/home/ubuntu/kargo/.kargo/configs/seeder
     volumes:
-      - ${MAPPROXY_DATA}:/mnt/data
-      - ${MAPPROXY_CACHE}:/mnt/cache
       - ${DOCKER_CERT_PATH}:/certs
       - ./../configs/seeder:/config
-      - ./../configs/mapproxy:/mapproxy
     deploy:
       replicas: 1
       placement:
