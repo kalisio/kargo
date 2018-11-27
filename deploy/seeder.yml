@@ -12,7 +12,8 @@ services:
       - ${MAPPROXY_DATA}:/mnt/data
       - ${MAPPROXY_CACHE}:/mnt/cache
       - ${DOCKER_CERT_PATH}:/certs
-      - ./../configs:/configs
+      - ./../configs/seeder:/config
+      - ./../configs/mapproxy:/mapproxy
     deploy:
       replicas: 1
       placement:
