@@ -5,7 +5,7 @@ services:
     image: ${GEOSERVER_IMAGE}:${GEOSERVER_TAG}
     volumes:
       - ./../configs/geoserver:/opt/geoserver/data_dir    
-      - ${GEOSERVER_DATA}:/mnt/data
+      - ${GEOSERVER_DATA_PATH}:/mnt/data
     deploy:
       labels:
         - "traefik.backend=geoserver"

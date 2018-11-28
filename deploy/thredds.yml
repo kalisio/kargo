@@ -8,7 +8,7 @@ services:
       - THREDDS_XMS_SIZE
     volumes:
       - ./../configs/thredds:/usr/local/tomcat/content/thredds
-      - ${THREDDS_DATA}:/usr/local/tomcat/content/thredds/public
+      - ${THREDDS_DATA_PATH}:/usr/local/tomcat/content/thredds/public
     deploy:
       labels:
         - "traefik.backend=thredds"

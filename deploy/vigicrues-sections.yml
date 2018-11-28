@@ -9,7 +9,7 @@ services:
       - S3_BUCKET=${VIGICRUES_S3_BUCKET}
       - DB_URL=${VIGICRUES_DB_URL}
     volumes:
-      - ${VIGICRUES_DATA}:/vigicrues      
+      - ${VIGICRUES_DATA_PATH}:/vigicrues      
     deploy:
       replicas: 1
       placement:

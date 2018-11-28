@@ -4,7 +4,7 @@ services:
   cesiumterrainserver:
     image: ${CESIUMTERRAINSERVER_IMAGE}:${CESIUMTERRAINSERVER_TAG}
     volumes:
-      - ${CESIUMTERRAINSERVER_DATA}:/data/tilesets/terrain
+      - ${CESIUMTERRAINSERVER_DATA_PATH}:/data/tilesets/terrain
     deploy:
       replicas: ${CESIUMTERRAINSERVER_REPLICAS}
       placement:
