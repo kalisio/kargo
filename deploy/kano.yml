@@ -2,23 +2,21 @@ version: '3.5'
 
 services: 
   weacast:
-    image: ${WEACAST_IMAGE}:${WEACAST_TAG}
+    image: ${KANO_IMAGE}:${KANO_TAG}
     environment:
-      - LOG_LEVEL=${WEACAST_LOG_LEVEL}
-      - DEBUG=${WEACAST_DEBUG}
-      - USE_LOADER=true
-      - API_ONLY=true
-      - DB_URL==${WEACAST_DB_URL}
-      - APP_SECRET=${WEACAST_APP_SECRET}
+      - LOG_LEVEL=${KANO_LOG_LEVEL}
+      - DEBUG=${KANO_DEBUG}
+      - DB_URL=${KANO_DB_URL}
+      - APP_SECRET=${KANO_APP_SECRET}
     deploy:
       labels:
-        - "traefik.backend=weacast"
+        - "traefik.backend=kano"
         - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.enable=true"
         - "traefik.port=8081"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:weacast.${DOMAIN}"
-      replicas: ${WEACAST_REPLICAS}
+        - "traefik.frontend.rule=Host:kano.${DOMAIN}"
+      replicas: ${KANO_REPLICAS}
       placement:
         constraints:
          - node.role == worker
