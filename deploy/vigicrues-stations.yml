@@ -4,12 +4,7 @@ services:
   stations:
     image: ${VIGICRUES_STATIONS_IMAGE}:${VIGICRUES_STATIONS_TAG}
     environment:
-      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
-      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - S3_BUCKET=${VIGICRUES_S3_BUCKET}
-      - DB_URL=${VIGICRUES_DB_URL}
-    volumes:
-      - ${VIGICRUES_DATA_PATH}:/vigicrues      
+      - DB_URL=${VIGICRUES_DB_URL}     
     deploy:
       replicas: 1
       placement:

@@ -10,12 +10,12 @@ services:
       - APP_SECRET=${KANO_APP_SECRET}
     deploy:
       labels:
-        - "traefik.backend=kano"
         - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=kano"        
         - "traefik.enable=true"
-        - "traefik.port=8081"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:kano.${DOMAIN}"
+        - "traefik.frontend.rule=Host:kano.${SUBDOMAIN}"
+        - "traefik.port=8081"        
       replicas: ${KANO_REPLICAS}
       placement:
         constraints:

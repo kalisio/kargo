@@ -16,7 +16,7 @@ services:
         - "traefik.enable=true"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:thredds.${DOMAIN}"
+        - "traefik.frontend.rule=Host:thredds.${SUBDOMAIN}"
       replicas: ${THREDDS_REPLICAS}
       placement:
         constraints:

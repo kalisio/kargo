@@ -4,7 +4,7 @@ services:
   maputnik:
     image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
-      - DOMAIN=${DOMAIN}
+      - SUBDOMAIN=${SUBDOMAIN}
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
@@ -12,7 +12,7 @@ services:
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
-        - "traefik.frontend.rule=Host:maputnik.${DOMAIN}"
+        - "traefik.frontend.rule=Host:maputnik.${SUBDOMAIN}"
         - "traefik.port=8888"
       replicas: ${MAPUTNIK_REPLICAS}
       placement:

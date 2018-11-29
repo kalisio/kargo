@@ -17,7 +17,7 @@ services:
         - "traefik.enable=true"
         - "traefik.port=8081"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:weacast.${DOMAIN}"
+        - "traefik.frontend.rule=Host:weacast.${SUBDOMAIN}"
       replicas: ${WEACAST_REPLICAS}
       placement:
         constraints:

@@ -2,19 +2,19 @@
 <threddsConfig>
 
   <!-- all options are commented out in standard install - meaning use default values -->
-  <!-- see http://www.unidata.ucar.edu/software/thredds/current/tds/reference/ThreddsConfigXMLFile.html -->
+  <!-- see http://www.unidata.ucar.edu/projects/THREDDS/tech/reference/ThreddsConfigXMLFile.html -->
   <serverInformation>
-    <name>Kargo Installation</name>
+    <name>THREDDS</name>
     <logoUrl>/thredds/threddsIcon.gif</logoUrl>
-    <logoAltText>Kargo TDS Installation</logoAltText>
+    <logoAltText>THREDDS</logoAltText>
 
     <abstract>Scientific Data</abstract>
     <keywords>meteorology, atmosphere, climate, ocean, earth science</keywords>
 
     <contact>
-      <name>Kalisio</name>
-      <organization>Kalisio</organization>
-      <email>support@kalisio.com</email>
+      <name>Support</name>
+      <organization>My Group</organization>
+      <email>support@my.group</email>
       <!--phone></phone-->
     </contact>
     <hostInstitution>
@@ -30,7 +30,6 @@
   For catalogs you don't want visible from the /thredds/catalog.xml chain
   of catalogs, you can use catalogRoot elements. Each catalog root config
   catalog is crawled and used in configuring the TDS.
-
   <catalogRoot>myExtraCatalog.xml</catalogRoot>
   <catalogRoot>myOtherExtraCatalog.xml</catalogRoot>
   -->
@@ -47,7 +46,8 @@
      * The CSS document given in the "catalogCssUrl" element is used for all pages
      * that are HTML catalog views. The CSS document given in the "standardCssUrl"
      * element is used in all other generated HTML pages.
-  <standardCssUrl>tds.css</standardCssUrl>
+     * -->
+    <standardCssUrl>tds.css</standardCssUrl>
     <catalogCssUrl>tdsCat.css</catalogCssUrl>
     <openDapCssUrl>tdsDap.css</openDapCssUrl>
 
@@ -65,7 +65,6 @@
     for updates. The default is for the TDS to check for the current
     stable and development release versions, and to log that information
     in the TDS serverStartup.log file as INFO entries.
-
   <TdsUpdateConfig>
      <logVersionInfo>true</logVersionInfo>
   </TdsUpdateConfig>
@@ -82,14 +81,14 @@
    The elements below represent defaults. Only the <enabled> tag is required
    to enable CORS. The default allowed origin is '*', which allows sharing
    to any domain.
+  -->
   <CORS>
-    <enabled>false</enabled>
+    <enabled>true</enabled>
     <maxAge>1728000</maxAge>
     <allowedMethods>GET</allowedMethods>
     <allowedHeaders>Authorization</allowedHeaders>
     <allowedOrigin>*</allowedOrigin>
   </CORS>
-  -->
 
   <!--
    The <CatalogServices> element:
@@ -97,14 +96,13 @@
    - Services on remote catalogs are set with the allowRemote element
    below. They are off by default (recommended).
    -->
- <CatalogServices>
+  <CatalogServices>
     <allowRemote>false</allowRemote>
   </CatalogServices>
 
   <!--
   Configuring the CDM (netcdf-java library)
   see http://www.unidata.ucar.edu/software/netcdf-java/reference/RuntimeLoading.html
-
   <nj22Config>
     <ioServiceProvider class="edu.univ.ny.stuff.FooFiles"/>
     <coordSysBuilder convention="foo" class="test.Foo"/>
@@ -147,7 +145,7 @@
   Writing GRIB indexes.
   <GribIndexing>
     <setExtendIndex>false</setExtendIndex>
- <alwaysUseCache>false</alwaysUseCache>
+    <alwaysUseCache>false</alwaysUseCache>
   </GribIndexing>
   -->
 
@@ -156,7 +154,6 @@
   <AggregationCache>
     <scour>24 hours</scour>
     <maxAge>90 days</maxAge>
-    <cachePathPolicy>NestedDirectory</cachePathPolicy>
   </AggregationCache>
   -->
 
@@ -169,12 +166,12 @@
 
   <!--
   The Netcdf Subset Service is off by default.
+  -->
   <NetcdfSubsetService>
-    <allow>false</allow>
+    <allow>true</allow>
     <scour>10 min</scour>
     <maxAge>-1 min</maxAge>
   </NetcdfSubsetService>
-  -->
 
   <!--
   <Opendap>
@@ -187,37 +184,33 @@
   <!--
   The WCS Service is off by default.
   Also, off by default (and encouraged) is operating on a remote dataset.
+  -->
   <WCS>
-    <allow>false</allow>
+    <allow>true</allow>
     <allowRemote>false</allowRemote>
     <scour>15 min</scour>
     <maxAge>30 min</maxAge>
   </WCS>
-  -->
 
-  <!--
   <WMS>
-<allow>false</allow>
+    <allow>true</allow>
     <allowRemote>false</allowRemote>
     <maxImageWidth>2048</maxImageWidth>
     <maxImageHeight>2048</maxImageHeight>
   </WMS>
-  -->
 
-  <!--
   <NCISO>
-    <ncmlAllow>false</ncmlAllow>
-    <uddcAllow>false</uddcAllow>
-    <isoAllow>false</isoAllow>
+    <ncmlAllow>true</ncmlAllow>
+    <uddcAllow>true</uddcAllow>
+    <isoAllow>true</isoAllow>
   </NCISO>
-  -->
 
-  <!--
+  <!-- To enable ncSOS, uncomment and set to true
   <NCSOS>
     <allow>false</allow>
   </NCSOS>
   -->
-
+  
   <!-- CatalogGen service is off by default.
   <CatalogGen>
     <allow>false</allow>
@@ -259,20 +252,5 @@
   </FeatureCollection>
   -->
 
-  <!--
-    Configure how the NetCDF-4 C library is discovered and used.
-    libraryPath: The directory in which the native library is installed.
-    libraryName: The name of the native library. This will be used to locate the proper .DLL, .SO, or .DYLIB file
-      within the libraryPath directory.
-    useForReading: By default, the native library is only used for writing NetCDF-4 files; a pure-Java layer is
-      responsible for reading them. However, if this property is set to true, then it will be used for reading
-      NetCDF-4 (and HDF5) files as well.
-  -->
-  <!--
-  <Netcdf4Clibrary>
-    <libraryPath>/usr/local/lib</libraryPath>
-    <libraryName>netcdf</libraryName>
-    <useForReading>false</useForReading>
-  </Netcdf4Clibrary>
-  -->
+
 </threddsConfig>

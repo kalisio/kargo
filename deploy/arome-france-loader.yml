@@ -4,7 +4,7 @@ services:
   arome-france-loader:
     image: ${AROME_FRANCE_LOADER_IMAGE}:${AROME_FRANCE_LOADER_TAG}
     environment:
-      - DB_URL=mongodb://mongodb:27017/weacast
+      - DB_URL=${WEACAST_DB_URL}
     networks:
       - kargo-network
     deploy:
