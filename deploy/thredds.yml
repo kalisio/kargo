@@ -9,6 +9,7 @@ services:
     volumes:
       - ./../configs/thredds:/usr/local/tomcat/content/thredds
       - ${THREDDS_DATA_PATH}:/usr/local/tomcat/content/thredds/public
+      - ${THREDDS_CACHE_PATH}:/usr/local/tomcat/content/thredds/cache
     deploy:
       labels:
         - "traefik.backend=thredds"
