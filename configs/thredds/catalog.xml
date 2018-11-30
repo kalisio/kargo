@@ -21,8 +21,8 @@
   </service>
 
   <service name="ogc" base="" serviceType="compound">
-    <service name="wcs" serviceType="WCS" base="/thredds/wcs/" /-->
-    <service name="wms" serviceType="WMS" base="/thredds/wms/" /-->
+    <service name="wcs" serviceType="WCS" base="/thredds/wcs/" />
+    <service name="wms" serviceType="WMS" base="/thredds/wms/" />
   </service>
 
   <datasetScan name="Meteo France Radar" ID="radarScan" path="radar" location="content/radar">
