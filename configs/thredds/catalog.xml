@@ -20,9 +20,9 @@
     <service name="dap4" serviceType="DAP4" base="/thredds/dap4/" />
   </service>
 
-  <datasetScan name="All radar files" ID="radarScan"
-               path="radar" location="content/radar">
+  <datasetScan name="Meteo France Radar" ID="radarScan" path="radar" location="content/radar">
+    <metadata inherited="true">
+      <serviceName>all</serviceName>
+    </metadata>
   </datasetScan>
-
-  <catalogRef xlink:title="Test Enhanced Catalog" xlink:href="enhancedCatalog.xml" name=""/>
 </catalog>
