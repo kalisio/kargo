@@ -1,6 +1,13 @@
 #!/bin/bash
-./remove-stack.sh jobs
-./remove-stack.sh weacast
-./remove-stack.sh apps
-./remove-stack.sh dbs
+cd .kargo
 
+set -a
+. ./.env
+set +a
+
+cd ..
+
+for STACK in $STACKS; do
+  echo Removing $STACK stack
+  ./remove-stack.sh $STACK
+done

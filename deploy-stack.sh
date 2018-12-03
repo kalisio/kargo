@@ -1,14 +1,22 @@
 #!/bin/bash
-if [[ ! "$1" =~ ^(apps|dbs|weacast|vigicrues|jobs|seeder)$ ]]; then
-  echo "usage: deploy-stack.sh <apps|dbs|weacast|vigicrues|jobs|seeder>"
-  exit 1
-fi
-
 cd .kargo
 
 set -a
 . ./.env
 set +a
+
+# Retrieve the list of stacks
+if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
+  ARGS=($STACKS)
+  NB_ARGS=${#ARGS[*]}
+  USAGE="usage: deploy-stack.sh <${ARGS[0]}"
+  for (( i=1; i<=$(( $NB_ARGS -1 )); i++ )); do
+    USAGE="$USAGE$|${ARGS[$i]}"
+  done
+  USAGE="$USAGE>"
+  echo $USAGE
+  exit 1
+fi
 
 # Check whether the network exist or not.
 EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`

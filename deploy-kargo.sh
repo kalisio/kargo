@@ -1,5 +1,14 @@
 #!/bin/bash
-./deploy-stack.sh dbs
-./deploy-stack.sh apps
-./deploy-stack.sh weacast
-./deploy-stack.sh jobs
+cd .kargo
+
+set -a
+. ./.env
+set +a
+
+cd ..
+
+for STACK in $STACKS; do
+  echo Deploying $STACK stack
+  ./deploy-stack.sh $STACK
+done
+
