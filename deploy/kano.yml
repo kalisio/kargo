@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  weacast:
+  kano:
     image: ${KANO_IMAGE}:${KANO_TAG}
     environment:
       - LOG_LEVEL=${KANO_LOG_LEVEL}
