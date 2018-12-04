@@ -8,6 +8,7 @@ services:
       - DEBUG=${KANO_DEBUG}
       - DB_URL=${KANO_DB_URL}
       - APP_SECRET=${KANO_APP_SECRET}
+      - SUBDOMAIN=${SUBDOMAIN}
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
