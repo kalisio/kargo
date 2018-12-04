@@ -8,7 +8,7 @@ services:
       - DEBUG=${WEACAST_DEBUG}
       - USE_LOADER=true
       - API_ONLY=true
-      - DB_URL==${WEACAST_DB_URL}
+      - DB_URL=${WEACAST_DB_URL}
       - APP_SECRET=${WEACAST_APP_SECRET}
     deploy:
       labels:
