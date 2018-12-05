@@ -11,7 +11,7 @@ if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
   NB_ARGS=${#ARGS[*]}
   USAGE="usage: deploy-stack.sh <${ARGS[0]}"
   for (( i=1; i<=$(( $NB_ARGS -1 )); i++ )); do
-    USAGE="$USAGE$|${ARGS[$i]}"
+    USAGE="$USAGE$|ARGS[$i]"
   done
   USAGE="$USAGE>"
   echo $USAGE

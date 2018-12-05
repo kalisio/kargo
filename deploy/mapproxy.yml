@@ -19,7 +19,7 @@ services:
         - "traefik.backend=mapproxy"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:mapproxy.${SUDOMAIN}"
+        - "traefik.frontend.rule=Host:mapproxy.${SUBDOMAIN}"
         - "traefik.port=8080"
       replicas: ${MAPPROXY_REPLICAS}
       placement:
