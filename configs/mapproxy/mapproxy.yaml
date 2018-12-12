@@ -34,7 +34,7 @@ layers:
     sources: [osm-bright_cache]
 
   - name: osm-terrain-bright
-    title: OpenStreetMap & Terrain data (bright rendering)
+    title: OpenStreetMap and Terrain data (bright rendering)
     sources: [osm-terrain-bright_cache]
 
   - name: osm-dark
@@ -42,11 +42,11 @@ layers:
     sources: [osm-dark_cache]
 
   - name: osm-terrain-dark
-    title: OpenStreetMap & Terrain (dark rendering)
+    title: OpenStreetMap and Terrain (dark rendering)
     sources: [osm-terrain-dark_cache]
 
   - name: osm-satellite-dark
-    title: OpenStreetMap & Satellite (dark rendering)
+    title: OpenStreetMap and Satellite (dark rendering)
     sources: [osm-satellite-dark_cache]
 
   - name: osm-fjord
