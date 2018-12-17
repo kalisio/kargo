@@ -12,16 +12,16 @@
     <keywords>meteorology, atmosphere, climate, ocean, earth science</keywords>
 
     <contact>
-      <name>Support</name>
-      <organization>My Group</organization>
-      <email>support@my.group</email>
+      <name>Kalisio</name>
+      <organization>Kalisio</organization>
+      <email>support@kalisio.com</email>
       <!--phone></phone-->
     </contact>
     <hostInstitution>
-      <name>My Group</name>
-      <webSite>http://www.my.site/</webSite>
-      <logoUrl>myGroup.gif</logoUrl>
-      <logoAltText>My Group</logoAltText>
+      <name>Kalisio</name>
+      <webSite>https://kalisio.com</webSite>
+      <logoUrl>https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-128x128.png</logoUrl>
+      <logoAltText>Kalisio</logoAltText>
     </hostInstitution>
   </serverInformation>
 
