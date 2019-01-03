@@ -166,9 +166,8 @@ caches:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [bdortho-5m_source]
     cache:
-      type: s3
-      bucket_name: kargo
-      directory: cache/bdortho-5m
+      type: mbtiles
+      filename: /mnt/cache/bdortho-5m.mbtiles
 
   s2_cache:
     grids: [GLOBAL_WEBMERCATOR]
