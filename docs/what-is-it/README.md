@@ -25,7 +25,7 @@ But even more, **Kargo** provides the easiest way to deploy [Weacast](https://we
 * *Extensible*: fork the repository to add your own stack of services
 
 ::: tip Benefit from the Kaabah solution
-As mentioned above, **Kargo** is designed to be used on a **Docker Swarm** infrastructure. If you do not have such an operational cluster, you may have a look at [Kabbah](https://kalisio.github.io/kaabah/). Indeed, **Kaabah** provides you with the tools to design, build and operate your own infrastructure with ease !
+As mentioned above, **Kargo** is designed to be used on a **Docker Swarm** infrastructure. If you do not have such an operational cluster, you may have a look at [Kabbah](https://kalisio.github.io/kaabah/).
 :::
 
 
