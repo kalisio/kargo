@@ -31,14 +31,14 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 # Get native JAI and ImageIO
 RUN \
     cd $JAVA_HOME && \
-    wget http://data.boundlessgeo.com/suite/jai/jai-1_1_3-lib-linux-amd64-jdk.bin && \
+    wget https://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64-jdk.bin && \
     echo "yes" | sh jai-1_1_3-lib-linux-amd64-jdk.bin && \
     rm jai-1_1_3-lib-linux-amd64-jdk.bin
 
 RUN \
     cd $JAVA_HOME && \
     export _POSIX2_VERSION=199209 && \
-    wget http://data.opengeo.org/suite/jai/jai_imageio-1_1-lib-linux-amd64-jdk.bin && \
+    wget https://download.java.net/media/jai-imageio/builds/release/1.1/jai_imageio-1_1-lib-linux-amd64-jdk.bin && \
     echo "yes" | sh jai_imageio-1_1-lib-linux-amd64-jdk.bin && \
     rm jai_imageio-1_1-lib-linux-amd64-jdk.bin
 

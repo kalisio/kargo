@@ -233,6 +233,8 @@ sources:
     type: tile
     grid: GLOBAL_WEBMERCATOR
     url: https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/%(z)s/%(y)s/%(x)s.jpg
+    http:
+      ssl_no_cert_checks: true
 
   bdortho-5m_source:
     type: tile
