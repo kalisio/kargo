@@ -1,0 +1,27 @@
+FROM nodesource/xenial:6.1.0
+
+MAINTAINER Kalisio <contact@kalisio.xyz>
+
+ARG VERSION
+ENV BRANCH=v$VERSION
+
+RUN echo "Building Maputnik $BRANCH"
+
+EXPOSE 8888
+
+ENV HOME /maputnik
+RUN mkdir ${HOME}
+
+RUN git clone --branch ${BRANCH} https://github.com/maputnik/editor.git ${HOME}/
+
+WORKDIR ${HOME}
+
+RUN npm install -d --dev
+RUN npm run build
+
+# Any of these could work to allow external domains
+# --allowed-hosts .kalisio.xyz
+# --disable-host-check
+# --public maputnik.kalisio.xyz:8888
+
+CMD npm run start -- --host 0.0.0.0 --allowed-hosts .${DOMAIN}
