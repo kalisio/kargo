@@ -2,7 +2,7 @@
 home: true
 heroImage: https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-256x256.png
 actionText: Show me more →
-actionLink: /what-is-it/
+actionLink: /about/
 features:
 - title: Infrastructure agnostic
   details: Build and deploy your Geospatial Services either on your own server or on a cloud provider
