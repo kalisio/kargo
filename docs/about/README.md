@@ -17,7 +17,7 @@ But even more, **Kargo** provides the easiest way to deploy [Weacast](https://we
 * *Interoperable*: use well known Open Source solutions relying on Web standards and especially on [OGC](http://www.opengeospatial.org/) standards.
 * *Flexible*: setup the infrastructure that just fits your requirements
 * *Scalable*: scale the infrastructure and the services according your usage
-* *Extensible*: fork the repository to add your own stack of services
+* *Extensible*: extend the stack of services by adding your own services
 
 ::: tip Benefit from the Kaabah solution
 As mentioned above, **Kargo** is designed to be used on a **Docker Swarm** infrastructure. If you do not have such an operational cluster, you may have a look at [Kaabah](https://kalisio.github.io/kaabah/).
