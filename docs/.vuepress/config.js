@@ -6,37 +6,54 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-64x64.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  serviceWorker: true,
+  plugins: ['@vuepress/pwa'],
   theme: 'kalisio',
   themeConfig: {
     docsDir: 'docs',
-    serviceWorker: {
-      updatePopup: true
+    plugins: {
+      '@vuepress/pwa': {
+        serviceWorker: true,
+        updatePopup: true
+      }
     },
     nav: [
-      {
-        text: 'What is it ?',
-        link: '/what-is-it/',
-      },
-      {
-        text: 'How doest it work ?',
-        link: '/how-does-it-work/'
-      },
-      {
-        text: 'How to use it ?',
-        items: [
-          { text: 'Getting started', link: '/how-to-use-it/getting-started.md' },
-          { text: 'Tips', link: '/how-to-use-it/tips' }
-        ]
-      },
-      {
-        text: '   ?',
-        items: [
-          { text: 'GitHub', link: 'https://github.com/kalisio/kargo' },
-          { text: 'Contributing', link: '/CONTRIBUTING.md' },
-          { text: 'License', link: '/LICENSE.md' }
-        ]
-      }
-    ]
+      { text: 'About', link: '/about/' },
+      { text: 'Guides', link: '/guides/' },
+      { text: 'Reference', link: '/reference/' },
+      { text: 'Tips', link: '/tips/' },
+    ],
+    sidebar: {
+      '/about/': getAboutSidebar(),
+      '/guides/': getGuidesSidebar(),
+      '/reference/': getReferenceSidebar(),
+      '/tips/': getTipsSidebar()
+    }
   }
+}
+
+function getAboutSidebar () {
+  return [
+    '',
+    'roadmap',
+    'license',
+    'contact'
+  ] 
+}
+
+function getGuidesSidebar () {
+  return [
+    ''
+  ]
+}
+
+function getReferenceSidebar () {
+  return [
+    ''
+  ]
+}
+
+function getTipsSidebar () {
+  return [
+    ''
+  ]
 }

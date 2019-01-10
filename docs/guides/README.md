@@ -1,8 +1,4 @@
----
-sidebar: auto
----
-
-# Getting started
+# Guides
 
 Using **kargo** is quite easy and basically the approach to setup your Geospatial infrastructure is the following:
 
@@ -35,11 +31,11 @@ wfr5hwhfd5413p2ql9hwitbkw     worker-1            Ready               Active    
 If you do not have such an infrastructure, you may have a look at [**Kaabah**](https://kalisio.github.io/kaabah/). 
 :::
 
-## Prepare the infrastructure
+# Prepare the infrastructure
 
-### Install the prerequisites
+## Install the prerequisites
 
-#### Install a local Registry
+### Install a local Registry
 
 Some of the services proposed by **Kargo** need to be built before you can deploy it. For this reason, it is necessary to have a local Registry on the Manager node to store the images.
 
@@ -67,7 +63,7 @@ networks:
     external: true
 ```
 
-#### Install SSHFS
+### Install SSHFS
 
 As we will see later, **SSHFS** is used to share the **Kargo** configuration among the nodes. You need to install **SSHFS** on each worker. 
 To install **SSHFS** you may run the following procedure:
@@ -79,7 +75,7 @@ sudo nano /etc/fuse.conf and uncomment the line
 #user_allow_other
 ```
 
-### Install kargo
+## Install kargo
 
 1. Clone the **Kargo** repository
 
@@ -112,7 +108,7 @@ sshfs#ubuntu@<manager_ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.
 $sudo mount -a
 ```
 
-### Provision the data
+## Provision the data
 
 It is up to you to copy your data to the different nodes. You must have to keep in mind that these data will have to be accessible by the services that you want to deploy. 
 
@@ -120,7 +116,7 @@ It is up to you to copy your data to the different nodes. You must have to keep 
 We can provide datasets from different sources such as public catalogs and those of our partners such as [OpenMapTiles](https://openmaptiles.com/), [PlanetObserver](https://www.planetobserver.com/). Do bot hesitate to contact us !
 :::
 
-### Define node labels
+## Define node labels
 
 Once you have copy the datasets to the different nodes, you need to add some labels to the nodes that can be used to specify constraints when deploying the services.
 
@@ -146,9 +142,9 @@ wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
 8980x3d76x1r7kxoa7h5lzob8 [worker-2]: map[mongodb:true postgis:true]
 ```
 
-## Setup the services
+# Setup the services
 
-### Configure the services
+## Configure the services
 
 1. Make a copy of our `.env.sample` and rename it to `.env`
 
@@ -158,7 +154,7 @@ wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
 TODO
 ```
 
-### Build the services
+## Build the services
 
 Some of the services provided By **Kargo** need to be built and pushed to the local registry in order to be able to deploy them. 
 You simply need to run the command:
@@ -167,9 +163,9 @@ You simply need to run the command:
 $./build-kargo.sh
 ```
 
-## Manage the services
+# Manage the services
 
-### Deploy the services
+## Deploy the services
 
 You can either deploy a given stack or deploy all the stacks.
 
@@ -185,7 +181,7 @@ $./deploy-stack.sh <apps|dbs|jobs|weacast>
 $./deploy-kargo.sh
 ```
 
-### Remove the services
+## Remove the services
 
 You can either remove a given stack or remove all the stacks.
 
