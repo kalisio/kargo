@@ -1,6 +1,5 @@
 # Reference
 
-## Configuration
-
-## CLI
-
+* [Configuration reference](./configuration.md)
+* [CLI reference](./cli.md)
+  

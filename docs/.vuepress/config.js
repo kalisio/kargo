@@ -51,7 +51,9 @@ function getGuidesSidebar () {
 
 function getReferenceSidebar () {
   return [
-    ''
+    '',
+    'configuration',
+    'cli'
   ]
 }
 
