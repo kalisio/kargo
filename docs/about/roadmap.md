@@ -8,7 +8,7 @@ The milestones are available on [Github](https://github.com/kalisio/kargo/milest
 
 ## Release Notes
 
-**TOD**
+**TODO**
 
 ## Contributing 
 

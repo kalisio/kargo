@@ -2,7 +2,7 @@
 
 Using **kargo** is quite easy and basically the approach to setup your Geospatial infrastructure is the following:
 
-1. [Prepare your Swarm infrastructure](./prepare-the-insfractructure.md): install **Kargo** with the prerequisites, provision your infrastructure with the data you want to expose, place constraints.
+1. [Prepare your Swarm infrastructure](./prepare-the-infrastructure.md): install **Kargo** with the prerequisites, provision your infrastructure with the data you want to expose, place constraints.
 2. [Setup the services](./setup-the-services.md): configure and build (if necessary) the services you want to deploy
 3. [Manage the services](./manage-the-services.md): deploy, update and stop the services
 
