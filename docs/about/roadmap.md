@@ -1,15 +1,14 @@
 # Roadmap
 
+The roadmap is available on [Github](https://github.com/kalisio/kargo/projects/1).
+
+## Milestones
+
+The milestones are available on [Github](https://github.com/kalisio/kargo/milestones)
+
 ## Release Notes
 
-Release Notes for each modules are available on Github:
-
-* [kCore](https://github.com/kalisio/kCore/blob/master/CHANGELOG.md)
-* [kTeam](https://github.com/kalisio/kTeam/blob/master/CHANGELOG.md)
-* [kNotify](https://github.com/kalisio/kNotify/blob/master/CHANGELOG.md)
-* [kMap](https://github.com/kalisio/kMap/blob/master/CHANGELOG.md)
-* [kBilling](https://github.com/kalisio/kBilling/blob/master/CHANGELOG.md)
-* [kEvent](https://github.com/kalisio/kEvent/blob/master/CHANGELOG.md)
+**TOD**
 
 ## Contributing 
 
@@ -17,7 +16,7 @@ Release Notes for each modules are available on Github:
 
 Before creating an issue please make sure you have checked out the docs, you might want to also try searching Github. It's pretty likely someone has already asked a similar question.
 
-Issues can be reported in the [issue tracker](https://github.com/kalisio/kdk/issues).
+Issues can be reported in the [issue tracker](https://github.com/kalisio/kargo/issues).
 
 ### Pull Requests
 

@@ -1,7 +1,5 @@
 # Reference
 
-# Reference
-
 ## Configuration
 
 ## CLI

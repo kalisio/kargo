@@ -42,7 +42,10 @@ function getAboutSidebar () {
 
 function getGuidesSidebar () {
   return [
-    ''
+    '',
+    'prepare-the-infrastructure',
+    'setup-the-services',
+    'manage-the-services'
   ]
 }
 

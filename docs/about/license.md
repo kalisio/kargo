@@ -1,5 +1,5 @@
 # License
 
-**KDK** is and always will be 100% free and open-source under the MIT license.
+**KARGO** is and always will be 100% free and open-source under the MIT license.
 
 <<< @/docs/../LICENSE.md
