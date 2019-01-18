@@ -16,7 +16,7 @@ footer: MIT Licensed | Copyright © 2018-2019 Kalisio
 <center>
 	<h4>Trusted by</h4>
 	<a href="https://www.airbus.com/"><img src="https://s3.eu-central-1.amazonaws.com/kalisioscope/assets/logos/airbus.png"></a>
-  &nbsp;-&nbsp;
+  &nbsp;&nbsp;
   <a href="https://www.irsn.fr/"><img src="https://s3.eu-central-1.amazonaws.com/kalisioscope/assets/logos/irsn.png"></a>
   <br />
 	<h4>Sponsored by</h4>
