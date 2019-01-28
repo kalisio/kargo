@@ -22,7 +22,7 @@ $docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/kargo-toolbox:late
 
 ## How to post process an MBTiles file ?
 
-The **kargo-toolbox** project comes with the [sqlitepipe](https://github.com/icetan/sqlitepipe) utility can be used such as in the following example:
+The **kargo-toolbox** project comes with the [sqlitepipe](https://github.com/icetan/sqlitepipe) utility that can be used for this purpose. The following example shows how to use **sqlitepipe** and [ImageMagick](https://www.imagemagick.org/) to make white pixels transparent on all of the tiles stored within the MBTiles file.
 
 ```bash
 sqlite3 my-mbtiles.mbtiles
@@ -30,8 +30,6 @@ UPDATE tiles SET tile_data=pipe(tile_data, '/usr/bin/convert', '-transparent', '
 VACUUM tiles;
 .quit
 ```
-
-This script will apply the **ImageMagick** `convert` utility on all of the tile images stored within the MBTiles file.
 
 ::: tip
 Note that **kargo-toolbox** provides the **ImageMagick** tool
