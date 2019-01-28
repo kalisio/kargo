@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "name": "BD Ortho 5m - Guadeloupe",
+  "zoom": 11.6,
+  "bearing": 0,
+  "pitch": 0,
+  "metadata": {
+  },
+  "sources": {
+    "bdortho-5m-guadeloupe": {
+      "type": "raster",
+      "url": "mbtiles://{bdortho-5m-guadeloupe}",
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "rgb(4,7,14)"
+      }
+    },
+    {
+      "id": "bdortho-5m-guadeloupe",
+      "type": "raster",
+      "source": "bdortho-5m-guadeloupe"
+    }
+  ]
+}

@@ -52,6 +52,9 @@
     },
     "bdortho-5m" : {
       "mbtiles": "bdortho-5m.mbtiles"
+    },
+    "bdortho-5m-guadeloupe" : {
+      "mbtiles": "bdortho-5m-guadeloupe.mbtiles"
     }
   }
 }
