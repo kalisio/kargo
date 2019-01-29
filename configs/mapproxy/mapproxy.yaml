@@ -58,11 +58,11 @@ layers:
     sources: [satellite_cache]
 
   - name: s2
-    title: ESA S2
+    title: Sentinel-2 cloudless (ESA)
     sources: [s2_cache]
 
   - name: bdortho-5m
-    title: IGN BDORTHO (5m)
+    title: BDORTHO 5m (IGN)
     sources: [bdortho-5m_cache]
 
   - name: mosaik
@@ -166,8 +166,9 @@ caches:
     grids: [GLOBAL_WEBMERCATOR]
     sources: [bdortho-5m_source]
     cache:
-      type: mbtiles
-      filename: /mnt/cache/bdortho-5m.mbtiles
+      type: s3
+      bucket_name: kargo
+      directory: cache/bdortho-5m
 
   s2_cache:
     grids: [GLOBAL_WEBMERCATOR]
