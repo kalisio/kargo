@@ -1,27 +1,33 @@
 {
   "version": 8,
-  "name": "BD Ortho (5m)",
-  "center": [
-    1.43,
-    46.3
-  ],
+  "name": "BD Ortho 5m (IGN)",
   "zoom": 11.6,
   "bearing": 0,
   "pitch": 0,
   "metadata": {
   },
   "sources": {
-    "bdortho-5m": {
+    "bdortho-5m-metropole": {
       "type": "raster",
-      "url": "mbtiles://{bdortho-5m}",
+      "url": "mbtiles://{bdortho-5m-metropole}",
+      "tileSize": 256
+    },
+    "bdortho-5m-guadeloupe": {
+      "type": "raster",
+      "url": "mbtiles://{bdortho-5m-guadeloupe}",
       "tileSize": 256
     }
   },
   "layers": [
     {
-      "id": "bdortho-5m",
+      "id": "bdortho-5m-metropole",
       "type": "raster",
-      "source": "bdortho-5m"
+      "source": "bdortho-5m-metropole"
+    },
+    {
+      "id": "bdortho-5m-guadeloupe",
+      "type": "raster",
+      "source": "bdortho-5m-guadeloupe"
     }
   ]
 }

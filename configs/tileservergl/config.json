@@ -50,8 +50,8 @@
     "satellite" : {
       "mbtiles": "satellite.mbtiles"
     },
-    "bdortho-5m" : {
-      "mbtiles": "bdortho-5m.mbtiles"
+    "bdortho-5m-metropole" : {
+      "mbtiles": "bdortho-5m-metropole.mbtiles"
     },
     "bdortho-5m-guadeloupe" : {
       "mbtiles": "bdortho-5m-guadeloupe.mbtiles"
