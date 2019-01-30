@@ -35,7 +35,7 @@ VACUUM tiles;
 Note that **kargo-toolbox** provides the **ImageMagick** tool
 :::
 
-# How to OpenStreetMap data ?
+## How to generate OpenStreetMap data ?
 
 The generation is based on the [OpenMapTiles](https://github.com/openmaptiles/openmaptiles) project toolbox.
 
