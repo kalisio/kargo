@@ -123,9 +123,9 @@ $make
 ```
 
 Here is a list of interesting documentation:
-* [kloklantech thesis](./Updatable%20Vector%20Tiles%20from%20OpenStreetMap.pdf) detailing the whole toolchain
-* [tutorial video](http://fuzzytolerance.info/blog/2017/04/25/Generating-your-own-OpenMapTiles/)
-* [mapbox presentation](https://www.youtube.com/watch?v=D7mmXonFIqA&feature=youtu.be)
+* [Kloklantech thesis](../assets/Updatable%20Vector%20Tiles%20from%20OpenStreetMap.pdf) detailing the whole toolchain
+* [Tutorial video](http://fuzzytolerance.info/blog/2017/04/25/Generating-your-own-OpenMapTiles/)
+* [Mapbox presentation](https://www.youtube.com/watch?v=D7mmXonFIqA&feature=youtu.be)
 
 
 ## How to execute a long process from your SSH session ?
