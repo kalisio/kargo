@@ -123,7 +123,7 @@ $make
 ```
 
 Here is a list of interesting documentation:
-* [Kloklantech thesis](../assets/Updatable%20Vector%20Tiles%20from%20OpenStreetMap.pdf) detailing the whole toolchain
+* [Kloklantech thesis](https://eprints.hsr.ch/536/1/thesis_updatable_vector_tiles_from_openstreetmap.pdf) detailing the whole toolchain
 * [Tutorial video](http://fuzzytolerance.info/blog/2017/04/25/Generating-your-own-OpenMapTiles/)
 * [Mapbox presentation](https://www.youtube.com/watch?v=D7mmXonFIqA&feature=youtu.be)
 
