@@ -1,4 +1,4 @@
-# About
+# Introduction
 
 **Kargo** offers the capabilities to let you design, build and operate a geospatial infrastructure on server cluster. 
 Rather than imposing an architecture, **Kargo** allows you to design the infrastructure that fits your needs and gives you all the necessary tools to implement it. 

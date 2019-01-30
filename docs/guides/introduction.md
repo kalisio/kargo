@@ -1,4 +1,4 @@
-# Guides
+# Introduction
 
 Using **kargo** is quite easy and basically the approach to setup your Geospatial infrastructure is the following:
 

@@ -17,9 +17,9 @@ module.exports = {
       }
     },
     nav: [
-      { text: 'About', link: '/about/' },
-      { text: 'Guides', link: '/guides/' },
-      { text: 'Reference', link: '/reference/' },
+      { text: 'About', link: '/about/introduction' },
+      { text: 'Guides', link: '/guides/introduction' },
+      { text: 'Reference', link: '/reference/configuration' },
       { text: 'Tips', link: '/tips/' },
     ],
     sidebar: {
@@ -33,7 +33,7 @@ module.exports = {
 
 function getAboutSidebar () {
   return [
-    '',
+    'introduction',
     'roadmap',
     'license',
     'contact'
@@ -42,7 +42,7 @@ function getAboutSidebar () {
 
 function getGuidesSidebar () {
   return [
-    '',
+    'introduction',
     'prepare-the-infrastructure',
     'setup-the-services',
     'manage-the-services'

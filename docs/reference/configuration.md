@@ -1,6 +1,6 @@
 # Configuration
 
-## Global
+## Kargo
 
 | Variable | Description |
 | --- | --- |
