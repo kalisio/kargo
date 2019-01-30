@@ -25,7 +25,7 @@ module.exports = {
     sidebar: {
       '/about/': getAboutSidebar(),
       '/guides/': getGuidesSidebar(),
-      '/reference/configuration': getReferenceSidebar(),
+      '/reference/': getReferenceSidebar(),
       '/tips/': getTipsSidebar()
     }
   }
