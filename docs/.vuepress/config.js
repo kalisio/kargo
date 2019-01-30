@@ -25,7 +25,7 @@ module.exports = {
     sidebar: {
       '/about/': getAboutSidebar(),
       '/guides/': getGuidesSidebar(),
-      '/reference/': getReferenceSidebar(),
+      '/reference/configuration': getReferenceSidebar(),
       '/tips/': getTipsSidebar()
     }
   }
@@ -51,7 +51,6 @@ function getGuidesSidebar () {
 
 function getReferenceSidebar () {
   return [
-    '',
     'configuration',
     'cli'
   ]
