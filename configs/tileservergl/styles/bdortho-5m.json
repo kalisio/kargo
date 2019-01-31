@@ -22,12 +22,14 @@
     {
       "id": "bdortho-5m-metropole",
       "type": "raster",
-      "source": "bdortho-5m-metropole"
+      "source": "bdortho-5m-metropole",
+      "minzoom": 9
     },
     {
       "id": "bdortho-5m-guadeloupe",
       "type": "raster",
-      "source": "bdortho-5m-guadeloupe"
+      "source": "bdortho-5m-guadeloupe",
+      "minzoom": 9
     }
   ]
 }
