@@ -18,8 +18,8 @@ module.exports = {
     },
     nav: [
       { text: 'About', link: '/about/introduction' },
-      { text: 'Guides', link: '/guides/introduction' },
-      { text: 'Reference', link: '/reference/configuration' },
+      { text: 'Guides', link: '/guides/understanding-kargo' },
+      { text: 'Reference', link: '/reference/environment' },
       { text: 'Tips', link: '/tips/' },
     ],
     sidebar: {
@@ -42,16 +42,15 @@ function getAboutSidebar () {
 
 function getGuidesSidebar () {
   return [
-    'introduction',
-    'prepare-the-infrastructure',
-    'setup-the-services',
-    'manage-the-services'
+    'understanding-kargo',
+    'getting-started',
+    'advanced-usage'
   ]
 }
 
 function getReferenceSidebar () {
   return [
-    'configuration',
+    'environment',
     'cli'
   ]
 }

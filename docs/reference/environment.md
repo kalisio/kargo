@@ -1,6 +1,6 @@
-# Configuration
+# Environment
 
-## Kargo
+## Kargo configuration
 
 | Variable | Description |
 | --- | --- |
@@ -21,7 +21,9 @@
 For each stack, there must be such an entry:
 | `<name of the stack>_STACK` | The list of service to be deployed for each stack. |
 
-## GeoServer
+## Services configuration
+
+### GeoServer
 
 | Variable | Description |
 | --- | --- |
@@ -35,7 +37,7 @@ For each stack, there must be such an entry:
 The **GeoServer** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
 :::
 
-## MapProxy
+### MapProxy
 
 | Variable | Description |
 | --- | --- |
