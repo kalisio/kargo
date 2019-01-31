@@ -94,7 +94,7 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). Default value is `4G`. |
 | `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). Default value is `4G`. |
 
-## TileserverGL
+## TileServer GL
 
 | Variable | Description |
 | --- | --- |
@@ -137,7 +137,7 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. Default value is `$WEACAST_LOADERS_TAG` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. Default value is `localhost:5000/arpege-europe-loader` |
 | `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. Default value is `$WEACAST_LOADERS_TAG` |
-| `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome Frane data. Default value is `localhost:5000/arome-france-loader` |
+| `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. Default value is `localhost:5000/arome-france-loader` |
 | `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. Default value is `$WEACAST_LOADERS_TAG` |
 | `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. Default value is `localhost:5000/gfs-world-loader` |
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. Default value is `$WEACAST_LOADERS_TAG` |

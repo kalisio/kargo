@@ -59,8 +59,8 @@ Because some data (eg PG data) are generated in docker volumes it is necessary t
 
 Rendering the whole planet is a [tricky thing](https://github.com/openmaptiles/openmaptiles/issues/242), so for now we prefer to:
 * contribute with a Pull Request to the community maintained open-source official vector tile schema so that the changes will be part of the future public OpenMapTiles releases and maintained
-* render only the features needed into a separate MBTiles files with new layers - and combine the standard planet with the extra layers - this is doable easily with JSON GL style and software stack powered by mapnik or tippecanoe.
-* the extra layers can be also generated on demand directly from PostGIS by a third party tileservers and combined into a single map with TileServer GL - and served via composed vector tiles or raster tiles
+* render only the features needed into a separate MBTiles files with new layers - and combine the standard planet with the extra layers - this is doable easily with JSON GL style and software stack powered by [mapnik](https://mapnik.org/) or [tippecanoe](https://github.com/mapbox/tippecanoe).
+* the extra layers can be also generated on demand directly from PostGIS by a third party tile servers and combined into a single map with TileServer GL - and served via composed vector tiles or raster tiles
   * [GeoServer](http://geoserver.org/) as vector/raster tiles
   * [Tegola](https://github.com/terranodo/tegola) directly as MVT
   * [T-Rex](https://github.com/t-rex-tileserver/t-rex) directly as MVT
@@ -107,7 +107,7 @@ $./quickstart.sh planet > logs 2>&1 &
 $docker run -it --rm -v /mnt/data/openmaptiles/data:/data -p 80:80 klokantech/tileserver-gl
 ```
 
-Using a Scaleway C2L configuration (€23.99/mo, €0.048/hour, 8 Dedicated X86 64bit Cores, 32GB memory, 250GB Direct SSD, 800Mbit/s Unmetered) processing the `aeroway` layer on the planet takes ~ 16 000 s and 120 GB.
+Using a Scaleway C2L configuration (€23.99/month, €0.048/hour, 8 Dedicated X86 64bit Cores, 32GB memory, 250GB Direct SSD, 800Mbit/s Unmetered) processing the `aeroway` layer on the planet takes ~ 16 000 s and 120 GB.
 
 ::: tip
 Launching the script against the same data set again does not seem to correctly update the generation configuration. 
