@@ -18,9 +18,9 @@ Then, the directory structure will look like:
 |   |_ <service-1>-<label>.yml   the yml extension you want to apply when deployin the service-1
 |_ configs
 |   |_ <service-1>
-|   |    |_ ....         the files of the service-1 you need to overwrite 
+|   |    |_ ....         the settings files of the service-1 you need to overwrite 
 |   |_ <service-2>
-|        |_ ....         the files of the service-2 you need to overwrite 
+|        |_ ....         the settings files of the service-2 you need to overwrite 
 ```
 
 When extending the deployment method of a service, you must tell **Kargo** which file to add when deploying the service. 
@@ -31,5 +31,5 @@ For each service, you need to declare a variable in the `.env` file which tell t
 ```
 
 ::: warning
-Do not forget to make the **Kargo** merged workspace using the [make-kargo](../reference/cli.md#make-kargo) command.
+Before deploying, do not forget to make the **merged workspace** using the [make-kargo](../reference/cli.md#make-kargo) command.
 :::
