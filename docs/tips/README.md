@@ -31,9 +31,20 @@ VACUUM tiles;
 .quit
 ```
 
+::: warning
+According the size of the MBTiles to process you may encounter such an error: `Error: database or disk is full` 
+You should tell **sqlite** to use a free disk space to work with the temp files:
+```bash
+sqlite> pragma temp_store = 1;
+sqlite> pragma temp_store_directory = '/directory/with/lots/of/space';
+```
+:::
+
 ::: tip
 Note that **kargo-toolbox** provides the **ImageMagick** tool
 :::
+
+
 
 ## How to generate OpenStreetMap data ?
 
