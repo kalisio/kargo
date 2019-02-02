@@ -57,7 +57,7 @@
       "mbtiles": "bdortho-5m-guadeloupe.mbtiles"
     },
     "bdortho-5m-reunion" : {
-      "mbtiles": "bdortho-5m-reunion.mbtiles"
+      "mbtiles": "bdortho-5m-martinique.mbtiles"
     }
   }
 }
