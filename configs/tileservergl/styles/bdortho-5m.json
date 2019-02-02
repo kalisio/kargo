@@ -17,9 +17,9 @@
       "url": "mbtiles://{bdortho-5m-guadeloupe}",
       "tileSize": 256
     },
-    "bdortho-5m-reunion": {
+    "bdortho-5m-martinique": {
       "type": "raster",
-      "url": "mbtiles://{bdortho-5m-reunion}",
+      "url": "mbtiles://{bdortho-5m-martinique}",
       "tileSize": 256
     }
   },
@@ -37,9 +37,9 @@
       "minzoom": 9
     },
     {
-      "id": "bdortho-5m-reunion",
+      "id": "bdortho-5m-martinique",
       "type": "raster",
-      "source": "bdortho-5m-reunion",
+      "source": "bdortho-5m-martinique",
       "minzoom": 9
     }
   ]
