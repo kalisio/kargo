@@ -16,6 +16,11 @@
       "type": "raster",
       "url": "mbtiles://{bdortho-5m-guadeloupe}",
       "tileSize": 256
+    },
+    "bdortho-5m-reunion": {
+      "type": "raster",
+      "url": "mbtiles://{bdortho-5m-reunion}",
+      "tileSize": 256
     }
   },
   "layers": [
@@ -29,6 +34,12 @@
       "id": "bdortho-5m-guadeloupe",
       "type": "raster",
       "source": "bdortho-5m-guadeloupe",
+      "minzoom": 9
+    },
+    {
+      "id": "bdortho-5m-reunion",
+      "type": "raster",
+      "source": "bdortho-5m-reunion",
       "minzoom": 9
     }
   ]

@@ -44,8 +44,6 @@ sqlite> pragma temp_store_directory = '/directory/with/lots/of/space';
 Note that **kargo-toolbox** provides the **ImageMagick** tool
 :::
 
-
-
 ## How to generate OpenStreetMap data ?
 
 The generation is based on the [OpenMapTiles](https://github.com/openmaptiles/openmaptiles) project toolbox.
