@@ -7,9 +7,9 @@
   "metadata": {
   },
   "sources": {
-    "bdortho-5m-metropole": {
+    "bdortho-5m-corse": {
       "type": "raster",
-      "url": "mbtiles://{bdortho-5m-metropole}",
+      "url": "mbtiles://{bdortho-5m-corse}",
       "tileSize": 256
     },
     "bdortho-5m-guadeloupe": {
@@ -21,13 +21,18 @@
       "type": "raster",
       "url": "mbtiles://{bdortho-5m-martinique}",
       "tileSize": 256
+    },
+    "bdortho-5m-reunion": {
+      "type": "raster",
+      "url": "mbtiles://{bdortho-5m-reunion}",
+      "tileSize": 256
     }
   },
   "layers": [
     {
-      "id": "bdortho-5m-metropole",
+      "id": "bdortho-5m-corse",
       "type": "raster",
-      "source": "bdortho-5m-metropole",
+      "source": "bdortho-5m-corse",
       "minzoom": 9
     },
     {
@@ -40,6 +45,12 @@
       "id": "bdortho-5m-martinique",
       "type": "raster",
       "source": "bdortho-5m-martinique",
+      "minzoom": 9
+    },
+    {
+      "id": "bdortho-5m-reunion",
+      "type": "raster",
+      "source": "bdortho-5m-reunion",
       "minzoom": 9
     }
   ]
