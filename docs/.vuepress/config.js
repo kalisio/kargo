@@ -21,6 +21,7 @@ module.exports = {
       { text: 'Guides', link: '/guides/understanding-kargo' },
       { text: 'Reference', link: '/reference/environment' },
       { text: 'Tips', link: '/tips/using-kargo-toolbox' },
+      { text: 'GitHub', link: 'https://github.com/kalisio/kargo' }
     ],
     sidebar: {
       '/about/': getAboutSidebar(),
