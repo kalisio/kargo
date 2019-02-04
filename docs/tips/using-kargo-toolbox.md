@@ -1,11 +1,11 @@
-# kargo-toolbox
+# Using the Kargo toolbox
 
 The [kargo-toolbox](https://github.com/kalisio/kargo-toolbox) is a docker image shipping a set of tools to help processing geospatial data. Precisely it comes with:
 * [GDAL](https://www.gdal.org/index.html)
 * [ImageMagick](https://www.imagemagick.org/)
 * [sqlitepipe](https://github.com/icetan/sqlitepipe)
 
-## How to use it ?
+## Basic usage
 
 Simply run the following command on a given worker node:
 
@@ -28,10 +28,10 @@ $docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/kargo-toolbox:late
 The **kargo-toolbox** project comes with the [sqlitepipe](https://github.com/icetan/sqlitepipe) utility that can be used for this purpose. The following example shows how to use **sqlitepipe** and [ImageMagick](https://www.imagemagick.org/) to make white pixels transparent on all of the tiles stored within the MBTiles file.
 
 ```bash
-sqlite3 my-mbtiles.mbtiles
-UPDATE tiles SET tile_data=pipe(tile_data, '/usr/bin/convert', '-transparent', 'white', 'png:-', 'png:-');
-VACUUM tiles;
-.quit
+$sqlite3 my-mbtiles.mbtiles
+sqlite>UPDATE tiles SET tile_data=pipe(tile_data, '/usr/bin/convert', '-transparent', 'white', 'png:-', 'png:-');
+sqlite>VACUUM tiles;
+sqlite>.quit
 ```
 
 ::: warning

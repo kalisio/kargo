@@ -8,4 +8,5 @@ The milestones are available on [Github](https://github.com/kalisio/kargo/milest
 
 ## Release Notes
 
-<<< @/docs/../CHANGELOG.md
+The changelog is available in [Github](https://github.com/kalisio/kargo/blob/master/CHANGELOG.md)
+

@@ -2,22 +2,10 @@
 
 Using **kargo** is quite easy and basically the approach to setup your Geospatial platform is the following:
 
-- [Getting Started](#getting-started)
-  - [Prepare the infrastructure](#prepare-the-infrastructure)
-    - [Install the prerequisites](#install-the-prerequisites)
-      - [Install a local Registry](#install-a-local-registry)
-      - [Install SSHFS](#install-sshfs)
-    - [Install kargo](#install-kargo)
-    - [Provision the data](#provision-the-data)
-    - [Define node constraints](#define-node-constraints)
-  - [Setup the services](#setup-the-services)
-    - [Setup your workspace](#setup-your-workspace)
-    - [Generate the merged configuration](#generate-the-merged-configuration)
-    - [Build the services](#build-the-services)
-  - [Manage the services](#manage-the-services)
-    - [Deploy the services](#deploy-the-services)
-    - [Remove the services](#remove-the-services)
-
+* [Prepare the infrastructure](#prepare-the-infrastructure)
+* [Setup the services](#setup-the-services)
+* [Manage the services](#manage-the-services)
+ 
 In the following guides, we will explain how to deploy a complete set of services on a given infrastructure such as illustrated in this diagram:
 
 ![kargo-example-assumptions](../assets/kargo-example-assumptions.svg)
