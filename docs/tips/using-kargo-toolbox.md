@@ -1,11 +1,11 @@
-# kargo-toolbox
+# Using the Kargo toolbox
 
 The [kargo-toolbox](https://github.com/kalisio/kargo-toolbox) is a docker image shipping a set of tools to help processing geospatial data. Precisely it comes with:
 * [GDAL](https://www.gdal.org/index.html)
 * [ImageMagick](https://www.imagemagick.org/)
 * [sqlitepipe](https://github.com/icetan/sqlitepipe)
 
-## How to use it ?
+## Basic usage
 
 Simply run the following command on a given worker node:
 
