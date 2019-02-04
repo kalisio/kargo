@@ -10,7 +10,7 @@ The full documentation is available [here](https://kalisio.github.io/kargo/)
 
 ## Contributing
 
-Want to contribute ? check out our [contribution guidelines](./docs/CONTRIBUTING.md) for details
+Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/contributing.html) for details
 
 ## Versioning
 

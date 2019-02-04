@@ -20,7 +20,7 @@ module.exports = {
       { text: 'About', link: '/about/introduction' },
       { text: 'Guides', link: '/guides/understanding-kargo' },
       { text: 'Reference', link: '/reference/environment' },
-      { text: 'Tips', link: '/tips/' },
+      { text: 'Tips', link: '/tips/using-kargo-toolbox' },
     ],
     sidebar: {
       '/about/': getAboutSidebar(),
@@ -57,6 +57,8 @@ function getReferenceSidebar () {
 
 function getTipsSidebar () {
   return [
-    ''
+    'using-kargo-toolbox',
+    'handling-long-running-process',
+    'extracting-osm-data'
   ]
 }

@@ -1,50 +1,4 @@
-# Tips
-
-## How to use GDAL Utilities ?
-
-To be able to use [GDAL Utilities ](http://www.gdal.org/gdal_utilities.html), we recommend to run a GDAL container and mount the data partition:
-
-```bash
-$docker run  -v /mnt/data:/data -t -i kalisio/kargo-toolbox:latest /bin/bash
-```
-
-You are now able to use GDAL:
-
-```bash
-$gdalinfo <path_to_the_file>
-```
-
-If you need to access another container you will need to run the GDAL container within the same network. For instance, the following command will allow you to link the GDAL container to an existing `Postgis` container in the network `kargo`.
-
-```bash
-$docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/kargo-toolbox:latest /bin/bash
-```
-
-## How to post process an MBTiles file ?
-
-The **kargo-toolbox** project comes with the [sqlitepipe](https://github.com/icetan/sqlitepipe) utility that can be used for this purpose. The following example shows how to use **sqlitepipe** and [ImageMagick](https://www.imagemagick.org/) to make white pixels transparent on all of the tiles stored within the MBTiles file.
-
-```bash
-sqlite3 my-mbtiles.mbtiles
-UPDATE tiles SET tile_data=pipe(tile_data, '/usr/bin/convert', '-transparent', 'white', 'png:-', 'png:-');
-VACUUM tiles;
-.quit
-```
-
-::: warning
-According the size of the MBTiles to process you may encounter such an error: `Error: database or disk is full` 
-You should tell **sqlite** to use a free disk space to work with the temp files:
-```bash
-sqlite> pragma temp_store = 1;
-sqlite> pragma temp_store_directory = '/directory/with/lots/of/space';
-```
-:::
-
-::: tip
-Note that **kargo-toolbox** provides the **ImageMagick** tool
-:::
-
-## How to generate OpenStreetMap data ?
+# Extracting OpenStreetMap data ?
 
 The generation is based on the [OpenMapTiles](https://github.com/openmaptiles/openmaptiles) project toolbox.
 
@@ -74,6 +28,8 @@ Rendering the whole planet is a [tricky thing](https://github.com/openmaptiles/o
   * [Tegola](https://github.com/terranodo/tegola) directly as MVT
   * [T-Rex](https://github.com/t-rex-tileserver/t-rex) directly as MVT
 
+## Small extracts
+
 For small extractions it's possible to use the [OverPass API](http://overpass-turbo.eu/), eg to extract taxiways/runways in a zone:
 
 ```
@@ -95,6 +51,10 @@ out body;
 out skel qt;
 ```
 
+::: tip
+Our [Krawler](https://kalisio.github.io/krawler/) solution provides an efficient way to perform an Overpass query and get the result as a GeoJSON collection.
+:::
+
 We also use the [quickstart script](https://github.com/openmaptiles/openmaptiles/blob/master/QUICKSTART.md) to generate data (the link contains useful information about required architecture/sizing):
 
 ```bash
@@ -103,6 +63,8 @@ $cd openmaptiles
 $make
 $./quickstart.sh france > logs 2>&1 & // could be country, region, etc. but not planet
 ```
+
+## Global extracts
 
 For a layer covering the planet first download the [whole planet](https://planet.openstreetmap.org/pbf/) in the *data* directory and launch the process:
 
@@ -131,22 +93,9 @@ $rm -fr data build
 $make
 ```
 
+## Useful links
+
 Here is a list of interesting documentation:
 * [Kloklantech thesis](https://eprints.hsr.ch/536/1/thesis_updatable_vector_tiles_from_openstreetmap.pdf) detailing the whole toolchain
 * [Tutorial video](http://fuzzytolerance.info/blog/2017/04/25/Generating-your-own-OpenMapTiles/)
 * [Mapbox presentation](https://www.youtube.com/watch?v=D7mmXonFIqA&feature=youtu.be)
-
-
-## How to execute a long process from your SSH session ?
-
-When running a process that last a long time, your SSH connection can be shut down causing the process to stop. To avoid this problem, one solution is to use [screen](https://en.wikipedia.org/wiki/GNU_Screen). 
-
-Here are the basics to know:
-1. Create a screen: `sreen -S my-session`
-2. Launch your process: `execute my long process`
-3. Leave your screen: `[ctrl]+[a]` then `[d]`
-4. List the screens: `screen -ls`
-5. Going back to your screen: `screen -r my-session`
-
-Check the [doc](https://www.gnu.org/software/screen/manual/screen.html) to learn more.
-
