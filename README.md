@@ -1,6 +1,6 @@
 [![Kargo](https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-logo-black-512x168.png)](https://kalisio.github.io/kargo/)
 
-_A Docker based solution to deploy Geospatial Services_
+_A Docker based solution to build and operate Geospatial Platforms_
 
 ## Documentation
 
@@ -10,7 +10,7 @@ The full documentation is available [here](https://kalisio.github.io/kargo/)
 
 ## Contributing
 
-Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/contributing.html) for details
+Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kargo/about/contributing.html) for details
 
 ## Versioning
 
