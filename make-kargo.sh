@@ -19,9 +19,14 @@ if [ -d .kargo ]; then
 fi
 mkdir .kargo
 
+cp -R build .kargo/build
 cp -R deploy .kargo/deploy
 cp -R configs .kargo/configs
 cp "$WORKSPACE"/.env .kargo/.
+
+if [ -d "$WORKSPACE"/build ]; then
+  cp -R "$WORKSPACE"/build .kargo/.
+fi
 
 if [ -d "$WORKSPACE"/deploy ]; then
   cp -R "$WORKSPACE"/deploy .kargo/.
@@ -30,6 +35,7 @@ fi
 if [ -d "$WORKSPACE"/configs ]; then
   cp -R "$WORKSPACE"/configs .kargo/.
 fi
+
 
 
 
