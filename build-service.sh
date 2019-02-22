@@ -7,6 +7,6 @@ cd ..
 
 echo Building $1
 
-cd build
+cd .kargo/build
 source ./$1.sh
 cd ..
