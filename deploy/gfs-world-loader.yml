@@ -4,7 +4,7 @@ services:
   gfs-world-loader:
     image: ${GFS_WORLD_LOADER_IMAGE}:${GFS_WORLD_LOADER_TAG}
     environment:
-      - DB_URL=${WEACAST_DB_URL}
+      - DB_URL=${WEACAST_LOADERS_DB_URL}
     networks:
       - kargo-network
     deploy:

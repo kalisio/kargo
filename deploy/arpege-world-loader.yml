@@ -4,7 +4,7 @@ services:
   arpege-world-loader:
     image: ${ARPEGE_WORLD_LOADER_IMAGE}:${ARPEGE_WORLD_LOADER_TAG}
     environment:
-      - DB_URL=${WEACAST_DB_URL}
+      - DB_URL=${WEACAST_LOADERS_DB_URL}
     networks:
       - kargo-network
     deploy:
