@@ -23,6 +23,18 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
+### Kano
+
+| Variable | Description |
+| --- | --- |
+| `KANO_IMAGE` | The image to be used. Default value is `kalisio/kano` |
+| `KANO_TAG` | The version to be used. Default value is `latest` |
+| `KANO_APP_SECRET` | The app secret used to authenticate a client. The default value is `$SECRET` |
+| `KANO_DB_URL` | The database URL where to write the data. Default value is `$DB_URL` |
+| `KANO_LOG_LEVEL` | The log level of the application. Default value is `verbose` |
+| `KANO_DEBUG` | Enable the debug mode. Default value is `` |
+| `KANO_REPLICAS` | The number of replicas. Default value is `1` |
+
 ### GeoServer
 
 | Variable | Description |
@@ -51,12 +63,20 @@ The **GeoServer** service is preconfigured to use a local image that must be bui
 The **MapProxy** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
 :::
 
-## Mongo DB
+## MongoDB
 
 | Variable | Description |
 | --- | --- |
 | `MONGO_IMAGE` | The image to be used. Default value is `mongo` |
 | `MONGO_TAG` | The version to be used. Default value is `3.6.5` |
+
+## OpenAQ
+
+| Variable | Description |
+| --- | --- |
+| `OPENAQ_IMAGE` | The image to be used. Default value is `kalisio/k-openaq` |
+| `OPENAQ_TAG` | The version to be used. Default value is `latest` |
+| `OPENAQ_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
 
 ## PostGis
 
@@ -128,11 +148,11 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 
 ## Weacast-loaders
 
-
 | Variable | Description |
 | --- | --- |
 | `WEACAST_MODELS` | The list of models to be downloaded. Default value is `"arpege-world arpege-europe arome-france gfs-world"` |
 | `WEACAST_LOADERS_TAG` | A default tag value.  Default value is `latest` |
+| `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. Default value is `localhost:5000/arpege-world-loader` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. Default value is `$WEACAST_LOADERS_TAG` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. Default value is `localhost:5000/arpege-europe-loader` |
