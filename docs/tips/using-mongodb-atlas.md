@@ -18,7 +18,7 @@ In your `.env` file:
 
 ```bash
 MONGO_ATLAS_URL_V2="mongodb://<user>:<password>@<cluster-name>-shard-00-00-<cluster-path>.mongodb.net:27017,<cluster-name>-shard-00-01-<cluster-path>.mongodb.net:27017,<cluster-name>-shard-00-02-<cluster-path>.mongodb.net:27017/kargo?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true"
-MONGO_ATLAS_URL_V3="mongodb+srv://<user>:<password>@<cluster-name>-<cluster-path>.mongodb.net/kargo&retryWrites=true"
+MONGO_ATLAS_URL_V3="mongodb+srv://<user>:<password>@<cluster-name>-<cluster-path>.mongodb.net/kargo?retryWrites=true"
 ```
 
 ::: tip
