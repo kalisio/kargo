@@ -8,15 +8,21 @@ ENV MAPPROXY_PROCESSES 4
 ENV MAPPROXY_THREADS 2
 
 RUN set -x \
-  && apk add --no-cache --virtual .build-deps \
-    build-base linux-headers curl \
-    zlib-dev jpeg-dev \
+  && apk add --no-cache --virtual .build-deps build-base linux-headers curl zlib-dev jpeg-dev \
   && apk add --no-cache \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     gdal-dev proj4-dev geos-dev \
   && adduser -h /mapproxy -s /bin/sh -D mapproxy \
-  && pip install Shapely Pillow requests geojson uwsgi pyproj boto3 MapProxy==$MAPPROXY_VERSION \
+  && pip install \
+     Shapely==1.6.4 \
+     Pillow==5.4.1 \
+     requests==2.21.0 \
+     geojson==2.4.1 \
+     uwsgi==2.0.18 \
+     pyproj==1.9.6 \
+     boto3==1.9.124 \
+     MapProxy==$MAPPROXY_VERSION \
   && apk del build-base \
   && rm -Rf /root/* /root/.cache \
   && mkdir -p /docker-entrypoint-initmapproxy.d
