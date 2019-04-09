@@ -4,6 +4,9 @@ FROM  kalisio/kano:${TAG}
 COPY src.tgz .
 RUN tar xvf src.tgz
 
+COPY config.tgz .
+RUN tar xvf config.tgz
+
 WORKDIR /opt/kano
 RUN npm run build
 
