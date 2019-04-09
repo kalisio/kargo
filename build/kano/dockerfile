@@ -1,0 +1,5 @@
+ARG TAG=latest
+FROM  kalisio/kano:${TAG}
+
+COPY . /
+
