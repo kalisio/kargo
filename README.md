@@ -1,4 +1,4 @@
-[![Kargo](https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-logo-black-512x168.png)](https://kalisio.github.io/kargo/)
+[![Kargo](](https://kalisio.github.io/kargo/)
 
 _A Docker based solution to build and operate Geospatial Platforms_
 
