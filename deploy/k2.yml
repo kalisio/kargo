@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  k2:
+    image: ${K2_IMAGE}:${K2_TAG}
+    volumes:
+      - ${K2_DATA_PATH}:/mbtiles
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=k2"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:k2.${SUBDOMAIN}"
+        - "traefik.port=8080"
+      replicas: ${K2_REPLICAS}
+      placement:
+        constraints:
+         - node.role == worker
+         - node.labels.k2 == true
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          
