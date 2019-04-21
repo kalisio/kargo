@@ -5,6 +5,12 @@ services:
     image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
       - SUBDOMAIN=${SUBDOMAIN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 3m      
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"

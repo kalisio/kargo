@@ -5,6 +5,12 @@ services:
     image: ${K2_IMAGE}:${K2_TAG}
     volumes:
       - ${K2_DATA_PATH}:/mbtiles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/layer.json"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"

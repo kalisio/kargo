@@ -6,6 +6,12 @@ services:
     volumes:
       - ./../configs/geoserver:/opt/geoserver/data_dir    
       - ${GEOSERVER_DATA_PATH}:/mnt/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 2m      
     deploy:
       labels:
         - "traefik.backend=geoserver"

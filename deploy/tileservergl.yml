@@ -9,6 +9,12 @@ services:
     configs:
       - source: tileservergl_conf
         target: /data/config.json
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       labels:
         - "traefik.backend=tileservergl"

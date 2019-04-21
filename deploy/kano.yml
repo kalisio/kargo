@@ -10,6 +10,12 @@ services:
       - APP_SECRET=${KANO_APP_SECRET}
       - CESIUM_TOKEN=${KANO_CESIUM_TOKEN}
       - SUBDOMAIN=${SUBDOMAIN}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/capabilities"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 5m      
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"

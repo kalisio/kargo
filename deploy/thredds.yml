@@ -10,6 +10,12 @@ services:
       - ./../configs/thredds:/usr/local/tomcat/content/thredds
       - ${THREDDS_DATA_PATH}:/usr/local/tomcat/content/thredds/public
       - ${THREDDS_CACHE_PATH}:/usr/local/tomcat/content/thredds/cache
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/thredds/catalog.html"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 2m      
     deploy:
       labels:
         - "traefik.backend=thredds"
