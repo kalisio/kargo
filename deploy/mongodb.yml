@@ -9,7 +9,7 @@ services:
       - source: mongodb_conf
         target: /etc/mongo/mongod.conf
     healthcheck:
-      test: ["CMD", "echo", "\'db.runCommand("ping").ok\'", "|", "mongo", "localhost:27017/${MONGODB_DATABASE}", "--quiet"]
+      test: ["CMD", "echo", "\'db.runCommand(\"ping\").ok\'", "|", "mongo", "localhost:27017/${MONGODB_DATABASE}", "--quiet"]
       interval: 30s
       timeout: 10s
       retries: 3
