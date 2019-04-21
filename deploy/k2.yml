@@ -20,6 +20,8 @@ services:
         - "traefik.frontend.rule=Host:k2.${SUBDOMAIN}"
         - "traefik.port=8080"
       replicas: ${K2_REPLICAS}
+      updated_config:
+        delay: 1m
       placement:
         constraints:
          - node.role == worker

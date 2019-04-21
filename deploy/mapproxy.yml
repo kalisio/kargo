@@ -28,6 +28,8 @@ services:
         - "traefik.frontend.rule=Host:mapproxy.${SUBDOMAIN}"
         - "traefik.port=8080"
       replicas: ${MAPPROXY_REPLICAS}
+      updated_config:
+        delay: 1m
       placement:
         constraints:
          - node.role == worker
