@@ -24,7 +24,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:tileservergl.${SUBDOMAIN}"
       replicas: ${TILESERVERGL_REPLICAS}
-      updated_config:
+      update_config:
         delay: 1m
       placement:
         constraints:
