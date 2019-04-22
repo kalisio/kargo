@@ -1,0 +1,198 @@
+#!/bin/bash
+
+kargo_version()
+{ 
+  echo kargo - `jq -r ".version" package.json`
+}
+
+kargo_usage()
+{
+  kargo_version
+  echo -e 'usage: kargo [options] <command>'
+  echo -e '\n'
+  echo -e 'options:'
+  echo -e ' -v, --version\t print the version and quit'
+  echo -e ' -h, --help\t print this help and quit'
+  echo -e '\n'
+  echo -e 'commands:'
+  echo -e ' use <workspace>\t select the given workspace'
+  echo -e ' info\t\t\t print the information about the current workspace'
+  echo -e ' build <service>\t\t build the given service(s)'
+  echo -e ' deploy <stack>\t\t deploy tte given stack'
+  echo -e ' remove <stack>\t\t remove the given stack'
+  echo -e '\n'
+}
+
+kargo_use()
+{
+  if [ -z "$1" ]; then 
+    echo error: the command \"kargo use\" requires one argument.
+    echo usage: kargo use \<workspace\>
+    exit 1 
+  fi
+  if [ ! -d "$1" ]; then
+    echo error: the specified workspace \"$1\" does not exist.
+    exit 1
+  fi
+  echo WORKSPACE=$1 > .workspace
+  echo swithing to workspace \"$1\"
+  kargo_update
+}
+
+kargo_read_workspace()
+{
+  # check whether a workspace has been defined
+  if [ ! -f ".workspace" ]; then
+    echo error: no workspace defined
+    echo tip: use the command \"kargo use \<workspace\>\" to define the workpsace
+    exit 1
+  fi
+  # read the workspace
+  set -a
+  . ./.workspace
+  set +a
+}
+
+kargo_read_configuration()
+{
+  # check whether the merged configuration has been made
+  if [ ! -d ".kargo" ]; then
+    echo error: no merged configuration
+    echo tip: use the command \"kargo use \<workspace\>\" to define the workpsace
+    exit 1
+  fi
+  # read the configuration
+  cd .kargo
+  set -a
+  . ./.env
+  set +a
+  cd ..
+}
+
+kargo_check_stack()
+{
+  kargo_read_configuration
+  # Retrieve the list of stacks
+  if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
+    if [ $1 != 'all' ]; then 
+      echo error: the specified stack \"$1\" does not exist
+      echo tip: use the command \"kargo info\" to list the available stacks
+      exit 1
+    fi
+  fi
+}
+
+kargo_update()
+{ 
+  kargo_read_workspace
+  # pull the latest version
+  echo pulling workspace \"$WORKSPACE\"
+  pushd $WORKSPACE > /dev/null
+  git pull
+  popd > /dev/null
+  # create the merged configuration
+  echo making configuration
+  if [ -d .kargo ]; then
+    rm -fr .kargo
+  fi
+  mkdir .kargo
+  cp -R build .kargo/build
+  cp -R deploy .kargo/deploy
+  cp -R configs .kargo/configs
+  cp "$WORKSPACE"/.env .kargo/.
+  if [ -d "$WORKSPACE"/build ]; then
+    cp -R "$WORKSPACE"/build .kargo/.
+  fi
+  if [ -d "$WORKSPACE"/deploy ]; then
+    cp -R "$WORKSPACE"/deploy .kargo/.
+  fi
+  if [ -d "$WORKSPACE"/configs ]; then
+    cp -R "$WORKSPACE"/configs .kargo/.
+  fi
+  echo workpsace \"$WORKSPACE\" ready.
+}
+
+kargo_info()
+{
+  kargo_read_workspace
+  kargo_read_configuration
+  echo current workspace is \"$WORKSPACE\"
+  echo available stacks are \"$STACKS\"
+  echo available services to build are:
+  pushd .kargo/build > /dev/null
+  ls *.sh
+  popd > /dev/null
+}
+
+kargo_build()
+{
+  kargo_read_configuration
+  # check the argument
+  SERVICE=$1.sh
+  if [ ! -f "$SERVICE" ]; then
+    echo error: the specified service \"$SERVICE\" does not exist
+    echo tip: use the commande \"kargo info\" to list the services to build
+    exit 1
+  fi
+  pushd .kargo/build > /dev/null
+  source ./$SERVICE
+  popd > /dev/null
+}
+
+kargo_deploy()
+{
+  kargo_check_stack $1
+  if [ $1 == 'all' ]; then
+   for STACK in $STACKS; do
+     echo deploying $STACK stack
+     kargo_deploy $STACK
+   done
+  else
+    # check whether the network exist or not.
+    EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`
+    if [ "$EXISTING_DOCKER_NETWORK" = "" ]; then
+      docker network create -d overlay --attachable $DOCKER_NETWORK
+    fi
+    # deploy the stack
+    STACK_NAME=${1^^}_STACK
+    STACK=${!STACK_NAME}
+    SERVICES_TO_DEPLOY=
+    for SERVICE in $STACK; do
+      SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
+      SERVICE_EXTENSION_NAME=${SERVICE^^}_EXTENSION
+      SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
+      if [ "$SERVICE_EXTENSION" != "" ]; then
+        SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
+      fi
+    done
+    pushd .kargo > /dev/null
+    docker stack deploy $SERVICES_TO_DEPLOY kargo-$1
+    popd > /dev/null
+  fi
+}
+
+kargo_remove()
+{
+  kargo_check_stack $1
+  if [ $1 == 'all' ]; then 
+   for STACK in $STACKS; do
+     echo removing $STACK stack
+     kargo_remove $STACK
+   done
+  else
+    docker stack rm kargo-$1
+  fi
+}
+
+case $1 in
+  -v|--version)  kargo_version;;
+  -h|--help) kargo_usage;;
+  use) kargo_use "$2";;
+  update) kargo_update;;
+  info) kargo_info;;
+  build) kargo_build "$2";;
+  deploy) kargo_deploy "$2";;
+  remove) kargo_remove "$2";;
+  *) kargo_usage
+esac
+
