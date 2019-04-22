@@ -35,8 +35,7 @@ kargo_use()
     exit 1
   fi
   echo WORKSPACE=$1 > .workspace
-  echo swithing to workspace \"$1\"
-  kargo_update
+  echo switched to workspace \"$1\"
 }
 
 kargo_read_workspace()
@@ -109,12 +108,13 @@ kargo_update()
   if [ -d "$WORKSPACE"/configs ]; then
     cp -R "$WORKSPACE"/configs .kargo/.
   fi
+  chown -R $USER:$USER .kargo
   echo workpsace \"$WORKSPACE\" ready.
 }
 
 kargo_info()
 {
-  kargo_read_workspace
+  kargo_update
   kargo_read_configuration
   echo current workspace is \"$WORKSPACE\"
   echo available stacks are \"$STACKS\"
@@ -126,6 +126,7 @@ kargo_info()
 
 kargo_build()
 {
+  kargo_update
   kargo_read_configuration
   # check the argument
   SERVICE=$1.sh
@@ -141,6 +142,7 @@ kargo_build()
 
 kargo_deploy()
 {
+  kargo_update
   kargo_check_stack $1
   if [ $1 == 'all' ]; then
    for STACK in $STACKS; do
@@ -173,6 +175,7 @@ kargo_deploy()
 
 kargo_remove()
 {
+  kargo_update
   kargo_check_stack $1
   if [ $1 == 'all' ]; then 
    for STACK in $STACKS; do

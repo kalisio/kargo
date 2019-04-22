@@ -73,6 +73,16 @@ sudo nano /etc/fuse.conf and uncomment the line
 #user_allow_other
 ```
 
+#### Install jq
+
+**[jq](https://stedolan.github.io/jq/)** is a lightweight and flexible command-line JSON processor. The CLI uses **jq** to extract some information from the `package.json` file.
+
+On the manager, type the following command:
+
+```bash
+sudo apt-get install jq
+```
+
 ### Install kargo
 
 1. Clone the **Kargo** repository
@@ -163,12 +173,22 @@ VIGICRUES_STACK="vigicrues-stations vigicrues-observations vigicrues-sections"
 JOBS_STACK="teleray"
 ```
 
+5. Tell kargo to use the workspace
+
+```bash
+$./kargo use <path/to/your/workspace>
+```
+
+::: tip
+We recommend to use GIT to manage the different version of your workspace
+:::
+
 ### Generate the merged configuration
 
 Since **Kargo** allows you to override the default configuration with your workspace configuration, it is required to generate the merged configuration before deploying the services. Run the command:
 
 ```bash
-$./make-kargo.sh <path to your workspace>
+$./kargo update
 ```
 
 ### Build the services
@@ -177,7 +197,7 @@ Some of the services provided By **Kargo** need to be built and pushed to the lo
 You simply need to run the command:
 
 ```bash
-$./build-service.sh <service>
+$./kargo build <service>
 ```
 
 ## Manage the services
@@ -189,13 +209,13 @@ You can either deploy a given stack or deploy all the stacks.
 * Deploy a stack
 
 ```bash
-$./deploy-stack.sh <apps|dbs|jobs|weacast>
+$./kargo deploy <stack>
 ```
 
 * Deploy all the stacks
 
 ```bash
-$./deploy-kargo.sh
+$./deploy deploy all
 ```
 
 ### Remove the services
@@ -205,11 +225,11 @@ You can either remove a given stack or remove all the stacks.
 * Stop a stack
 
 ```bash
-$./remove-stack.sh <apps|dbs|jobs|weacast>
+$./kargo remove <stack>
 ```
 
 * Stop all the stacks
 
 ```bash
-$./remove-kargo.sh
+$./remove remove all
 ```

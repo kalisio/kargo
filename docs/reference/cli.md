@@ -1,8 +1,24 @@
 # CLI
 
-## build-service
+## Options
 
-`usage: build-service.sh <mapproxy|geoserver|maputnik|weacast-loaders>`
+### -h, --help
+
+`usage: kargo -h | --help`
+
+Print basic help to use the command **Kargo**
+
+### -v, --version
+
+`usage: kargo -v | --version`
+
+Print the version of **Kargo**
+
+## Commands
+
+### build
+
+`usage: kargo build <service`
 
 Builds the docker image corresponding to the desired service and push it into **registry**. 
 
@@ -15,32 +31,36 @@ The services that can be built are the following:
 | `maputnik` | the **maputnik**. The version to build is read from the `MAPUTNIK_TAG` variable. |
 | `weacast-loaders` | The list of the loaders to be build is read from the `WEACAST_MODELS` variable. For all the loaders to be built, the version and database url are read from the `WEACAST_LOADER_TAG` and `WEACAST_DB_URL` variables. |
 
-## deploy-kargo
+### deploy
 
-`usage: deploy-kargo.sh`
-
-Deploys all the stacks you have defined the `STACKS` variable. The stacks are deployed in the order defined in the `STACKS` variable.
-
-## deploy-stack
-
-`usage: deploy-stack.sh <stack>`
+`usage: kargo deploy <stack|all>`
 
 Deploys the specified stack. The stack must be defined in the `STACKS`.
 
-## make-kargo
+When specifying `all`, it deploys all the stacks. The stacks are deployed in the order defined in the `STACKS` variable.
 
-`usage: make-kargo.sh <configuration>`
+### info
 
-Makes the final deployable configuration by merging the default configuration with the given user configuration. The merged configuration files is stored in the `.kargo` directory at the root directory of **Kargo**
+`usage: kargo info`
 
-## remove-kargo
+Displays some information about the current workspace
 
-`usage: remove-kargo.sh`
+### update
 
-Removes all the stacks you have defined in the `STACKS` variable. The stacks are removed in the inverse order defined in the `STACKS` variable.
+`usage: kargo update`
 
-## remove-stack
+Updates the final deployable configuration by merging the default configuration with the given user configuration. The merged configuration files is stored in the `.kargo` directory at the root directory of **Kargo**
 
-`usage: remove-stack.sh <stack>`
+### use
+
+`usage: kargo use <workspace>`
+
+Tells **Kargo** to use the specified workspace.
+
+### remove
+
+`usage: kargo remove <stack|all>`
 
 Removes the specified stack. The stack must be defined in the `STACKS` variable.
+
+When specifying `all`, it removes Removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
