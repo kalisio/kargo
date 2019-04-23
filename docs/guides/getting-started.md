@@ -173,23 +173,27 @@ VIGICRUES_STACK="vigicrues-stations vigicrues-observations vigicrues-sections"
 JOBS_STACK="teleray"
 ```
 
-5. Tell kargo to use the workspace
+5. Tell kargo to use your workspace
 
 ```bash
-$./kargo use <path/to/your/workspace>
+$./kargo use <path/to/your/workspace/directory>
 ```
 
 ::: tip
-We recommend to use GIT to manage the different version of your workspace
+We strongly recommend to use **Git** to manage your workspace
 :::
 
-### Generate the merged configuration
+### Generate the configuration
 
-Since **Kargo** allows you to override the default configuration with your workspace configuration, it is required to generate the merged configuration before deploying the services. Run the command:
+Since **Kargo** allows you to override the default configuration with your workspace configuration, it is required to generate the merged configuration before deploying the services. Simply, run the command:
 
 ```bash
 $./kargo update
 ```
+
+::: tip
+When using **Git** to manage your workspace, you can take advantage of the command `kargo pull` to pull the workspace.
+:::
 
 ### Build the services
 
@@ -201,6 +205,14 @@ $./kargo build <service>
 ```
 
 ## Manage the services
+
+### Getting information
+
+You can retrieve some information about the current configuration using the command `info`
+
+```bash
+$./kargo info
+```
 
 ### Deploy the services
 
@@ -222,14 +234,16 @@ $./deploy deploy all
 
 You can either remove a given stack or remove all the stacks.
 
-* Stop a stack
+* Remove a stack
 
 ```bash
 $./kargo remove <stack>
 ```
 
-* Stop all the stacks
+* Remove all the stacks
 
 ```bash
 $./remove remove all
 ```
+
+

@@ -20,6 +20,7 @@ kargo_usage()
   echo -e ' info\t\t \t\t print the information about the current configuration'
   echo -e ' build\t\t <service>\t build the given service(s)'
   echo -e ' deploy\t\t <stack>\t deploy tte given stack'
+  echo -e ' pull\t\t pull the current workspace' 
   echo -e ' remove\t\t <stack>\t remove the given stack'
   echo -e '\n'
 }
@@ -57,19 +58,24 @@ kargo_read_configuration()
 {
   kargo_read_workspace
   # check whether the merged configuration has been made
-  if [ ! -d ".configuration" ]; then
+  if [ ! -d ".kargo" ]; then
     echo error: no merged configuration
     echo tip: use the command \"kargo configure\" to generate the configuration
     exit 1
   fi
   # read the configuration
   set -a
-  . .configuration/.env
+  . .kargo/.env
   set +a
 }
 
 kargo_check_stack()
 {
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo $2\" requires one argument.
+    echo usage: kargo $2 \<stack|all\>
+    exit 1
+  fi
   kargo_read_configuration
   # Retrieve the list of stacks
   if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
@@ -84,31 +90,32 @@ kargo_check_stack()
 kargo_configure()
 { 
   kargo_read_workspace
-  # pull the latest version
-  echo pulling workspace \"$WORKSPACE\"
+  if [ -d .kargo ]; then
+    rm -fr .kargo
+  fi
+  mkdir .kargo
+  cp -R build .kargo/build
+  cp -R deploy .kargo/deploy
+  cp -R configs .kargo/configs
+  cp "$WORKSPACE"/.env .kargo/.
+  if [ -d "$WORKSPACE"/build ]; then
+    cp -R "$WORKSPACE"/build .kargo/.
+  fi
+  if [ -d "$WORKSPACE"/deploy ]; then
+    cp -R "$WORKSPACE"/deploy .kargo/.
+  fi
+  if [ -d "$WORKSPACE"/configs ]; then
+    cp -R "$WORKSPACE"/configs .kargo/.
+  fi
+  echo workpsace \"$WORKSPACE\" ready.
+}
+
+kargo_pull()
+{
+  kargo_read_workspace
   pushd $WORKSPACE > /dev/null
   git pull
   popd > /dev/null
-  # create the merged configuration
-  echo making configuration
-  if [ -d .configuration ]; then
-    rm -fr .configuration
-  fi
-  mkdir .configuration
-  cp -R build .configuration/build
-  cp -R deploy .configuration/deploy
-  cp -R configs .configuration/configs
-  cp "$WORKSPACE"/.env .configuration/.
-  if [ -d "$WORKSPACE"/build ]; then
-    cp -R "$WORKSPACE"/build .configuration/.
-  fi
-  if [ -d "$WORKSPACE"/deploy ]; then
-    cp -R "$WORKSPACE"/deploy .configuration/.
-  fi
-  if [ -d "$WORKSPACE"/configs ]; then
-    cp -R "$WORKSPACE"/configs .configuration/.
-  fi
-  echo workpsace \"$WORKSPACE\" ready.
 }
 
 kargo_info()
@@ -120,7 +127,7 @@ kargo_info()
     echo -e '  '$STACK
   done
   echo available services to build are:
-  pushd .configuration/build > /dev/null
+  pushd .kargo/build > /dev/null
   ls *.sh
   popd > /dev/null
 }
@@ -136,19 +143,19 @@ kargo_build()
   fi
   # check whethet the argument is valid
   SERVICE=$1.sh
-  if [ ! -f ".configuration/build/$SERVICE" ]; then
+  if [ ! -f ".kargo/build/$SERVICE" ]; then
     echo error: the specified service \"$1\" does not exist
     echo tip: use the commande \"kargo info\" to list the services to build
     exit 1
   fi
-  pushd .configuration/build > /dev/null
+  pushd .kargo/build > /dev/null
   source ./$SERVICE
   popd > /dev/null
 }
 
 kargo_deploy()
 {
-  kargo_check_stack $1
+  kargo_check_stack $1 deploy
   if [ $1 == 'all' ]; then
    for STACK in $STACKS; do
      echo deploying $STACK stack
@@ -172,7 +179,7 @@ kargo_deploy()
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
     done
-    pushd .configuration > /dev/null
+    pushd .kargo > /dev/null
     docker stack deploy $SERVICES_TO_DEPLOY kargo-$1
     popd > /dev/null
   fi
@@ -180,7 +187,7 @@ kargo_deploy()
 
 kargo_remove()
 {
-  kargo_check_stack $1
+  kargo_check_stack $1 remove
   if [ $1 == 'all' ]; then 
    for STACK in $STACKS; do
      echo removing $STACK stack
@@ -195,6 +202,7 @@ case $1 in
   -v|--version)  kargo_version;;
   -h|--help) kargo_usage;;
   use) kargo_use "$2";;
+  pull) kargo_pull;;
   configure) kargo_configure;;
   info) kargo_info;;
   build) kargo_build "$2";;
