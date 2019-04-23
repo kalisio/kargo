@@ -73,7 +73,7 @@ kargo_check_stack()
 {
   if [ -z "$2" ]; then
     echo error: the command \"kargo $1\" requires one argument.
-    echo usage: kargo $2 \<stack|all\>
+    echo usage: kargo $2 \<stack\|all\>
     exit 1
   fi
   kargo_read_configuration
