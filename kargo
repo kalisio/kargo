@@ -20,7 +20,7 @@ kargo_usage()
   echo -e ' info\t\t \t\t print the information about the current configuration'
   echo -e ' build\t\t <service>\t build the given service(s)'
   echo -e ' deploy\t\t <stack>\t deploy tte given stack'
-  echo -e ' pull\t\t pull the current workspace' 
+  echo -e ' pull\t\t \t\t pull the current workspace' 
   echo -e ' remove\t\t <stack>\t remove the given stack'
   echo -e '\n'
 }
