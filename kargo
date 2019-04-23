@@ -20,6 +20,7 @@ kargo_usage()
   echo -e ' info\t\t \t\t print the information about the current configuration'
   echo -e ' build\t\t <service>\t build the given service(s)'
   echo -e ' deploy\t\t <stack>\t deploy tte given stack'
+  echo -e ' pull\t\t pull the current workspace' 
   echo -e ' remove\t\t <stack>\t remove the given stack'
   echo -e '\n'
 }
@@ -70,6 +71,11 @@ kargo_read_configuration()
 
 kargo_check_stack()
 {
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo $2\" requires one argument.
+    echo usage: kargo $2 \<stack|all\>
+    exit 1
+  fi
   kargo_read_configuration
   # Retrieve the list of stacks
   if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
@@ -84,13 +90,6 @@ kargo_check_stack()
 kargo_configure()
 { 
   kargo_read_workspace
-  # pull the latest version
-  echo pulling workspace \"$WORKSPACE\"
-  pushd $WORKSPACE > /dev/null
-  git pull
-  popd > /dev/null
-  # create the merged configuration
-  echo making configuration
   if [ -d .configuration ]; then
     rm -fr .configuration
   fi
@@ -109,6 +108,14 @@ kargo_configure()
     cp -R "$WORKSPACE"/configs .configuration/.
   fi
   echo workpsace \"$WORKSPACE\" ready.
+}
+
+kargo_pull()
+{
+  kargo_read_workspace
+  pushd $WORKSPACE > /dev/null
+  git pull
+  popd > /dev/null
 }
 
 kargo_info()
@@ -148,7 +155,7 @@ kargo_build()
 
 kargo_deploy()
 {
-  kargo_check_stack $1
+  kargo_check_stack $1 deploy
   if [ $1 == 'all' ]; then
    for STACK in $STACKS; do
      echo deploying $STACK stack
@@ -180,7 +187,7 @@ kargo_deploy()
 
 kargo_remove()
 {
-  kargo_check_stack $1
+  kargo_check_stack $1 remove
   if [ $1 == 'all' ]; then 
    for STACK in $STACKS; do
      echo removing $STACK stack
@@ -195,6 +202,7 @@ case $1 in
   -v|--version)  kargo_version;;
   -h|--help) kargo_usage;;
   use) kargo_use "$2";;
+  pull) kargo_pull;;
   configure) kargo_configure;;
   info) kargo_info;;
   build) kargo_build "$2";;

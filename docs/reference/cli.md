@@ -31,6 +31,12 @@ The services that can be built are the following:
 | `maputnik` | the **maputnik**. The version to build is read from the `MAPUTNIK_TAG` variable. |
 | `weacast-loaders` | The list of the loaders to be build is read from the `WEACAST_MODELS` variable. For all the loaders to be built, the version and database url are read from the `WEACAST_LOADER_TAG` and `WEACAST_DB_URL` variables. |
 
+### configure
+
+`usage: kargo configure`
+
+Generate the configuration by merging the default configuration with your workspace's configuration. The merged configuration files is stored in the `.kargo` directory at the root directory of **Kargo**
+
 ### deploy
 
 `usage: kargo deploy <stack|all>`
@@ -45,17 +51,11 @@ When specifying `all`, it deploys all the stacks. The stacks are deployed in the
 
 Displays some information about the current workspace
 
-### update
+### pull
 
-`usage: kargo update`
+`usage: kargo pull`
 
-Updates the final deployable configuration by merging the default configuration with the given user configuration. The merged configuration files is stored in the `.kargo` directory at the root directory of **Kargo**
-
-### use
-
-`usage: kargo use <workspace>`
-
-Tells **Kargo** to use the specified workspace.
+Pulls the workspace from the remote **Git** repository.
 
 ### remove
 
@@ -64,3 +64,10 @@ Tells **Kargo** to use the specified workspace.
 Removes the specified stack. The stack must be defined in the `STACKS` variable.
 
 When specifying `all`, it removes Removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
+
+### use
+
+`usage: kargo use <workspace>`
+
+Tells **Kargo** to use the specified workspace.
+
