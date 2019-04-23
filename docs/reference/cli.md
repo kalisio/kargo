@@ -63,7 +63,7 @@ Pulls the workspace from the remote **Git** repository.
 
 Removes the specified stack. The stack must be defined in the `STACKS` variable.
 
-When specifying `all`, it removes Removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
+When specifying `all`, it removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
 
 ### use
 
