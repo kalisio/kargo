@@ -71,16 +71,16 @@ kargo_read_configuration()
 
 kargo_check_stack()
 {
-  if [ -z "$1" ]; then
-    echo error: the command \"kargo $2\" requires one argument.
+  if [ -z "$2" ]; then
+    echo error: the command \"kargo $1\" requires one argument.
     echo usage: kargo $2 \<stack|all\>
     exit 1
   fi
   kargo_read_configuration
   # Retrieve the list of stacks
-  if [[ ! $STACKS =~ (^| )$1($| ) ]]; then
-    if [ $1 != 'all' ]; then 
-      echo error: the specified stack \"$1\" does not exist
+  if [[ ! $STACKS =~ (^| )$2($| ) ]]; then
+    if [ $2 != 'all' ]; then 
+      echo error: the specified stack \"$2\" does not exist
       echo tip: use the command \"kargo info\" to list the available stacks
       exit 1
     fi
@@ -155,7 +155,7 @@ kargo_build()
 
 kargo_deploy()
 {
-  kargo_check_stack $1 deploy
+  kargo_check_stack deploy $1
   if [ $1 == 'all' ]; then
    for STACK in $STACKS; do
      echo deploying $STACK stack
@@ -187,7 +187,7 @@ kargo_deploy()
 
 kargo_remove()
 {
-  kargo_check_stack $1 remove
+  kargo_check_stack remove $1
   if [ $1 == 'all' ]; then 
    for STACK in $STACKS; do
      echo removing $STACK stack
