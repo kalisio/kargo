@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  mapserver:
+    image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
+    volumes:
+      ./../configs/mapserver:/u02
+      - ${MAPSERVER_DATA_PATH}:/mnt/data
+    configs:
+      - source: mapproxy_conf
+        target: /mapproxy/mapproxy.yaml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=mapserver"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:mapserver.${SUBDOMAIN}"
+        - "traefik.port=80"
+      replicas: ${MAPSERVER_REPLICAS}
+      update_config:
+        delay: 1m
+      placement:
+        constraints:
+         - node.role == worker
+         - node.labels.mapserver == true
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+      
+configs:
+  mapproxy_conf:
+    file: ./../configs/mapproxy/mapproxy.yaml
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
+          
