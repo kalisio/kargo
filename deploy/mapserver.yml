@@ -34,10 +34,6 @@ services:
         condition: on-failure
     networks:
       - kargo-network
-      
-configs:
-  mapproxy_conf:
-    file: ./../configs/mapproxy/mapproxy.yaml
 
 networks:
     kargo-network:
