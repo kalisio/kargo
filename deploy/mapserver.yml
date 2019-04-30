@@ -4,7 +4,7 @@ services:
   mapserver:
     image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
     volumes:
-      - ./../configs/mapserver:/u02
+      - ./../configs/mapserver:/etc/mapserver
       - ${MAPSERVER_DATA_PATH}:/mnt/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
