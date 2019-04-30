@@ -4,11 +4,8 @@ services:
   mapserver:
     image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
     volumes:
-      ./../configs/mapserver:/u02
+      - ./../configs/mapserver:/u02
       - ${MAPSERVER_DATA_PATH}:/mnt/data
-    configs:
-      - source: mapproxy_conf
-        target: /mapproxy/mapproxy.yaml
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 30s
