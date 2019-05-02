@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   mapserver:
-    image: ${MAPSERVER_IMAGE:-locahost:5000/mapserver}:${MAPSERVER_TAG:-7.2}
+    image: ${MAPSERVER_IMAGE:-localhost:5000/mapserver}:${MAPSERVER_TAG:-7.2}
     volumes:
       - ./../configs/mapserver:/etc/mapserver
       - ${MAPSERVER_DATA_PATH:-/mnt/data0/mapserver_data}:/mnt/data
