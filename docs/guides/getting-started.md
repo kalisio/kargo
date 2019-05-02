@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Getting Started
 
 Using **kargo** is quite easy and basically the approach to setup your Geospatial platform is the following:

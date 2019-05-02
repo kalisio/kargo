@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Using the Kargo toolbox
 
 The [kargo-toolbox](https://github.com/kalisio/kargo-toolbox) is a docker image shipping a set of tools to help processing geospatial data. Precisely it comes with:

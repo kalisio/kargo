@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Handling long-running process
 
 When executing a long-running process, your SSH connection can be shut down causing the process to stop. To avoid this problem, one solution is to use [screen](https://en.wikipedia.org/wiki/GNU_Screen). 

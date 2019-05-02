@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Introduction
 
 **Kargo** offers the capabilities to let you design, build and operate a geospatial infrastructure on server cluster. 

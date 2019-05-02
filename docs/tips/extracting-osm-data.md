@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Extracting OpenStreetMap data ?
 
 The generation is based on the [OpenMapTiles](https://github.com/openmaptiles/openmaptiles) project toolbox.

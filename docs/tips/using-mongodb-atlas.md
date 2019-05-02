@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Using MongoDB Atlas
 
 In a critical operational context, it can be safer to rely on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) than on your own instance of MongoDB.

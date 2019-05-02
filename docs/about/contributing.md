@@ -1,4 +1,8 @@
-# Contributing 
+---
+sidebarDepth: 3
+---
+
+# Contributing
 
 ## Submission guidelines
 

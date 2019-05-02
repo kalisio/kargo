@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Advanced usage
 
 ## Extending the services
