@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   kano:
-    image: ${KANO_IMAGE:-kalisio/kano}:${KANO_TAG:-latest}
+    image: ${KANO_IMAGE:-kalisio/kano}:${KANO_TAG:-0.1.0-dev}
     environment:
       - LOG_LEVEL=${KANO_LOG_LEVEL:-verbose}
       - DEBUG=${KANO_DEBUG}

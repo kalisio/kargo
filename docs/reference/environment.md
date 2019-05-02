@@ -38,7 +38,7 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `KANO_IMAGE` | The image to be used. | `kalisio/kano` |
-| `KANO_TAG` | The version to be used. | `latest` |
+| `KANO_TAG` | The version to be used. | `0.1.0-dev` |
 | `KANO_APP_SECRET` | The app secret used to authenticate a client. | `$SECRET` |
 | `KANO_DB_URL` | The database URL where to write the data. | `$DB_URL` |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
