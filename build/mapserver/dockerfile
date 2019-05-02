@@ -1,0 +1,8 @@
+ARG TAG
+
+FROM camptocamp/mapserver:$TAG
+
+RUN apt-get -y update && apt-get -y install curl
+
+
+
