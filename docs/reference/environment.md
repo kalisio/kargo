@@ -6,185 +6,204 @@ sidebarDepth: 3
 
 ## Kargo configuration
 
-| Variable | Description |
-| --- | --- |
-| `DOMAIN` | The domain where to access the services. It should be similar to `kalisio.xyz` |
-| `SUBDOMAIN` | The subdomain where to access the service. It should be similar to `kargo.kalisio.xyz` |
-| `AUTH_USER` | The authentication identity to access the services. | 
-| `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. |
-| `SECRET` | The secret key to generate JWT. It used by the applications **KANO** an **WEACAST** |
-| `DB_URL` | The common database URL. Default value is `DB_URL=mongodb://mongodb:27017/kargo` |
-| `DOCKER_NETWORK` | The docker network. Default value is `kaabah` |
-| `DOCKER_HOST_IP` | The private IP address of the Swarm manager. |
-| `DOCKER_HOST_PORT` | The port to get connected to the Docker engine. Default value is `2376` |
-| `DOCKER_CERT_PATH` | The path where to retrieve the certificates to get connected to the Docker engine. Default value is `/home/ubuntu/.docker` |
-| `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. |
-| `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets |
-| `STACKS` | The list of stacks to be deployed. |
+| Variable | Description | Default value | 
+| --- | --- | --- | 
+| `DOMAIN` | The domain where to access the services. It should be similar to `kalisio.xyz`. | - |
+| `SUBDOMAIN` | The subdomain where to access the service. It should be similar to `kargo.kalisio.xyz`. | - |
+| `AUTH_USER` | The authentication identity to access the services. | - |
+| `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. | - |
+| `SECRET` | The secret key to generate JWT. It used by the applications **KANO** an **WEACAST**. | - |
+| `DB_URL` | The common database URL. | - |
+| `DOCKER_NETWORK` | The docker network | `kaabah` |
+| `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
+| `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
+| `STACKS` | The list of stacks to be deployed. | - |
 
 For each stack, there must be such an entry:
-| `<name of the stack>_STACK` | The list of service to be deployed for each stack. |
+- `<name of the stack>_STACK`: The list of services to be deployed within this stack.
 
 ## Services configuration
 
 ### K2
 
-| Variable | Description |
-| --- | --- |
-| `K2_IMAGE` | The image to be used. Default value is `kalisio/kano` |
-| `K2_TAG` | The version to be used. Default value is `latest` |
-| `K2_DATA_PATH` | The path to the data. Default value is `/mnt/data0/k2_data` |
-| `K2_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `K2_IMAGE` | The image to be used. | `kalisio/kano` |
+| `K2_TAG` | The version to be used. | `latest` |
+| `K2_DATA_PATH` | The path to the data. |  `/mnt/data0/k2_data` |
+| `K2_REPLICAS` | The number of replicas. | `1` |
 
 ### Kano
 
-| Variable | Description |
-| --- | --- |
-| `KANO_IMAGE` | The image to be used. Default value is `kalisio/kano` |
-| `KANO_TAG` | The version to be used. Default value is `latest` |
-| `KANO_APP_SECRET` | The app secret used to authenticate a client. The default value is `$SECRET` |
-| `KANO_DB_URL` | The database URL where to write the data. Default value is `$DB_URL` |
-| `KANO_LOG_LEVEL` | The log level of the application. Default value is `verbose` |
-| `KANO_DEBUG` | Enable the debug mode. Default value is `` |
-| `KANO_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `KANO_IMAGE` | The image to be used. | `kalisio/kano` |
+| `KANO_TAG` | The version to be used. | `latest` |
+| `KANO_APP_SECRET` | The app secret used to authenticate a client. | `$SECRET` |
+| `KANO_DB_URL` | The database URL where to write the data. | `$DB_URL` |
+| `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
+| `KANO_DEBUG` | Enable the debug mode. | `` |
+| `KANO_REPLICAS` | The number of replicas. | `1` |
 
 ### GeoServer
 
-| Variable | Description |
-| --- | --- |
-| `GEOSERVER_IMAGE` | The image to be used. Default value is `localhost:5000/geoserver` |
-| `GEOSERVER_TAG` | The version to be used. Default value is `2.12.1` |
-| `GEOSERVER_PLUGINS` | The plugins to be included. Default value is `"css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"` | 
-| `GEOSERVER_DATA_PATH` | The path to the data. Default value is `/mnt/data0/geoserver_data` |
-| `GEOSERVER_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `GEOSERVER_IMAGE` | The image to be used. | `localhost:5000/geoserver` |
+| `GEOSERVER_TAG` | The version to be used. | `2.12.1` |
+| `GEOSERVER_PLUGINS` | The plugins to be included. | `` | 
+| `GEOSERVER_DATA_PATH` | The path to the data. | `/mnt/data0/geoserver_data` |
+| `GEOSERVER_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **GeoServer** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
+The **GeoServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+```bash
+$kargo build geoserver
+```
 :::
 
 ### MapProxy
 
-| Variable | Description |
-| --- | --- |
-| `MAPPROXY_IMAGE` | The image to be used. Default value is `localhost:5000/mapproxy` |
-| `MAPPROXY_TAG` | The version to be used. Default value is `2.12.1` |
-| `MAPPROXY_DATA_PATH` | The path to the data. Default value is `/mnt/data0/mapproxy_data` |
-| `MAPPROXY_CACHE_PATH` | The path to the cache. Default value is `/mnt/data0/mapproxy_cache` |
-| `MAPPROXY_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MAPPROXY_IMAGE` | The image to be used. | `localhost:5000/mapproxy` |
+| `MAPPROXY_TAG` | The version to be used. | `1.11.0` |
+| `MAPPROXY_DATA_PATH` | The path to the data. | `/mnt/data0/mapproxy_data` |
+| `MAPPROXY_CACHE_PATH` | The path to the cache. | `/mnt/data0/mapproxy_cache` |
+| `MAPPROXY_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **MapProxy** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
+The **MapProxy** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+```bash
+$kargo build mapproxy
+```
 :::
 
 ### MapServer
 
-| Variable | Description |
-| --- | --- |
-| `MAPSERVER_IMAGE` | The image to be used. Default value is `localhost:5000/mapserver` |
-| `MAPSERVER_TAG` | The version to be used. Default value is `7.2` |
-| `MAPSERVER_DATA_PATH` | The path to the data. Default value is `/mnt/data0/mapserver_data` |
-| `MAPSERVER_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MAPSERVER_IMAGE` | The image to be used. | `localhost:5000/mapserver` |
+| `MAPSERVER_TAG` | The version to be used. | `7.2` |
+| `MAPSERVER_DATA_PATH` | The path to the data. | `/mnt/data0/mapserver_data` |
+| `MAPSERVER_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **MapServer** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
+The **MapServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+```bash
+$kargo build mapserver
+```
 :::
 
 ### MongoDB
 
-| Variable | Description |
-| --- | --- |
-| `MONGO_IMAGE` | The image to be used. Default value is `mongo` |
-| `MONGO_TAG` | The version to be used. Default value is `3.6.5` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MONGO_IMAGE` | The image to be used. | `mongo` |
+| `MONGO_TAG` | The version to be used. | `3.6.5` |
 
 ### OpenAQ
 
-| Variable | Description |
-| --- | --- |
-| `OPENAQ_IMAGE` | The image to be used. Default value is `kalisio/k-openaq` |
-| `OPENAQ_TAG` | The version to be used. Default value is `latest` |
-| `OPENAQ_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
+| `OPENAQ_TAG` | The version to be used. | `latest` |
+| `OPENAQ_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
 
 ### PostGis
 
-| Variable | Description |
-| --- | --- |
-| `POSTGIS_IMAGE` | The image to be used. Default value is `mdillon/postgis` |
-| `POSTGIS_TAG` | The version to be used. Default value is `9.6-alpine` |
-| `POSTGRES_USER` | The POSTGRES user. Default value is `postgres` |
-| `POSTGRES_PASSWORD` | The POSTGRES user's password. Default value is `postgres` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `POSTGIS_IMAGE` | The image to be used. | `mdillon/postgis` |
+| `POSTGIS_TAG` | The version to be used. | `9.6-alpine` |
+| `POSTGIS_USER` | The POSTGRES user. | `postgres` |
+| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
+| `POSTGIS_DATA_PATH` | The path to the database. | `/mnt/data0/postgis_data` |
 
 ### Seeder
 
-| Variable | Description |
-| --- | --- |
-| `SEEDER_IMAGE` | The image to be used. Default value is `kalisio/k-seeder` |
-| `SEEDER_TAG` | The version to be used. Default value is `latest` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `SEEDER_IMAGE` | The image to be used. | `kalisio/k-seeder` |
+| `SEEDER_TAG` | The version to be used. | `latest` |
+| `DOCKER_HOST_IP` | The private IP address of the Swarm manager. | - |
+| `DOCKER_HOST_PORT` | The port to get connected to the Docker engine. | `2376` |
+| `DOCKER_CERT_PATH` | The path where to retrieve the certificates to get connected to the Docker engine. | `/home/ubuntu/.docker` |
+| `MAPPROXY_CONFIG_PATH` | The path to the **MapProxy** configuration. | `/home/ubuntu/kargo/.kargo/configs/mapproxy` |
+| `SEEDER_CONFIG_PATH` | The path to the seeder configuration. | `/home/ubuntu/kargo/.kargo/configs/seeder` |
 
 ### Teleray
 
-| Variable | Description |
-| --- | --- |
-| `TELERAY_IMAGE` | The image to be used. Default value is `kalisio/k-teleray` |
-| `TELERAY_TAG` | The version to be used. Default value is `0.1.0` |
-| `TELERAY_S3_BUCKET` | The S3 bucket where to store the data. Default value is `kargo` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
+| `TELERAY_TAG` | The version to be used. | `0.1.0` |
+| `TELERAY_S3_BUCKET` | The S3 bucket where to store the data. | `kargo` |
 
 ### Thredds
 
-| Variable | Description |
-| --- | --- |
-| `THREDDS_IMAGE` | The image to be used. Default value is `unidata/thredds-docker` |
-| `THREDDS_TAG` | The version to be used. Default value is `4.6.11` |
-| `THREDDS_DATA_PATH` | The path to the data. Default value is `/mnt/data0/thredds_data` |
-| `THREDDS_CACHE_PATH` | The path to the mount volume where to cache the data. Default value is `/mnt/data0/thredds_cache` |
-| `THREDDS_REPLICAS` | The number of replicas. Default value is `1` |
-| `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). Default value is `4G`. |
-| `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). Default value is `4G`. |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `THREDDS_IMAGE` | The image to be used.| `unidata/thredds-docker` |
+| `THREDDS_TAG` | The version to be used. | `4.6.11` |
+| `THREDDS_DATA_PATH` | The path to the data. | `/mnt/data0/thredds_data` |
+| `THREDDS_CACHE_PATH` | The path to the cache. | `/mnt/data0/thredds_cache` |
+| `THREDDS_REPLICAS` | The number of replicas. | `1` |
+| `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). | `4G` |
+| `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). | `4G` |
 
 ### TileServer GL
 
-| Variable | Description |
-| --- | --- |
-| `TILESERVERGL_IMAGE` | The image to be used. Default value is `klokantech/tileserver-gl` |
-| `TILESERVERGL_TAG` | The version to be used. Default value is `v2.3.1` |
-| `TILESERVERGL_DATA_PATH` | The path to the data. Default value is `/mnt/data0/tileservergl_data` |
-| `TILESERVERGL_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `TILESERVERGL_IMAGE` | The image to be used. | `klokantech/tileserver-gl` |
+| `TILESERVERGL_TAG` | The version to be used. | `v2.4.0` |
+| `TILESERVERGL_DATA_PATH` | The path to the data. | `/mnt/data0/tileservergl_data` |
+| `TILESERVERGL_REPLICAS` | The number of replicas. | `1` |
 
 ### Vigicrues
 
-| Variable | Description |
-| --- | --- |
-| `VIGICRUES_IMAGE` | The image to be used. Default value is `kalisio/k-vigicrues` |
-| `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. Default value is `0.1.0` |
-| `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. Default value is `0.1.0` |
-| `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. Default value is `0.1.0` |
-| `VIGICRUES_DATA_PATH` | The path to the data. Default value is `/mnt/data0/vigicrues_data` |
-| `VIGICRUES_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `VIGICRUES_IMAGE` | The image to be used. | `kalisio/k-vigicrues` |
+| `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `0.1.0` |
+| `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `0.1.0` |
+| `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `0.1.0` |
+| `VIGICRUES_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
 
 ### Weacast
 
-| Variable | Description |
-| --- | --- |
-| `WEACAST_IMAGE` | The image to be used. Default value is `weacast/weacast-dev` |
-| `WEACAST_TAG` | The version to be used. Default value is `latest` |
-| `WEACAST_APP_SECRET` | The app secret used to authenticate a client. The default value is `$SECRET` |
-| `WEACAST_DB_URL` | The database URL where to write the data. Default value is `$DB_URL` |
-| `WEACAST_LOG_LEVEL` | The log level of the application. Default value is `verbose` |
-| `WEACAST_DEBUG` | Enable the debug mode. Default value is `` |
-| `WEACAST_REPLICAS` | The number of replicas. Default value is `1` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-dev` |
+| `WEACAST_TAG` | The version to be used. | `latest` |
+| `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | `$SECRET` |
+| `WEACAST_DB_URL` | The database URL where to write the data. | `$DB_URL` |
+| `WEACAST_LOG_LEVEL` | The log level of the application. | `verbose` |
+| `WEACAST_DEBUG` | Enable the debug mode. | `` |
+| `WEACAST_REPLICAS` | The number of replicas. | `1` |
 
 ### Weacast-loaders
 
-| Variable | Description |
-| --- | --- |
-| `WEACAST_MODELS` | The list of models to be downloaded. Default value is `"arpege-world arpege-europe arome-france gfs-world"` |
-| `WEACAST_LOADERS_TAG` | A default tag value.  Default value is `latest` |
-| `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
-| `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. Default value is `localhost:5000/arpege-world-loader` |
-| `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. Default value is `$WEACAST_LOADERS_TAG` |
-| `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. Default value is `localhost:5000/arpege-europe-loader` |
-| `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. Default value is `$WEACAST_LOADERS_TAG` |
-| `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. Default value is `localhost:5000/arome-france-loader` |
-| `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. Default value is `$WEACAST_LOADERS_TAG` |
-| `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. Default value is `localhost:5000/gfs-world-loader` |
-| `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. Default value is `$WEACAST_LOADERS_TAG` |
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `WEACAST_MODELS` | The list of models to be downloaded. | `"arpege-world arpege-europe arome-france gfs-world"` |
+| `WEACAST_LOADERS_TAG` | A default tag value.  | `latest` |
+| `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
+| `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `localhost:5000/arpege-world-loader` |
+| `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
+| `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `localhost:5000/arpege-europe-loader` |
+| `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `latest` |
+| `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
+| `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `latest` |
+| `AROME_FRANCE_HIGH_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
+| `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `latest` |
+| `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. | `localhost:5000/gfs-world-loader` |
+| `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
 
+::: warning
+The **Weacast loaders** are preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+```bash
+$kargo build weacast-loaders
+```
+:::

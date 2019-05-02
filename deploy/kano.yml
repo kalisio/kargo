@@ -2,12 +2,12 @@ version: '3.5'
 
 services: 
   kano:
-    image: ${KANO_IMAGE}:${KANO_TAG}
+    image: ${KANO_IMAGE:-kalisio/kano}:${KANO_TAG:-latest}
     environment:
-      - LOG_LEVEL=${KANO_LOG_LEVEL}
+      - LOG_LEVEL=${KANO_LOG_LEVEL:-verbose}
       - DEBUG=${KANO_DEBUG}
-      - DB_URL=${KANO_DB_URL}
-      - APP_SECRET=${KANO_APP_SECRET}
+      - DB_URL=${KANO_DB_URL:-$DB_URL}
+      - APP_SECRET=${KANO_APP_SECRET:-$SECRET}
       - CESIUM_TOKEN=${KANO_CESIUM_TOKEN}
       - SUBDOMAIN=${SUBDOMAIN}
     healthcheck:
@@ -18,13 +18,13 @@ services:
       start_period: 5m      
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
         - "traefik.backend=kano"        
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:kano.${SUBDOMAIN}"
         - "traefik.port=8081"        
-      replicas: ${KANO_REPLICAS}
+      replicas: ${KANO_REPLICAS:-1}
       placement:
         constraints:
          - node.role == worker
@@ -35,6 +35,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK}
+      name: ${DOCKER_NETWORK:-kaabah}
       external: true
           

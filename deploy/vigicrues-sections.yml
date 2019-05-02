@@ -2,9 +2,9 @@ version: '3.5'
 
 services: 
   sections:
-    image: ${VIGICRUES_SECTIONS_IMAGE}:${VIGICRUES_SECTIONS_TAG}
+    image: ${VIGICRUES_SECTIONS_IMAGE:-kalisio/k-vigicrues}:sections-${VIGICRUES_SECTIONS_TAG:-0.1.0}
     environment:
-      - DB_URL=${VIGICRUES_DB_URL}     
+      - DB_URL=${VIGICRUES_DB_URL:-$DB_URL}     
     deploy:
       replicas: 1
       placement:
@@ -18,6 +18,6 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK}
+    name: ${DOCKER_NETWORK:-kaabah}
     external: true
           

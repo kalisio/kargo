@@ -14,7 +14,7 @@ services:
       start_period: 1m
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
         - "traefik.backend=mapserver"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
@@ -34,6 +34,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK}
+      name: ${DOCKER_NETWORK:-kaabah}
       external: true
           

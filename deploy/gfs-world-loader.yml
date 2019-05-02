@@ -2,9 +2,9 @@ version: '3.5'
 
 services: 
   gfs-world-loader:
-    image: ${GFS_WORLD_LOADER_IMAGE}:${GFS_WORLD_LOADER_TAG}
+    image: ${GFS_WORLD_LOADER_IMAGE:-localhost:5000/gfs-world-loader}:${GFS_WORLD_LOADER_TAG:-latest}
     environment:
-      - DB_URL=${WEACAST_LOADERS_DB_URL}
+      - DB_URL=${WEACAST_LOADERS_DB_URL:-$DB_URL}
     networks:
       - kargo-network
     deploy:
@@ -17,6 +17,6 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK}
+    name: ${DOCKER_NETWORK:-kaabah}
     external: true
           

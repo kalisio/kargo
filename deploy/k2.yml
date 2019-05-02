@@ -13,13 +13,13 @@ services:
       start_period: 1m
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
         - "traefik.backend=k2"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:k2.${SUBDOMAIN}"
         - "traefik.port=8080"
-      replicas: ${K2_REPLICAS}
+      replicas: ${K2_REPLICAS:-1}
       update_config:
         delay: 1m
       placement:
@@ -33,6 +33,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK}
+      name: ${DOCKER_NETWORK:-kaabah}
       external: true
           

@@ -2,24 +2,24 @@ version: '3.5'
 
 services: 
   weacast:
-    image: ${WEACAST_IMAGE}:${WEACAST_TAG}
+    image: ${WEACAST_IMAGE:-weacast/weacast-dev}:${WEACAST_TAG:-latest}
     environment:
-      - LOG_LEVEL=${WEACAST_LOG_LEVEL}
+      - LOG_LEVEL=${WEACAST_LOG_LEVEL:-verbose}
       - DEBUG=${WEACAST_DEBUG}
       - USE_LOADER=true
       - API_ONLY=true
-      - DB_URL=${WEACAST_DB_URL}
-      - APP_SECRET=${WEACAST_APP_SECRET}
+      - DB_URL=${WEACAST_DB_URL:-$DB_URL}
+      - APP_SECRET=${WEACAST_APP_SECRET:-$SECRET}
       - SUBDOMAIN=${SUBDOMAIN}
     deploy:
       labels:
         - "traefik.backend=weacast"
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
         - "traefik.enable=true"
         - "traefik.port=8081"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:weacast.${SUBDOMAIN}"
-      replicas: ${WEACAST_REPLICAS}
+      replicas: ${WEACAST_REPLICAS:-1}
       placement:
         constraints:
          - node.role == worker
@@ -30,6 +30,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK}
+      name: ${DOCKER_NETWORK:-kaabah}
       external: true
           

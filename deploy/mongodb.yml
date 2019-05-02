@@ -2,14 +2,14 @@ version: '3.5'
 
 services:
   mongodb:
-    image: ${MONGODB_IMAGE}:${MONGODB_TAG}
+    image: ${MONGODB_IMAGE:-mongo}:${MONGODB_TAG:-3.6.5}
     volumes:
       - mongodb_data:/data/db
     configs:
       - source: mongodb_conf
         target: /etc/mongo/mongod.conf
     healthcheck:
-      test: ["CMD", "echo", "\'db.runCommand(\"ping\").ok\'", "|", "mongo", "localhost:27017/${MONGODB_DATABASE}", "--quiet"]
+      test: ["CMD", "echo", "\'db.runCommand(\"ping\").ok\'", "|", "mongo", "localhost:27017/${MONGODB_DATABASE:-kargo}", "--quiet"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -34,6 +34,6 @@ volumes:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK}
+    name: ${DOCKER_NETWORK:-kaabah}
     external: true
 

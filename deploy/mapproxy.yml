@@ -2,14 +2,14 @@ version: '3.5'
 
 services:
   mapproxy:
-    image: ${MAPPROXY_IMAGE}:${MAPPROXY_TAG}
+    image: ${MAPPROXY_IMAGE:-localhost:5000/mapproxy}:${MAPPROXY_TAG:-1.11.0}
     environment:
       - AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
     command: mapproxy http
     volumes:
-      - ${MAPPROXY_DATA_PATH}:/mnt/data
-      - ${MAPPROXY_CACHE_PATH}:/mnt/cache
+      - ${MAPPROXY_DATA_PATH:-/mnt/data0/mapproxy_data}:/mnt/data
+      - ${MAPPROXY_CACHE_PATH:-/mnt/data0/mapproxy_cache}:/mnt/cache
     configs:
       - source: mapproxy_conf
         target: /mapproxy/mapproxy.yaml
@@ -21,13 +21,13 @@ services:
       start_period: 1m
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
         - "traefik.backend=mapproxy"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:mapproxy.${SUBDOMAIN}"
         - "traefik.port=8080"
-      replicas: ${MAPPROXY_REPLICAS}
+      replicas: ${MAPPROXY_REPLICAS:-1}
       update_config:
         delay: 1m
       placement:
@@ -45,6 +45,6 @@ configs:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK}
+      name: ${DOCKER_NETWORK:-kaabah}
       external: true
           
