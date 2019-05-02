@@ -31,5 +31,5 @@ For each service, you need to declare a variable in the `.env` file which tell t
 ```
 
 ::: warning
-Before deploying, do not forget to make the **merged workspace** using the [make-kargo](../reference/cli.md#make-kargo) command.
+Before deploying, do not forget to make the **merged configuration** using the [](../reference/cli.md#configure) subcommand.
 :::

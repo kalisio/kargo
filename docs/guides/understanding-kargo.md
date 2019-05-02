@@ -28,7 +28,7 @@ The **user configuration** may store some sensitive data (passwords, api access 
 :::
 
 ::: warning
-The **merged configuration** must be generated before building or deploying the services. See the command [make-kargo](../cli.md#make-kargo).
+The **merged configuration** must be generated before building or deploying the services. See the subcommand [configure](../cli.md#configure).
 :::
 
 ## Environment
