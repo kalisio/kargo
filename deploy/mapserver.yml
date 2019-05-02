@@ -2,10 +2,10 @@ version: '3.5'
 
 services:
   mapserver:
-    image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
+    image: ${MAPSERVER_IMAGE:-locahost:5000/mapserver}:${MAPSERVER_TAG:-7.2}
     volumes:
       - ./../configs/mapserver:/etc/mapserver
-      - ${MAPSERVER_DATA_PATH}:/mnt/data
+      - ${MAPSERVER_DATA_PATH:-/mnt/data0/mapserver_data}:/mnt/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 30s
@@ -20,7 +20,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:mapserver.${SUBDOMAIN}"
         - "traefik.port=80"
-      replicas: ${MAPSERVER_REPLICAS}
+      replicas: ${MAPSERVER_REPLICAS:-1}
       update_config:
         delay: 1m
       placement:

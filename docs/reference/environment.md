@@ -23,6 +23,15 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
+### K2
+
+| Variable | Description |
+| --- | --- |
+| `K2_IMAGE` | The image to be used. Default value is `kalisio/kano` |
+| `K2_TAG` | The version to be used. Default value is `latest` |
+| `K2_DATA_PATH` | The path to the data. Default value is `/mnt/data0/k2_data` |
+| `K2_REPLICAS` | The number of replicas. Default value is `1` |
+
 ### Kano
 
 | Variable | Description |
@@ -42,7 +51,7 @@ For each stack, there must be such an entry:
 | `GEOSERVER_IMAGE` | The image to be used. Default value is `localhost:5000/geoserver` |
 | `GEOSERVER_TAG` | The version to be used. Default value is `2.12.1` |
 | `GEOSERVER_PLUGINS` | The plugins to be included. Default value is `"css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"` | 
-| `GEOSERVER_DATA_PATH` | The path to the mount volume where to store the data. Default value is `/mnt/data0/geoserver_data` |
+| `GEOSERVER_DATA_PATH` | The path to the data. Default value is `/mnt/data0/geoserver_data` |
 | `GEOSERVER_REPLICAS` | The number of replicas. Default value is `1` |
 
 ::: warning
@@ -55,22 +64,35 @@ The **GeoServer** service is preconfigured to use a local image that must be bui
 | --- | --- |
 | `MAPPROXY_IMAGE` | The image to be used. Default value is `localhost:5000/mapproxy` |
 | `MAPPROXY_TAG` | The version to be used. Default value is `2.12.1` |
-| `MAPPROXY_DATA_PATH` | The path to the mount volume where to store the data. Default value is `/mnt/data0/mapproxy_data` |
-| `MAPPROXY_CACHE_PATH` | The path to the mount volume where to cache the data. Default value is `/mnt/data0/mapproxy_cache` |
+| `MAPPROXY_DATA_PATH` | The path to the data. Default value is `/mnt/data0/mapproxy_data` |
+| `MAPPROXY_CACHE_PATH` | The path to the cache. Default value is `/mnt/data0/mapproxy_cache` |
 | `MAPPROXY_REPLICAS` | The number of replicas. Default value is `1` |
 
 ::: warning
 The **MapProxy** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
 :::
 
-## MongoDB
+### MapServer
+
+| Variable | Description |
+| --- | --- |
+| `MAPSERVER_IMAGE` | The image to be used. Default value is `localhost:5000/mapserver` |
+| `MAPSERVER_TAG` | The version to be used. Default value is `7.2` |
+| `MAPSERVER_DATA_PATH` | The path to the data. Default value is `/mnt/data0/mapserver_data` |
+| `MAPSERVER_REPLICAS` | The number of replicas. Default value is `1` |
+
+::: warning
+The **MapServer** service is preconfigured to use a local image that must be built using the [build-service.sh](./cli.md#build-service) command.
+:::
+
+### MongoDB
 
 | Variable | Description |
 | --- | --- |
 | `MONGO_IMAGE` | The image to be used. Default value is `mongo` |
 | `MONGO_TAG` | The version to be used. Default value is `3.6.5` |
 
-## OpenAQ
+### OpenAQ
 
 | Variable | Description |
 | --- | --- |
@@ -78,7 +100,7 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `OPENAQ_TAG` | The version to be used. Default value is `latest` |
 | `OPENAQ_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
 
-## PostGis
+### PostGis
 
 | Variable | Description |
 | --- | --- |
@@ -87,14 +109,14 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `POSTGRES_USER` | The POSTGRES user. Default value is `postgres` |
 | `POSTGRES_PASSWORD` | The POSTGRES user's password. Default value is `postgres` |
 
-## Seeder
+### Seeder
 
 | Variable | Description |
 | --- | --- |
 | `SEEDER_IMAGE` | The image to be used. Default value is `kalisio/k-seeder` |
 | `SEEDER_TAG` | The version to be used. Default value is `latest` |
 
-## Teleray
+### Teleray
 
 | Variable | Description |
 | --- | --- |
@@ -102,28 +124,28 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `TELERAY_TAG` | The version to be used. Default value is `0.1.0` |
 | `TELERAY_S3_BUCKET` | The S3 bucket where to store the data. Default value is `kargo` |
 
-## Thredds
+### Thredds
 
 | Variable | Description |
 | --- | --- |
 | `THREDDS_IMAGE` | The image to be used. Default value is `unidata/thredds-docker` |
 | `THREDDS_TAG` | The version to be used. Default value is `4.6.11` |
-| `THREDDS_DATA_PATH` | The path to the mount volume where to store the data. Default value is `/mnt/data0/thredds_data` |
+| `THREDDS_DATA_PATH` | The path to the data. Default value is `/mnt/data0/thredds_data` |
 | `THREDDS_CACHE_PATH` | The path to the mount volume where to cache the data. Default value is `/mnt/data0/thredds_cache` |
 | `THREDDS_REPLICAS` | The number of replicas. Default value is `1` |
 | `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). Default value is `4G`. |
 | `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). Default value is `4G`. |
 
-## TileServer GL
+### TileServer GL
 
 | Variable | Description |
 | --- | --- |
 | `TILESERVERGL_IMAGE` | The image to be used. Default value is `klokantech/tileserver-gl` |
 | `TILESERVERGL_TAG` | The version to be used. Default value is `v2.3.1` |
-| `TILESERVERGL_DATA_PATH` | The path to the mount volume where to store the data. Default value is `/mnt/data0/tileservergl_data` |
+| `TILESERVERGL_DATA_PATH` | The path to the data. Default value is `/mnt/data0/tileservergl_data` |
 | `TILESERVERGL_REPLICAS` | The number of replicas. Default value is `1` |
 
-## Vigicrues
+### Vigicrues
 
 | Variable | Description |
 | --- | --- |
@@ -131,10 +153,10 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. Default value is `0.1.0` |
 | `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. Default value is `0.1.0` |
 | `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. Default value is `0.1.0` |
-| `VIGICRUES_DATA_PATH` | The path to the mount volume where to store the data. Default value is `/mnt/data0/vigicrues_data` |
+| `VIGICRUES_DATA_PATH` | The path to the data. Default value is `/mnt/data0/vigicrues_data` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. Default value is `$DB_URL`  |
 
-## Weacast
+### Weacast
 
 | Variable | Description |
 | --- | --- |
@@ -146,7 +168,7 @@ The **MapProxy** service is preconfigured to use a local image that must be buil
 | `WEACAST_DEBUG` | Enable the debug mode. Default value is `` |
 | `WEACAST_REPLICAS` | The number of replicas. Default value is `1` |
 
-## Weacast-loaders
+### Weacast-loaders
 
 | Variable | Description |
 | --- | --- |

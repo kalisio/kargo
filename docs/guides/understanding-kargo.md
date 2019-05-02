@@ -48,10 +48,13 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 
 ## Service
 
-A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following applications:
+A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
+  * [k2]([https://github.com/kalisio/k2)
+  * [kano](https://github.com/kalisio/kano)
   * [GeoServer](http://geoserver.org/)
   * [MapProxy](https://mapproxy.org/)
+  * [MapServer](https://https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [MongoDB](https://www.mongodb.com/fr)
   * [PostGis](https://postgis.net/)
@@ -67,6 +70,7 @@ By default, most of the images of the services are pulled from the [Docker Hub](
 
 * GeoServer
 * MapProxy
+* MapServer
 * maputnik
 * The Weacast loaders
 
