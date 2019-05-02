@@ -6,7 +6,7 @@ services:
     volumes:
       - ${K2_DATA_PATH:-/mnt/data0/k2_data}:/mbtiles
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/layer.json"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
       interval: 30s
       timeout: 10s
       retries: 3
