@@ -2,9 +2,9 @@ version: '3.5'
 
 services:
   k2:
-    image: ${K2_IMAGE}:${K2_TAG}
+    image: ${K2_IMAGE:-kalisio/k2}:${K2_TAG:-latest}
     volumes:
-      - ${K2_DATA_PATH}:/mbtiles
+      - ${K2_DATA_PATH:-/mnt/data0/k2_data}:/mbtiles
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/layer.json"]
       interval: 30s

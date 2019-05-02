@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   maputnik:
-    image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
+    image: ${MAPUTNIK_IMAGE:-localhost:5000/maputnik}:${MAPUTNIK_TAG:-1.5.0}
     environment:
       - SUBDOMAIN=${SUBDOMAIN}
     healthcheck:
@@ -20,7 +20,7 @@ services:
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
         - "traefik.frontend.rule=Host:maputnik.${SUBDOMAIN}"
         - "traefik.port=8888"
-      replicas: ${MAPUTNIK_REPLICAS}
+      replicas: ${MAPUTNIK_REPLICAS:-1}
       placement:
         constraints:
          - node.role == worker
