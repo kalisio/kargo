@@ -54,12 +54,12 @@ For each stack, there must be such an entry:
 | --- | --- | --- |
 | `GEOSERVER_IMAGE` | The image to be used. | `localhost:5000/geoserver` |
 | `GEOSERVER_TAG` | The version to be used. | `2.12.1` |
-| `GEOSERVER_PLUGINS` | The plugins to be included. | `` | 
+| `GEOSERVER_PLUGINS` | The plugins to be included. | `"css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"` | 
 | `GEOSERVER_DATA_PATH` | The path to the data. | `/mnt/data0/geoserver_data` |
 | `GEOSERVER_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **GeoServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+The **GeoServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
 ```bash
 $kargo build geoserver
 ```
@@ -76,7 +76,7 @@ $kargo build geoserver
 | `MAPPROXY_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **MapProxy** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+The **MapProxy** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
 ```bash
 $kargo build mapproxy
 ```
@@ -92,7 +92,7 @@ $kargo build mapproxy
 | `MAPSERVER_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **MapServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+The **MapServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
 ```bash
 $kargo build mapserver
 ```
@@ -107,7 +107,7 @@ $kargo build mapserver
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
 ::: warning
-The **Maputnik** application is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+The **Maputnik** application is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
 ```bash
 $kargo build maputnik
 ```
@@ -218,7 +218,7 @@ $kargo build maputnik
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
 
 ::: warning
-The **Weacast loaders** are preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+The **Weacast loaders** are preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
 ```bash
 $kargo build weacast-loaders
 ```
