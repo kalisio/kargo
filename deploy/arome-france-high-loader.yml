@@ -4,7 +4,7 @@ services:
   arome-france-high-loader:
     image: ${AROME_FRANCE_HIGH_LOADER_IMAGE}:${AROME_FRANCE_HIGH_LOADER_TAG}
     environment:
-      - DB_URL=${WEACAST_LOADERS_DB_URL:-$DB_URL}
+      - DB_URL=${WEACAST_LOADERS_DB_URL}
     networks:
       - kargo-network
     deploy:

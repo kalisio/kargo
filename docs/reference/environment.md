@@ -42,8 +42,8 @@ For each stack, there must be such an entry:
 | --- | --- | --- |
 | `KANO_IMAGE` | The image to be used. | `kalisio/kano` |
 | `KANO_TAG` | The version to be used. | `0.1.0-dev` |
-| `KANO_APP_SECRET` | The app secret used to authenticate a client. | `$SECRET` |
-| `KANO_DB_URL` | The database URL where to write the data. | `$DB_URL` |
+| `KANO_APP_SECRET` | The app secret used to authenticate a client. | - |
+| `KANO_DB_URL` | The database URL where to write the data. | - |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
@@ -127,7 +127,7 @@ $kargo build maputnik
 | --- | --- | --- |
 | `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
 | `OPENAQ_TAG` | The version to be used. | `latest` |
-| `OPENAQ_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
+| `OPENAQ_DB_URL` | The database URL where to write the data. | - |
 
 ### PostGis
 
@@ -185,7 +185,7 @@ $kargo build maputnik
 | `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
 | `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `lastest` |
 | `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
-| `VIGICRUES_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
+| `VIGICRUES_DB_URL` | The database URL where to write the data. | - |
 
 ### Weacast
 
@@ -193,8 +193,8 @@ $kargo build maputnik
 | --- | --- | --- |
 | `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-dev` |
 | `WEACAST_TAG` | The version to be used. | `latest` |
-| `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | `$SECRET` |
-| `WEACAST_DB_URL` | The database URL where to write the data. | `$DB_URL` |
+| `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | - |
+| `WEACAST_DB_URL` | The database URL where to write the data. | - |
 | `WEACAST_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `WEACAST_DEBUG` | Enable the debug mode. | `` |
 | `WEACAST_REPLICAS` | The number of replicas. | `1` |
@@ -205,7 +205,7 @@ $kargo build maputnik
 | --- | --- | --- |
 | `WEACAST_MODELS` | The list of models to be downloaded. | `"arpege-world arpege-europe arome-france gfs-world"` |
 | `WEACAST_LOADERS_TAG` | A default tag value.  | `latest` |
-| `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
+| `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `localhost:5000/arpege-world-loader` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `localhost:5000/arpege-europe-loader` |

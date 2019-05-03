@@ -4,7 +4,7 @@ services:
   observations:
     image: ${VIGICRUES_OBSERVATIONS_IMAGE}:observations-${VIGICRUES_OBSERVATIONS_TAG}
     environment:
-      - DB_URL=${VIGICRUES_DB_URL:-$DB_URL}
+      - DB_URL=${VIGICRUES_DB_URL}
     deploy:
       replicas: 1
       placement:

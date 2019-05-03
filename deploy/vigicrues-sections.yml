@@ -4,7 +4,7 @@ services:
   sections:
     image: ${VIGICRUES_SECTIONS_IMAGE}:sections-${VIGICRUES_SECTIONS_TAG}
     environment:
-      - DB_URL=${VIGICRUES_DB_URL:-$DB_URL}     
+      - DB_URL=${VIGICRUES_DB_URL}     
     deploy:
       replicas: 1
       placement:
