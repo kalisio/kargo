@@ -24,7 +24,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:kano.${SUBDOMAIN}"
         - "traefik.port=8081"        
-      replicas: ${KANO_REPLICAS:-1}
+      replicas: ${KANO_REPLICAS}
       placement:
         constraints:
          - node.role == worker
