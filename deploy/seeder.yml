@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   seeder:
-    image: ${SEEDER_IMAGE:-kalisio/k-seeder}:${SEEDER_TAG:-latest}
+    image: ${SEEDER_IMAGE}:${SEEDER_TAG}
     environment:
       - DOCKER_HOST_IP
       - DOCKER_HOST_PORT
