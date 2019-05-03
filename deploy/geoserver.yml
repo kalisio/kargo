@@ -2,10 +2,10 @@ version: '3.5'
 
 services:
  geoserver:
-    image: ${GEOSERVER_IMAGE:-localhost:5000/geoserver}:${GEOSERVER_TAG:-2.12.1}
+    image: ${GEOSERVER_IMAGE}:${GEOSERVER_TAG}
     volumes:
       - ./../configs/geoserver:/opt/geoserver/data_dir    
-      - ${GEOSERVER_DATA_PATH:-/mnt/data0/geoserver_data}:/mnt/data
+      - ${GEOSERVER_DATA_PATH}:/mnt/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
       interval: 1m
@@ -15,12 +15,12 @@ services:
     deploy:
       labels:
         - "traefik.backend=geoserver"
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.enable=true"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:geoserver.${SUBDOMAIN}"
-      replicas: ${GEOSERVER_REPLICAS:-1}
+      replicas: ${GEOSERVER_REPLICAS}
       placement:
         constraints:
           - node.role == worker
@@ -32,5 +32,5 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true

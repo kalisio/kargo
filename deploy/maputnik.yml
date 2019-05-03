@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   maputnik:
-    image: ${MAPUTNIK_IMAGE:-localhost:5000/maputnik}:${MAPUTNIK_TAG:-1.5.0}
+    image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
       - SUBDOMAIN=${SUBDOMAIN}
     healthcheck:
@@ -13,14 +13,14 @@ services:
       start_period: 5m      
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.backend=maputnik"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"        
         - "traefik.frontend.rule=Host:maputnik.${SUBDOMAIN}"
         - "traefik.port=8888"
-      replicas: ${MAPUTNIK_REPLICAS:-1}
+      replicas: ${MAPUTNIK_REPLICAS}
       placement:
         constraints:
          - node.role == worker
@@ -31,6 +31,6 @@ services:
       
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true
           

@@ -2,10 +2,10 @@ version: '3.5'
 
 services:
   mapserver:
-    image: ${MAPSERVER_IMAGE:-localhost:5000/mapserver}:${MAPSERVER_TAG:-7.2}
+    image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
     volumes:
       - ./../configs/mapserver:/etc/mapserver
-      - ${MAPSERVER_DATA_PATH:-/mnt/data0/mapserver_data}:/mnt/data
+      - ${MAPSERVER_DATA_PATH}:/mnt/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/cgi-bin/mapserv?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities"]
       interval: 30s
@@ -14,13 +14,13 @@ services:
       start_period: 1m
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.backend=mapserver"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:mapserver.${SUBDOMAIN}"
         - "traefik.port=80"
-      replicas: ${MAPSERVER_REPLICAS:-1}
+      replicas: ${MAPSERVER_REPLICAS}
       update_config:
         delay: 1m
       placement:
@@ -34,6 +34,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true
           

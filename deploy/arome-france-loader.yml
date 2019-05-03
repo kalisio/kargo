@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   arome-france-loader:
-    image: ${AROME_FRANCE_LOADER_IMAGE:-localhost:5000/arome-france-loader}:${AROME_FRANCE_LOADER_TAG:-latest}
+    image: ${AROME_FRANCE_LOADER_IMAGE}:${AROME_FRANCE_LOADER_TAG}
     environment:
       - DB_URL=${WEACAST_LOADERS_DB_URL:-$DB_URL}
     networks:
@@ -17,6 +17,6 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK:-kaabah}
+    name: ${DOCKER_NETWORK}
     external: true
           

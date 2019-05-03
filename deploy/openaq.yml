@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   openaq:
-    image: ${OPENAQ_IMAGE:-kalisio/k-openaq}:${OPENAQ_TAG:-latest}
+    image: ${OPENAQ_IMAGE}:${OPENAQ_TAG}
     environment:
       - DB_URL=${OPENAQ_DB_URL}
     deploy:
@@ -17,6 +17,6 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK:-kaabah}
+    name: ${DOCKER_NETWORK}
     external: true
           

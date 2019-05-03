@@ -2,9 +2,9 @@ version: '3.5'
 
 services:
   k2:
-    image: ${K2_IMAGE:-kalisio/k2}:${K2_TAG:-latest}
+    image: ${K2_IMAGE}:${K2_TAG}
     volumes:
-      - ${K2_DATA_PATH:-/mnt/data0/k2_data}:/mbtiles
+      - ${K2_DATA_PATH}:/mbtiles
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
       interval: 30s
@@ -13,13 +13,13 @@ services:
       start_period: 1m
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.backend=k2"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:k2.${SUBDOMAIN}"
         - "traefik.port=8080"
-      replicas: ${K2_REPLICAS:-1}
+      replicas: ${K2_REPLICAS}
       update_config:
         delay: 1m
       placement:
@@ -33,6 +33,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true
           

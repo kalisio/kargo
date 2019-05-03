@@ -2,10 +2,10 @@ version: '3.5'
 
 services: 
   tileservergl:
-    image: ${TILESERVERGL_IMAGE:-klokantech/tileserver-gl}:${TILESERVERGL_TAG:-v2.4.0}
+    image: ${TILESERVERGL_IMAGE}:${TILESERVERGL_TAG}
     volumes:
       - ./../configs/tileservergl:/data
-      - ${TILESERVERGL_DATA_PATH:-/mnt/data0/tileservergl_data}:/mbtiles
+      - ${TILESERVERGL_DATA_PATH}:/mbtiles
     configs:
       - source: tileservergl_conf
         target: /data/config.json
@@ -18,12 +18,12 @@ services:
     deploy:
       labels:
         - "traefik.backend=tileservergl"
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.enable=true"
         - "traefik.port=80"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:tileservergl.${SUBDOMAIN}"
-      replicas: ${TILESERVERGL_REPLICAS:-1}
+      replicas: ${TILESERVERGL_REPLICAS}
       update_config:
         delay: 1m
       placement:
@@ -41,6 +41,6 @@ configs:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true
           

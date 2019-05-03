@@ -2,14 +2,14 @@ version: '3.5'
 
 services: 
   thredds:
-    image: ${THREDDS_IMAGE:-unidata/thredds-docker}:${THREDDS_TAG:-4.6.11}
+    image: ${THREDDS_IMAGE}:${THREDDS_TAG}
     environment:
-      - THREDDS_XMX_SIZE=${THREDDS_XMX_SIZE:-4G}
-      - THREDDS_XMS_SIZE=${THREDDS_XMS_SIZE:-4G}
+      - THREDDS_XMX_SIZE
+      - THREDDS_XMS_SIZE
     volumes:
       - ./../configs/thredds:/usr/local/tomcat/content/thredds
-      - ${THREDDS_DATA_PATH:-/mnt/data0/thredds_data}:/usr/local/tomcat/content/thredds/public
-      - ${THREDDS_CACHE_PATH:-/mnt/data0/thredds_cache}:/usr/local/tomcat/content/thredds/cache
+      - ${THREDDS_DATA_PATH}:/usr/local/tomcat/content/thredds/public
+      - ${THREDDS_CACHE_PATH}:/usr/local/tomcat/content/thredds/cache
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/thredds/catalog.html"]
       interval: 1m
@@ -19,12 +19,12 @@ services:
     deploy:
       labels:
         - "traefik.backend=thredds"
-        - "traefik.docker.network=${DOCKER_NETWORK:-kaabah}"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.enable=true"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:thredds.${SUBDOMAIN}"
-      replicas: ${THREDDS_REPLICAS:-1}
+      replicas: ${THREDDS_REPLICAS}
       placement:
         constraints:
          - node.role == worker
@@ -36,5 +36,5 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true

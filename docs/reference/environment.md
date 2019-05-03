@@ -15,6 +15,9 @@ sidebarDepth: 3
 | `SECRET` | The secret key to generate JWT. It used by the applications **KANO** an **WEACAST**. | - |
 | `DB_URL` | The common database URL. | - |
 | `DOCKER_NETWORK` | The docker network | `kaabah` |
+| `DOCKER_HOST_IP` | The private IP address of the Swarm manager. | - |
+| `DOCKER_HOST_PORT` | The port to get connected to the Docker engine. | `2376` |
+| `DOCKER_CERT_PATH` | The path where to retrieve the certificates to get connected to the Docker engine. | `/home/ubuntu/.docker` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
 | `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
 | `STACKS` | The list of stacks to be deployed. | - |
@@ -95,12 +98,28 @@ $kargo build mapserver
 ```
 :::
 
+### Maputnik
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MAPUTNIK_IMAGE` | The image to be used. | `localhost:5000/maputnik` |
+| `MAPUTNIK_TAG` | The version to be used. | `1.5.0` |
+| `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
+
+::: warning
+The **Maputnik** application is preconfigured to use a local image that must be built using the [build](./cli.md#build) subcommand:
+```bash
+$kargo build maputnik
+```
+:::
+
 ### MongoDB
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `MONGO_IMAGE` | The image to be used. | `mongo` |
-| `MONGO_TAG` | The version to be used. | `3.6.5` |
+| `MONGODB_IMAGE` | The image to be used. | `mongo` |
+| `MONGODB_TAG` | The version to be used. | `3.6.5` |
+| `MONGODB_DATABASE` | The database name. | `kargo` |
 
 ### OpenAQ
 
@@ -126,11 +145,8 @@ $kargo build mapserver
 | --- | --- | --- |
 | `SEEDER_IMAGE` | The image to be used. | `kalisio/k-seeder` |
 | `SEEDER_TAG` | The version to be used. | `latest` |
-| `DOCKER_HOST_IP` | The private IP address of the Swarm manager. | - |
-| `DOCKER_HOST_PORT` | The port to get connected to the Docker engine. | `2376` |
-| `DOCKER_CERT_PATH` | The path where to retrieve the certificates to get connected to the Docker engine. | `/home/ubuntu/.docker` |
-| `MAPPROXY_CONFIG_PATH` | The path to the **MapProxy** configuration. | `/home/ubuntu/kargo/.kargo/configs/mapproxy` |
 | `SEEDER_CONFIG_PATH` | The path to the seeder configuration. | `/home/ubuntu/kargo/.kargo/configs/seeder` |
+| `SEEDER_MAPPROXY_CONFIG_PATH` | The path to the **MapProxy** configuration. | `/home/ubuntu/kargo/.kargo/configs/mapproxy` |
 
 ### Teleray
 
@@ -166,9 +182,9 @@ $kargo build mapserver
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `VIGICRUES_IMAGE` | The image to be used. | `kalisio/k-vigicrues` |
-| `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `0.1.0` |
-| `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `0.1.0` |
-| `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `0.1.0` |
+| `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
+| `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `lastest` |
+| `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. | `$DB_URL`  |
 
 ### Weacast

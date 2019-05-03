@@ -5,16 +5,16 @@ services:
     image: ${SEEDER_IMAGE:-kalisio/k-seeder}:${SEEDER_TAG:-latest}
     environment:
       - DOCKER_HOST_IP
-      - DOCKER_HOST_PORT=${DOCKER_HOST_PORT:-2376}
-      - DOCKER_NETWORK=${DOCKER_NETWORK:-kaabah}
+      - DOCKER_HOST_PORT
+      - DOCKER_NETWORK
       - AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY}
       - AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - MAPPROXY_DATA_PATH=${MAPPROXY_DATA_PATH}
+      - MAPPROXY_DATA_PATH
       - MAPPROXY_CACHE_PATH=${MAPPROXY_CACHE_PATH}
-      - MAPPROXY_CONFIG_PATH=${MAPPROXY_CONFIG_PATH:-/home/ubuntu/kargo/.kargo/configs/mapproxy}
-      - SEEDER_CONFIG_PATH=${SEEDER_CONFIG_PATH:-/home/ubuntu/kargo/.kargo/configs/seeder}
+      - MAPPROXY_CONFIG_PATH=${SEEDER_MAPPROXY_CONFIG_PATH}
+      - SEEDER_CONFIG_PATH
     volumes:
-      - ${DOCKER_CERT_PATH:-/home/ubuntu/.docker}:/certs
+      - ${DOCKER_CERT_PATH}:/certs
       - ./../configs/seeder:/config
     deploy:
       replicas: 1
@@ -29,6 +29,6 @@ services:
 
 networks:
     kargo-network:
-      name: ${DOCKER_NETWORK:-kaabah}
+      name: ${DOCKER_NETWORK}
       external: true
           

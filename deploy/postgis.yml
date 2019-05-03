@@ -2,13 +2,12 @@ version: '3.5'
 
 services:
   postgis:
-    image: ${POSTGIS_IMAGE:-mdillon/postgis}:${POSTGIS_TAG:-9.6-alpine}
+    image: ${POSTGIS_IMAGE}:${POSTGIS_TAG}
     environment:
-      - POSTGRES_USER=${POSTGIS_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGIS_PASSWORD:-postgres}
-      - PGDATA=${POSTGIS_DATA_PATH:-/mnt/data0/postgis_data}
+      - POSTGRES_USER=${POSTGIS_USER}
+      - POSTGRES_PASSWORD=${POSTGIS_PASSWORD}
     volumes:
-      - ./../configs/postgis:/var/lib/postgresql/data
+      - ${POSTGIS_DATA_PATH}:/var/lib/postgresql/data
     deploy:
       replicas: 1
       placement:
@@ -22,5 +21,5 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK:-kaabah}
+    name: ${DOCKER_NETWORK}
     external: true

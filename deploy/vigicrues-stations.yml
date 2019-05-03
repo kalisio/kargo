@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   stations:
-    image: ${VIGICRUES_STATIONS_IMAGE:-kalisio/k-vigicrues}:stations-${VIGICRUES_STATIONS_TAG:-0.1.0}
+    image: ${VIGICRUES_STATIONS_IMAGE}:stations-${VIGICRUES_STATIONS_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL:-$DB_URL}     
     deploy:
@@ -18,6 +18,6 @@ services:
 
 networks:
   kargo-network:
-    name: ${DOCKER_NETWORK:-kaabah}
+    name: ${DOCKER_NETWORK}
     external: true
           

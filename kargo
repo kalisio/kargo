@@ -65,6 +65,7 @@ kargo_read_configuration()
   fi
   # read the configuration
   set -a
+  . .kargo/.env.default
   . .kargo/.env
   set +a
 }
@@ -94,6 +95,7 @@ kargo_configure()
     rm -fr .kargo
   fi
   mkdir .kargo
+  cp .env.default .kargo/.env.default
   cp -R build .kargo/build
   cp -R deploy .kargo/deploy
   cp -R configs .kargo/configs
