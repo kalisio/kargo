@@ -45,7 +45,7 @@ kargo_read_workspace()
   # check whether a workspace has been defined
   if [ ! -f ".workspace" ]; then
     echo error: no workspace defined
-    echo tip: use the command \"kargo use \<workspace\>\" to define the workpsace
+    echo tip: use the command \"kargo use \<workspace\>\" to define the workspace
     exit 1
   fi
   # read the workspace
@@ -109,7 +109,7 @@ kargo_configure()
   if [ -d "$WORKSPACE"/configs ]; then
     cp -R "$WORKSPACE"/configs .kargo/.
   fi
-  echo workpsace \"$WORKSPACE\" ready.
+  echo workspace \"$WORKSPACE\" ready.
 }
 
 kargo_pull()
