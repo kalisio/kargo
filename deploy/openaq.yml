@@ -5,6 +5,14 @@ services:
     image: ${OPENAQ_IMAGE}:${OPENAQ_TAG}
     environment:
       - DB_URL=${OPENAQ_DB_URL}
+      - SUBDOMAIN
+      - SLACK_WEBHOOK_URL
+    healthcheck:
+      test: ["CMD", "node", "./healthcheck.js", "--link-template", "\"portainer.<%= SUBDOMAIN %>\""]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       replicas: 1
       placement:

@@ -4,7 +4,15 @@ services:
   sections:
     image: ${VIGICRUES_SECTIONS_IMAGE}:sections-${VIGICRUES_SECTIONS_TAG}
     environment:
-      - DB_URL=${VIGICRUES_DB_URL}     
+      - DB_URL=${VIGICRUES_DB_URL}
+      - SUBDOMAIN
+      - SLACK_WEBHOOK_URL
+    healthcheck:
+      test: ["CMD", "node", "./healthcheck.js", "--link-template", "\"portainer.<%= SUBDOMAIN %>\""]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       replicas: 1
       placement:

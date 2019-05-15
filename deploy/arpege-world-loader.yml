@@ -5,6 +5,14 @@ services:
     image: ${ARPEGE_WORLD_LOADER_IMAGE}:${ARPEGE_WORLD_LOADER_TAG}
     environment:
       - DB_URL=${WEACAST_LOADERS_DB_URL}
+      - SUBDOMAIN
+      - SLACK_WEBHOOK_URL
+    healthcheck:
+      test: ["CMD", "node", "./healthcheck.js", "--success-rate", "0.75", --link-template", "\"portainer.<%= SUBDOMAIN %>\""]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     networks:
       - kargo-network
     deploy:

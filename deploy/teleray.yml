@@ -7,6 +7,14 @@ services:
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
       - S3_BUCKET=${TELERAY_S3_BUCKET}
+      - SUBDOMAIN
+      - SLACK_WEBHOOK_URL
+    healthcheck:
+      test: ["CMD", "node", "./healthcheck.js", "--link-template", "\"portainer.<%= SUBDOMAIN %>\""]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       replicas: 1
       placement:
