@@ -179,7 +179,6 @@ kargo_deploy()
       SERVICE_NAME=${SERVICE_NAME^^} # change to uppercase
       SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
       SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
-      echo $SERVICE_EXTENSION
       if [ "$SERVICE_EXTENSION" != "" ]; then
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
