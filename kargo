@@ -15,14 +15,14 @@ kargo_usage()
   echo -e ' -h, --help\t print this help and quit'
   echo -e '\n'
   echo -e 'commands:'
-  echo -e ' use\t\t <workspace>\t select the given workspace'
-  echo -e ' configure\t \t\t generate the current configuration'
-  echo -e ' info\t\t \t\t print the information about the current configuration'
-  echo -e ' build\t\t <service>\t build the given service(s)'
-  echo -e ' deploy\t\t <stack>\t deploy tte given stack'
-  echo -e ' update [--force|-f] <stack>\t update the given stack'
-  echo -e ' pull\t\t \t\t pull the current workspace' 
-  echo -e ' remove\t\t <stack>\t remove the given stack'
+  echo -e ' use \t\t <workspace>\t\t select the given workspace'
+  echo -e ' configure \t \t\t\t generate the current configuration'
+  echo -e ' info \t\t \t\t\t print the information about the current configuration'
+  echo -e ' build \t\t <service>\t\t build the given service(s)'
+  echo -e ' deploy \t <stack>\t\t deploy the given stack'
+  echo -e ' update \t [--force|-f] <stack>\t update the given stack'
+  echo -e ' pull \t\t \t\t\t pull the current workspace' 
+  echo -e ' remove \t <stack>\t\t remove the given stack'
   echo -e '\n'
 }
 
@@ -175,8 +175,8 @@ kargo_deploy()
     local STACK=${!STACK_NAME}
     local SERVICES_TO_DEPLOY=
     for SERVICE in $STACK; do
-      SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"     
-      local SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_' 
+      SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
+      local SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_'
       SERVICE_NAME=${SERVICE_NAME^^} # change to uppercase
       local SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
       local SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
@@ -194,15 +194,16 @@ kargo_update()
 {
   local FORCE=
   local STACK=$1
+  echo $STACK
   if [ -n "$2" ]; then
     FORCE=$1
     STACK=$2
-    if [ "$1" != "--force"] || [ "$1" != "-f"]; then
+    if [ "$1" != "--force" ] && [ "$1" != "-f" ]; then
       echo error: cannot use the command \"kargo update\" with the argument \"$1\"
       echo usage: kargo update [--force|-f] \<stack\>
-      exit 1 
+      exit 1
     fi
-  fi  
+  fi
   kargo_check_stack "update [--force|-f]" $STACK
   if [ $STACK == 'all' ]; then 
     for STACK_TO_UPDATE in $STACKS; do
