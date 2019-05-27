@@ -76,7 +76,7 @@ When specifying `all`, it removes all the stacks. The stacks are removed in the 
 Tells **Kargo** to update the services of the given stack. You can force the update with the option `--force`. 
 
 ::: tip
-The --force flag causes the service’s tasks to be shut down and replaced with new ones.
+The `--force` flag causes the service’s tasks to be shut down and replaced with new ones.
 :::
 
 ### use
