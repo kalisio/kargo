@@ -69,6 +69,16 @@ Removes the specified stack. The stack must be defined in the `STACKS` variable.
 
 When specifying `all`, it removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
 
+### update
+
+`usage: kargo update [--force|-f] <stack>`
+
+Tells **Kargo** to update the services of the given stack. You can force the update with the option `--force`. 
+
+::: tip
+The --force flag causes the service’s tasks to be shut down and replaced with new ones.
+:::
+
 ### use
 
 `usage: kargo use <workspace>`

@@ -20,6 +20,7 @@ kargo_usage()
   echo -e ' info\t\t \t\t print the information about the current configuration'
   echo -e ' build\t\t <service>\t build the given service(s)'
   echo -e ' deploy\t\t <stack>\t deploy tte given stack'
+  echo -e ' update [--force|-f] <stack>\t update the given stack'
   echo -e ' pull\t\t \t\t pull the current workspace' 
   echo -e ' remove\t\t <stack>\t remove the given stack'
   echo -e '\n'
@@ -159,26 +160,26 @@ kargo_deploy()
 {
   kargo_check_stack deploy $1
   if [ $1 == 'all' ]; then
-   for STACK in $STACKS; do
-     echo deploying $STACK stack
-     kargo_deploy $STACK
-   done
+    for STACK in $STACKS; do
+      echo deploying $STACK stack
+      kargo_deploy $STACK
+    done
   else
     # check whether the network exist or not.
-    EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`
-    if [ "$EXISTING_DOCKER_NETWORK" = "" ]; then
+    local EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`
+    if [ -z "$EXISTING_DOCKER_NETWORK" ]; then
       docker network create -d overlay --attachable $DOCKER_NETWORK
     fi
     # deploy the stack
-    STACK_NAME=${1^^}_STACK
-    STACK=${!STACK_NAME}
-    SERVICES_TO_DEPLOY=
+    local STACK_NAME=${1^^}_STACK
+    local STACK=${!STACK_NAME}
+    local SERVICES_TO_DEPLOY=
     for SERVICE in $STACK; do
       SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"     
-      SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_' 
+      local SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_' 
       SERVICE_NAME=${SERVICE_NAME^^} # change to uppercase
-      SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
-      SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
+      local SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
+      local SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
       if [ "$SERVICE_EXTENSION" != "" ]; then
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
@@ -189,14 +190,38 @@ kargo_deploy()
   fi
 }
 
+kargo_update()
+{
+  if [ -n "$2" ]; then
+    if [ "$2" != "--force"] || [ "$2" != "-f"]; then
+      echo error: cannot use the command \"kargo update\" with the argument \"$2\"
+      echo usage: kargo update [--force|-f] \<stack\>
+      exit 1 
+    fi
+  fi  
+  kargo_check_stack update $1
+  if [ $1 == 'all' ]; then 
+    for STACK in $STACKS; do
+      echo updating $STACK stack
+      kargo_update $STACK $2
+    done
+  else
+    local STACK_NAME=kargo-$1
+    local SERVICES=`docker stack services $STACK_NAME --format {{.Name}}`
+    for SERVICE in $SERVICES; do
+      docker service update $3 $SERVICE
+    done
+  done
+}
+
 kargo_remove()
 {
   kargo_check_stack remove $1
   if [ $1 == 'all' ]; then 
-   for STACK in $STACKS; do
-     echo removing $STACK stack
-     kargo_remove $STACK
-   done
+    for STACK in $STACKS; do
+      echo removing $STACK stack
+      kargo_remove $STACK
+    done
   else
     docker stack rm kargo-$1
   fi
@@ -211,6 +236,7 @@ case $1 in
   info) kargo_info;;
   build) kargo_build "$2";;
   deploy) kargo_deploy "$2";;
+  update) kargo_update "$2" "$3";;
   remove) kargo_remove "$2";;
   *) kargo_usage
 esac
