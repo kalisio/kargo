@@ -211,7 +211,7 @@ kargo_update()
     for SERVICE in $SERVICES; do
       docker service update $3 $SERVICE
     done
-  done
+  fi
 }
 
 kargo_remove()
