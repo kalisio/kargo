@@ -71,7 +71,7 @@ When specifying `all`, it removes all the stacks. The stacks are removed in the 
 
 ### update
 
-`usage: kargo update [--force|-f] <stack>`
+`usage: kargo update [--force|-f] <stack|all>`
 
 Tells **Kargo** to update the services of the given stack. You can force the update with the option `--force`. 
 

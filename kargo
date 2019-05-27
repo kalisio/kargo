@@ -15,14 +15,14 @@ kargo_usage()
   echo -e ' -h, --help\t print this help and quit'
   echo -e '\n'
   echo -e 'commands:'
-  echo -e ' use \t\t <workspace>\t\t select the given workspace'
-  echo -e ' configure \t \t\t\t generate the current configuration'
-  echo -e ' info \t\t \t\t\t print the information about the current configuration'
-  echo -e ' build \t\t <service>\t\t build the given service(s)'
-  echo -e ' deploy \t <stack>\t\t deploy the given stack'
-  echo -e ' update \t [--force|-f] <stack>\t update the given stack'
-  echo -e ' pull \t\t \t\t\t pull the current workspace' 
-  echo -e ' remove \t <stack>\t\t remove the given stack'
+  echo -e ' use \t\t <workspace>\t\t\t select the given workspace'
+  echo -e ' configure \t \t\t\t\t generate the current configuration'
+  echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
+  echo -e ' build \t\t <service>\t\t\t build the given service(s)'
+  echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
+  echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
+  echo -e ' pull \t\t \t\t\t\t pull the current workspace'
+  echo -e ' remove \t <stack|all>\t\t\t remove the given stack'
   echo -e '\n'
 }
 
@@ -192,23 +192,22 @@ kargo_deploy()
 
 kargo_update()
 {
-  local FORCE=
   local STACK=$1
-  echo $STACK
+  local FORCE=
   if [ -n "$2" ]; then
-    FORCE=$1
-    STACK=$2
     if [ "$1" != "--force" ] && [ "$1" != "-f" ]; then
-      echo error: cannot use the command \"kargo update\" with the argument \"$1\"
-      echo usage: kargo update [--force|-f] \<stack\>
+      echo error: cannot use the command \"kargo update\" with the arguments \"$1\" and \"$2\"
+      echo usage: kargo update [--force\|-f] \<stack\|all\>
       exit 1
     fi
+    STACK=$2
+    FORCE=--force
   fi
   kargo_check_stack "update [--force|-f]" $STACK
-  if [ $STACK == 'all' ]; then 
+  if [ $STACK == 'all' ]; then
     for STACK_TO_UPDATE in $STACKS; do
       echo updating $STACK_TO_UPDATE stack
-      kargo_update $FORCE $STACK
+      kargo_update $FORCE $STACK_TO_UPDATE
     done
   else
     local STACK_NAME=kargo-$STACK
