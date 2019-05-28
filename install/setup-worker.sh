@@ -7,8 +7,8 @@ if [ -z "$1" ]; then
   fi
 
 MANAGER_PRIVATE_IP=$1
-SSHFS="$USER@$MANAGER_PRIVATE_IP:$HOME/kargo/.kargo $HOME/kargo/.kargo -o IdentityFile=$HOME/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no"
+SSHFS="sshfs $USER@$MANAGER_PRIVATE_IP:$HOME/kargo/.kargo $HOME/kargo/.kargo -o IdentityFile=$HOME/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no"
 
 mkdir -p $HOME/kargo/.kargo
 $SSHFS
-echo $SSHFS | crontab -
+echo "@reboot $SSHFS" | crontab -
