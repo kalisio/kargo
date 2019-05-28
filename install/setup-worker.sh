@@ -6,10 +6,9 @@ if [ -z "$1" ]; then
     exit 1 
   fi
 
-local MANAGER_PRIVATE_IP=$1
-local SSHFS="$USER@$MANAGER_PRIVATE_IP:$HOME/kargo/.kargo $HOME/kargo/.kargo -o IdentityFile=$HOME/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no"
+MANAGER_PRIVATE_IP=$1
+SSHFS="$USER@$MANAGER_PRIVATE_IP:$HOME/kargo/.kargo $HOME/kargo/.kargo -o IdentityFile=$HOME/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no"
 
 mkdir -p $HOME/kargo/.kargo
 $SSHFS
 echo $SSHFS | crontab -
-
