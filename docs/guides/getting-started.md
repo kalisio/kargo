@@ -106,19 +106,22 @@ mkdir -p /home/ubuntu/kargo/.kargo/configs
 sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other
 ```
 
-To ensure the volume is permanently mounted (even on reboot), you should prefer to:
-
-1. add the following line to your `/etc/fstab` file:
-
-```
-sshfs#ubuntu@<manager_ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs fuse auto,_netdev,port=22,user,allow_other,IdentityFile=/home/ubuntu.ssh/ssh.pem,reconnect 0 0
-```
-
-2. mount the volume using the command:
+For the volume to be permanently mounted (even at restart), we can add the following entry in the crontab:
 
 ```bash
-$sudo mount -a
+@reboot sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no
 ```
+
+::: warning
+As we faced various issues using `/etc/fstab` to automatically mount the the shared directory, we found more convenient to use use the crontab solution.
+:::
+
+::: tip
+**Kargo** provides an helper script that can be used to share the configuration. You have to copy the script on each nodes and execute it with the manager private IP:
+```bash
+$./setup-worker <manager_private_ip>
+```
+:::
 
 ### Provision the data
 
