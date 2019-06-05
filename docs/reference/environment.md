@@ -191,8 +191,8 @@ $kargo build maputnik
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-dev` |
-| `WEACAST_TAG` | The version to be used. | `latest` |
+| `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-api` |
+| `WEACAST_TAG` | The version to be used. | `dev` |
 | `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | - |
 | `WEACAST_DB_URL` | The database URL where to write the data. | - |
 | `WEACAST_LOG_LEVEL` | The log level of the application. | `verbose` |
