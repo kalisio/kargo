@@ -54,7 +54,7 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 
 A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
-  * [k2]([https://github.com/kalisio/k2)
+  * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
   * [GeoServer](http://geoserver.org/)
   * [MapProxy](https://mapproxy.org/)
