@@ -39,10 +39,43 @@ sqlite>.quit
 ```
 
 ::: warning
+
 According the size of the MBTiles to process you may encounter some memory errors and have such an output: `Error: database or disk is full` 
 You should tell **sqlite** to use a free disk space to work with the temp files:
+
 ```bash
 sqlite> pragma temp_store = 1;
 sqlite> pragma temp_store_directory = '/directory/with/lots/of/space';
+```
+:::
+
+### How to create a tile index from an S3 mosaic ?
+
+1. list the tiles in a file while prefixing the tile path with the driver `viss3`
+
+```bash
+$aws s3 ls s3://<bucket>/<path>/ | awk '{print $4}' | sed 's/^/\/vsis3\/<bucket>\/<path>\//' > tiles.txt
+```
+
+2. Create the tile index
+
+```bash
+$gdaltindex <mosaic>.shp --optfile tiles.txt
+```
+
+::: tip
+
+If you want to serve the mosaic using **MapServer**, it is recommended to apply the `shptree` command in order
+to optimize the index:
+
+```bash
+$shptree <mosaic>.shp
+```
+
+In addition you will probably need to provide some parameters, such as `wcs_extent` and `wcs_resolution`. You can get them by building a [VRT](https://gdal.org/drivers/raster/vrt.html):
+
+```bash
+$gdalbuildvrt -input_file_list tiles.txt <mosaic>.vrt
+$gdalinfo <mosaic>.vrt
 ```
 :::
