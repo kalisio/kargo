@@ -10,7 +10,7 @@ To use **MongoDB Atlas** with **Kargo**, there are few things to do:
 
 1. Create your cluster on **MongoDB Atlas**
    
-2. Enables the connection from **Kargo** to your cluster. On **AWS** the best practice is to enable a peering connection between your **Kargo** VPC and your cluster VPC. See the [documentation](https://docs.atlas.mongodb.com/security-vpc-peering/) for the detail procedure.
+2. Enables the connection from **Kargo** to your cluster. On **AWS** the best practice is to enable a peering connection between your **Kargo** VPC and your cluster VPC. See the [documentation](https://docs.atlas.mongodb.com/security-vpc-peering/) for the detailed procedure.
    
 3. Configure the services in **Kargo** to use **MongoDB Atlas**. 
 

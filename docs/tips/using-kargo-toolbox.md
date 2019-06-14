@@ -15,7 +15,7 @@ Simply run the following command on a given worker node:
 
 ```bash
 $docker run  -v /path/to/your/data:/data -t -i kalisio/kargo-toolbox:latest /bin/bash
-$cd data
+$cd /data
 $gdalinfo path/to/my/dataset
 ```
 
@@ -23,6 +23,12 @@ If you need to access another container you will need to run the GDAL container 
 
 ```bash
 $docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/kargo-toolbox:latest /bin/bash
+```
+
+If you need to use the AWS CLI, you may need to share your credentials:
+
+```bash
+$docker run  -v /path/to/your/data:/data /home/ubuntu/.aws:/root/.aws -t -i kalisio/kargo-toolbox:latest /bin/bash
 ```
 
 ## Use cases
