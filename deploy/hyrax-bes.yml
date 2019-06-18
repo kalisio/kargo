@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   bes:
-    image: ${HYRAX_IMAGE}:bes-${HYRAX_TAG}   
+    image: ${HYRAX_BES_IMAGE}:${HYRAX_TAG}   
     volumes:
       - ${HYRAX_BES_DATA_PATH}:/usr/share/hyrax
     deploy:

@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   olfs:
-    image: ${HYRAX_IMAGE}:olfs-${HYRAX_TAG}   
+    image: ${HYRAX_OLFS_IMAGE}:${HYRAX_TAG}   
     deploy:
       labels:
         - "traefik.backend=hyrax"
