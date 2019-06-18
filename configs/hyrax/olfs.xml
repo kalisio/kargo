@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /////////////////////////////////////////////////////////////////////////////
+  ~ // This file is part of the "Hyrax Data Server" project.
+  ~ //
+  ~ //
+  ~ // Copyright (c) 2013 OPeNDAP, Inc.
+  ~ // Author: Nathan David Potter  <ndp@opendap.org>
+  ~ //
+  ~ // This library is free software; you can redistribute it and/or
+  ~ // modify it under the terms of the GNU Lesser General Public
+  ~ // License as published by the Free Software Foundation; either
+  ~ // version 2.1 of the License, or (at your option) any later version.
+  ~ //
+  ~ // This library is distributed in the hope that it will be useful,
+  ~ // but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~ // Lesser General Public License for more details.
+  ~ //
+  ~ // You should have received a copy of the GNU Lesser General Public
+  ~ // License along with this library; if not, write to the Free Software
+  ~ // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+  ~ //
+  ~ // You can contact OPeNDAP, Inc. at PO Box 112, Saunderstown, RI. 02874-0112.
+  ~ /////////////////////////////////////////////////////////////////////////////
+  -->
+
+<OLFSConfig>
+
+    <BESManager>
+        <BES>
+            <!-- The prefix is a URL token between server address/port
+            and catalog root used to designate a particular BES instance
+            in the case that multiple Back-End-Servers are available to
+            a single OLFS.  The default is no additional tag,
+            designated by "/". So, for a single BES the prefix MUST be
+            set to "/".  -->
+            <prefix>/</prefix>
+
+            <!-- The hostname (or IP address) for this BES -->
+            <host>bes</host>
+
+            <!-- The port number for this BES -->
+            <port>10022</port>
+
+            <!-- Timeout (in seconds) for this BES, defaults to 300 seconds-->
+            <!-- <timeOut>300</timeOut> -->
+
+            <!-- The Administration port number for this BES -->
+            <!-- <adminPort>11002</adminPort> -->
+
+            <!--
+                The maximum response size, in kilobytes, for non authenticated users
+                A value of zero means there is no limit.
+            -->
+            <maxResponseSize>0</maxResponseSize>
+
+
+            <!-- The ClientPool maximum number of concurrent
+              -  BES client connections allowed.
+              -->
+            <ClientPool maximum="200" maxCmds="2000" />
+
+        </BES>
+
+       <!--
+        Controls the state of the in-memory cache for BES catalog/node
+        responses. refreshInterval in seconds. The maxEntries attribute
+        defines the maximum number of entries in the cache. If the serviced
+        collection is large then making this larger will definitely improve
+        response times for catalogs etc. The refreshInterval attribute controls
+        how long any particular item remains in the cache. If the underlying
+        system has a lot of change (model result output etc) then making this
+        number smaller will increase the rate at which the change becomes
+        "available" through the Hyrax service, at the expense of more cache
+        churn and slower responses. If the underlying system is fairly stable
+        (undergoes little change) then refreshInterval can be larger which will
+        mean less cache churn and faster responses.
+        -->
+        <NodeCache maxEntries="20000" refreshInterval="600"/>
+
+        <!--
+        Sets the location and life span of the SiteMap response cache.
+        The optional "cacheFile" attribute may be used to identify
+        a particular location for the SiteMap cache file.
+        The refreshInterval is expressed in seconds, and is the time that a
+        SiteMap is held before the system generates a new one.
+        -->
+        <SiteMapCache refreshInterval="600" />
+
+    </BESManager>
+
+    <ThreddsService  prefix="thredds" useMemoryCache="true" allowRemote="false" />
+    <GatewayService  prefix="gateway" useMemoryCache="true" />
+    <UseDAP2ResourceUrlResponse />
+    <HttpPost enabled="true" max="2000000"/>
+
+    <!-- AddFileoutTypeSuffixToDownloadFilename / -->
+    <!-- AllowDirectDataSourceAccess / -->
+    <!-- PreloadNcmlIntoBes -->
+
+    <!--
+       'Bot Blocker' is used to block access from specific IP addresses
+       and by a range of IP addresses using a regular expression.
+    -->
+    <!-- BotBlocker -->
+    <!-- <IpAddress>127.0.0.1</IpAddress> -->
+    <!-- This matches all IPv4 addresses, work yours out from here.... -->
+    <!-- <IpMatch>[012]?\d?\d\.[012]?\d?\d\.[012]?\d?\d\.[012]?\d?\d</IpMatch> -->
+    <!-- Any IP starting with 65.55 (MSN bots the don't respect robots.txt  -->
+    <!-- <IpMatch>65\.55\.[012]?\d?\d\.[012]?\d?\d</IpMatch>   -->
+    <!-- /BotBlocker -->
+
+
+    <!--
+      'Timer' enables or disables the generation of internal timing metrics for the OLFS
+      If commented out the timing is disabled. If you want timing metrics to be output
+      to the log then uncomment the Timer and set the enabled attribute's value to "true"
+      WARNING: There is some performance cost to utilizing the Timer.
+    -->
+    <!-- Timer enabled="false" / -->
+
+
+</OLFSConfig>

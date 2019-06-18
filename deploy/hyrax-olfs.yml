@@ -2,7 +2,10 @@ version: '3.5'
 
 services: 
   olfs:
-    image: ${HYRAX_OLFS_IMAGE}:${HYRAX_TAG}   
+    image: ${HYRAX_OLFS_IMAGE}:${HYRAX_TAG}
+    configs:
+      - source: olfs_conf
+        target: /usr/local/tomcat/webapps/opendap/WEB-INF/conf/olfs.xml
     deploy:
       labels:
         - "traefik.backend=hyrax"
@@ -19,6 +22,10 @@ services:
         condition: on-failure
     networks:
       - kargo-network
+
+configs:
+  olfs_conf:
+    file: ./../configs/hyrax/olfs.xml
 
 networks:
     kargo-network:
