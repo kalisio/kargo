@@ -5,6 +5,7 @@ services:
     image: ${HYRAX_BES_IMAGE}:${HYRAX_TAG}   
     volumes:
       - ${HYRAX_BES_DATA_PATH}:/usr/share/hyrax
+      - ./../configs/hyrax/logs/bes:/var/log/bes
     deploy:
       replicas: 1
       placement:

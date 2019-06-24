@@ -3,6 +3,10 @@ version: '3.5'
 services: 
   olfs:
     image: ${HYRAX_OLFS_IMAGE}:${HYRAX_TAG}
+    environment:
+      - FOLLOW_SYMLINKS=true
+    volumes:
+      - ./../configs/hyrax/logs/olfs:/var/log/olfs
     configs:
       - source: olfs_conf
         target: /usr/local/tomcat/webapps/opendap/WEB-INF/conf/olfs.xml
