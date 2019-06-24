@@ -3,6 +3,9 @@ version: '3.5'
 services: 
   bes:
     image: ${HYRAX_BES_IMAGE}:${HYRAX_TAG}   
+    configs:
+      - source: site_conf
+        target: /etc/bes/site.conf
     volumes:
       - ${HYRAX_BES_DATA_PATH}:/usr/share/hyrax
       - ./../configs/hyrax/logs/bes:/var/log/bes
@@ -16,6 +19,10 @@ services:
         condition: on-failure
     networks:
       - kargo-network
+
+configs:
+  bes_conf:
+    file: ./../configs/hyrax/site.conf
 
 networks:
     kargo-network:

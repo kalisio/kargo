@@ -10,6 +10,8 @@ services:
     configs:
       - source: olfs_conf
         target: /usr/local/tomcat/webapps/opendap/WEB-INF/conf/olfs.xml
+      - source: olfs_catalog
+        target: /usr/local/tomcat/webapps/opendap/WEB-INF/conf/catalog.xml
     deploy:
       labels:
         - "traefik.backend=hyrax"
@@ -30,6 +32,8 @@ services:
 configs:
   olfs_conf:
     file: ./../configs/hyrax/olfs.xml
+  catalog_conf:
+    file: ./../configs/hyrax/catalog.xml
 
 networks:
     kargo-network:
