@@ -15,9 +15,6 @@ sidebarDepth: 3
 | `SECRET` | The secret key to generate JWT. It used by the applications **KANO** an **WEACAST**. | - |
 | `DB_URL` | The common database URL. | - |
 | `DOCKER_NETWORK` | The docker network | `kaabah` |
-| `DOCKER_HOST_IP` | The private IP address of the Swarm manager. | - |
-| `DOCKER_HOST_PORT` | The port to get connected to the Docker engine. | `2376` |
-| `DOCKER_CERT_PATH` | The path where to retrieve the certificates to get connected to the Docker engine. | `/home/ubuntu/.docker` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
 | `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
 | `STACKS` | The list of stacks to be deployed. | - |
