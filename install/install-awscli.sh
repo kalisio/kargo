@@ -9,14 +9,14 @@ fi
 # Install AWS CLI
 SUDO=""
 if [ "$USER" != "root" ]; then
-  if [ "$SUDO_USER" != "" ]; then
+  if [ "$SUDO_USER" == "" ]; then
     SUDO="sudo"
   fi
 fi
 
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 $SUDO python get-pip.py > /dev/null
-$SUDO pip install awscli > /dev/null
+pip install awscli > /dev/null
 
 # Configure AWS CLI
 mkdir .aws
