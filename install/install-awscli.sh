@@ -7,9 +7,16 @@ if [ -z "$1" -o -z "$2" ]; then
 fi
 
 # Install AWS CLI
+SUDO=""
+if [ "$USER" != "root" ]; then
+  if [ "$SUDO_USER" != "" ]; then
+    SUDO="sudo"
+  fi
+fi
+
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-python get-pip.py > /dev/null
-pip install awscli > /dev/null
+$SUDO python get-pip.py > /dev/null
+$SUDO pip install awscli > /dev/null
 
 # Configure AWS CLI
 mkdir .aws
