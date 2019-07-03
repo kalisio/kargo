@@ -16,7 +16,7 @@ fi
 
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 $SUDO python get-pip.py > /dev/null
-pip install awscli > /dev/null
+pip install --user awscli > /dev/null
 
 # Configure AWS CLI
 mkdir .aws
