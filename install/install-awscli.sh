@@ -14,9 +14,9 @@ if [ "$USER" != "root" ]; then
   fi
 fi
 
-
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 $SUDO python get-pip.py > /dev/null
+rm get-pip.py
 $SUDO pip install awscli > /dev/null
 
 # Configure AWS CLI
