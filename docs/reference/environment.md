@@ -71,6 +71,8 @@ $kargo build geoserver
 | `MAPPROXY_DATA_PATH` | The path to the data. | `/mnt/data0/mapproxy_data` |
 | `MAPPROXY_CACHE_PATH` | The path to the cache. | `/mnt/data0/mapproxy_cache` |
 | `MAPPROXY_REPLICAS` | The number of replicas. | `1` |
+| `MAPPROXY_PROCESSES` | The number of daemon processes to be created. | `2` |
+| `MAPPROXY_THREADS` | The number of threads to be created in each daemon process to handle the requests | `2` |
 
 ::: warning
 The **MapProxy** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
