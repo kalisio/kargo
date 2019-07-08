@@ -32,7 +32,7 @@ services:
 configs:
   olfs_conf:
     file: ./../configs/hyrax/olfs.xml
-  catalog_conf:
+  olfs_catalog:
     file: ./../configs/hyrax/catalog.xml
 
 networks:
