@@ -5,6 +5,7 @@ services:
     image: ${GFS_WORLD_LOADER_IMAGE}:${GFS_WORLD_LOADER_TAG}
     environment:
       - DB_URL=${WEACAST_LOADERS_DB_URL}
+      - SYNC_DB_URL=${WEACAST_LOADERS_DB_URL}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
