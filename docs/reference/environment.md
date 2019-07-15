@@ -153,7 +153,7 @@ $kargo build maputnik
 | --- | --- | --- |
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
 | `TELERAY_TAG` | The version to be used. | `0.1.0` |
-| `TELERAY_S3_BUCKET` | The S3 bucket where to store the data. | `kargo` |
+| `TELERAY_DB_URL` | The database URL where to write the data. | - |
 
 ### Thredds
 

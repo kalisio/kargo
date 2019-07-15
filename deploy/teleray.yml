@@ -4,9 +4,8 @@ services:
   teleray:
     image: ${TELERAY_IMAGE}:${TELERAY_TAG}
     environment:
-      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
-      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - S3_BUCKET=${TELERAY_S3_BUCKET}
+    environment:
+      - DB_URL=${TELERAY_DB_URL}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
