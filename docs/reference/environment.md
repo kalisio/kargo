@@ -40,7 +40,8 @@ For each stack, there must be such an entry:
 | `KANO_IMAGE` | The image to be used. | `kalisio/kano` |
 | `KANO_TAG` | The version to be used. | `0.1.0-dev` |
 | `KANO_APP_SECRET` | The app secret used to authenticate a client. | - |
-| `KANO_DB_URL` | The database URL where to write the data. | - |
+| `KANO_DB_URL` | The application database. | - |
+| `KANO_DATA_DB_URL` | The database URL used by the services to access the data. | - |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
@@ -193,7 +194,8 @@ $kargo build maputnik
 | `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-api` |
 | `WEACAST_TAG` | The version to be used. | `dev` |
 | `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | - |
-| `WEACAST_DB_URL` | The database URL where to write the data. | - |
+| `WEACAST_DB_URL` | The application database URL. | - |
+| `WEACAST_DATA_DB_URL` | The database URL where to read the data downloaded by the loaders. | - |
 | `WEACAST_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `WEACAST_DEBUG` | Enable the debug mode. | `` |
 | `WEACAST_REPLICAS` | The number of replicas. | `1` |

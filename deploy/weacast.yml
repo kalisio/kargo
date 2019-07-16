@@ -7,6 +7,7 @@ services:
       - LOG_LEVEL=${WEACAST_LOG_LEVEL}
       - DEBUG=${WEACAST_DEBUG}
       - DB_URL=${WEACAST_DB_URL}
+      - DATA_DB_URL=${KANO_DATA_DB_URL}
       - APP_SECRET=${WEACAST_APP_SECRET}
       - SUBDOMAIN
     deploy:
