@@ -42,6 +42,7 @@ For each stack, there must be such an entry:
 | `KANO_APP_SECRET` | The app secret used to authenticate a client. | - |
 | `KANO_DB_URL` | The application database. | - |
 | `KANO_DATA_DB_URL` | The database URL used by the services to access the data. | - |
+| `KANO_S3_BUCKET` | The S3 bucket used to store the files. | - |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
