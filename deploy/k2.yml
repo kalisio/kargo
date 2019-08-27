@@ -7,7 +7,7 @@ services:
       - ${K2_DATA_PATH}:/mbtiles
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
-      interval: 30s
+      interval: 1m
       timeout: 10s
       retries: 3
       start_period: 1m

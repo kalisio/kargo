@@ -10,6 +10,12 @@ services:
       - DATA_DB_URL=${KANO_DATA_DB_URL}
       - APP_SECRET=${WEACAST_APP_SECRET}
       - SUBDOMAIN
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/healthcheck"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       labels:
         - "traefik.backend=weacast"
