@@ -225,3 +225,11 @@ The **Weacast loaders** are preconfigured to use a local image that must be buil
 $kargo build weacast-loaders
 ```
 :::
+
+### Redis
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `REDIS_IMAGE` | The image to be used. | `redis` |
+| `REDIS_TAG` | The version to be used. | `5` |
+| `REDIS_URL` | The URL to the service. |  `redis://redis:6379` |

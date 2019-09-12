@@ -69,6 +69,11 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [Vigicrues](https://github.com/kalisio/k-vigicrues) 
   * [Weacast API](https://weacast.github.io/weacast-docs/)
   * [Weacast loaders](https://weacast.github.io/weacast-docs/)
+  * [redis](https://redis.io/)
+
+::: tip
+Redis is required to enable Kano and Weacast to communicate in Cloud environments using [feathers-distributed](https://github.com/kalisio/feathers-distributed) under-the-hood.
+:::
 
 By default, most of the images of the services are pulled from the [Docker Hub](https://hub.docker.com/). Meanwhile **Kargo** provides a mean to build some of them to ensure better maintainability:
 
