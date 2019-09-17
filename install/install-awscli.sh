@@ -13,7 +13,7 @@ if [ "$USER" != "root" ]; then
     SUDO="sudo"
   fi
 fi
-$SUDO apt install awscli
+$SUDO apt install -y awscli
 
 # Configure AWS CLI
 mkdir .aws
