@@ -19,6 +19,7 @@ kargo_usage()
   echo -e ' configure \t \t\t\t\t generate the current configuration'
   echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
   echo -e ' build \t\t <service>\t\t\t build the given service(s)'
+  echo -e ' load \t\t'
   echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
   echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
   echo -e ' pull \t\t \t\t\t\t pull the current workspace'
@@ -133,6 +134,24 @@ kargo_info()
   pushd .kargo/build > /dev/null
   ls *.sh
   popd > /dev/null
+}
+
+kargo_load()
+{
+  kargo_read_configuration
+  # check whether an agument is provided
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo load\" requires one argument.
+    echo usage: kargo load \<service\>
+    exit 1
+  fi
+  # load the archive
+  ARCHIVE=${1^^}_ARCHIVE
+  docker load < $ARCHIVE
+  # push it to the registry
+  TAG=${1^^}_TAG
+  docker tag $1:$TAG localhost:5000/$1:$TAG
+  docker push localhost:5000/$1:$GEOSERVER_TAG
 }
 
 kargo_build()
