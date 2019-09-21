@@ -19,7 +19,7 @@ kargo_usage()
   echo -e ' configure \t \t\t\t\t generate the current configuration'
   echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
   echo -e ' build \t\t <service>\t\t\t build the given service(s)'
-  echo -e ' load \t\t'
+  echo -e ' load \t\t <load>\t\t\t load the given service from an archive'
   echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
   echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
   echo -e ' pull \t\t \t\t\t\t pull the current workspace'
@@ -146,12 +146,25 @@ kargo_load()
     exit 1
   fi
   # load the archive
-  ARCHIVE=${1^^}_ARCHIVE
-  docker load < $ARCHIVE
+  local ARCHIVE_VAR=${1^^}_ARCHIVE
+  local ARCHIVE=${!ARCHIVE_VAR}
+  if [ ! -f $ARCHIVE ]; then
+    echo error: the archive file \"$ARCHIVE\" dost not exist
+    exit 1
+  fi
+  echo loading $ARCHIVE
+  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE`
+  local REGEXP="Loaded image: (.*):(.*)"
+  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
+  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
+  local ACHIVE_TAG="${BASH_REMATCH[2]}"
   # push it to the registry
-  TAG=${1^^}_TAG
-  docker tag $1:$TAG localhost:5000/$1:$TAG
-  docker push localhost:5000/$1:$GEOSERVER_TAG
+  local IMAGE_VAR=${1^^}_IMAGE
+  local IMAGE=${!IMAGE_VAR}
+  local TAG_VAR=${1^^}_TAG
+  local TAG=${!TAG_VAR}
+  docker tag $ARCHIVE_IMAGE:$TAG $IMAGE:$TAG
+  docker push $IMAGE:$TAG
 }
 
 kargo_build()
@@ -164,7 +177,7 @@ kargo_build()
     exit 1
   fi
   # check whethet the argument is valid
-  SERVICE=$1.sh
+  local SERVICE=$1.sh
   if [ ! -f ".kargo/build/$SERVICE" ]; then
     echo error: the specified service \"$1\" does not exist
     echo tip: use the commande \"kargo info\" to list the services to build
@@ -257,6 +270,7 @@ case $1 in
   pull) kargo_pull;;
   configure) kargo_configure;;
   info) kargo_info;;
+  load) kargo_load "$2";;
   build) kargo_build "$2";;
   deploy) kargo_deploy "$2";;
   update) kargo_update "$2" "$3";;
