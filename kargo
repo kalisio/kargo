@@ -19,7 +19,7 @@ kargo_usage()
   echo -e ' configure \t \t\t\t\t generate the current configuration'
   echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
   echo -e ' build \t\t <service>\t\t\t build the given service(s)'
-  echo -e ' load \t\t <load>\t\t\t load the given service from an archive'
+  echo -e ' load \t\t <service>\t\t\t load the given service from an archive'
   echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
   echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
   echo -e ' pull \t\t \t\t\t\t pull the current workspace'
@@ -136,37 +136,6 @@ kargo_info()
   popd > /dev/null
 }
 
-kargo_load()
-{
-  kargo_read_configuration
-  # check whether an agument is provided
-  if [ -z "$1" ]; then
-    echo error: the command \"kargo load\" requires one argument.
-    echo usage: kargo load \<service\>
-    exit 1
-  fi
-  # load the archive
-  local ARCHIVE_VAR=${1^^}_ARCHIVE
-  local ARCHIVE=${!ARCHIVE_VAR}
-  if [ ! -f $ARCHIVE ]; then
-    echo error: the archive file \"$ARCHIVE\" dost not exist
-    exit 1
-  fi
-  echo loading $ARCHIVE
-  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE`
-  local REGEXP="Loaded image: (.*):(.*)"
-  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
-  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
-  local ACHIVE_TAG="${BASH_REMATCH[2]}"
-  # push it to the registry
-  local IMAGE_VAR=${1^^}_IMAGE
-  local IMAGE=${!IMAGE_VAR}
-  local TAG_VAR=${1^^}_TAG
-  local TAG=${!TAG_VAR}
-  docker tag $ARCHIVE_IMAGE:$TAG $IMAGE:$TAG
-  docker push $IMAGE:$TAG
-}
-
 kargo_build()
 {
   kargo_read_configuration
@@ -186,6 +155,42 @@ kargo_build()
   pushd .kargo/build > /dev/null
   source ./$SERVICE
   popd > /dev/null
+}
+
+kargo_load()
+{
+  kargo_read_configuration
+  # check whether an agument is provided
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo load\" requires one argument.
+    echo usage: kargo load \<service\>
+    exit 1
+  fi
+  # load the archive
+  local ARCHIVE_VAR=${1^^}_ARCHIVE
+  local ARCHIVE=${!ARCHIVE_VAR}
+  if [ ! -f $ARCHIVE ]; then
+    echo error: the archive \"$ARCHIVE\" dost not exist
+    exit 1
+  fi
+  echo loading $ARCHIVE
+  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE` 
+  # retrieve the source image and the source tag
+  local REGEXP="Loaded image: (.*):(.*)"
+  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
+  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
+  local ACHIVE_TAG="${BASH_REMATCH[2]}"
+  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$ACHIVE_TAG" == "" ]; then
+    echo error: an error has occured while loading archive \"$ARCHIVE\"
+    exit 1
+  fi
+  # register the image
+  local IMAGE_VAR=${1^^}_IMAGE
+  local IMAGE=${!IMAGE_VAR}
+  local TAG_VAR=${1^^}_TAG
+  local TAG=${!TAG_VAR}
+  docker tag $ARCHIVE_IMAGE:$ARCHIVE_TAG $IMAGE:$TAG
+  docker push $IMAGE:$TAG
 }
 
 kargo_deploy()
