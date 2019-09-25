@@ -157,7 +157,7 @@ kargo_build()
   popd > /dev/null
 }
 
-kargo_import()
+kargo_load()
 {
   kargo_read_configuration
   # check whether an agument is provided
@@ -183,13 +183,24 @@ kargo_import()
     rclone copyto $ARCHIVE /tmp/$LOCAL_ARCHIVE
     ARCHIVE=/tmp/$LOCAL_ARCHIVE
   fi
-  # import the archive
+  # load the archive
+  echo loading $ARCHIVE
+  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE` 
+  # retrieve the source image and the source tag
+  local REGEXP="Loaded image: (.*):(.*)"
+  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
+  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
+  local ARCHIVE_TAG="${BASH_REMATCH[2]}"
+  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$ARCHIVE_TAG" == "" ]; then
+    echo error: an error has occured while loading archive \"$ARCHIVE\"
+    exit 1
+  fi
+  # tag and push the loaded image
   local IMAGE_VAR=${1^^}_IMAGE
   local IMAGE=${!IMAGE_VAR}
   local TAG_VAR=${1^^}_TAG
   local TAG=${!TAG_VAR}
-  echo importing $ARCHIVE
-  docker import $ARCHIVE $IMAGE:$TAG
+  docker tag $ARCHIVE_IMAGE:$ARCHIVE_TAG $IMAGE:$TAG
   docker push $IMAGE:$TAG
 }
 
@@ -218,7 +229,7 @@ kargo_deploy()
       local SERVICE_ARCHIVE_NAME=${SERVICE_NAME}_ARCHIVE
       local SERVICE_ARCHIVE=${!SERVICE_ARCHIVE_NAME}
       if [ "$SERVICE_ARCHIVE" != "" ]; then
-        kargo_import $SERVICE
+        kargo_load $SERVICE
       fi
       local SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
       local SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
@@ -281,7 +292,7 @@ case $1 in
   configure) kargo_configure;;
   info) kargo_info;;
   build) kargo_build "$2";;
-  import) kargo_import "$2";;
+  load) kargo_load "$2";;
   deploy) kargo_deploy "$2";;
   update) kargo_update "$2" "$3";;
   remove) kargo_remove "$2";;
