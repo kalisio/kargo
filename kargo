@@ -91,7 +91,7 @@ kargo_check_stack()
 }
 
 kargo_configure()
-{ 
+{
   kargo_read_workspace
   if [ -d .kargo ]; then
     rm -fr .kargo
@@ -162,7 +162,7 @@ kargo_import()
   kargo_read_configuration
   # check whether an agument is provided
   if [ -z "$1" ]; then
-    echo error: the command \"kargo load\" requires one argument.
+    echo error: the command \"kargo import\" requires one argument.
     echo usage: kargo load \<service\>
     exit 1
   fi
@@ -170,40 +170,26 @@ kargo_import()
   # Is there any archive to import ?
   local ARCHIVE_VAR=${SERVICE_NAME}_ARCHIVE
   local ARCHIVE=${!ARCHIVE_VAR}
-  if [ "$ARCHIVE" != "" ]; then
-    echo error: you must define the variable \"$ARCHIVE_VAR\" to use this command
+  if [ "$ARCHIVE" == "" ]; then
+    echo error: you must define the variable \"$ARCHIVE_VAR\" to set the archive to be imported
     exit 1
   fi
-  # Do we need to copy the archive first ?
-  local STORE_VAR=${SERVICE_NAME}_STORE
-  local STORE=${!STORE_VAR}
-  if [ "$STORE" != "" ]; then
-    rclone copy $STORE:$ARCHIVE /tmp/$ARCHIVE
-    ARCHIVE=/tmp/$ARCHIVE
+  # do we need to copy the archive first ?
+  local STORE_PATTERN=".*:.*"
+  local HTTP_PATTERN="^http(s?)://.*"
+  if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
+    echo copying $ARCHIVE
+    local LOCAL_ARCHIVE=${ARCHIVE//:/_}
+    rclone copyto $ARCHIVE /tmp/$LOCAL_ARCHIVE
+    ARCHIVE=/tmp/$LOCAL_ARCHIVE
   fi
-  # load the archive
-  if [ ! -f $ARCHIVE ]; then
-    echo error: the archive \"$ARCHIVE\" dost not exist
-    exit 1
-  fi
-  echo loading $ARCHIVE
-  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE` 
-  # retrieve the source image and the source tag
-  local REGEXP="Loaded image: (.*):(.*)"
-  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
-  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
-  local ARCHIVE_TAG="${BASH_REMATCH[2]}"
-  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$ARCHIVE_TAG" == "" ]; then
-    echo error: an error has occured while loading archive \"$ARCHIVE\"
-    exit 1
-  fi
-  # register the image
+  # import the archive
   local IMAGE_VAR=${1^^}_IMAGE
   local IMAGE=${!IMAGE_VAR}
   local TAG_VAR=${1^^}_TAG
   local TAG=${!TAG_VAR}
-  echo tagging $ARCHIVE_IMAGE:$ARCHIVE_TAG to $IMAGE:$TAG
-  docker tag $ARCHIVE_IMAGE:$ARCHIVE_TAG $IMAGE:$TAG
+  echo importing $ARCHIVE
+  docker import $ARCHIVE $IMAGE:$TAG
   docker push $IMAGE:$TAG
 }
 
