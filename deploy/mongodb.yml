@@ -27,7 +27,7 @@ services:
 
 configs:
   mongodb_conf:
-    file: ./../configs/mongo/mongod.conf
+    file: ./../configs/mongodb/mongod.conf
 
 volumes:
   mongodb_data: {}
