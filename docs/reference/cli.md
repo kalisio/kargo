@@ -50,9 +50,15 @@ Deploys the specified stack. The stack must be defined in the `STACKS`.
 
 When specifying `all`, it deploys all the stacks. The stacks are deployed in the order defined in the `STACKS` variable.
 
-### import
+### info
 
-`usage: kargo import <service`
+`usage: kargo info`
+
+Displays some information about the current workspace
+
+### load
+
+`usage: kargo load <service`
 
 Import from an archive the docker image corresponding to the given service and push it into **registry**. The archive to be imported is read from the variable `<SERVICE>_ARCHIVE`. It could be an URL that point to a file on the host or a remote file. To import a remote archive, the URL must begin with:
 * `http` or `https` if the archive is accessible using the **HTTP** protocol 
@@ -65,12 +71,6 @@ DUMMY_SERVICE=localhost:5000/dummy
 DUMMY_TAG=1.2.1
 DUMMY_ARCHIVE=store:bucket/dummy-1.2.1.tgz
 ```
-
-### info
-
-`usage: kargo info`
-
-Displays some information about the current workspace
 
 ### pull
 
