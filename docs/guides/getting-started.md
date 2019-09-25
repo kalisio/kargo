@@ -77,6 +77,22 @@ sudo nano /etc/fuse.conf and uncomment the line
 #user_allow_other
 ```
 
+#### Install rclone
+
+**rclone** is used to provision the nodes with the static data that are used by the services (i.e. geospatial datasets, docker images...). **rclone** allows you to retrieve these data from most 
+of the well know stores such as **AWS S3**, **OpenStack Object Store**, **Google Drive**. 
+You need to install **rclone** on each worker:
+
+1. Install **rclone**
+
+```bash
+sudo apt-get install rclone
+```
+
+2. Configure **rclone** 
+   
+Use the [following guide](https://rclone.org/docs/#configure) to setup **rclone**
+
 #### Install jq
 
 **[jq](https://stedolan.github.io/jq/)** is a lightweight and flexible command-line JSON processor. The CLI uses **jq** to extract some information from the `package.json` file.
