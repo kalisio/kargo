@@ -24,7 +24,7 @@ Print the version of **Kargo**
 
 `usage: kargo build <service`
 
-Builds the docker image corresponding to the desired service and push it into **registry**. 
+Builds the docker image corresponding to the desired service and push it to the **registry**. 
 
 The services that can be built are the following:
 
@@ -60,7 +60,7 @@ Displays some information about the current workspace
 
 `usage: kargo load <service`
 
-Import from an archive the docker image corresponding to the given service and push it into **registry**. The archive to be imported is read from the variable `<SERVICE>_ARCHIVE`. It could be an URL that point to a file on the host or a remote file. To import a remote archive, the URL must begin with:
+Load from an archive the docker image corresponding to the given service and push it to the **registry**. The archive to be imported is read from the variable `<SERVICE>_ARCHIVE`. It could be an URL that point to a file on the host or a remote file. To import a remote archive, the URL must begin with:
 * `http` or `https` if the archive is accessible using the **HTTP** protocol 
 * an existing **rclone** remote source if the archive is stored on a well-known store (i.e. Google Driver, OpenStack Object Store, AWS S3...).
 
