@@ -19,7 +19,7 @@ kargo_usage()
   echo -e ' configure \t \t\t\t\t generate the current configuration'
   echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
   echo -e ' build \t\t <service>\t\t\t build the given service(s)'
-  echo -e ' load \t\t <service>\t\t\t load the given service from an archive'
+  echo -e ' import \t\t <service>\t\t\t import the given service from an archive'
   echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
   echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
   echo -e ' pull \t\t \t\t\t\t pull the current workspace'
@@ -157,7 +157,7 @@ kargo_build()
   popd > /dev/null
 }
 
-kargo_load()
+kargo_import()
 {
   kargo_read_configuration
   # check whether an agument is provided
@@ -166,9 +166,22 @@ kargo_load()
     echo usage: kargo load \<service\>
     exit 1
   fi
-  # load the archive
-  local ARCHIVE_VAR=${1^^}_ARCHIVE
+  local SERVICE_NAME=${1^^}
+  # Is there any archive to import ?
+  local ARCHIVE_VAR=${SERVICE_NAME}_ARCHIVE
   local ARCHIVE=${!ARCHIVE_VAR}
+  if [ "$ARCHIVE" != "" ]; then
+    echo error: you must define the variable \"$ARCHIVE_VAR\" to use this command
+    exit 1
+  fi
+  # Do we need to copy the archive first ?
+  local STORE_VAR=${SERVICE_NAME}_STORE
+  local STORE=${!STORE_VAR}
+  if [ "$STORE" != "" ]; then
+    rclone copy $STORE:$ARCHIVE /tmp/$ARCHIVE
+    ARCHIVE=/tmp/$ARCHIVE
+  fi
+  # load the archive
   if [ ! -f $ARCHIVE ]; then
     echo error: the archive \"$ARCHIVE\" dost not exist
     exit 1
@@ -275,8 +288,8 @@ case $1 in
   pull) kargo_pull;;
   configure) kargo_configure;;
   info) kargo_info;;
-  load) kargo_load "$2";;
   build) kargo_build "$2";;
+  import) kargo_import "$2";;
   deploy) kargo_deploy "$2";;
   update) kargo_update "$2" "$3";;
   remove) kargo_remove "$2";;
