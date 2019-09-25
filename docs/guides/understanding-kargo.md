@@ -56,7 +56,6 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
 
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
-  * [GeoServer](http://geoserver.org/)
   * [MapProxy](https://mapproxy.org/)
   * [MapServer](https://https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)

@@ -47,23 +47,6 @@ For each stack, there must be such an entry:
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
 
-### GeoServer
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `GEOSERVER_IMAGE` | The image to be used. | `localhost:5000/geoserver` |
-| `GEOSERVER_TAG` | The version to be used. | `2.12.1` |
-| `GEOSERVER_PLUGINS` | The plugins to be included. | `"css grib netcdf pyramid vectortiles gdal ogr-wfs printing importer control-flow"` | 
-| `GEOSERVER_DATA_PATH` | The path to the data. | `/mnt/data0/geoserver_data` |
-| `GEOSERVER_REPLICAS` | The number of replicas. | `1` |
-
-::: warning
-The **GeoServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
-```bash
-$kargo build geoserver
-```
-:::
-
 ### MapProxy
 
 | Variable | Description | Default value |
