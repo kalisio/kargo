@@ -18,7 +18,7 @@ services:
       replicas: ${EXPRESS_GATEWAY_REPLICAS}
       placement:
         constraints:
-         - node.labels.gateway-express == true
+         - node.labels.express-gateway == true
       restart_policy:
         condition: on-failure
 
