@@ -1,0 +1,29 @@
+http:
+  port: 80
+apiEndpoints:
+  mapserver:
+    host: mapserver
+    paths: '*'
+serviceEndpoints:
+  mapserver:
+    url: 'http://mapserver'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  default:
+    apiEndpoints:
+      - mapserver
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: mapserver 
+              changeOrigin: true

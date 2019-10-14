@@ -1,0 +1,5 @@
+db:
+  redis:
+    host: redis
+    port: 6379
+    namespace: EG
