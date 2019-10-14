@@ -1,9 +1,18 @@
 http:
   port: 8080
 apiEndpoints:
+  mapproxy:
+    host: '*'
+    paths: '/wms/*'
   mapserver:
-    paths: '*/mapserver'
+    host: '*'
+    paths: 
+      - '/wfs/*'
+      - '/wcs/*'
+
 serviceEndpoints:
+  mapproxy:
+    url: 'http://mapproxy'
   mapserver:
     url: 'http://mapserver'
 policies:
@@ -21,7 +30,10 @@ pipelines:
       - mapserver
     policies:
     # Uncomment `key-auth:` when instructed to in the Getting Started guide.
-    # - key-auth:
+      - key-auth:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
       - proxy:
           - action:
               serviceEndpoint: mapserver 
