@@ -1,5 +1,7 @@
 http:
   port: 8080
+admin:
+  port: 9876
 apiEndpoints:
   mapproxy:
     host: '*'
