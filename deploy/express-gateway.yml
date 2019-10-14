@@ -8,6 +8,13 @@ services:
     networks:
       - kargo-network
     deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=kano"        
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:kargo.${SUBDOMAIN}"
+        - "traefik.port=8081"        
       replicas: ${EXPRESS_GATEWAY_REPLICAS}
       placement:
         constraints:
