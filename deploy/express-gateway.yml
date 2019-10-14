@@ -1,0 +1,21 @@
+version: '3.5'
+
+services: 
+  gateway-express:
+    image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
+    volumes:
+      - ./../configs/express-gateway:/var/lib/eg
+    networks:
+      - kargo-network
+    deploy:
+      replicas: ${EXPRESS_GATEWAY_REPLICAS}
+      placement:
+        constraints:
+         - node.labels.gateway-express == true
+      restart_policy:
+        condition: on-failure
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
