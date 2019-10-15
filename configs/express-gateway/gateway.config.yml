@@ -5,12 +5,13 @@ admin:
 apiEndpoints:
   mapproxy:
     host: '*'
-    paths: '/wms/*'
+    paths: 
+      - '/map/*'
   mapserver:
     host: '*'
     paths: 
-      - '/wfs/*'
-      - '/wcs/*'
+      - '/feature/*'
+      - '/coverage/*'
   k2:
     host: '*'
     paths: '/k2/*'
@@ -23,12 +24,9 @@ serviceEndpoints:
   k2:
     url: 'http://k2'
 policies:
-  - basic-auth
   - cors
-  - expression
   - key-auth
   - log
-  - oauth2
   - proxy
   - rate-limit
 pipelines:
