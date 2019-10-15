@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  redis:
+    image: ${REDIS_COMMANDER_IMAGE}:${REDIS_COMMANDER_TAG}
+    environment:
+    - REDIS_HOSTS=redis:6379
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=rediscommander"
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:redis-commander.${SUBDOMAIN}"
+        - "traefik.port=8081"
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == manager       
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+    kargo-network:
+      name: ${DOCKER_NETWORK}
+      external: true
