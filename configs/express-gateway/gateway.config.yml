@@ -11,12 +11,17 @@ apiEndpoints:
     paths: 
       - '/wfs/*'
       - '/wcs/*'
+  k2:
+    host: '*'
+    paths: '/k2/*'
 
 serviceEndpoints:
   mapproxy:
     url: 'http://mapproxy'
   mapserver:
     url: 'http://mapserver'
+  k2:
+    url: 'http://k2'
 policies:
   - basic-auth
   - cors
@@ -27,11 +32,10 @@ policies:
   - proxy
   - rate-limit
 pipelines:
-  default:
+  mapserver:
     apiEndpoints:
       - mapserver
     policies:
-    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
       - key-auth:
       - log:
           - action:
@@ -39,4 +43,28 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: mapserver 
+              changeOrigin: true
+  mapproxy:
+    apiEndpoints:
+      - mapproxy
+    policies:
+      - key-auth:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
+      - proxy:
+          - action:
+              serviceEndpoint: mapproxy 
+              changeOrigin: true
+  k2:
+    apiEndpoints:
+      - k2
+    policies:
+      - key-auth:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
+      - proxy:
+          - action:
+              serviceEndpoint: k2 
               changeOrigin: true
