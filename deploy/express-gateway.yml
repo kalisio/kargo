@@ -10,10 +10,10 @@ services:
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.backend=gateway"        
+        - "traefik.backend=express-gateway"        
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:gateway.${SUBDOMAIN}"
+        - "traefik.frontend.rule=Host:api.${SUBDOMAIN}"
         - "traefik.port=8080"        
       replicas: ${EXPRESS_GATEWAY_REPLICAS}
       placement:
