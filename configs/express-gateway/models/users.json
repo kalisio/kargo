@@ -21,8 +21,6 @@
     }
   },
   "required": [
-    "username",
-    "firstname",
-    "lastname"
+    "username"
   ]
 }
