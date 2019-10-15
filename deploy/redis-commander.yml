@@ -1,10 +1,10 @@
 version: '3.5'
 
 services:
-  redis:
+  redis-commander:
     image: ${REDIS_COMMANDER_IMAGE}:${REDIS_COMMANDER_TAG}
     environment:
-    - REDIS_HOSTS=redis:6379
+    - REDIS_HOSTS=redis
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
@@ -12,6 +12,8 @@ services:
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:redis-commander.${SUBDOMAIN}"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"
         - "traefik.port=8081"
       replicas: 1
       placement:
