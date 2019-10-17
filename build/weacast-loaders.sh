@@ -8,6 +8,6 @@ for WEACAST_MODEL in $WEACAST_MODELS; do
   if [ "$GIT_BRANCH" != "latest" ]; then
     GIT_URL=$GIT_URL#$GIT_BRANCH
   fi
-  docker build --pull --build-arg TAG=$WEACAST_LOADER_TAG --build-arg SYNC_DB_URL="WEACAST_LOADERS_SYNC_DB_URL" -f dockerfile.$WEACAST_MODEL -t localhost:5000/$WEACAST_MODEL-loader:$WEACAST_LOADER_TAG $GIT_URL
+  docker build --pull --force-rm --build-arg TAG=$WEACAST_LOADER_TAG --build-arg SYNC_DB_URL="WEACAST_LOADERS_SYNC_DB_URL" -f dockerfile.$WEACAST_MODEL -t localhost:5000/$WEACAST_MODEL-loader:$WEACAST_LOADER_TAG $GIT_URL
   docker push localhost:5000/$WEACAST_MODEL-loader:$WEACAST_LOADER_TAG
 done
