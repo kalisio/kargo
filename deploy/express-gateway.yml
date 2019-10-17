@@ -15,10 +15,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:api.${SUBDOMAIN}"
         - "traefik.port=8080"        
-      replicas: ${EXPRESS_GATEWAY_REPLICAS}
-      placement:
-        constraints:
-         - node.labels.express-gateway == true
+      mode: global
       restart_policy:
         condition: on-failure
 
