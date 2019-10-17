@@ -7,6 +7,5 @@ RUN tar xvf src.tgz
 COPY config.tgz .
 RUN tar xvf config.tgz
 
-WORKDIR /opt/weacast-api
 RUN npm run compile
 

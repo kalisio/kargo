@@ -4,5 +4,5 @@ cd weacast-api
 tar cvf src.tgz src
 tar cvf config.tgz config
 # Build the image
-docker build --pull --build-arg TAG=$WEACAST_TAG -f dockerfile -t localhost:5000:$WEACAST_TAG .
+docker build --pull --build-arg TAG=$WEACAST_TAG -f dockerfile -t localhost:5000/kano:$WEACAST_TAG .
 docker push localhost:5000/weacast-api:$WEACAST_TAG
