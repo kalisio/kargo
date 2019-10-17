@@ -2,7 +2,7 @@ ARG TAG=latest
 FROM  weacast/weacast-api:${TAG}
 
 COPY weacast.tgz .
-RUN tar xvf −−strip−components=1 weacast.tgz
+RUN tar xvf weacast.tgz −−strip−components=1
 
 RUN npm run compile
 

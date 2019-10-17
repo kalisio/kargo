@@ -4,7 +4,7 @@ FROM  kalisio/kano:${TAG}
 WORKDIR /opt/kano
 
 COPY kano.tgz .
-RUN tar xvf −−strip−components=1 kano.tgz 
+RUN tar xvf kano.tgz −−strip−components=1
 
 RUN npm run build
 
