@@ -5,30 +5,29 @@ admin:
 apiEndpoints:
   mapproxy:
     host: '*'
-    paths: '/wms/*'
+    paths: '/mapproxy/*'
+    scopes: ["mapproxy:wms", "mapproxy:wmts", "mapproxy:tms"]
   mapserver:
     host: '*'
-    paths: 
-      - '/wfs/*'
-      - '/wcs/*'
+    paths: '/mapserver/*'
+    scopes: ["mapserver:wms", "mapserver:wcs", "mapserver:wfs"]
   k2:
     host: '*'
     paths: '/k2/*'
+    scopes: ["k2:3dtiles"]
 
 serviceEndpoints:
   mapproxy:
-    url: 'http://mapproxy'
+    url: 'http://mapproxy:8080'
   mapserver:
     url: 'http://mapserver'
   k2:
-    url: 'http://k2'
+    url: 'http://k2:8080'
 policies:
-  - basic-auth
   - cors
-  - expression
   - key-auth
+  - jwt
   - log
-  - oauth2
   - proxy
   - rate-limit
 pipelines:
@@ -44,6 +43,7 @@ pipelines:
           - action:
               serviceEndpoint: mapserver 
               changeOrigin: true
+              stripPath: true
   mapproxy:
     apiEndpoints:
       - mapproxy
@@ -56,15 +56,26 @@ pipelines:
           - action:
               serviceEndpoint: mapproxy 
               changeOrigin: true
+              stripPath: true
   k2:
     apiEndpoints:
       - k2
     policies:
       - key-auth:
+          - action:
+              passThrough: true
+      - jwt:
+          - action:
+              secretOrPublicKey: 1vqwj1lwfhuzbYCuxwuylN
+              checkCredentialExistence: false
       - log:
           - action:
               message: ${req.method} ${req.originalUrl}
       - proxy:
           - action:
-              serviceEndpoint: k2 
+              serviceEndpoint: k2
               changeOrigin: true
+              stripPath: true
+
+
+
