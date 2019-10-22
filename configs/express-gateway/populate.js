@@ -10,9 +10,9 @@ async function createScopes(scopes) {
 }
 
 async function createCredential(consumerId, credential) {
-  let result = await admin.credentials.create(consumerId, credential.type, credential.data);
-  if (credential.data.scopes) {
-    await admin.credentials.setScopes(result.id, credential.type, credential.data.scopes);
+  let result = await admin.credentials.create(consumerId, credential.type, { keyId: credential.keyId, keySecret: credential.keySecret });
+  if (credential.scopes) {
+    await admin.credentials.setScopes(result.id, credential.type, credential.scopes);
   }
 }
 
