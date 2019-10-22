@@ -21,7 +21,6 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-      start_period: 5m      
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
