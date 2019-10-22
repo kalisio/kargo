@@ -14,6 +14,7 @@ services:
       - S3_ACCESS_KEY
       - S3_SECRET_ACCESS_KEY
       - S3_BUCKET=${KANO_S3_BUCKET}
+      - LAUNCH_DELAY=${KANO_LAUNCH_DELAY}
       - SUBDOMAIN
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/capabilities"]

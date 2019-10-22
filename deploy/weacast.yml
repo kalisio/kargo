@@ -10,6 +10,7 @@ services:
       - DATA_DB_URL=${WEACAST_DATA_DB_URL}
       - COTE_DISCOVERY_REDIS_URL=${REDIS_URL}
       - APP_SECRET=${WEACAST_APP_SECRET}
+      - LAUNCH_DELAY=${WEACAST_LAUNCH_DELAY}
       - SUBDOMAIN
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/healthcheck"]
