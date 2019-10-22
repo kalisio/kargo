@@ -1,12 +1,12 @@
 ARG TAG=latest
 FROM  kalisio/kano:${TAG}
 
-COPY src.tgz .
-RUN tar xvf src.tgz
-
-COPY config.tgz .
-RUN tar xvf config.tgz
-
 WORKDIR /opt/kano
+
+COPY kano.tgz .
+RUN tar xvf kano.tgz
+
 RUN npm run build
+
+WORKDIR /opt/kano/api
 

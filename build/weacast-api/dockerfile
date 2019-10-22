@@ -1,0 +1,8 @@
+ARG TAG=latest
+FROM  weacast/weacast-api:${TAG}
+
+COPY weacast.tgz .
+RUN tar xvf weacast.tgz
+
+RUN npm run compile
+
