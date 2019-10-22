@@ -25,10 +25,8 @@ serviceEndpoints:
 policies:
   - cors
   - key-auth
-  - jwt
   - log
   - proxy
-  - rate-limit
 pipelines:
   mapserver:
     apiEndpoints:
@@ -61,12 +59,6 @@ pipelines:
       - k2
     policies:
       - key-auth:
-          - action:
-              passThrough: true
-      - jwt:
-          - action:
-              secretOrPublicKey: 1vqwj1lwfhuzbYCuxwuylN
-              checkCredentialExistence: false
       - log:
           - action:
               message: ${req.method} ${req.originalUrl}
