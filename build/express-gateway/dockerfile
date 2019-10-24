@@ -1,0 +1,5 @@
+ARG TAG
+
+FROM express-gateway:$TAG
+
+RUN yarn install express-gateway-prometheus-metrics-example
