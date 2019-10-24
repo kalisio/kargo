@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  gateway-express:
+  express-gateway:
     image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
     volumes:
       - ./../configs/express-gateway:/var/lib/eg
