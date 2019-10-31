@@ -4,7 +4,6 @@ services:
   teleray:
     image: ${TELERAY_IMAGE}:${TELERAY_TAG}
     environment:
-    environment:
       - DB_URL=${TELERAY_DB_URL}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
