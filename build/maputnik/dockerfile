@@ -1,6 +1,6 @@
 FROM nodesource/xenial:6.1.0
 
-MAINTAINER Kalisio <contact@kalisio.xyz>
+LABEL maintainer="Kalisio <contact@kalisio.xyz>"
 
 ARG VERSION
 ENV BRANCH=v$VERSION
