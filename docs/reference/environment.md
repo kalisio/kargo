@@ -86,15 +86,10 @@ $kargo build mapserver
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `MAPUTNIK_IMAGE` | The image to be used. | `localhost:5000/maputnik` |
-| `MAPUTNIK_TAG` | The version to be used. | `1.5.0` |
+| `MAPUTNIK_IMAGE` | The image to be used. | `maputnik/editor` |
+| `MAPUTNIK_TAG` | The version to be used. | `latest` |
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
-::: warning
-The **Maputnik** application is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
-```bash
-$kargo build maputnik
-```
 :::
 
 ### MongoDB
