@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  sections:
+  vigicrues-sections:
     image: ${VIGICRUES_SECTIONS_IMAGE}:sections-${VIGICRUES_SECTIONS_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL}

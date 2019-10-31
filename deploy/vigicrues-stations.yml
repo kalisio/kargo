@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  stations:
+  vigicrues-stations:
     image: ${VIGICRUES_STATIONS_IMAGE}:stations-${VIGICRUES_STATIONS_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL}

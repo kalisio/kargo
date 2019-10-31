@@ -1,7 +1,7 @@
 version: '3.5'
 
 services: 
-  observations:
+  vigicrues-observations:
     image: ${VIGICRUES_OBSERVATIONS_IMAGE}:observations-${VIGICRUES_OBSERVATIONS_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL}
