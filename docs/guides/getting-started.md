@@ -188,12 +188,12 @@ wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
    2. For each stacks, define a variable `<NAME>_STACK` listing the services to deploy
 
 ```bash
-STACKS="dbs weacast vigicrues jobs apps"
+STACKS="dbs weacast hydro air apps"
 APPS_STACK="tileservergl mapproxy maputnik thredds kano"
 DBS_STACK="mongodb"
 WEACAST_STACK="arpege-world-loader arpege-europe-loader arome-france-loader gfs-world-loader weacast"
-VIGICRUES_STACK="vigicrues-stations vigicrues-observations vigicrues-sections"
-JOBS_STACK="teleray"
+VIGICRUES_HYDRO="vigicrues hubeau-stations hubeau-observations"
+AIR_STACK="teleray openaq"
 ```
 
 5. Tell kargo to use your workspace
