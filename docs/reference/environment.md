@@ -25,7 +25,7 @@ For each stack, there must be such an entry:
 ## Services configuration
 
 
-### Hubeau
+### Hub'eau
 
 | Variable | Description | Default value |
 | --- | --- | --- |

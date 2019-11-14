@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   hubeau-stations:
-    image: ${HUBEAU_STATIONS_IMAGE}:stations-${HUBEAU_STATIONS_TAG}
+    image: ${HUBEAU_IMAGE}:stations-${HUBEAU_STATIONS_TAG}
     environment:
       - DB_URL=${HUBEAU_DB_URL}
       - SUBDOMAIN
