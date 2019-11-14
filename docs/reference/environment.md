@@ -24,6 +24,16 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
+
+### Hubeau
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `HUBEAU_IMAGE` | The image to be used. | `kalisio/k-hubeau` |
+| `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
+| `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
+| `HUBEAU_DB_URL` | The database URL where to write the data. | - |
+
 ### K2
 
 | Variable | Description | Default value |

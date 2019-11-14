@@ -2,13 +2,13 @@ version: '3.5'
 
 services: 
   vigicrues-sections:
-    image: ${VIGICRUES_SECTIONS_IMAGE}:sections-${VIGICRUES_SECTIONS_TAG}
+    image: ${VIGICRUES_IMAGE}:${VIGICRUES_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
-      test: ["CMD", "node", "./krawler/healthcheck.js", "--debug", "--link-template", "https://portainer.<%= SUBDOMAIN %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
       interval: 1m
       timeout: 10s
       retries: 3
