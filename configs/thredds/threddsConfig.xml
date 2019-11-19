@@ -85,8 +85,8 @@
   <CORS>
     <enabled>true</enabled>
     <maxAge>1728000</maxAge>
-    <allowedMethods>GET</allowedMethods>
-    <allowedHeaders>Authorization</allowedHeaders>
+    <allowedMethods>GET,OPTIONS</allowedMethods>
+    <allowedHeaders>Authorization,range</allowedHeaders>
     <allowedOrigin>*</allowedOrigin>
   </CORS>
 
