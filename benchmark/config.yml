@@ -1,0 +1,27 @@
+config:
+  target: "" # No default target, depends on environment
+  phases:
+    - duration: 5
+      arrivalRate: 2
+      name: "Kargo benchmark"
+  environments:
+    public:
+      variables:
+        mapproxy: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}"
+        mapserver: "https://mapserver.{{ $processEnvironment.SUBDOMAIN }}"
+        k2: "https://k2.{{ $processEnvironment.SUBDOMAIN }}"
+        qs: "?"
+    gravitee:
+      variables:
+        mapproxy: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/mapproxy"
+        mapserver: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/mapserver"
+        k2: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/k2"
+        qs: "?access_token={{ $processEnvironment.API_GATEWAY_JWT }}"
+    express:
+      variables:
+        mapproxy: "https://api.{{ $processEnvironment.SUBDOMAIN }}/mapproxy"
+        mapserver: "https://api.{{ $processEnvironment.SUBDOMAIN }}/mapserver"
+        k2: "https://api.{{ $processEnvironment.SUBDOMAIN }}/k2"
+        qs: "?jwt={{ $processEnvironment.API_GATEWAY_JWT }}"
+
+
