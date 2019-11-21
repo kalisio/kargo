@@ -11,7 +11,7 @@ Indeed, **Kargo** relies on the ease of [Docker Swarm](https://docs.docker.com/s
 
 Of course, **Kargo** allows you to deploy most of the well-known geospatial Open Source solutions ([MapServer](https://mapserver.org/), [PostGis](http://postgis.net/)...) enabling you to deliver your data through Open Standards services such as [WMS](http://www.opengeospatial.org/standards/wms), [WMTS](http://www.opengeospatial.org/standards/wmts), [WCS](http://www.opengeospatial.org/standards/wcs), [WFS](http://www.opengeospatial.org/standards/wfs)... 
 
-But even more, **Kargo** provides the easiest way to deploy [Weacast](https://weacast.gitbooks.io/weacast-docs/) services and more generally [Krawler](https://kalisio.github.io/krawler/) based services such as [Vigicrues](https://mapserver.org/), [Téléray](ttps://github.com/kalisio/k-teleray), etc.
+But even more, **Kargo** provides the easiest way to deploy [Weacast](https://weacast.github.io/weacast-docs/) services and more generally [Krawler](https://kalisio.github.io/krawler/) based services such as [Vigicrues](https://github.com/kalisio/k-vigicrues), [Téléray](https://github.com/kalisio/k-teleray), etc.
 
 
 ![kargo-overview](./../assets/kargo-overview.svg)
