@@ -54,12 +54,14 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 
 A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
+  * [Hub'eau](https://https://github.com/kalisio/k-hubeau)
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
   * [MapProxy](https://mapproxy.org/)
   * [MapServer](https://https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [MongoDB](https://www.mongodb.com/fr)
+  * [OpenAQ](https://https://github.com/kalisio/k-openaq)
   * [PostGis](https://postgis.net/)
   * [Seeder](https://github.com/kalisio/k-seeder)
   * [Teleray](https://github.com/kalisio/k-teleray)
@@ -74,10 +76,10 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
 **Redis** is required to enable Kano and Weacast to communicate in Cloud environments using [feathers-distributed](https://github.com/kalisio/feathers-distributed) under-the-hood.
 :::
 
-By default, most of the images of the services are pulled from the [Docker Hub](https://hub.docker.com/). Meanwhile **Kargo** provides a mean to build some of them to ensure better maintainability:
+By default, most of the images of the services are pulled from the [Docker Hub](https://hub.docker.com/). Meanwhile **Kargo** provides a mean to build some of them to ensure better customization and maintainability:
 
 * MapProxy
 * MapServer
-* maputnik
+* Kano
 * The Weacast loaders
 
