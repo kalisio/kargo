@@ -4,7 +4,10 @@ config:
   phases:
     - duration: 30
       arrivalRate: 1
-      name: "Kargo benchmark"
+      name: "Kargo warm up"
+    - duration: 30
+      arrivalRate: 2
+      name: "Kargo sustained load"
   environments:
     public:
       variables:

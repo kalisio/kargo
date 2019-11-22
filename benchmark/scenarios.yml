@@ -2,45 +2,47 @@ scenarios:
   - flow: # Simulate a typical user viewing a 2D map part on a client app so requesting ~20 tiles
       - log: "New virtual WMTS user running on {{ $environment }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8253/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8253/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8253/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8253/5981.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8254/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8254/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8254/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8254/5981.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8252/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8252/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8252/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8252/5981.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8253/5979.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8253/5979.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8253/5982.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8253/5982.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8254/5979.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8254/5979.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8254/5982.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8254/5982.png{{ qs }}"
+      - log: "Virtual K2 user pausing on {{ $environment }}"
+      - think: 5
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8255/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8255/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8255/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8255/5981.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8252/5979.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8252/5979.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8252/5982.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8252/5982.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8255/5979.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8255/5979.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8255/5982.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8255/5982.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8251/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8251/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8251/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8251/5981.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8256/5980.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8256/5980.png{{ qs }}"
       - get:
-          url: "{{ mapproxy }}/wmts/satellite-aeroway/GLOBAL_WEBMERCATOR/14/8256/5981.png{{ qs }}"
+          url: "{{ mapproxy }}/wmts/osm-bright/GLOBAL_WEBMERCATOR/14/8256/5981.png{{ qs }}"
       - log: "Virtual WMTS user dying on {{ $environment }}"
     weight: 50
     beforeScenario: "beforeScenario"
@@ -49,7 +51,7 @@ scenarios:
   - flow: # Simulate a typical user downloading a map as a 1200x600 png image
       - log: "New virtual WMS user running on {{ $environment }}"
       - get:
-          url: "{{ mapproxy }}/service{{ qs }}LAYERS=osm-bright&FORMAT=image%2Fpng&SRS=EPSG%3A3857&EXCEPTIONS=application%2Fvnd.ogc.se_inimage&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&BBOX=-1149727.56095,5177767.8590081,1805022.2044417,6645358.8020835&WIDTH=1208&HEIGHT=600"
+          url: "{{ mapproxy }}/service{{ qs }}&LAYERS=osm-bright&FORMAT=image%2Fpng&SRS=EPSG%3A3857&EXCEPTIONS=application%2Fvnd.ogc.se_inimage&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&BBOX=-1149727.56095,5177767.8590081,1805022.2044417,6645358.8020835&WIDTH=1208&HEIGHT=600"
       - log: "Virtual WMS user dying on {{ $environment }}"
     weight: 10
     beforeScenario: "beforeScenario"
@@ -78,6 +80,8 @@ scenarios:
           url: "{{ k2 }}/10/1033/755.terrain{{ qs }}"
       - get:
           url: "{{ k2 }}/11/2063/1507.terrain{{ qs }}"
+      - log: "Virtual K2 user pausing on {{ $environment }}"
+      - think: 5
       - get:
           url: "{{ k2 }}/11/2070/1506.terrain{{ qs }}"
       - get:
