@@ -8,10 +8,11 @@ services:
       - TTL=${HUBEAU_OBSERVATIONS_TTL}
       - HISTORY=${HUBEAU_OBSERVATIONS_HISTORY}
       - TIMEOUT=${HUBEAU_OBSERVATIONS_TIMEOUT}
+      - SUCCESS_RATE=${HUBEAU_OBSERVATIONS_SUCCESS_RATE}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
-      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--success-rate", "${HUBEAU_OBSERVATIONS_SUCCESS_RATE}", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--success-rate", "${SUCCESS_RATE}", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
       interval: 1m
       timeout: 10s
       retries: 3
