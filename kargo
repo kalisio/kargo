@@ -167,6 +167,7 @@ kargo_load()
     exit 1
   fi
   local SERVICE_NAME=${1^^}
+  SERVICE_NAME=${SERVICE_NAME//-/_}
   # Is there any archive to import ?
   local ARCHIVE_VAR=${SERVICE_NAME}_ARCHIVE
   local ARCHIVE=${!ARCHIVE_VAR}
@@ -196,9 +197,9 @@ kargo_load()
     exit 1
   fi
   # tag and push the loaded image
-  local IMAGE_VAR=${1^^}_IMAGE
+  local IMAGE_VAR=${SERVICE_NAME}_IMAGE
   local IMAGE=${!IMAGE_VAR}
-  local TAG_VAR=${1^^}_TAG
+  local TAG_VAR=${SERVICE_NAME}_TAG
   local TAG=${!TAG_VAR}
   docker tag $ARCHIVE_IMAGE:$ARCHIVE_TAG $IMAGE:$TAG
   docker push $IMAGE:$TAG
