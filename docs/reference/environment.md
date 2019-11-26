@@ -24,7 +24,6 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
-
 ### Hub'eau
 
 | Variable | Description | Default value |
@@ -33,6 +32,10 @@ For each stack, there must be such an entry:
 | `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
 | `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
+| `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
+| `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
+| `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `90%` |
 
 ### K2
 

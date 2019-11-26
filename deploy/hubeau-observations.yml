@@ -5,10 +5,13 @@ services:
     image: ${HUBEAU_IMAGE}:observations-${HUBEAU_OBSERVATIONS_TAG}
     environment:
       - DB_URL=${HUBEAU_DB_URL}
+      - TTL=${HUBEAU_OBSERVATIONS_TTL}
+      - HISTORY=${HUBEAU_OBSERVATIONS_HISTORY}
+      - TIMEOUT=${HUBEAU_OBSERVATIONS_TIMEOUT}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
-      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--success-rate", "${HUBEAU_OBSERVATIONS_SUCCESS_RATE}", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
       interval: 1m
       timeout: 10s
       retries: 3
