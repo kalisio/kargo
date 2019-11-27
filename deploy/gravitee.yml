@@ -4,8 +4,8 @@ services:
   gravitee-gateway:
     image: graviteeio/gateway:latest
     environment:
-      - gravitee_management_mongodb_uri=${DB_URL}
-      - gravitee_ratelimit_mongodb_uri=${DB_URL}
+      - gravitee_management_mongodb_uri=${GRAVITEE_DB_URLL}
+      - gravitee_ratelimit_mongodb_uri=${GRAVITEE_DB_URL}
       - gravitee_reporters_elasticsearch_endpoints_0=http://elasticsearch:9200
     configs:
       - source: gravitee-gateway_conf
@@ -51,8 +51,8 @@ services:
   gravitee-management:
     image: graviteeio/management-api:latest
     environment:
-      - gravitee_management_mongodb_uri=${DB_URL}
-      - gravitee_ratelimit_mongodb_uri=${DB_URL}
+      - gravitee_management_mongodb_uri=${GRAVITEE_DB_URL}
+      - gravitee_ratelimit_mongodb_uri=${GRAVITEE_DB_URL}
       - gravitee_analytics_elasticsearch_endpoints_0=http://elasticsearch:9200
       - gravitee_jwt_cookiepath=/management
       - gravitee_jwt_cookiesecure=true
