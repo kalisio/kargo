@@ -1,0 +1,33 @@
+{
+  "scopes": ["mapproxy", "mapserver", "k2", "nfp"],
+  "users": {
+    "cutomer1": {
+      "qgis": {
+        "type": "key-auth",
+        "keyId": "yvyDTCVrmMECLfuFskgTAUSD", 
+        "keySecret": "c9DsNGCR9VMAayumfgXRekgM", 
+        "scopes": ["mapproxy", "mapserver"] 
+      },
+      "leafet": {
+        "type": "key-auth",
+        "keyId": "pXDtDWJ5UMQqsegzQTYU9PQz", 
+        "keySecret": "6eU28qUJuf7xyAeGJ459n7Re", 
+        "scopes": ["mapproxy", "mapserver"]
+      },
+      "kano": {
+        "type": "jwt",
+        "keyId": "H2qJayjUCxzKfTDgwEAN8hsu", 
+        "keySecret": "424b1345387ccc61bc678d1b85559b3ba3d5a301cef58d5c40251dccdc1157c9461faf494ace6d0f8ce9060ef01767b73662614fcd2fb9570c0d2909bde5f2a5314df23cd4c0a63ec251bf87202006d82999549ed93ac466bebced6e8f97c1db830294911f226d4e8b823ad86d4a1e637a810c3157502c779fe873e71773f49b3de6a311bbb88e4afe9c23db5795c3324c70287d97784865e14add53847e4bf58ca875a1996e4d77b44abe10099b33e2d301b9842b5d92c2f6e61d49f357fe25356314289a4d4f2f7f59137601ae45b92825b440d12790fd74518f260ec7e1fcde5f7729d89ad8259f54a9e00ce8d2cd7c6e88d1d23e18004c10813ef80eea15", 
+        "scopes": ["mapproxy", "k2", "mapserver"]
+      }
+    },
+    "customer2": {
+      "kano": {
+        "type": "jwt",
+        "keyId": "Sn9ZEd33wv6EyagENd3KMwqh", 
+        "keySecret": "424b1345387ccc61bc678d1b85559b3ba3d5a301cef58d5c40251dccdc1157c9461faf494ace6d0f8ce9060ef01767b73662614fcd2fb9570c0d2909bde5f2a5314df23cd4c0a63ec251bf87202006d82999549ed93ac466bebced6e8f97c1db830294911f226d4e8b823ad86d4a1e637a810c3157502c779fe873e71773f49b3de6a311bbb88e4afe9c23db5795c3324c70287d97784865e14add53847e4bf58ca875a1996e4d77b44abe10099b33e2d301b9842b5d92c2f6e61d49f357fe25356314289a4d4f2f7f59137601ae45b92825b440d12790fd74518f260ec7e1fcde5f7729d89ad8259f54a9e00ce8d2cd7c6e88d1d23e18004c10813ef80eea15", 
+        "scopes": ["mapproxy", "k2"]
+      }
+    }
+  }
+}
