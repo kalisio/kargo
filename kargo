@@ -128,7 +128,7 @@ kargo_info()
   echo current workspace is: \"$WORKSPACE\"
   echo available stacks are:
   for STACK in $STACKS; do
-    local STACK_NAME=${1^^}_STACK
+    local STACK_NAME=${STACK^^}_STACK
     local STACK_CONTENT=${!STACK_NAME}
     echo -e '  '$STACK: $STACK_CONTENT
   done
