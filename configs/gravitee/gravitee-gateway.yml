@@ -56,7 +56,7 @@ management:
     port: ${ds.mongodb.port}
 #    username:
 #    password:
-   connectionsPerHost: 1
+    connectionsPerHost: 1
 #    connectTimeout: 500
 #    maxWaitTime: 120000
 #    socketTimeout: 500
