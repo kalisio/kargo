@@ -21,7 +21,7 @@ services:
       replicas: ${GRAVITEE_REPLICAS}
       placement:
         constraints:
-         - node.role == manager       
+         - node.role == worker       
       restart_policy:
         condition: on-failure
     networks:
