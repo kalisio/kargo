@@ -222,6 +222,7 @@ kargo_deploy()
     local STACK=${!STACK_NAME}
     local SERVICES_TO_DEPLOY=
     for SERVICE in $STACK; do
+      echo configuring service $SERVICE
       SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
       local SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_'
       SERVICE_NAME=${SERVICE_NAME^^} # change to uppercase

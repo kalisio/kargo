@@ -1,8 +1,8 @@
-  version: '3.5'
+version: '3.5'
 
 services:
   elasticsearch:
-    image:  ${ELASTICSEARCH_IMAGE}:${ELASTICSEARCH_TAG}
+    image: ${ELASTICSEARCH_IMAGE}:${ELASTICSEARCH_TAG}
     environment:
       - http.host=0.0.0.0
       - transport.host=0.0.0.0
@@ -27,7 +27,8 @@ services:
     networks:
       - kargo-network  
 
-mongodb_data: {}
+volumes:
+  elasticsearch_data: {}
 
 networks:
   kargo-network:
