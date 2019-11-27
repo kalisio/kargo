@@ -128,12 +128,10 @@ kargo_info()
   echo current workspace is: \"$WORKSPACE\"
   echo available stacks are:
   for STACK in $STACKS; do
-    echo -e '  '$STACK
+    local STACK_NAME=${1^^}_STACK
+    local STACK_CONTENT=${!STACK_NAME}
+    echo -e '  '$STACK: $STACK_CONTENT
   done
-  echo available services to build are:
-  pushd .kargo/build > /dev/null
-  ls *.sh
-  popd > /dev/null
 }
 
 kargo_build()
