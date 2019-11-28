@@ -6,7 +6,7 @@ RUN \
   yarn global add express-gateway-prometheus-metrics-example && \
   yarn global add express-jwt-authz
 
-RUN mkdir -p /usr/local/share/.config/yarn/global/node_modules/express-gateway/plugins
+RUN mkdir -p /usr/local/share/.config/yarn/global/node_modules/express-gateway/bin/plugins
 
-COPY ./plugins/jwtScopes.js /usr/local/share/.config/yarn/global/node_modules/express-gateway/plugins/jwtScopes.js
+COPY ./plugins/jwtScopes.js /usr/local/share/.config/yarn/global/node_modules/express-gateway/bin/plugins/jwtScopes.js
 
