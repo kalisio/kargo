@@ -1,9 +1,0 @@
-db:
-  redis:
-    host: redis
-    port: 6379
-    namespace: EG
-
-plugins:
-  express-gateway-prometheus-metrics-example:
-    package: express-gateway-prometheus-metrics-example
