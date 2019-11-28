@@ -1,0 +1,28 @@
+version: '3.5'
+
+services: 
+  express-gateway:
+    image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
+    volumes:
+      - ./../configs/express-gateway:/var/lib/eg
+    networks:
+      - kargo-network
+    deploy:
+      labels:
+        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.backend=express-gateway"        
+        - "traefik.enable=true"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:api.${SUBDOMAIN}"
+        - "traefik.port=8080"        
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == manager
+      restart_policy:
+        condition: on-failure
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true

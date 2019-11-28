@@ -1,0 +1,151 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  admin:
+    host: 'express-gateway'
+  mapproxy:
+    host: '*'
+    paths: '/mapproxy*'
+    scopes: ["mapproxy"]
+  mapserver:
+    host: '*'
+    paths: '/mapserver*'
+    scopes: ["mapserver"]
+  k2:
+    host: '*'
+    paths: '/k2/*'
+    scopes: ["k2"]
+
+serviceEndpoints:
+  admin: 
+    url: 'http://localhost:9876'
+  mapproxy:
+    url: 'http://mapproxy:8080'
+  mapserver:
+    url: 'http://mapserver:80/cgi-bin/ows'
+  k2:
+    url: 'http://k2:8080'
+
+policies:
+  - cors
+  - key-auth
+  - jwt
+  - log
+  - proxy
+  - rate-limit
+  - metrics
+
+pipelines:
+  admin:
+    apiEndpoints:
+      - admin
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
+      - proxy:
+          - action:
+              serviceEndpoint: admin
+              changeOrigin: true
+              stripPath: true
+  mapserver:
+    apiEndpoints:
+      - mapserver
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
+      - metrics:               
+      - cors:
+      - key-auth:
+          - action:
+              passThrough: true    
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true 
+              passThrough: true                    
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'query'
+              jwtExtractorField: 'jwt'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true
+      - proxy:
+          - action:
+              serviceEndpoint: mapserver 
+              changeOrigin: true
+              stripPath: true
+  mapproxy:
+    apiEndpoints:
+      - mapproxy
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl} 
+      - metrics:              
+      - cors:
+      - key-auth:
+          - action:
+              passThrough: true
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true 
+              passThrough: true  
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'query'
+              jwtExtractorField: 'jwt'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true            
+      - proxy:
+          - action:
+              serviceEndpoint: mapproxy 
+              changeOrigin: true
+              stripPath: true
+  k2:
+    apiEndpoints:
+      - k2
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl}
+      - metrics:                   
+      - cors:
+      - key-auth:
+          - action:
+              passThrough: true
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true 
+              passThrough: true                              
+      - jwt:
+          - action:
+              jwtExtractor: 'query'
+              jwtExtractorField: 'jwt'
+              secretOrPublicKey: APP_SECRET
+              checkCredentialExistence: true       
+      - proxy:
+          - action:
+              serviceEndpoint: k2
+              changeOrigin: true
+              stripPath: true
+ 
