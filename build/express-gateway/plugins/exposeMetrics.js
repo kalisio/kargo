@@ -3,22 +3,12 @@ const metrics = require('prom-client');
 const statusCodeCounter = new metrics.Counter({
   name: 'eg-metrics',
   help: 'express gateway status code metrics',
-  labelNames: ['type', 'status_code', 'consumer', 'apiendpoint']
+  labelNames: ['type', 'status_code', 'consumer', 'api_endpoint']
 });
 
 module.exports = {
   version: '1.0.0',
   policies: ['metrics'],
-  schema: {
-    $id: 'http://express-gateway.io/plugins/metrics.json',
-    type: 'object',
-    properties: {
-      endpointName: {
-        type: 'string',
-        default: '/metrics'
-      }
-    }, required: ['endpointName']
-  },
   init: function (pluginContext) {
     pluginContext.registerAdminRoute((app) => {
       app.get(pluginContext.settings.endpointName, (req, res) => {
@@ -30,18 +20,7 @@ module.exports = {
         return res.json(metrics.register.getMetricsAsJSON());
       });
     });
-
     pluginContext.registerPolicy({
-      schema: {
-        $id: 'http://express-gateway.io/policies/metrics.json',
-        type: 'object',
-        properties: {
-          consumerIdHeaderName: {
-            type: 'string',
-            default: 'eg-consumer-id'
-          }
-        }, required: ['consumerIdHeaderName']
-      },
       name: 'metrics',
       policy: ({ consumerIdHeaderName }) => (req, res, next) => {
         res.once('finish', () => {
@@ -53,7 +32,27 @@ module.exports = {
         });
 
         next();
+      },
+      schema: {
+        $id: 'http://express-gateway.io/policies/metrics.json',
+        type: 'object',
+        properties: {
+          consumerIdHeaderName: {
+            type: 'string',
+            default: 'eg-consumer-id'
+          }
+        }, required: ['consumerIdHeaderName']
       }
     });
+  },
+  schema: {
+    $id: 'http://express-gateway.io/plugins/metrics.json',
+    type: 'object',
+    properties: {
+      endpointName: {
+        type: 'string',
+        default: '/metrics'
+      }
+    }, required: ['endpointName']
   }
 };

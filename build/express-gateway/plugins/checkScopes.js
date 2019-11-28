@@ -17,11 +17,11 @@ module.exports = {
         return next();
       },
       schema: {
-        $id: 'http://express-gateway.io/policies/check-scopes.json',
+        $id: 'http://express-gateway.io/plugins/check-scopes.json',
       }
     })
   },
   schema: {
-    $id: 'http://express-gateway.io/policies/check-scopes.json',
+    $id: 'http://express-gateway.io/plugins/check-scopes.json',
   }
 };
