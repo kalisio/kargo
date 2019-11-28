@@ -5,7 +5,7 @@ db:
     namespace: EG
 
 plugins:
-  express-gateway-prometheus-metrics-example:
-    package: express-gateway-prometheus-metrics-example
+  expose-metrics:
+    package: ./exposeMetrics.js
   check-scopes:
     package: ./checkScopes.js
