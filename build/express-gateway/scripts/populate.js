@@ -40,4 +40,4 @@ async function populate(config) {
 }
 
 
-populate(JSON.parse(fs.readFileSync('./config.json')))
+populate(JSON.parse(fs.readFileSync('./consumers.config.json')))

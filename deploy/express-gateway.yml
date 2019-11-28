@@ -3,8 +3,13 @@ version: '3.5'
 services: 
   express-gateway:
     image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
-    volumes:
-      - ./../configs/express-gateway:/var/lib/eg
+   configs:
+      - source: system_conf
+        target: /var/lib/eg/system.config.yml
+      - source: gateway_conf
+        target: /var/lib/eg/gateway.config.yml
+      - source: consumers_conf
+        target: /var/lib/eg/consumers.config.yml
     networks:
       - kargo-network
     deploy:
@@ -21,6 +26,14 @@ services:
          - node.role == manager
       restart_policy:
         condition: on-failure
+
+configs:
+  system_conf:
+    file: ./../configs/express-gateway/system.config.yml
+  gateway_conf:
+    file: ./../configs/express-gateway/gateway.config.yml
+  consumers_conf:
+    file: ./../configs/express-gateway/consumers.config.json
 
 networks:
   kargo-network:

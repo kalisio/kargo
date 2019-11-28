@@ -1,13 +1,21 @@
 ARG TAG
-
 FROM express-gateway:$TAG
 
+# Install the dependencies (needed by exposeMetrics)
 RUN yarn global add prom-client
 
-RUN mkdir -p /plugins
+# Override the consumers models
+COPY ./models /var/lib/eg/models
 
-COPY ./plugins/checkScopes.js /plugins/checkScopes.js
-COPY ./plugins/exposeMetrics.js /plugins/exposeMetrics.js
+# Copy the scripts to setup/clean the consumers data
+# node clean.js 
+# node populate.js
+COPY ./scrips/clean.js /var/lib/eg/clean.js
+COPY ./scripts/populate.js /var/lib/eg/populate.js
+
+# Install the plugins
+RUN mkdir -p /plugins
+COPY ./plugins /plugins
 
 WORKDIR /plugins
 
