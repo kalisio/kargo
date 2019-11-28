@@ -2,11 +2,12 @@ ARG TAG
 
 FROM express-gateway:$TAG
 
-RUN \
-  yarn global add express-gateway-prometheus-metrics-example && \
-  yarn global add express-jwt-authz
+RUN yarn global add express-gateway-prometheus-metrics-example
 
-RUN mkdir -p /usr/local/share/.config/yarn/global/node_modules/express-gateway/bin/plugins
+RUN mkdir -p /plugins
 
-COPY ./plugins/jwtScopes.js /usr/local/share/.config/yarn/global/node_modules/express-gateway/bin/plugins/jwtScopes.js
+COPY ./plugins/checkScopes.js /plugins/checkScopes.js
+
+WORKDIR /plugins
+
 

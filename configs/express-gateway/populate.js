@@ -22,8 +22,8 @@ async function createUser(user) {
   return result.id;
 }
 
-async function createApp(userId, app) {
-  let app_data = { name: app }
+async function createApp(userId, app, scopes) {
+  let app_data = { name: app, scopes: scopes }
   let result = await admin.apps.create(userId, app_data)
   return result.id;
 }
@@ -33,7 +33,7 @@ async function populate(config) {
   for (const [user, apps] of Object.entries(config.users)) {
     let userId = await createUser(user);
     for (const [app, credential] of Object.entries(apps)) {
-      let appId = await createApp(userId, app);
+      let appId = await createApp(userId, app, credential.scopes);
       await createCredential(appId, credential)
     }
   }

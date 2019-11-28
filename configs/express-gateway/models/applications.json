@@ -5,6 +5,12 @@
     "name": {
       "type": "string"
     },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "redirectUri": {
       "type": "string",
       "format": "uri"
