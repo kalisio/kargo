@@ -8,4 +8,4 @@ plugins:
   express-gateway-prometheus-metrics-example:
     package: express-gateway-prometheus-metrics-example
   jwt-scopes:
-    package: /var/lib/eg/jwtScopes.js
+    package: ./plugins/jwtScopes.js
