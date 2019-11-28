@@ -2,11 +2,12 @@ ARG TAG
 
 FROM express-gateway:$TAG
 
-RUN yarn global add express-gateway-prometheus-metrics-example
+RUN yarn global add prom-client
 
 RUN mkdir -p /plugins
 
 COPY ./plugins/checkScopes.js /plugins/checkScopes.js
+COPY ./plugins/exposeMetrics.js /plugins/exposeMetrics.js
 
 WORKDIR /plugins
 

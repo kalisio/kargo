@@ -1,15 +1,18 @@
 module.exports = {
   version: '1.0.0',
-  policies: ['check-scopes'],
+  policies: ['scopes'],
   init: function (pluginContext) {
     pluginContext.registerPolicy({
-      name: 'check-scopes',
+      name: 'scopes',
       policy: (params) => (req, res, next) => {
-        const appScopes = req.user.scopes.split(',');
         const endpointScopes = req.egContext.apiEndpoint.scopes;
-        for (let i = 0; i < endpointScopes.length; i++) {
-          const scope = endpointScopes[i];
-          if (! appScopes.includes(scope)) return res.sendStatus(401);
+        if (endpointScopes.length > 0) {
+          const appScopes = req.user.scopes.split(',');
+          if (! appScopes.length > 0) return res.sendStatus(401);
+          for (let i = 0; i < endpointScopes.length; i++) {
+            const scope = endpointScopes[i];
+            if (! appScopes.includes(scope)) return res.sendStatus(401);
+          }
         }
         return next();
       },
