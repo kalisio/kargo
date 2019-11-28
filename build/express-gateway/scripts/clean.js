@@ -1,4 +1,3 @@
-const fs = require('fs');
 const admin = require('express-gateway/admin')({
   baseUrl: 'http://localhost:9876',
   verbose: false,
