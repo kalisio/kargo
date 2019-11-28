@@ -2,7 +2,7 @@ ARG TAG
 FROM express-gateway:$TAG
 
 # Install the dependencies (needed by exposeMetrics)
-RUN yarn global add prom-client
+RUN yarn global add prom-client@10.2.3
 
 # Override the consumers models
 COPY ./models /var/lib/eg/models

@@ -3,13 +3,13 @@ version: '3.5'
 services: 
   express-gateway:
     image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
-   configs:
+    configs:
       - source: system_conf
         target: /var/lib/eg/system.config.yml
       - source: gateway_conf
         target: /var/lib/eg/gateway.config.yml
       - source: consumers_conf
-        target: /var/lib/eg/consumers.config.yml
+        target: /var/lib/eg/consumers.config.json
     networks:
       - kargo-network
     deploy:
