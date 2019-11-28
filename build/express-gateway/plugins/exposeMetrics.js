@@ -1,16 +1,16 @@
-const metrics = require('prom-client');
+/*const metrics = require('prom-client');
 
 const statusCodeCounter = new metrics.Counter({
   name: 'eg-metrics',
   help: 'express gateway status code metrics',
   labelNames: ['type', 'status_code', 'consumer', 'api_endpoint']
-});
+});*/
 
 module.exports = {
   version: '1.0.0',
   policies: ['metrics'],
   init: function (pluginContext) {
-    pluginContext.registerAdminRoute((app) => {
+    /*pluginContext.registerAdminRoute((app) => {
       app.get(pluginContext.settings.endpointName, (req, res) => {
         if (req.accepts(metrics.register.contentType)) {
           res.contentType(metrics.register.contentType);
@@ -43,7 +43,7 @@ module.exports = {
           }
         }, required: ['consumerIdHeaderName']
       }
-    });
+    });*/
   },
   schema: {
     $id: 'http://express-gateway.io/plugins/metrics.json',
