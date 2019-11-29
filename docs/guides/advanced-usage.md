@@ -4,6 +4,184 @@ sidebarDepth: 3
 
 # Advanced usage
 
+## Using the API Gateway
+
+As a reminder, an API gateway allows you to map endpoints to a set of services or applications using url rules. Moreover it is possible to protect those endpoints using various authorization strategies ([Key authentication](https://en.wikipedia.org/wiki/Key_authentication), [JSON Web Tokens](https://jwt.io/), [OAuth](https://oauth.net/2/)...) and defining quotas and rate limiting. To enable such a features **Kargo** relies on [express gateway](https://www.express-gateway.io/). 
+
+::: tip
+We recommend that you read the [documentation](https://www.express-gateway.io/docs/) before implementing your gateway.
+:::
+
+::: tip
+**express gateway** relies on [Redis](https://redis.io/) to store the consumers data. In order to check your configuration, [Redis Commander](https://joeferner.github.io/redis-commander/) is a convenient solution to explore the **Redis** data store. These 2 applications are easily deployable with **Kargo**
+:::
+
+### Defining the gateway
+
+To define you gateway, you simply need to:
+1. create a `gateway.config.yml` file in the `configs\express-gateway` directory of your workspace
+2. edit the file and define your gateway. Check the documentation [here](https://www.express-gateway.io/docs/configuration/gateway.config.yml/)
+
+Here is an example of gateway implementing the mapping illustrated by the following schema:
+
+![kargo-gateway](../assets/kargo-gateway.svg)
+
+```yml
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  admin:
+    host: 'express-gateway'
+  wms:
+    host: '*'
+    paths: '/wms*'
+    scopes: ["wms"]
+  wmts:
+    host: '*'
+    paths: '/wmts/*'
+    scopes: ["wmts"] 
+  k2:
+    host: '*'
+    paths: '/k2/*'
+    scopes: ["k2"]
+
+serviceEndpoints:
+  admin: 
+    url: 'http://localhost:9876'
+  wms:
+    url: 'http://mapproxy:8080'
+  wmts:
+    url: 'http://mapproxy:8080/wmts'      
+  k2:
+    url: 'http://k2:8080' 
+
+policies:
+  - cors
+  - proxy
+
+pipelines:
+  admin:
+    apiEndpoints:
+      - admin
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: admin
+              changeOrigin: true
+              stripPath: true
+  wms:
+    apiEndpoints:
+      - wms
+    policies:            
+      - cors:
+      - proxy:
+          - action:
+              serviceEndpoint: wms 
+              changeOrigin: true
+              stripPath: true       
+  wmts:
+    apiEndpoints:
+      - wmts
+    policies:           
+      - cors:
+      - proxy:
+          - action:
+              serviceEndpoint: wmts 
+              changeOrigin: true
+              stripPath: true                            
+
+  k2:
+    apiEndpoints:
+      - k2
+    policies:              
+      - cors:
+      - proxy:
+          - action:
+              serviceEndpoint: k2
+              changeOrigin: true
+              stripPath: true
+```
+
+### Defining the consumers
+
+Once the gateway is implemented and started, it is necessary to define the consumers.
+1. create a `consumers.config.json` file in the `configs\express-gateway` directory of your workspace
+2. edit the file and define your consumers using the following formalism:
+
+```json
+{
+  "scopes": ["wms", "wmts", "k2", ..... ], 
+  "users": {
+    "customer1": {
+      "app1": {
+        "type": "jwt",
+        "keyId": "ID", 
+        "keySecret": "SECRET",
+        "scopes": ["wms", "wmts"]  // give avec acces to the endpoint that need the one of these scopes
+      },
+      "app2": {
+        "type": "auth-key",
+        "keyId": "ID", 
+        "keySecret": "SECRET",
+        "scopes": ["wmts", "k2"]  // give avec acces to the endpoint that need the one of these scopes
+      }
+    "customer2": {
+      ...
+    }
+  }
+}
+
+```
+
+::: tip
+Refer to the [consumer-management](https://www.express-gateway.io/docs/consumer-management/) section to learn mode about `keyId` and `keySecret`.
+:::
+   
+### Running the gateway
+
+You must simply execute the following procedure:
+
+1. define a stack with the `express-gateway` service
+
+```bash
+# do not forget to declare the stack in STACKS
+API_STACK="express-gateway"
+```
+
+2. configure **Kargo**: 
+
+```bash
+$./kargo configure kargo
+```
+
+3. build the **express gateway** docker image: 
+
+```bash
+$./kargo build express-gateway
+```
+
+4. deploy the stack
+
+```bash
+$./kargo deploy api
+```
+
+5. populate the consumers once the service is started:
+
+```bash
+$docker exec -ti <express-gateway-container-id> sh
+> cd /var/lib/eg
+> node populate.js
+> exit
+```
+
+::: tip
+[JWT.io](https://jwt.io/) provides a simple interface to generate the tokens to consume the API.
+:::
+
 ## Extending the services
 
 **Kargo** allows you to extend the default services settings for a given cluster. You can either overwrite the default settings files of a service or extend the way the service will be deployed (specify the healthcheck, add some constraints...)
