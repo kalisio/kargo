@@ -23,7 +23,7 @@ services:
       replicas: ${EXPRESS_GATEWAY_REPLICAS}
       placement:
         constraints:
-         - node.role == worker
+         - node.role == manager
       restart_policy:
         condition: on-failure
 
