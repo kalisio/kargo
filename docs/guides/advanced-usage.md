@@ -16,7 +16,9 @@ We recommend that you read the [documentation](https://www.express-gateway.io/do
 **express gateway** relies on [Redis](https://redis.io/) to store the consumers data. In order to check your configuration, [Redis Commander](https://joeferner.github.io/redis-commander/) is a convenient solution to explore the **Redis** data store. These 2 applications are easily deployable with **Kargo**
 :::
 
-### Defining the gateway
+### Configuring the gateway
+
+#### Defining the gateway
 
 To define you gateway, you simply need to:
 1. create a `gateway.config.yml` file in the `configs\express-gateway` directory of your workspace
@@ -105,7 +107,16 @@ pipelines:
               stripPath: true
 ```
 
-### Defining the consumers
+**Kargo** comes with various plugins that extends the **express-gateway** capabilities:
+
+| Plugin | Description |
+|---| --- |
+| **metrics** | It provides a `metrics` route to the gateway application that can be used by [Prometheus](https://prometheus.io/) to scrape requests metrics. |
+| **s3** | It provides a `s3` route to the admin application that can be uses to proxy the requests to an **S3** bucket. The service endpoint to be used is: `http://localhost:9876/s3`|
+| **scopes** | It provides a **policy** that can be used to check the consumer scopes against the endpoint scopes. |
+| **healthcheck** | It provides a `healthcheck` route to be used to check the health of **express gateway**. **Kargo** uses this route to ensure the healthcheck of the service. |
+
+#### Defining the consumers
 
 Once the gateway is implemented and started, it is necessary to define the consumers.
 1. create a `consumers.config.json` file in the `configs\express-gateway` directory of your workspace
@@ -133,14 +144,13 @@ Once the gateway is implemented and started, it is necessary to define the consu
     }
   }
 }
-
 ```
 
 ::: tip
 Refer to the [consumer-management](https://www.express-gateway.io/docs/consumer-management/) section to learn mode about `keyId` and `keySecret`.
 :::
    
-### Running the gateway
+#### Running the gateway
 
 You must simply execute the following procedure:
 
@@ -169,17 +179,75 @@ $./kargo build express-gateway
 $./kargo deploy api
 ```
 
-5. populate the consumers once the service is started:
+5. populate the consumers 
+
+Once the service is started, you need to run call the `populate.js` script in the container. The script uses the `consumers.config.json` file to create the scopes, users, applications and credentials objects:
 
 ```bash
 $docker exec -ti <express-gateway-container-id> sh
 > cd /var/lib/eg
 > node populate.js
-> exit
 ```
 
-::: tip
-[JWT.io](https://jwt.io/) provides a simple interface to generate the tokens to consume the API.
+### Managing the gateway
+
+**Kargo** rely on the [express-gateway cli](https://www.express-gateway.io/docs/cli/) to manage the gateway:
+
+```bash
+$docker exec -ti <express-gateway-container-id> sh
+> eg users list
+{
+  "isActive": true,
+  "username": "Kalisio",
+  "id": "64760494-f8d7-4f1b-b845-f56f6dde5c07",
+  "createdAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)",
+  "updatedAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)"
+}
+>eg apps list
+{
+  "isActive": true,
+  "id": "977223ed-a3e8-4305-9b12-322a67ba5b83",
+  "userId": "64760494-f8d7-4f1b-b845-f56f6dde5c07",
+  "name": "kano",
+  "scopes": "wms,wmts,wfs,wcs,s3",
+  "createdAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)",
+  "updatedAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)"
+}
+> eg credentials list
+{
+  "consumerId": "977223ed-a3e8-4305-9b12-322a67ba5b83",
+  "id": "3d981c1b-b0af-4139-a2ca-e304a4f018a6",
+  "createdAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)",
+  "updatedAt": "Mon Dec 02 2019 14:52:56 GMT+0000 (Coordinated Universal Time)",
+  "scopes": [
+    "wms",
+    "wmts",
+    "wfs",
+    "wcs",
+    "s3"
+  ],
+  "isActive": true,
+  "keyId": "ID",
+  "keySecret": "SECRET",
+  "type": "jwt"
+}
+```
+
+You can also take advantage of the following scripts:
+* `populate.js`: populate the gateway with the file `consumers.config.json`
+* `clean.js`: clean the gateway.
+
+For example, if you need to update the content of the gateway, just type the following commands:
+
+```bash
+$docker exec -ti <express-gateway-container-id> sh
+>cd /var/lib/eg
+>node clean.js
+>node populate.js
+```
+
+::: warning
+For now, the `clean.js` script does not delete the credentials. You must delete them using `redis-commander`.
 :::
 
 ## Extending the services

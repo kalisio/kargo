@@ -24,6 +24,14 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
+### Express Gateway
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `EXPRESS_GATEWAY_IMAGE` | The image to be used. | `localhost:5000/express-gateway` |
+| `EXPRESS_GATEWAY_TAG` | The version to be used. | `1.16.9` |
+| `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
+
 ### Hub'eau
 
 | Variable | Description | Default value |
