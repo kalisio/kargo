@@ -9,7 +9,7 @@ sidebarDepth: 3
 As a reminder, an API gateway allows you to map endpoints to a set of services or applications using url rules. Moreover it is possible to protect those endpoints using various authorization strategies ([Key authentication](https://en.wikipedia.org/wiki/Key_authentication), [JSON Web Tokens](https://jwt.io/), [OAuth](https://oauth.net/2/)...) and defining quotas and rate limiting. To enable such a features **Kargo** relies on [express gateway](https://www.express-gateway.io/). 
 
 ::: tip
-We recommend that you read the [documentation](https://www.express-gateway.io/docs/) before implementing your gateway.
+We recommend that you read the **express gateway** [documentation](https://www.express-gateway.io/docs/) before starting.
 :::
 
 ::: tip
