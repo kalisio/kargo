@@ -9,3 +9,6 @@ plugins:
     package: ./metrics.js
   scopes:
     package: ./scopes.js
+  healthcheck:
+    package: ./healthcheck.js
+
