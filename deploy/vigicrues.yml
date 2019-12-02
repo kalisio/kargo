@@ -18,7 +18,6 @@ services:
       placement:
         constraints:
          - node.role == worker
-         - node.labels.vigicrues == true         
       restart_policy:
         condition: on-failure
     networks:

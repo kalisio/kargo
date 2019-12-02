@@ -21,7 +21,6 @@ services:
       placement:
         constraints:
          - node.role == worker
-         - node.labels.hubeau == true
       restart_policy:
         condition: on-failure
     networks:
