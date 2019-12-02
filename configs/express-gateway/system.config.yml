@@ -11,4 +11,7 @@ plugins:
     package: ./plugins/scopes.js
   healthcheck:
     package: ./plugins/healthcheck.js
+  s3:
+    package: ./plugins/s3.js
+
 
