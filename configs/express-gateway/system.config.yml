@@ -6,9 +6,9 @@ db:
 
 plugins:
   metrics:
-    package: ./metrics.js
+    package: ./plugins/metrics.js
   scopes:
-    package: ./scopes.js
+    package: ./plugins/scopes.js
   healthcheck:
-    package: ./healthcheck.js
+    package: ./plugins/healthcheck.js
 

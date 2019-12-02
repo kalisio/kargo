@@ -1,8 +1,8 @@
 ARG TAG
 FROM express-gateway:$TAG
 
-# Install the dependencies (needed by exposeMetrics)
-RUN yarn global add prom-client@10.2.3
+# Install the dependencies
+RUN yarn global add prom-client@10.2.3 aws-sdk
 
 # Override the consumers models
 COPY ./models /var/lib/eg/models
@@ -17,6 +17,8 @@ COPY ./scripts/populate.js /var/lib/eg/populate.js
 RUN mkdir -p /plugins
 COPY ./plugins /plugins
 
-WORKDIR /plugins
+
+
+
 
 
