@@ -5,6 +5,7 @@ services:
     image: ${OPENAQ_IMAGE}:${OPENAQ_TAG}
     environment:
       - DB_URL=${OPENAQ_DB_URL}
+      - DEBUG=${OPENAQ_DEBUG}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:

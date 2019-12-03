@@ -5,6 +5,7 @@ services:
     image: ${HUBEAU_IMAGE}:stations-${HUBEAU_STATIONS_TAG}
     environment:
       - DB_URL=${HUBEAU_DB_URL}
+      - DEBUG=${HUBEAU_STATIONS_DEBUG}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
