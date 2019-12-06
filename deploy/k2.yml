@@ -3,6 +3,8 @@ version: '3.5'
 services:
   k2:
     image: ${K2_IMAGE}:${K2_TAG}
+    environment:
+      - DEBUG=${K2_DEBUG}    
     volumes:
       - ${K2_DATA_PATH}:/mbtiles
     healthcheck:

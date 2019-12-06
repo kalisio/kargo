@@ -4,6 +4,8 @@ services:
   kano:
     image: ${KANO_IMAGE}:${KANO_TAG}
     environment:
+      - API_GATEWAY=${API_GATEWAY}
+      - APP_ID=${KANO_APP_ID}
       - LOG_LEVEL=${KANO_LOG_LEVEL}
       - DEBUG=${KANO_DEBUG}
       - DB_URL=${KANO_DB_URL}

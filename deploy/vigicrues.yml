@@ -5,6 +5,7 @@ services:
     image: ${VIGICRUES_IMAGE}:${VIGICRUES_TAG}
     environment:
       - DB_URL=${VIGICRUES_DB_URL}
+      - DEBUG=${VIGICRUES_DEBUG}
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:

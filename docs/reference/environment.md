@@ -37,13 +37,15 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `HUBEAU_IMAGE` | The image to be used. | `kalisio/k-hubeau` |
-| `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
-| `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
+| `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
+| `HUBEAU_STATIONS_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
+| `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
 | `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `604 800` (7 days) |
 | `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
 | `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
 | `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `90%` |
+| `HUBEAU_OBSERVATIONS_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### K2
 
@@ -53,6 +55,7 @@ For each stack, there must be such an entry:
 | `K2_TAG` | The version to be used. | `latest` |
 | `K2_DATA_PATH` | The path to the data. |  `/mnt/data0/k2_data` |
 | `K2_REPLICAS` | The number of replicas. | `1` |
+| `K2_DEBUG` |The namespaces to enable debug output. | `` |
 
 ### Kano
 
@@ -111,8 +114,6 @@ $kargo build mapserver
 | `MAPUTNIK_TAG` | The version to be used. | `latest` |
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
-:::
-
 ### MongoDB
 
 | Variable | Description | Default value |
@@ -128,6 +129,7 @@ $kargo build mapserver
 | `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
 | `OPENAQ_TAG` | The version to be used. | `latest` |
 | `OPENAQ_DB_URL` | The database URL where to write the data. | - |
+| `OPENAQ_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### PostGis
 
@@ -138,6 +140,14 @@ $kargo build mapserver
 | `POSTGIS_USER` | The POSTGRES user. | `postgres` |
 | `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
 | `POSTGIS_DATA_PATH` | The path to the database. | `/mnt/data0/postgis_data` |
+
+### Redis
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `REDIS_IMAGE` | The image to be used. | `redis` |
+| `REDIS_TAG` | The version to be used. | `5` |
+| `REDIS_URL` | The URL to the service. |  `redis://redis:6379` |
 
 ### Seeder
 
@@ -155,6 +165,7 @@ $kargo build mapserver
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
 | `TELERAY_TAG` | The version to be used. | `0.1.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
+| `TELERAY_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### Thredds
 
@@ -186,6 +197,7 @@ $kargo build mapserver
 | `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `lastest` |
 | `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. | - |
+| `VIGICRUES_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### Weacast
 
@@ -197,7 +209,7 @@ $kargo build mapserver
 | `WEACAST_DB_URL` | The application database URL. | - |
 | `WEACAST_DATA_DB_URL` | The database URL where to read the data downloaded by the loaders. | - |
 | `WEACAST_LOG_LEVEL` | The log level of the application. | `verbose` |
-| `WEACAST_DEBUG` | Enable the debug mode. | `` |
+| `WEACAST_DEBUG` | The namespaces to enable debug output. | `` |
 | `WEACAST_REPLICAS` | The number of replicas. | `1` |
 
 ### Weacast-loaders
@@ -209,14 +221,19 @@ $kargo build mapserver
 | `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `localhost:5000/arpege-world-loader` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
+| `ARPEGE_WORLD_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `localhost:5000/arpege-europe-loader` |
 | `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `latest` |
+| `ARPEGE_EUROPE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
 | `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `latest` |
+| `AROME_FRANCE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_HIGH_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
 | `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `latest` |
+| `AROME_FRANCE_HIGH_LOADER_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. | `localhost:5000/gfs-world-loader` |
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `latest` |
+| `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ::: warning
 The **Weacast loaders** are preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
@@ -225,10 +242,3 @@ $kargo build weacast-loaders
 ```
 :::
 
-### Redis
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `REDIS_IMAGE` | The image to be used. | `redis` |
-| `REDIS_TAG` | The version to be used. | `5` |
-| `REDIS_URL` | The URL to the service. |  `redis://redis:6379` |
