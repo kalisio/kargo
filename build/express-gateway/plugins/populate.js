@@ -34,7 +34,7 @@ async function processUsers(oldUsers, newUsers) {
   const newUserNames = Object.keys(newUsers);
   for (let i = 0; i < oldUsers.length; ++i) {
     const oldUser = oldUsers[i]
-    if (!newUserNnames.includes(oldUser.username)) {
+    if (!newUserNames.includes(oldUser.username)) {
       console.log('Removing user ' + oldUser.username)
       await adminClient.users.remove(oldUser.id)
     }
@@ -47,7 +47,7 @@ async function processUsers(oldUsers, newUsers) {
       await createUser(username, apps)
     } else {
       console.log('Processing user ' + userName)
-      await processUser(user.id, apps)
+      await processApps(user.id, apps)
     }
   }
 }
@@ -60,12 +60,13 @@ async function createUser(newUserName, newApps) {
   }
 }
 
-async function processUser(userId, newApps) {
-  let oldApps = await adminClient.apps.list({ userId });
+async function processApps(userId, newApps) {
+  let result = await adminClient.apps.list({ userId });
+  let oldApps = result.apps || [];
   let newAppsNames = Object.keys(newApps)
   // delete undefined old apps
   for (let i = 0; i < oldApps.length; ++i) {
-    const oldApps = oldApps[i]
+    const oldApp = oldApps[i]
     if (!newAppsNames.includes(oldApp.name)) {
       console.log('Removing app ' + oldApp.name)
       await adminClient.apps.remove(oldApp.id)
