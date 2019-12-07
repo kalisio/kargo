@@ -11,7 +11,7 @@ const adminClient = require('express-gateway/admin')({
 const consumers = JSON.parse(fs.readFileSync('/var/lib/eg/consumers.config.json'));
 
 async function processScopes(oldScopes, newScopes) {
-  logger.info('proces scopes: [' + oldScopes + '], [' + newScopes + ']');
+  logger.info('process scopes: [' + oldScopes + '], [' + newScopes + ']');
   // Remove undefined old scopes
   for (let i = 0; i < oldScopes.length; ++i) {
     const oldScope = oldScopes[i];
@@ -81,7 +81,7 @@ async function processApps(userId, newApps) {
       logger.info('create app ' + appName);
       await createApp(userId, appName, credential);
     } else {
-      logger.info('proces app ' + appName)
+      logger.info('process app ' + appName)
       await processCredential(userId, app.id, credential)
     }
   }
@@ -89,7 +89,7 @@ async function processApps(userId, newApps) {
 }
 
 async function createApp(userId, appName, credential) {
-  logger.debug(cCreate app ' + appName);
+  logger.debug('create app ' + appName);
   let app_data = { name: app, scopes: credential.scopes };
   let app = await adminClient.apps.create(userId, app_data);
   await createCredential(app.id, credential)
@@ -113,7 +113,7 @@ async function createCredential(consumerId, credential) {
   logger.debug('create credential of type ' + credential.type );
   let result;
   if (credential.type === 'basic-auth') {
-    result  = await adminClient.credentials.create(consumerId, credential.type, { password: credential.password });
+    result  = await adminClient.credentials.create(consumerId, credential.type, { id: 'toto', password: credential.password });
   } else {
     result  = await adminClient.credentials.create(consumerId, credential.type, { keyId: credential.keyId, keySecret: credential.keySecret });
   }
