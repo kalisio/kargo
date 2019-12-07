@@ -1,14 +1,12 @@
 const _ = require('lodash');
-const fs = require('fs');
 const logger = require('express-gateway/lib/logger').createLoggerWithLabel('[EG:plugin-populate]');
 const adminClient = require('express-gateway/admin')({
   baseUrl: 'http://localhost:9876',
   verbose: false,
   headers: null
 });
-
-
-const consumers = JSON.parse(fs.readFileSync('/var/lib/eg/consumers.config.json'));
+//const consumers = require('../var/lib/eg/consumers.config');
+console.log(_dirname);
 
 async function processScopes(oldScopes, newScopes) {
   logger.info('process scopes: [' + oldScopes + '], [' + newScopes + ']');
@@ -46,7 +44,7 @@ async function processUsers(oldUsers, newUsers) {
     let user = _.find(oldUsers, { 'username': userName });
     if (user === undefined) {
       logger.info('add user ' + userName);
-      await createUser(username, apps);
+      await createUser(userName, apps);
     } else {
       logger.info('process user ' + userName);
       await processApps(user.id, apps);
@@ -57,8 +55,9 @@ async function processUsers(oldUsers, newUsers) {
 async function createUser(newUserName, newApps) {
   let user_data = { username: newUserName };
   let user = await adminClient.users.create(user_data);
+  lpgger.info('user + ' newUserName + ' created [' + user.id + ']')
   for (const [newAppName, newCredential] of Object.entries(newApps)) {
-    await createApp(user.id, appName, credential);
+    await createApp(user.id, newAppName, newCredential);
   }
 }
 
@@ -82,51 +81,38 @@ async function processApps(userId, newApps) {
       await createApp(userId, appName, credential);
     } else {
       logger.info('process app ' + appName)
-      await processCredential(userId, app.id, credential)
+      if (!_.isEqual(_.sortBy(app.scopes), _.sortBy(credential.scopes) || (app.type !== credential.type)) {
+        logger.info('app changed => create new app')
+        await adminClient.apps.remove(app.id);
+        await createApp(userId, appName, credential);
+      }
     }
   }
-
 }
 
 async function createApp(userId, appName, credential) {
   logger.debug('create app ' + appName);
-  let app_data = { name: app, scopes: credential.scopes };
+  let app_data = { name: appName, scopes: credential.scopes };
   let app = await adminClient.apps.create(userId, app_data);
   await createCredential(app.id, credential)
-}
-
-async function processCredential(userId, appId, newCredential) {
-  let result = await adminClient.credentials.list(appId);
-  let oldCredential = _.get(result, 'credentials[0]')
-  if (!oldCredential) throw new Error('Unconsistent application ' + appId + ': cannot find any credential')
-  logger.debug('process credential: ' + oldCredential.type + ', ' + newCredential.type)
-  if (!oldCredential.type !== newCredential.type) {
-    logger.debug('deactivate old credential of type ' + oldCredential.type)
-    await adminClient.credentials.deactivate(oldCredential.id, oldCredential.type);
-    await createCredential(appId, newCredential)
-  } else {
-    await setScopes(oldCredential.id, oldCredential.type, newCredential.scopes || []);
-  }
 }
 
 async function createCredential(consumerId, credential) {
   logger.debug('create credential of type ' + credential.type );
   let result;
   if (credential.type === 'basic-auth') {
-    result  = await adminClient.credentials.create(consumerId, credential.type, { id: 'toto', password: credential.password });
+    result  = await adminClient.credentials.create(consumerId, credential.type, { password: credential.password });
   } else {
     result  = await adminClient.credentials.create(consumerId, credential.type, { keyId: credential.keyId, keySecret: credential.keySecret });
   }
-  await setScopes(result.id, credential.type, credential.scopes || []);
-}
-
-async function setScopes(credentialId, credentialType, scopes) {
-  logger.debug('set scopes [' + scopes + ']');
-  await adminClient.credentials.setScopes(credentialId, credentialType, scopes);
+  //let scopes = credential.scopes || []
+  //logger.debug('add credential scopes [' + scopes + ']');
+  //await adminClient.credentials.setScopes(result.id, credential.type, scopes);
 }
 
 module.exports = {
   version: '1.2.0',
+  policies: [],
   init: function (pluginContext) {
     pluginContext.eventBus.on('admin-ready', async function ({ adminServer }) {
       const oldScopes = await adminClient.scopes.list({});
