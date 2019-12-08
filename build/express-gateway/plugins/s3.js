@@ -1,5 +1,5 @@
-
-var aws = require('aws-sdk');
+const logger = require('express-gateway/lib/logger').createLoggerWithLabel('[EG:s3]');
+const aws = require('aws-sdk');
 
 const s3 = new aws.S3({
   accessKeyId: process.env.S3_ACCESS_KEY,
@@ -7,7 +7,7 @@ const s3 = new aws.S3({
 })
 
 module.exports = {
-  version: '1.0.0',
+  version: '1.2.0',
   init: function (pluginContext) {
     pluginContext.registerAdminRoute((app) => {
       app.get(pluginContext.settings.endpointName + '/:bucket/*', (req, res) => {
@@ -17,7 +17,8 @@ module.exports = {
         })
         .createReadStream()
         .on('error', (err) => {
-          return res.status(404).send(err);
+          logger.debug(err);
+          return res.status(404).;
         })
         .pipe(res)
       });
