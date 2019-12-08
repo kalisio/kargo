@@ -111,9 +111,10 @@ pipelines:
 
 | Plugin | Description |
 |---| --- |
+| **populate** | It populates the gateway according the `consumers.config.js` file. |
+| **scopes** | It provides a **policy** that can be used to check the consumer scopes against the endpoint scopes. |
 | **metrics** | It provides a `metrics` route to the gateway application that can be used by [Prometheus](https://prometheus.io/) to scrape requests metrics. |
 | **s3** | It provides a `s3` route to the admin application that can be uses to proxy the requests to an **S3** bucket. The service endpoint to be used is: `http://localhost:9876/s3`|
-| **scopes** | It provides a **policy** that can be used to check the consumer scopes against the endpoint scopes. |
 | **healthcheck** | It provides a `healthcheck` route to be used to check the health of **express gateway**. **Kargo** uses this route to ensure the healthcheck of the service. |
 
 #### Defining the consumers
@@ -122,29 +123,7 @@ Once the gateway is implemented and started, it is necessary to define the consu
 1. create a `consumers.config.json` file in the `configs\express-gateway` directory of your workspace
 2. edit the file and define your consumers using the following formalism:
 
-```json
-{
-  "scopes": ["wms", "wmts", "k2", ..... ], 
-  "users": {
-    "customer1": {
-      "app1": {
-        "type": "jwt",
-        "keyId": "ID", 
-        "keySecret": "SECRET",
-        "scopes": ["wms", "wmts"]  // give avec acces to the endpoint that need the one of these scopes
-      },
-      "app2": {
-        "type": "auth-key",
-        "keyId": "ID", 
-        "keySecret": "SECRET",
-        "scopes": ["wmts", "k2"]  // give avec acces to the endpoint that need the one of these scopes
-      }
-    "customer2": {
-      ...
-    }
-  }
-}
-```
+<<< @/docs/../configs/express-gateway/consumers.config.js
 
 ::: tip
 Refer to the [consumer-management](https://www.express-gateway.io/docs/consumer-management/) section to learn mode about `keyId` and `keySecret`.
@@ -179,15 +158,9 @@ $./kargo build express-gateway
 $./kargo deploy api
 ```
 
-5. populate the consumers 
-
-Once the service is started, you need to run call the `populate.js` script in the container. The script uses the `consumers.config.json` file to create the scopes, users, applications and credentials objects:
-
-```bash
-$docker exec -ti <express-gateway-container-id> sh
-> cd /var/lib/eg
-> node populate.js
-```
+::: tip
+**Kargo** used the `populate` plugin to automatically populate the gateway at startup. 
+:::
 
 ### Managing the gateway
 
@@ -232,23 +205,6 @@ $docker exec -ti <express-gateway-container-id> sh
   "type": "jwt"
 }
 ```
-
-You can also take advantage of the following scripts:
-* `populate.js`: populate the gateway with the file `consumers.config.json`
-* `clean.js`: clean the gateway.
-
-For example, if you need to update the content of the gateway, just type the following commands:
-
-```bash
-$docker exec -ti <express-gateway-container-id> sh
->cd /var/lib/eg
->node clean.js
->node populate.js
-```
-
-::: warning
-For now, the `clean.js` script does not delete the credentials. You must delete them using `redis-commander`.
-:::
 
 ## Extending the services
 
