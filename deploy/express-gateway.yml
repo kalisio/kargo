@@ -4,6 +4,7 @@ services:
   express-gateway:
     image: ${EXPRESS_GATEWAY_IMAGE}:${EXPRESS_GATEWAY_TAG}
     environment:
+      - KEY_SECRET=${EXPRESS_GATEWAY_KEY_SECRET}
       - HTTP_PROXY
       - HHTPS_PROXY
       - NO_PROXY      
