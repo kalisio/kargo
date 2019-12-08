@@ -18,7 +18,7 @@ module.exports = {
         .createReadStream()
         .on('error', (err) => {
           logger.debug(err);
-          return res.status(404).;
+          return res.status(404);
         })
         .pipe(res)
       });
