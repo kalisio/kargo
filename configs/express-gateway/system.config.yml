@@ -13,5 +13,8 @@ plugins:
     package: ./plugins/healthcheck.js
   s3:
     package: ./plugins/s3.js
+  populate:
+    package: ./plugins/populate.js
+
 
 
