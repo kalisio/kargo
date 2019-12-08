@@ -16,7 +16,7 @@ services:
       - source: gateway_conf
         target: /var/lib/eg/gateway.config.yml
       - source: consumers_conf
-        target: /var/lib/eg/consumers.config.json
+        target: /var/lib/eg/consumers.config.js
     healthcheck:
       test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:8080/healthcheck"]
       interval: 30s
@@ -45,7 +45,7 @@ configs:
   gateway_conf:
     file: ./../configs/express-gateway/gateway.config.yml
   consumers_conf:
-    file: ./../configs/express-gateway/consumers.config.json
+    file: ./../configs/express-gateway/consumers.config.js
 
 networks:
   kargo-network:
