@@ -9,6 +9,9 @@ services:
       - HISTORY=${HUBEAU_OBSERVATIONS_HISTORY}
       - TIMEOUT=${HUBEAU_OBSERVATIONS_TIMEOUT}
       - DEBUG=${HUBEAU_OBSERVATIONS_DEBUG}
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY      
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:

@@ -6,7 +6,10 @@ services:
     environment:
       - DB_URL=${WEACAST_LOADERS_DB_URL}
       - SYNC_DB_URL=${WEACAST_LOADERS_SYNC_DB_URL}
-      - DEBUG=${AROME_RANCE_HIGH_LOADER_DEBUG}      
+      - DEBUG=${AROME_RANCE_HIGH_LOADER_DEBUG}
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY
       - S3_BUCKET
       - S3_ACCESS_KEY
       - S3_SECRET_ACCESS_KEY

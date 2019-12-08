@@ -6,6 +6,9 @@ services:
     environment:
       - DB_URL=${VIGICRUES_DB_URL}
       - DEBUG=${VIGICRUES_DEBUG}
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY      
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:

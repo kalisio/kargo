@@ -17,6 +17,9 @@ sidebarDepth: 3
 | `DOCKER_NETWORK` | The docker network | `kaabah` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
 | `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
+| `HTTP_PROXY` | The address of the proxy server for **HTTP** connections. | - |
+| `HTTPS_PROXY` | The address of the proxy server for **HTTPS** connections. | - |
+| `NO_PROXY` | A comma-separated list of host names that shouldn't go through any proxy. | - |
 | `STACKS` | The list of stacks to be deployed. | - |
 
 For each stack, there must be such an entry:

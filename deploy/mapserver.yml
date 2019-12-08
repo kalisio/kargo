@@ -3,6 +3,10 @@ version: '3.5'
 services:
   mapserver:
     image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
+    environment:
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY        
     volumes:
       - ./../configs/mapserver:/etc/mapserver
       - ${MAPSERVER_DATA_PATH}:/mnt/data
@@ -11,7 +15,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 1m
+      start_period: 30s
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"

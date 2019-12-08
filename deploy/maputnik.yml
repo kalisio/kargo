@@ -4,7 +4,10 @@ services:
   maputnik:
     image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
-      - SUBDOMAIN=${SUBDOMAIN}
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY      
+      - SUBDOMAIN
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8888"]
       interval: 1m

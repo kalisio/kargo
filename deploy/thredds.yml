@@ -6,6 +6,9 @@ services:
     environment:
       - THREDDS_XMX_SIZE
       - THREDDS_XMS_SIZE
+      - HTTP_PROXY
+      - HHTPS_PROXY
+      - NO_PROXY      
     volumes:
       - ./../configs/thredds:/usr/local/tomcat/content/thredds
       - ${THREDDS_DATA_PATH}:/usr/local/tomcat/content/thredds/public
