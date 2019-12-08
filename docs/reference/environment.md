@@ -12,7 +12,7 @@ sidebarDepth: 3
 | `SUBDOMAIN` | The subdomain where to access the service. It should be similar to `kargo.kalisio.xyz`. | - |
 | `AUTH_USER` | The authentication identity to access the services. | - |
 | `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. | - |
-| `SECRET` | The secret key to generate JWT. It used by the applications **KANO** an **WEACAST**. | - |
+| `SECRET` | The secret key to generate JWT. It is mainly used by **Kano**, **Weacast** and **express-gateway** to validate authentication tokens. | - |
 | `DB_URL` | The common database URL. | - |
 | `DOCKER_NETWORK` | The docker network | `kaabah` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
@@ -34,6 +34,7 @@ For each stack, there must be such an entry:
 | `EXPRESS_GATEWAY_IMAGE` | The image to be used. | `localhost:5000/express-gateway` |
 | `EXPRESS_GATEWAY_TAG` | The version to be used. | `1.16.9` |
 | `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
+| `EXPRESS_GATEWAY_KEY_SECRET` | A secret that can be used to identify JWT issuer. 
 
 ### Hub'eau
 
