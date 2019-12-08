@@ -7,12 +7,6 @@ RUN yarn global add prom-client@10.2.3 aws-sdk
 # Override the consumers models
 COPY ./models /var/lib/eg/models
 
-# Copy the scripts to setup/clean the consumers data
-# node clean.js 
-# node populate.js
-COPY ./scripts/clean.js /var/lib/eg/clean.js
-COPY ./scripts/populate.js /var/lib/eg/populate.js
-
 # Install the plugins
 RUN mkdir -p /plugins
 COPY ./plugins /plugins
