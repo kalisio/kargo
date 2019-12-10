@@ -7,11 +7,9 @@ services:
       - HTTP_PROXY
       - HHTPS_PROXY
       - NO_PROXY        
-    configs:
-      - source: mapcache_conf
-        target: /etc/mapcache/config.xml 
     volumes:
-      - ${MAPCACHE_DATA_PATH}:/var/sig/tiles
+      - ../configs/mapcache:/etc/mapcache
+      - ${MAPCACHE_DATA_PATH}:/mnt/data
     #healthcheck:
     #  test: ["CMD", "curl", "-f", "http://localhost:80/cgi-bin/mapserv?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities"]
     #  interval: 30s
@@ -37,10 +35,6 @@ services:
         condition: on-failure
     networks:
       - kargo-network
-
-configs:
-  mapcache_conf:
-    file: ./../configs/mapcache/mapcache.xml
 
 networks:
     kargo-network:

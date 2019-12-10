@@ -1,0 +1,21 @@
+<!--
+  Genetated using GDAL (from kargo-toolbox)
+  gdal_translate "WMTS:http://tileservergl:80/styles/osm-bright/wmts.xml,layer=osm-bright" osm-bright.xml -of WMTS
+-->
+<GDAL_WMTS>
+  <GetCapabilitiesUrl>http://tileservergl:80/styles/osm-bright/wmts.xml</GetCapabilitiesUrl>
+  <Layer>osm-bright</Layer>
+  <Style>default</Style>
+  <TileMatrixSet>GoogleMapsCompatible</TileMatrixSet>
+  <DataWindow>
+    <UpperLeftX>-20037508.34</UpperLeftX>
+    <UpperLeftY>20037508.34</UpperLeftY>
+    <LowerRightX>20037508.34557879</LowerRightX>
+    <LowerRightY>-20037508.34557879</LowerRightY>
+  </DataWindow>
+  <BandsCount>4</BandsCount>
+  <Cache />
+  <UnsafeSSL>true</UnsafeSSL>
+  <ZeroBlockHttpCodes>204,404</ZeroBlockHttpCodes>
+  <ZeroBlockOnServerException>true</ZeroBlockOnServerException>
+</GDAL_WMTS>
