@@ -1,6 +1,9 @@
 ARG TAG=latest
 FROM  kalisio/kano:${TAG}
 
+ARG SUBDOMAIN
+ENV SUBDOMAIN=$SUBDOMAIN
+
 WORKDIR /opt/kano
 
 COPY kano.tgz .
