@@ -5,11 +5,13 @@ notifications:
       secure: ARkqV4dCDsOr7zKcuxKSHV/SB2EKfkNpMdlt3WjThsiUrrfoByeuZW0kK3ZvNz1FpCzDVp1+YUpJrelEH4eXq33qa56In6XqXSvjUAkb+ukNDmKC/+kjZbY7rkdVOri2MrQAW45aDxemoHvo8/RQwJAMjzqX6ta+LtSQBDTNu/6TvVySbqX5sF+j6ItyPnXIMtjy+zg7iCBzsurwdrIVJkt5vjv6f4pUewgmBUmIclWS0vuRQ864XaE36sQcIIChxlGGchP7KNtspQfdr9pigIJiauTfGp3Fkz8v/+0nNyg23wPIXPxKkRJolzWbIdjokO8F7JUjLIpdypG3Kz2D2bE8bQCpCSOGRVO7t7k2eNb3AyZ6aB+asb8fVMCw+WhZKMdL56ixeYkkyiq3hHCDYyfrzAPSDyiZAoT5FYPV7u7n72gjoTVwXh27tuMqImYn/eO6dBWGdF5R2Ua/32GScZyvWg9cQj7qP5WYHWqPuQxQ2fdAZYUym0LO2hXVcS8txdfnHYF9RzwaxOsdjicpXrS5uOGHUQzA/cQANEoo3wimr+q95uetClILQw7muqyD7QgFeOkjGEk+TiNuoTp2TFJcUubx9fUJFMvWLB0ZLBGrDR6ojtyP2s3GPp6lVKMJUaBMassZdcQC+6smN4Za531SHPArthMJCTZcBV+8UIM=
     on_success: always
     on_failure: always
-stages:
-- name: PUBLISH
+
+- name: DOC
+    if: commit_message !~ /\[skip doc\]/
+
 jobs:
   include:
-  - stage: PUBLISH
+  - stage: DOC
     language: node_js
     node_js:
     - '8'
