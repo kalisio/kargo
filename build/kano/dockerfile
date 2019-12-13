@@ -1,6 +1,14 @@
 ARG TAG=latest
 FROM  kalisio/kano:${TAG}
 
+# Required env var for build that might be changed in Kargo env file
+ARG SUBDOMAIN
+ENV SUBDOMAIN=$SUBDOMAIN
+ARG NODE_APP_INSTANCE
+ENV NODE_APP_INSTANCE=$NODE_APP_INSTANCE
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
+
 WORKDIR /opt/kano
 
 COPY kano.tgz .

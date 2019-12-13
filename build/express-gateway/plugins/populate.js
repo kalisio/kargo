@@ -99,11 +99,14 @@ async function createApp(userId, appName, appData) {
   logger.debug('create app ' + appName);
   let app_data = { name: appName, scopes: _.get(appData, 'scopes', []) };
   let app = await adminClient.apps.create(userId, app_data);
-  const credential = appData.credential;
-  if (credential.type === 'basic-auth') {
-    await adminClient.credentials.create(app.id, credential.type, { password: credential.password });
+  let credential;
+  if (appData.credential.type === 'basic-auth') {
+    credential = await adminClient.credentials.create(app.id, appData.credential.type, { password: appData.credential.password });
   } else {
-    await adminClient.credentials.create(app.id, credential.type, { keyId: credential.keyId, keySecret: credential.keySecret });
+    credential = await adminClient.credentials.create(app.id, appData.credential.type, { keyId: appData.credential.keyId, keySecret: appData.credential.keySecret });
+  }
+  if (appData.scopes) {
+    await adminClient.credentials.setScopes(credential.id, appData.credential.type, appData.scopes);
   }
   logger.info(appName + ' created [' + app.id + ']');
 }
