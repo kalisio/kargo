@@ -275,7 +275,11 @@ kargo_remove()
 {
   kargo_check_stack remove $1
   if [ $1 == 'all' ]; then 
+    local INVERSED_STACKS=
     for STACK in $STACKS; do
+      INVERSED_STACKS="$STACK $INVERSED_STACKS"
+    done
+    for STACK in $INVERSED_STACKS; do
       echo removing $STACK stack
       kargo_remove $STACK
     done
