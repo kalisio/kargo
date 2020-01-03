@@ -11,8 +11,9 @@ config:
   environments:
     public:
       variables:
-        mapproxy: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}"
-        mapserver: "https://mapserver.{{ $processEnvironment.SUBDOMAIN }}"
+        wms: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}/service"
+        wmst: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}/wmts"
+        wcs: "https://mapserver.{{ $processEnvironment.SUBDOMAIN }}//cgi-bin/ows"
         k2: "https://k2.{{ $processEnvironment.SUBDOMAIN }}"
         qs: "?"
     gravitee:
@@ -23,8 +24,10 @@ config:
         qs: "?access_token={{ $processEnvironment.API_GATEWAY_JWT }}"
     express:
       variables:
-        mapproxy: "https://api.{{ $processEnvironment.SUBDOMAIN }}/mapproxy"
-        mapserver: "https://api.{{ $processEnvironment.SUBDOMAIN }}/mapserver"
+        wms: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wms"
+        wmts: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wmts"
+        wcs: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wcs"
+        wfs: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wfs"
         k2: "https://api.{{ $processEnvironment.SUBDOMAIN }}/k2"
         qs: "?jwt={{ $processEnvironment.API_GATEWAY_JWT }}"
 

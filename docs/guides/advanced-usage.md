@@ -120,7 +120,7 @@ pipelines:
 #### Defining the consumers
 
 Once the gateway is implemented and started, it is necessary to define the consumers.
-1. create a `consumers.config.json` file in the `configs\express-gateway` directory of your workspace
+1. create a `consumers.config.js` file in the `configs\express-gateway` directory of your workspace
 2. edit the file and define your consumers using the following formalism:
 
 <<< @/docs/../configs/express-gateway/consumers.config.js

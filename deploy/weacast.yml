@@ -15,7 +15,8 @@ services:
       - SUBDOMAIN
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/healthcheck"]
-      interval: 1m
+      start_period: 1m
+      interval: 30s
       timeout: 10s
       retries: 3
     deploy:
