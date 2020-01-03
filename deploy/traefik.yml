@@ -8,7 +8,7 @@ services:
       - ./../configs/traefik/traefik.toml:/traefik.toml    
       - $HOME/.docker:/tls
       - ./../logs:/logs
-      - ./../../acme:/acme
+      - ./../acme:/acme
     healthcheck:
       test: ["CMD", "traefik", "healthcheck"]
       interval: 30s

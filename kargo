@@ -8,23 +8,21 @@ kargo_version()
 kargo_usage()
 {
   kargo_version
-  echo -e 'usage: kargo [options] <command>'
-  echo -e '\n'
-  echo -e 'options:'
-  echo -e ' -v, --version\t print the version and quit'
-  echo -e ' -h, --help\t print this help and quit'
-  echo -e '\n'
-  echo -e 'commands:'
-  echo -e ' use \t\t <workspace>\t\t\t select the given workspace'
-  echo -e ' configure \t \t\t\t\t generate the current configuration'
-  echo -e ' info \t\t \t\t\t\t print the information about the current configuration'
-  echo -e ' build \t\t <service>\t\t\t build the given service(s)'
-  echo -e ' load \t\t <service>\t\t\t load the given service from an archive'
-  echo -e ' deploy \t <stack|all>\t\t\t deploy the given stack'
-  echo -e ' update \t [--force|-f] <stack|all>\t update the given stack'
-  echo -e ' pull \t\t \t\t\t\t pull the current workspace'
-  echo -e ' remove \t <stack|all>\t\t\t remove the given stack'
-  echo -e '\n'
+  printf "usage: kargo [options] <command>\n\n"
+  printf "options:\n"
+  printf " -v, --version\t print the version and quit\n"
+  printf " -h, --help\t print this help and quit\n\n"
+  printf "commands:\n"
+  printf " %-10s %-25s %s\n" "use" "<workspace>" "select the given workspace"
+  printf " %-10s %-25s %s\n" "configure" "" "generate the current configuration"
+  printf " %-10s %-25s %s\n" "info" "" "generate the current configuration"
+  printf " %-10s %-25s %s\n" "build" "<service>" "build the given service"
+  printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
+  printf " %-10s %-25s %s\n" "deploy" "<stack|all>" "deploy the given stack"
+  printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the fiven stack"
+  printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"
+  printf " %-10s %-25s %s\n" "remove" "<stack|all>" "remove the given stack"
+  printf "\n"
 }
 
 kargo_use()
@@ -93,24 +91,30 @@ kargo_check_stack()
 kargo_configure()
 {
   kargo_read_workspace
-  if [ -d .kargo ]; then
-    rm -fr .kargo
-  fi
-  mkdir .kargo
+  mkdir -p .kargo/logs
   cp .env.default .kargo/.env.default
-  cp -R build .kargo/build
-  cp -R deploy .kargo/deploy
-  cp -R configs .kargo/configs
   cp "$WORKSPACE"/.env .kargo/.
+  mkdir -p .tmp/acme
+  cp -R ./build  .tmp/.
+  cp -R ./deploy .tmp/.
+  cp -R ./configs .tmp/.
   if [ -d "$WORKSPACE"/build ]; then
-    cp -R "$WORKSPACE"/build .kargo/.
+    cp -R "$WORKSPACE"/build .tmp/.
   fi
   if [ -d "$WORKSPACE"/deploy ]; then
-    cp -R "$WORKSPACE"/deploy .kargo/.
+    cp -R "$WORKSPACE"/deploy .tmp/.
   fi
   if [ -d "$WORKSPACE"/configs ]; then
-    cp -R "$WORKSPACE"/configs .kargo/.
+    cp -R "$WORKSPACE"/configs .tmp/.
   fi
+  if [ -d "$WORKSPACE"/acme ]; then
+    cp -R "$WORKSPACE"/build .tmp/.
+  fi
+  rsync -au --delete .tmp/build .kargo/
+  rsync -au --delete .tmp/deploy .kargo/
+  rsync -au --delete .tmp/configs .kargo/
+  rsync -au --delete .tmp/acme .kargo/
+  rm -fr .tmp
   echo workspace \"$WORKSPACE\" ready.
 }
 
@@ -130,7 +134,7 @@ kargo_info()
   for STACK in $STACKS; do
     local STACK_NAME=${STACK^^}_STACK
     local STACK_CONTENT=${!STACK_NAME}
-    echo -e '  '$STACK: $STACK_CONTENT
+    printf " %-20s %s\n" $STACK_NAME "$STACK_CONTENT"
   done
 }
 
