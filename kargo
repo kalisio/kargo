@@ -19,7 +19,7 @@ kargo_usage()
   printf " %-10s %-25s %s\n" "build" "<service>" "build the given service"
   printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "deploy" "<stack|all>" "deploy the given stack"
-  printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the fiven stack"
+  printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack"
   printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-25s %s\n" "remove" "<stack|all>" "remove the given stack"
   printf "\n"
@@ -32,9 +32,14 @@ kargo_use()
     echo usage: kargo use \<workspace\>
     exit 1 
   fi
+  # check whether the workspace exist
   if [ ! -d "$1" ]; then
     echo error: the specified workspace \"$1\" does not exist.
     exit 1
+  fi
+  # check whether a configuration has been created already. If yes clean it !
+  if [ -d .kargo ]; then
+    rm -fr .kargo
   fi
   echo WORKSPACE=$1 > .workspace
   echo switched to workspace \"$1\"
@@ -91,10 +96,21 @@ kargo_check_stack()
 kargo_configure()
 {
   kargo_read_workspace
+  # ensure the logs directory exists
   mkdir -p .kargo/logs
+  # ensure the acme directory exists
+  mkdir -p .kargo/acme
+  # copy acme.json if required
+  if [ ! -f .kargo/acme/acme.json ]; then
+    if [ -f "$WORKSPACE"/acme.json ]; then
+      cp "$WORKSPACE"/acme.json .kargo/acme/.
+    fi
+  fi
+  # copy environment files
   cp .env.default .kargo/.env.default
   cp "$WORKSPACE"/.env .kargo/.
-  mkdir -p .tmp/acme
+  # build a temporary configuration to facilitate the synchronization
+  mkdir -p .tmp
   cp -R ./build  .tmp/.
   cp -R ./deploy .tmp/.
   cp -R ./configs .tmp/.
@@ -107,13 +123,9 @@ kargo_configure()
   if [ -d "$WORKSPACE"/configs ]; then
     cp -R "$WORKSPACE"/configs .tmp/.
   fi
-  if [ -d "$WORKSPACE"/acme ]; then
-    cp -R "$WORKSPACE"/build .tmp/.
-  fi
   rsync -au --delete .tmp/build .kargo/
   rsync -au --delete .tmp/deploy .kargo/
   rsync -au --delete .tmp/configs .kargo/
-  rsync -au --delete .tmp/acme .kargo/
   rm -fr .tmp
   echo workspace \"$WORKSPACE\" ready.
 }
