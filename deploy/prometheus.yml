@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   prometheus:
-    image: prom/prometheus:v2.9.2
+    image: ${PROMETHEUS_IMAGE}:${PROMETHEUS_TAG}
     volumes:
       - ./../configs/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -42,7 +42,7 @@ services:
       - kargo-network      
 
   alertmanager:
-    image: prom/alertmanager:v0.17.0
+    image: ${PROMETHEUS_ALERTMANAGER_IMAGE}:${PROMETHEUS_ALERTMANAGER_TAG}
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
@@ -79,7 +79,7 @@ services:
       - kargo-network      
 
   node-exporter:
-    image: prom/node-exporter:v0.17.0
+    image: ${PROMETHEUS_NODE_EXPORTER_IMAGE}:${PROMETHEUS_NODE_EXPORTER_TAG}
     command: 
       - '--path.procfs=/host/proc' 
       - '--path.sysfs=/host/sys'
@@ -102,7 +102,7 @@ services:
       - kargo-network        
 
   cadvisor:
-    image: google/cadvisor:v0.33.0
+    image: ${PROMETHEUS_CADVISOR_IMAGE}:${PROMETHEUS_CADVISOR_TAG}
     command: 
       - '-docker_only'
     volumes:
@@ -123,7 +123,7 @@ services:
       - kargo-network  
     
   pushgateway:
-    image: prom/pushgateway:v0.8.0
+    image: ${PROMETHEUS_PUSHGATEWAY_IMAGE}:${PROMETHEUS_PUSHGATEWAY_TAG}
     healthcheck:
       test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:9091/metrics"]
       interval: 25s

@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   registry:
-    image: registry:2
+    image: ${REGISTRY_IMAGE}:${REGISTRY_TAG}
     ports:
       - 5000:5000
     healthcheck:

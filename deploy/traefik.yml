@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   traefik:
-    image: traefik:1.7-alpine
+    image: ${TRAEFIK_IMAGE}:${TRAEFIK_TAG}
     command: --api --docker.endpoint=${DOCKER_HOST} --acme.email=${CONTACT} --acme.caServer=${CA_SERVER}
     volumes:
       - ./../configs/traefik/traefik.toml:/traefik.toml    
