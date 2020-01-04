@@ -83,7 +83,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true 
               audience: ${SUBDOMAIN}
               passThrough: true  
@@ -93,7 +93,7 @@ pipelines:
             action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
       - scopes:
@@ -116,7 +116,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true 
               audience: ${SUBDOMAIN}
               passThrough: true  
@@ -126,7 +126,7 @@ pipelines:
             action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
       - scopes:
@@ -149,7 +149,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
               passThrough: true                    
@@ -159,7 +159,7 @@ pipelines:
             action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
       - scopes:
@@ -182,7 +182,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
               passThrough: true             
@@ -192,7 +192,7 @@ pipelines:
             action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
       - scopes:
@@ -215,7 +215,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
               passThrough: true                              
@@ -223,7 +223,7 @@ pipelines:
           - action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
       - scopes:
@@ -246,7 +246,7 @@ pipelines:
               name: anonymous
             action:
               jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN} 
               passThrough: true             
@@ -256,7 +256,7 @@ pipelines:
             action:
               jwtExtractor: 'query'
               jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${SECRET}
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
       - scopes:  

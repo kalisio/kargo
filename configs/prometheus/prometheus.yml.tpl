@@ -27,9 +27,9 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  #- job_name: 'dockerd'
-  #  static_configs:
-  #    - targets: ['${PRIVATE_MANAGER_IP}:9323']
+  - job_name: 'dockerd'
+    static_configs:
+      - targets: ['${DOCKER_HOST_IP}:9323']
 
   - job_name: 'cadvisor'
     dns_sd_configs:
