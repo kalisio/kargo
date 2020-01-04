@@ -109,6 +109,7 @@ kargo_configure()
   # copy environment files
   cp .env.default .kargo/.env.default
   cp "$WORKSPACE"/.env .kargo/.
+  kargo_read_configuration
   # build a temporary configuration to facilitate the synchronization
   mkdir -p .tmp
   cp -R ./build  .tmp/.
@@ -123,6 +124,12 @@ kargo_configure()
   if [ -d "$WORKSPACE"/configs ]; then
     cp -R "$WORKSPACE"/configs .tmp/.
   fi
+  # template the require configuration files
+  local TEMPLATES=`find .tmp/configs -name "*.tpl"`
+  for TEMPLATE in $TEMPLATES; do
+    envsubst < $TEMPLATE > ${TEMPLATE%.*}
+  done
+  # synchronize the configuration
   rsync -au --delete .tmp/build .kargo/
   rsync -au --delete .tmp/deploy .kargo/
   rsync -au --delete .tmp/configs .kargo/
