@@ -26,7 +26,7 @@ services:
       labels:
         - "traefik.backend=grafana"
         - "traefik.enable=true"      
-        - "traefik.docker.network=kaabah-network"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.port=3000"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"

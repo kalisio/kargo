@@ -32,7 +32,7 @@ services:
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
-        - "traefik.docker.network=kaabah-network"
+        - "traefik.docker.network=${DOCKER_NETWORK}"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
