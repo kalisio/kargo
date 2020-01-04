@@ -104,6 +104,7 @@ kargo_configure()
   if [ ! -f .kargo/acme/acme.json ]; then
     if [ -f "$WORKSPACE"/acme.json ]; then
       cp "$WORKSPACE"/acme.json .kargo/acme/.
+      chmod 600 .kargo/acme/acme.json
     fi
   fi
   # copy environment files
