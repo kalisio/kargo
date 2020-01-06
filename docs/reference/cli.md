@@ -44,11 +44,11 @@ Generate the configuration by merging the default configuration with your worksp
 
 ### deploy
 
-`usage: kargo deploy <stack|all>`
+`usage: kargo deploy <stack|all> [delay]`
 
 Deploys the specified stack. The stack must be defined in the `STACKS`.
 
-When specifying `all`, it deploys all the stacks. The stacks are deployed in the order defined in the `STACKS` variable.
+When specifying `all`, it deploys all the stacks. The stacks are deployed in the order defined in the `STACKS` variable and a `delay` (in seconds) can be specified to wait before deploying each stack. By default the delay is `5` seconds.
 
 ### info
 
