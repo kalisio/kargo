@@ -2,7 +2,7 @@
 
 # Build express-gateway
 EXPRESS_GATEWAY_VERSION=1.6.9
-cd build/express-gateway
+cd build/express-gateway && echo ls
 docker build --pull --force-rm --build-arg TAG=$EXPRESS_GATEWAY_VERSION -f dockerfile -t kalisio/express-gateway:$EXPRESS_GATEWAY_VERSION .
 RESULT_CODE=$?
 if [ $RESULT_CODE -ne 0 ]; then
