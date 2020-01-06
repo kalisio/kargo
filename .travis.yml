@@ -18,7 +18,9 @@ jobs:
   - stage: BUILD
     language: node_js
     node_js:
-    - '8'  
+    - '8'
+    services:
+    - docker
     script: 
     - bash .travis.build.sh 
     
