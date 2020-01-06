@@ -31,7 +31,7 @@ For each stack, there must be such an entry:
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `EXPRESS_GATEWAY_IMAGE` | The image to be used. | `localhost:5000/express-gateway` |
+| `EXPRESS_GATEWAY_IMAGE` | The image to be used. | `kalisio/express-gateway` |
 | `EXPRESS_GATEWAY_TAG` | The version to be used. | `1.16.9` |
 | `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
 | `EXPRESS_GATEWAY_KEY_SECRET` | A secret that can be used to identify JWT issuer. 
