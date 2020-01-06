@@ -6,6 +6,7 @@ notifications:
     on_success: always
     on_failure: always
 
+stages:
 - name: BUILD
     if: commit_message !~ /(skip[ _-]build)/
 - name: DOC
