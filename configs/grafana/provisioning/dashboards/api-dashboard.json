@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1578295255439,
+  "iteration": 1578304400108,
   "links": [],
   "panels": [
     {
@@ -53,7 +52,7 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "repeat": "consumer",
+      "repeat": null,
       "repeatDirection": "h",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -61,7 +60,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(status_codes{apiendpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[1m])",
+          "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{apiendpoint}}",
@@ -121,19 +120,18 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "status_codes",
+        "definition": "eg",
         "hide": 0,
         "includeAll": true,
         "label": "Consumer",
         "multi": true,
         "name": "consumer",
         "options": [],
-        "query": "status_codes",
+        "query": "eg",
         "refresh": 1,
         "regex": "/.*consumer=\"([^\"]*).*/",
         "skipUrlSync": false,
@@ -147,21 +145,20 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "status_codes",
+        "definition": "eg",
         "hide": 0,
         "includeAll": true,
-        "label": "Service",
+        "label": "Endpoint",
         "multi": true,
         "name": "endpoint",
         "options": [],
-        "query": "status_codes",
+        "query": "eg",
         "refresh": 1,
-        "regex": "/.*apiendpoint=\"([^\"]*).*/",
+        "regex": "/.*api_endpoint=\"([^\"]*).*/",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -173,19 +170,20 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": "200",
+          "value": [
+            "200"
+          ]
         },
         "datasource": "Prometheus",
-        "definition": "status_codes",
+        "definition": "eg",
         "hide": 0,
         "includeAll": true,
         "label": "Status code",
         "multi": true,
         "name": "status_code",
         "options": [],
-        "query": "status_codes",
+        "query": "eg",
         "refresh": 1,
         "regex": "/.*status_code=\"([^\"]*).*/",
         "skipUrlSync": false,
@@ -199,7 +197,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -230,5 +228,5 @@
   "timezone": "browser",
   "title": "API dashboard",
   "uid": "DeQOO2AWz",
-  "version": 19
+  "version": 1
 }

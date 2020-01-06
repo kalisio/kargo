@@ -2,7 +2,7 @@ const metrics = require('prom-client');
 
 const statusCodeCounter = new metrics.Counter({
   name: 'eg',
-  help: 'express gateway status code metrics',
+  help: 'express-gateway',
   labelNames: ['type', 'status_code', 'consumer', 'api_endpoint']
 });
 
