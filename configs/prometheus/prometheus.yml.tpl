@@ -49,3 +49,7 @@ scrape_configs:
     static_configs:
     - targets: ['traefik']
 
+  - job_name: 'express-gateway'
+    static_configs:
+    - targets: ['express-gateway:8080']
+
