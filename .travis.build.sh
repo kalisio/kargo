@@ -1,11 +1,9 @@
 #!/bin/bash
 
-ls 
-
 # Build express-gateway
 EXPRESS_GATEWAY_VERSION=1.6.9
-cd ./build/express-gateway && ls
-docker build --pull --force-rm --build-arg TAG=$EXPRESS_GATEWAY_VERSION -f dockerfile -t kalisio/express-gateway:$EXPRESS_GATEWAY_VERSION .
+cd ./build/express-gateway
+docker build --build-arg TAG=$EXPRESS_GATEWAY_VERSION -f dockerfile -t kalisio/express-gateway:$EXPRESS_GATEWAY_VERSION .
 RESULT_CODE=$?
 if [ $RESULT_CODE -ne 0 ]; then
   echo "express-gateway generation failed [error: $RESULT_CODE]"
