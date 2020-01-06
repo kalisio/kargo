@@ -6,23 +6,32 @@ notifications:
     on_success: always
     on_failure: always
 
+- name: BUILD
+    if: commit_message !~ /(skip[ _-]build)/
 - name: DOC
-    if: commit_message !~ /\[skip doc\]/
+    if: commit_message !~ /(skip[ _-]doc)/
 
 jobs:
   include:
+
+  - stage: BUILD
+    language: node_js
+    node_js:
+    - '8'  
+    script: 
+    - bash .travis.build.sh 
+    
   - stage: DOC
     language: node_js
     node_js:
     - '8'
     script:
-    - yarn install
-    - npm run docs:build
+    - bash .travis.doc.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist
       skip-cleanup: true
-      github-token: "$GITHUB_TOKEN"
+      github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
       keep-history: true
       on:
-        branch: master
+        branch: master        
