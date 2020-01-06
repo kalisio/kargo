@@ -8,9 +8,9 @@ notifications:
 
 stages:
 - name: BUILD
-    if: commit_message !~ /(skip[ _-]build)/
+  if: commit_message !~ /(skip[ _-]build)/
 - name: DOC
-    if: commit_message !~ /(skip[ _-]doc)/
+  if: commit_message !~ /(skip[ _-]doc)/
 
 jobs:
   include:
