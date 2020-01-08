@@ -15,18 +15,10 @@ services:
       - SUBDOMAIN
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/healthcheck"]
-      start_period: 1m
-      interval: 30s
+      interval: 1m
       timeout: 10s
       retries: 3
     deploy:
-      labels:
-        - "traefik.backend=weacast"
-        - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.enable=true"
-        - "traefik.port=8081"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:weacast.${SUBDOMAIN}"
       replicas: ${WEACAST_REPLICAS}
       placement:
         constraints:
