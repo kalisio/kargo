@@ -42,9 +42,9 @@ For each stack, there must be such an entry:
 | --- | --- | --- |
 | `HUBEAU_IMAGE` | The image to be used. | `kalisio/k-hubeau` |
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
-| `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
+| `HUBEAU_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `1.0.0` |
 | `HUBEAU_STATIONS_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
-| `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
+| `HUBEAU_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `1.0.0` |
 | `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `604 800` (7 days) |
 | `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
 | `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
