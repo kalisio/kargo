@@ -197,9 +197,7 @@ $kargo build mapserver
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `VIGICRUES_IMAGE` | The image to be used. | `kalisio/k-vigicrues` |
-| `VIGICRUES_STATIONS_TAG` | The version of the image to be used for scraping the stations. | `latest` |
-| `VIGICRUES_SECTIONS_TAG` | The version of the image to be used for scraping the sections. | `lastest` |
-| `VIGICRUES_OBSERVATIONS_TAG` | The version of the image to be used for scraping the observations. | `latest` |
+| `VIGICRUES_TAG` | The version of the image to be used for scraping the stations. | `1.0.0` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. | - |
 | `VIGICRUES_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
