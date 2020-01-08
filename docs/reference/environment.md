@@ -167,7 +167,7 @@ $kargo build mapserver
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
-| `TELERAY_TAG` | The version to be used. | `0.1.0` |
+| `TELERAY_TAG` | The version to be used. | `1.0.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
 | `TELERAY_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
