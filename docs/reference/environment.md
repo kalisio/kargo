@@ -14,7 +14,7 @@ sidebarDepth: 3
 | `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. | - |
 | `SECRET` | The secret key to generate JWT. It is mainly used by **Kano**, **Weacast** and **express-gateway** to validate authentication tokens. | - |
 | `DB_URL` | The common database URL. | - |
-| `DOCKER_NETWORK` | The docker network | `kaabah` |
+| `DOCKER_NETWORK` | The docker network | `kargo` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
 | `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
 | `HTTP_PROXY` | The address of the proxy server for **HTTP** connections. | - |
@@ -35,6 +35,13 @@ For each stack, there must be such an entry:
 | `EXPRESS_GATEWAY_TAG` | The version to be used. | `1.16.9` |
 | `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
 | `EXPRESS_GATEWAY_KEY_SECRET` | A secret that can be used to identify JWT issuer. 
+
+### Grafana
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `GRAFANA_IMAGE` | The image to be used. | `grafana/grafana` |
+| `GRAFANA_TAG` | The version to be used. | `6.1.6` |
 
 ### Hub'eau
 
@@ -145,6 +152,21 @@ $kargo build mapserver
 | `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
 | `POSTGIS_DATA_PATH` | The path to the database. | `/mnt/data0/postgis_data` |
 
+### Prometheus
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `PROMEHTEUS_IMAGE` | The image to be used. | `mdillon/postgis` |
+| `PROMETHEUS_TAG` | The version to be used. | `9.6-alpine` |
+| `PROMETHEUS_ALERTMANAGER_IMAGE` | The **Alertmanager** image to be used. | `postgres` |
+| `PROMETHEUS_ALERTMANAGER_TAG` | The **Alertmanager** tag to be used. | `postgres` |
+| `PROMETHEUS_NODE_EXPORTER_IMAGE` | The **node-exporter** image to be used. | `postgres` |
+| `PROMETHEUS_NODE_EXPORTER_TAG` | The **node-exporter** tag to be used. | `postgres` |
+| `PROMETHEUS_CADVISOR_IMAGE` | The **cAdvisor** image to be used. | `postgres` |
+| `PROMETHEUS_CADVISOR_TAG` | The **cAdvisor** tag to be used. | `postgres` |
+| `PROMETHEUS_PUSHGATEWAY_IMAGE` | The **Pushgateway** image to be used. | `postgres` |
+| `PROMETHEUS_PUSHGATEWAY_TAG` | The **Pushgateway** tag to be used. | `postgres` |
+
 ### Redis
 
 | Variable | Description | Default value |
@@ -182,6 +204,13 @@ $kargo build mapserver
 | `THREDDS_REPLICAS` | The number of replicas. | `1` |
 | `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). | `4G` |
 | `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). | `4G` |
+
+### Traefik
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `TRAEFIK_IMAGE` | The image to be used. | `traefik` |
+| `TRAEFIK_TAG` | The version to be used. | `1.7-alpine` |
 
 ### TileServer GL
 
