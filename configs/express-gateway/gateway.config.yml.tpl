@@ -54,6 +54,7 @@ policies:
   - log
   - proxy
   - rate-limit
+  - response-transformer
   - metrics
 
 pipelines:
@@ -259,7 +260,12 @@ pipelines:
               secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
-      - scopes:  
+      - scopes:
+      - response-transformer:
+          - action:
+              headers:
+                add:
+                  transfer-encoding: "chunked"
       - proxy:
           - action:
               serviceEndpoint: s3
