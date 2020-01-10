@@ -18,6 +18,8 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+    ports:
+      - "10000:10000" # Seems to be required to make feathers-distributed work correctly
     deploy:
       replicas: ${WEACAST_REPLICAS}
       placement:

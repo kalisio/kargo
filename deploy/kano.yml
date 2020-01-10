@@ -27,6 +27,8 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+    ports:
+      - "10001:10001" # Seems to be required to make feathers-distributed work correctly
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"

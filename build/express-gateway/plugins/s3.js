@@ -10,10 +10,12 @@ module.exports = {
   version: '1.2.0',
   init: function (pluginContext) {
     pluginContext.registerAdminRoute((app) => {
+      logger.info('Proxying S3 object from ' + req.params.bucket + '/' + req.params[0] + ',' + req.headers.range)
       app.get(pluginContext.settings.endpointName + '/:bucket/*', (req, res) => {
         s3.getObject({
           Bucket: req.params.bucket,
-          Key: req.params[0]
+          Key: req.params[0],
+          Range: req.headers.range // Forward range requests
         })
         .createReadStream()
         .on('error', (err) => {
