@@ -11,6 +11,7 @@ module.exports = {
   init: function (pluginContext) {
     pluginContext.registerAdminRoute((app) => {
       app.get(pluginContext.settings.endpointName + '/:bucket/*', (req, res) => {
+        logger.info('Proxying S3 object from ' + req.params.bucket + '/' + req.params[0] + ',' + req.headers.range)
         s3.getObject({
           Bucket: req.params.bucket,
           Key: req.params[0],
