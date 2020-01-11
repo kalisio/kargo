@@ -54,7 +54,6 @@ policies:
   - log
   - proxy
   - rate-limit
-  - response-transformer
   - metrics
 
 pipelines:
@@ -62,9 +61,6 @@ pipelines:
     apiEndpoints:
       - admin
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl}
       - proxy:
           - action:
               serviceEndpoint: admin
@@ -74,9 +70,6 @@ pipelines:
     apiEndpoints:
       - wms
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl} 
       - metrics:              
       - cors:
       - jwt:
@@ -107,9 +100,6 @@ pipelines:
     apiEndpoints:
       - wmts
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl} 
       - metrics:              
       - cors:
       - jwt:
@@ -140,9 +130,6 @@ pipelines:
     apiEndpoints:
       - wfs
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl}
       - metrics:               
       - cors:
       - jwt:
@@ -173,9 +160,6 @@ pipelines:
     apiEndpoints:
       - wcs
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl}
       - metrics:               
       - cors:
       - jwt:
@@ -206,9 +190,6 @@ pipelines:
     apiEndpoints:
       - k2
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl}
       - metrics:                   
       - cors:
       - jwt:
@@ -237,9 +218,6 @@ pipelines:
     apiEndpoints:
       - s3
     policies:
-      - log:
-          - action:
-              message: ${req.method} ${req.originalUrl}    
       - metrics:  
       - cors:
       - jwt:
@@ -261,11 +239,6 @@ pipelines:
               checkCredentialExistence: true
               audience: ${SUBDOMAIN}
       - scopes:
-      - response-transformer:
-          - action:
-              headers:
-                add:
-                  transfer-encoding: "chunked"
       - proxy:
           - action:
               serviceEndpoint: s3
