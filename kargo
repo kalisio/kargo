@@ -154,7 +154,7 @@ kargo_info()
   for STACK in $STACKS; do
     local STACK_NAME=${STACK^^}_STACK
     local STACK_CONTENT=${!STACK_NAME}
-    printf " %-20s %s\n" $STACK_NAME "$STACK_CONTENT"
+    printf " %-15s %s\n" $STACK "$STACK_CONTENT"
   done
 }
 
