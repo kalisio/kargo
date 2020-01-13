@@ -18,6 +18,7 @@ module.exports = {
           Range: req.headers.range // Forward range requests
         })
         .on('httpHeaders', (statusCode, headers) => { 
+          res.status(statusCode);
           res.set(headers);
         })
         .createReadStream()
