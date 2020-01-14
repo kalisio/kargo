@@ -235,7 +235,7 @@ $kargo build mapserver
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-api` |
-| `WEACAST_TAG` | The version to be used. | `dev` |
+| `WEACAST_TAG` | The version to be used. | `1.1.0` |
 | `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | - |
 | `WEACAST_DB_URL` | The application database URL. | - |
 | `WEACAST_DATA_DB_URL` | The database URL where to read the data downloaded by the loaders. | - |
