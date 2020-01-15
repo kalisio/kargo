@@ -13,7 +13,7 @@ docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
 docker push kalisio/express-gateway:$EXPRESS_GATEWAY_VERSION
 
 # Build mautnik
-MAPUTNIK_VERSION=1.16.9
+MAPUTNIK_VERSION=1.6.1
 cd build/maputnik
 docker build --force-rm --build-arg TAG=$MAPUTNIK_VERSION -f dockerfile -t kalisio/maputnik:$MAPUTNIK_VERSION .
 RESULT_CODE=$?
