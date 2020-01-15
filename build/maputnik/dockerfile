@@ -12,7 +12,7 @@ RUN \
 # Clone Maputnik abd build it
 RUN \
   git clone --branch $VERSION https://github.com/maputnik/editor.git /maputnik && \
-  cd /maputnik && && npm install -d && npm run build
+  cd /maputnik && npm install -d && npm run build
 
 #
 # Make the final image from the build image alias
