@@ -16,7 +16,9 @@ popd
 # Build mautnik
 MAPUTNIK_VERSION=1.6.1
 pushd build/maputnik
-docker build --force-rm --build-arg VERSION=$MAPUTNIK_VERSION -f dockerfile -t kalisio/maputnik:$MAPUTNIK_VERSION .
+
+echo v$MAPUTNIK_VERSION
+docker build --force-rm --build-arg VERSION=v$MAPUTNIK_VERSION -f dockerfile -t kalisio/maputnik:$MAPUTNIK_VERSION .
 RESULT_CODE=$?
 if [ $RESULT_CODE -ne 0 ]; then
   echo "Maputnik generation failed [error: $RESULT_CODE]"
