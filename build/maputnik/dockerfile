@@ -9,7 +9,7 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Clone Maputnik abd build it
-RUN echo $VERSION && git clone -b $VERSION https://github.com/maputnik/editor /maputnik && cd /maputnik && npm install -d && npm run build
+RUN echo $VERSION && git clone https://github.com/maputnik/editor maputnik && cd maputnik && npm install -d && npm run build
   
 #
 # Make the final image from the build image alias
