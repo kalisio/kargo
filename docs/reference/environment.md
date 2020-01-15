@@ -121,8 +121,8 @@ $kargo build mapserver
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `MAPUTNIK_IMAGE` | The image to be used. | `maputnik/editor` |
-| `MAPUTNIK_TAG` | The version to be used. | `latest` |
+| `MAPUTNIK_IMAGE` | The image to be used. | `kalisio/maputnik` |
+| `MAPUTNIK_TAG` | The version to be used. | `1.6.1` |
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
 ### MongoDB
