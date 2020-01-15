@@ -91,6 +91,11 @@ pipelines:
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
       - scopes:
+      - request-transformer:
+          - action:
+              headers:
+                add:
+                  X-Script-Name: "'/wms'"      
       - proxy:
           - action:
               serviceEndpoint: wms 
