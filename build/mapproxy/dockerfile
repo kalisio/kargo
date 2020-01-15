@@ -18,6 +18,7 @@ RUN \
           libgeos-c1v5 \
           libgdal20 \
           git && \
+          curl \
   rm -rf /var/lib/apt/lists/*
 
 RUN \

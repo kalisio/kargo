@@ -35,9 +35,9 @@ serviceEndpoints:
   admin: 
     url: 'http://localhost:9876'
   wms:
-    url: 'http://mapproxy:8080/service'
+    url: 'http://mapproxy:80/service'
   wmts:
-    url: 'http://mapproxy:8080/wmts'    
+    url: 'http://mapproxy:80/wmts'    
   wfs:
     url: 'http://mapserver:80/cgi-bin/wfs'
   wcs:
