@@ -10,7 +10,7 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Clone Maputnik abd build it
-RUN git clone -b v${VERSION} https://github.com/maputnik/editor && cd editor && npm install -d && npm run build
+RUN git clone -b v${VERSION} https://github.com/maputnik/editor /maputnik && cd /maputnik && npm install -d && npm run build
   
 #
 # Make the final image from the build image alias
@@ -25,7 +25,7 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Copy Maputnik
-COPY --from=build ${HOME}/editor/build/build /maputnik
+COPY --from=build /maputnik/build/build /maputnik
 
 # Expose Maputnik
 EXPOSE 8888
