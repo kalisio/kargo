@@ -11,7 +11,7 @@ RUN \
 
 # Clone Maputnik abd build it
 RUN \
-  git clone --branch v$VERSION https://github.com/maputnik/editor.git /maputnik && \
+  git clone --branch v$VERSION https://github.com/maputnik/editor /maputnik && \
   cd /maputnik && npm install -d && npm run build
 
 #
