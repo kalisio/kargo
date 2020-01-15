@@ -13,27 +13,6 @@
 *  Info subcommand should display the stack names not the corresponding environment variables (close [#126](https://github.com/kalisio/kargo/pull/126)) ([523afaeb](https://github.com/kalisio/kargo/commit/523afaebc0a4281cc163a710a6ab467c132ec5f9))
 *  Range request headers not correctly forwarded to S3 (close [#125](https://github.com/kalisio/kargo/pull/125)) ([7878a7a7](https://github.com/kalisio/kargo/commit/7878a7a77a89bfd51c01555ec53eed102bacd0c5))
 
-##### Other Changes
-
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([d06372a4](https://github.com/kalisio/kargo/commit/d06372a429644fd4fbf532b25634da2207ae057b))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([be97d58d](https://github.com/kalisio/kargo/commit/be97d58d5a0883e55946f5a76e0cbdd82bedc114))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([d6ba9b80](https://github.com/kalisio/kargo/commit/d6ba9b807643f8b626e3951defb01e0dab24e0fb))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([79af56c6](https://github.com/kalisio/kargo/commit/79af56c6d935173e270b3db4ec7fd677e1dc6f73))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([038998bc](https://github.com/kalisio/kargo/commit/038998bcc3e6cf37b09e3273c5537fdcf9d1a2fe))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([f6177a21](https://github.com/kalisio/kargo/commit/f6177a21e970fce2a9801796221a1944a8b58d4c))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([97c2a1e3](https://github.com/kalisio/kargo/commit/97c2a1e3b87a240dc3d3dee3ad35dc6af96bedca))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([18fbb2f5](https://github.com/kalisio/kargo/commit/18fbb2f5f41dc98090544d608cf57b79ffaa14f7))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([e13c467b](https://github.com/kalisio/kargo/commit/e13c467bfa322c813f93affa78bad47fd96b2f2c))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([ce4b1e0d](https://github.com/kalisio/kargo/commit/ce4b1e0df2bba4ae35a9343d81de98f26c76f398))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([fd409043](https://github.com/kalisio/kargo/commit/fd4090436cfc598b9838e3bf8e4e8a18f4ede910))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([8ff71f78](https://github.com/kalisio/kargo/commit/8ff71f78b784d67fff637520f282e52be0e14710))
-*  Maputnik healthcheck is no more working [#128](https://github.com/kalisio/kargo/pull/128) ([2e59daba](https://github.com/kalisio/kargo/commit/2e59daba76f7dbfa01f919756e3602e62d9b1dc5))
-*  GetCapabilities requests return wrong OnlineResource url [#108](https://github.com/kalisio/kargo/pull/108) ([cc8fa0fd](https://github.com/kalisio/kargo/commit/cc8fa0fda40bdf0caff183530162fb11e0e67451))
-*  GetCapabilities requests return wrong OnlineResource url [#108](https://github.com/kalisio/kargo/pull/108) ([3c7153c3](https://github.com/kalisio/kargo/commit/3c7153c3119a26fc5a3bcd0b35e73278638577e8))
-*  Range request headers not correctly forwarded to S3 [#125](https://github.com/kalisio/kargo/pull/125) [skip ci] ([be4bae45](https://github.com/kalisio/kargo/commit/be4bae4529cc52db6260804026f0cc85531ac6b2))
-*  Range request headers not correctly forwarded to S3 [#125](https://github.com/kalisio/kargo/pull/125) ([e03d387d](https://github.com/kalisio/kargo/commit/e03d387dd7bcdcab24889abbb5cebe5605f952e9))
-*  Range request headers not correctly forwarded to S3 [#125](https://github.com/kalisio/kargo/pull/125) [skip ci] ([cedab0a8](https://github.com/kalisio/kargo/commit/cedab0a8cf70271ed7693bf5b3281f257d75f827))
-
 ### 0.4.0 (2020-01-08)
 
 ##### New Features
