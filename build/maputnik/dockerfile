@@ -1,0 +1,35 @@
+FROM node:10-slim AS build
+
+ARG VERSION
+ENV VERSION=$VERSION
+
+# Install dependencies
+RUN \
+  apt-get update && \
+  apt-get install -y --no-install-recommends git python && \
+  rm -rf /var/lib/apt/lists/*
+
+# Clone Maputnik abd build it
+RUN \
+  git clone --branch $VERSION https://github.com/maputnik/editor.git /maputnik && \
+  cd /maputnik && && npm install -d && npm run build
+
+#
+# Make the final image from the build image alias
+#
+FROM node:10-slim
+LABEL maintainer="Kalisio <contact@kalisio.xyz>"
+
+# Install dependencies
+RUN \
+  apt-get update && \
+  apt-get install -y --no-install-recommends python curl && \
+  rm -rf /var/lib/apt/lists/*
+
+# Copy Maputnik
+COPY --from=build /maputnik/build/build /maputnik
+
+# Expose Maputnik
+EXPOSE 8888
+WORKDIR /maputnik
+CMD python -m SimpleHTTPServer 8888
