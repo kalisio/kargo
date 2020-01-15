@@ -1,38 +1,45 @@
-FROM python:3.5-alpine
-LABEL maintainer "Kalisio <contact@kalisio.com>"
+FROM python:3.7-slim-buster
+LABEL maintainer="contact@kalisio.xyz"
 
-ARG MAPPROXY_VERSION
+ARG VERSION
 
-ENV MAPPROXY_VERSION $MAPPROXY_VERSION
-ENV MAPPROXY_PROCESSES 4
-ENV MAPPROXY_THREADS 2
+RUN \
+  apt-get -y update && \
+  apt-get install -y \
+          python-pil \
+          python-yaml \
+          python-lxml \
+          python-shapely \
+          python-virtualenv \
+          python-pip \
+          libpcre3 \
+          libpcre3-dev \
+          libproj13 \
+          libgeos-c1v5 \
+          libgdal20 \
+          git && \
+  rm -rf /var/lib/apt/lists/*
 
-RUN set -x \
-  && apk add --no-cache --virtual .build-deps build-base linux-headers curl zlib-dev jpeg-dev \
-  && apk add --no-cache \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    gdal-dev proj4-dev geos-dev \
-  && adduser -h /mapproxy -s /bin/sh -D mapproxy \
-  && pip install \
-     Shapely==1.6.4 \
-     Pillow==5.4.1 \
-     requests==2.21.0 \
-     geojson==2.4.1 \
-     uwsgi==2.0.18 \
-     pyproj==1.9.6 \
-     boto3==1.9.124 \
-     MapProxy==$MAPPROXY_VERSION \
-  && apk del build-base \
-  && rm -Rf /root/* /root/.cache \
-  && mkdir -p /docker-entrypoint-initmapproxy.d
+RUN \
+  pip install Numpy PyYAML boto3 Pillow requests Shapely eventlet gunicorn && \
+  pip install git+https://github.com/mapproxy/mapproxy.git@${VERSION}
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["mapproxy"]
+# when overwriting the CMD with a uwsgi command it's good practice to not run it as root
+RUN \
+  groupadd -g 1337 mapproxy && \
+  useradd --shell /bin/bash --gid 1337 -m mapproxy && \
+  usermod -a -G sudo mapproxy
 
-USER mapproxy
-VOLUME ["/mapproxy"]
-EXPOSE 8080
-# Stats
-EXPOSE 9191
+RUN apt-get clean
+
+# default dir needed for the cache_data
+RUN \
+  mkdir -p /srv/mapproxy/cache_data && \
+  chmod a+rwx /srv/mapproxy/cache_data
+
+WORKDIR /srv/mapproxy
+
+# expose Mapproxy
+EXPOSE 80
+CMD gunicorn -k gthread --user=1337 --group=1337 --chdir /srv/mapproxy/config --threads=4 --workers=2 -b :80 config:application --no-sendfile --access-logfile '-' --error-logfile '-'
+
