@@ -52,6 +52,7 @@ policies:
   - scopes
   - jwt
   - log
+  - request-transformer
   - proxy
   - rate-limit
   - metrics
