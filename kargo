@@ -213,18 +213,18 @@ kargo_load()
   local REGEXP="Loaded image: (.*):(.*)"
   [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
   local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
-  local ARCHIVE_TAG="${BASH_REMATCH[2]}"
-  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$ARCHIVE_TAG" == "" ]; then
+  local TAG="${BASH_REMATCH[2]}"
+  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$TAG" == "" ]; then
     echo error: an error has occured while loading archive \"$ARCHIVE\"
     exit 1
   fi
+  echo -e "  $ARCHIVE_IMAGE:$TAG loaded"
   # tag and push the loaded image
-  local IMAGE_VAR=${SERVICE_NAME}_IMAGE
-  local IMAGE=${!IMAGE_VAR}
-  local TAG_VAR=${SERVICE_NAME}_TAG
-  local TAG=${!TAG_VAR}
-  docker tag $ARCHIVE_IMAGE:$ARCHIVE_TAG $IMAGE:$TAG
-  docker push $IMAGE:$TAG
+  docker tag $ARCHIVE_IMAGE:$TAG localhost:5000/$ARCHIVE_IMAGE:$TAG
+  docker push localhost:5000/$ARCHIVE_IMAGE:$TAG
+  # declare variable for deployment
+  export ${SERVICE_NAME}_IMAGE=localhost:5000/$ARCHIVE_IMAGE
+  export ${SERVICE_NAME}_TAG=$TAG
 }
 
 kargo_deploy()
