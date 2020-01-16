@@ -87,18 +87,13 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `MAPPROXY_IMAGE` | The image to be used. | `localhost:5000/mapproxy` |
-| `MAPPROXY_TAG` | The version to be used. | `1.11.0` |
+| `MAPPROXY_TAG` | The version to be used. | `1.12.0` |
 | `MAPPROXY_DATA_PATH` | The path to the data. | `/mnt/data0/mapproxy_data` |
 | `MAPPROXY_CACHE_PATH` | The path to the cache. | `/mnt/data0/mapproxy_cache` |
 | `MAPPROXY_REPLICAS` | The number of replicas. | `1` |
-| `MAPPROXY_PROCESSES` | The number of daemon processes to be created. | `2` |
-| `MAPPROXY_THREADS` | The number of threads to be created in each daemon process to handle the requests | `2` |
 
 ::: warning
-The **MapProxy** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
-```bash
-$kargo build mapproxy
-```
+The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org/) with 2 workers and 4 threads.
 :::
 
 ### MapServer

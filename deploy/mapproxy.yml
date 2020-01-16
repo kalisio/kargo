@@ -4,8 +4,6 @@ services:
   mapproxy:
     image: ${MAPPROXY_IMAGE}:${MAPPROXY_TAG}
     environment:
-      - MAPPROXY_PROCESSES
-      - MAPPROXY_THREADS
       - HTTP_PROXY
       - HHTPS_PROXY
       - NO_PROXY
