@@ -100,17 +100,10 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `MAPSERVER_IMAGE` | The image to be used. | `localhost:5000/mapserver` |
-| `MAPSERVER_TAG` | The version to be used. | `7.2` |
+| `MAPSERVER_IMAGE` | The image to be used. | `kalisio/mapserver` |
+| `MAPSERVER_TAG` | The version to be used. | `7.4` |
 | `MAPSERVER_DATA_PATH` | The path to the data. | `/mnt/data0/mapserver_data` |
 | `MAPSERVER_REPLICAS` | The number of replicas. | `1` |
-
-::: warning
-The **MapServer** service is preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
-```bash
-$kargo build mapserver
-```
-:::
 
 ### Maputnik
 
