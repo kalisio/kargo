@@ -63,7 +63,7 @@
           "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{apiendpoint}}",
+          "legendFormat": "{{api_endpoint}}",
           "refId": "A"
         }
       ],
