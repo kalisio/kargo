@@ -12,10 +12,10 @@
       }
     ]
   },
-  "editable": false,
+  "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1578304400108,
+  "iteration": 1579645397361,
   "links": [],
   "panels": [
     {
@@ -52,8 +52,15 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
+      "repeat": "consumer",
+      "repeatDirection": "v",
+      "scopedVars": {
+        "consumer": {
+          "selected": false,
+          "text": "208a25d4-4aba-4088-840f-f8e5559ccc38",
+          "value": "208a25d4-4aba-4088-840f-f8e5559ccc38"
+        }
+      },
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
@@ -63,7 +70,205 @@
           "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{api_endpoint}}",
+          "legendFormat": "{{api_endpoint}} ({{status_code}})",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$consumer",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "",
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "6.1.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1579645397361,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "consumer": {
+          "selected": false,
+          "text": "299eaf65-6192-41b7-81fa-678e32cf7fed",
+          "value": "299eaf65-6192-41b7-81fa-678e32cf7fed"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{api_endpoint}} ({{status_code}})",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "$consumer",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "description": "",
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "maxPerRow": 2,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "6.1.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1579645397361,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "consumer": {
+          "selected": false,
+          "text": "e4addc08-5fc5-4e20-a5a8-732d0c49f347",
+          "value": "e4addc08-5fc5-4e20-a5a8-732d0c49f347"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{api_endpoint}} ({{status_code}})",
           "refId": "A"
         }
       ],
@@ -120,8 +325,11 @@
       {
         "allValue": null,
         "current": {
+          "tags": [],
           "text": "All",
-          "value": "$__all"
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Prometheus",
         "definition": "eg",
@@ -170,9 +378,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "200",
+          "tags": [],
+          "text": "All",
           "value": [
-            "200"
+            "$__all"
           ]
         },
         "datasource": "Prometheus",
@@ -197,7 +406,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -228,5 +437,5 @@
   "timezone": "browser",
   "title": "API dashboard",
   "uid": "DeQOO2AWz",
-  "version": 1
+  "version": 2
 }
