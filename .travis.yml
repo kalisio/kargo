@@ -21,12 +21,12 @@ jobs:
     - '8'
     services:
     - docker
+    env:
+    - IMAGE=express-gateway
+    - IMAGE=maputnik
+    - IMAGE=mapproxy
     script: 
-    - bash .travis.build.sh express-gateway
-    script: 
-    - bash .travis.build.sh maputnik
-    script: 
-    - bash .travis.build.sh mapproxy
+    - bash .travis.build.sh $IMAGE
 
   - stage: DOC
     language: node_js
