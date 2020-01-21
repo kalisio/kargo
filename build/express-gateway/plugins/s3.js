@@ -18,8 +18,11 @@ module.exports = {
           Range: req.headers.range // Forward range requests
         })
         .on('httpHeaders', (statusCode, headers) => { 
-          res.status(statusCode);
-          res.set(headers);
+          // Avoid catching event raised by connection initialization
+          if (headers['content-length']) {
+            res.status(statusCode);
+            res.set(headers);
+          }
         })
         .createReadStream()
         .on('error', (err) => {
