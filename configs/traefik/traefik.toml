@@ -16,6 +16,7 @@ filePath = "/logs/access.log"
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
+  compress = true
   [entryPoints.https.tls]
     [[entryPoints.https.tls.certificates]]
 
