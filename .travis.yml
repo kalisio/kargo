@@ -6,19 +6,6 @@ notifications:
     on_success: always
     on_failure: always
 
-name: BUILD
-language: node_js
-node_js:
-- '8'
-services:
-- docker
-env:
-- IMAGE=express-gateway
-- IMAGE=maputnik
-- IMAGE=mapproxy
-script: 
-- bash .travis.build.sh $IMAGE
-
 stages:
 - name: BUILD
   if: commit_message !~ /(skip[ _-]build)/
@@ -26,7 +13,19 @@ stages:
   if: commit_message !~ /(skip[ _-]doc)/
 
 jobs:
-  include:   
+  include:
+    
+  - stage: BUILD
+    language: node_js
+    node_js:
+    - '8'
+    services:
+    - docker
+    script: bash .travis.build.sh express-gateway
+  - # added to BUILD stage
+    script: bash .travis.build.sh maputnik
+  - # added to BUILD stage
+    script: bash .travis.build.sh mapproxy
 
   - stage: DOC
     language: node_js
@@ -34,8 +33,7 @@ jobs:
     - '8'
     env:
     - IMAGE=none
-    script:
-    - bash .travis.doc.sh
+    script: bash .travis.doc.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist
