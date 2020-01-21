@@ -19,10 +19,11 @@ module.exports = {
         })
         .on('httpHeaders', (statusCode, headers) => { 
           // Avoid catching event raised by connection initialization
+          // https://stackoverflow.com/questions/35782434/streaming-file-from-s3-with-express-including-information-on-length-and-filetype
           if (headers['content-length']) {
             res.status(statusCode);
             res.set(headers);
-          }
+          } else logger.debug('Invalid response with status ' + statusCode)
         })
         .createReadStream()
         .on('error', (err) => {
