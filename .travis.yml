@@ -6,19 +6,6 @@ notifications:
     on_success: always
     on_failure: always
 
-language: node_js
-node_js:
-- '8'
-services:
-- docker
-env:
-  matrix:
-  - IMAGE=express-gateway
-  - IMAGE=maputnik
-  - IMAGE=mapproxy
-script: 
-- bash .travis.build.sh $IMAGE
-
 stages:
 - name: BUILD
   if: commit_message !~ /(skip[ _-]build)/
@@ -28,6 +15,19 @@ stages:
 jobs:
   include:
     
+  - stage: BUILD
+    language: node_js
+    node_js:
+    - '8'
+    services:
+    - docker
+    script: 
+    - bash .travis.build.sh express-gateway
+    script: 
+    - bash .travis.build.sh maputnik
+    script: 
+    - bash .travis.build.sh mapproxy
+
   - stage: DOC
     language: node_js
     node_js:
