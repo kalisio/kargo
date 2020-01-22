@@ -3,23 +3,16 @@
 ##### New Features
 
 *  [Grafana] Repeat the API graph for each consumers (closed [#139](https://github.com/kalisio/kargo/pull/139)) ([12bc3998](https://github.com/kalisio/kargo/commit/12bc3998e3b828d108fb9e3869b475f131641d11))
-*  [traefik] Traefik should support gzip compression (close [#137](https://github.com/kalisio/kargo/pull/137)) ([b4d59306](https://github.com/kalisio/kargo/commit/b4d593069187c07f7d267d383ef03b5e30167c45))
+*  [Traefik] Traefik should support gzip compression (close [#137](https://github.com/kalisio/kargo/pull/137)) ([b4d59306](https://github.com/kalisio/kargo/commit/b4d593069187c07f7d267d383ef03b5e30167c45))
 *  [Prometheus] remove swarm-healthchecks rule (close [#135](https://github.com/kalisio/kargo/pull/135)) ([7ec50f6e](https://github.com/kalisio/kargo/commit/7ec50f6e4a95dccae1c39074eded8cbbde3fe2fa))
 *  [MapProxy] Upgrade default version to 1.12.0 (close [#132](https://github.com/kalisio/kargo/pull/132)) ([69404ead](https://github.com/kalisio/kargo/commit/69404ead2096d9561e677af6bf3a5d09d55d24f4))
-*  Increase duration condition of the cluster-high-load alert rule (close [#133](https://github.com/kalisio/kargo/pull/133)) ([fa80b1ad](https://github.com/kalisio/kargo/commit/fa80b1ad417e64383f94917bdea9cdbcddc702ea))
+*  [Prometheus] Increase duration condition of the cluster-high-load alert rule (close [#133](https://github.com/kalisio/kargo/pull/133)) ([fa80b1ad](https://github.com/kalisio/kargo/commit/fa80b1ad417e64383f94917bdea9cdbcddc702ea))
 
 ##### Bug Fixes
 
 *  [express-gateway] S3 requests return a '502 bad gateway error' (close [#138](https://github.com/kalisio/kargo/pull/138)) ([a1bcb661](https://github.com/kalisio/kargo/commit/a1bcb66129a38a3d220f29d80f64d03c801adca6))
 *  [Grafana] API dashboard has incorrect labels (close [#134](https://github.com/kalisio/kargo/pull/134)) ([dc7bdb3c](https://github.com/kalisio/kargo/commit/dc7bdb3c3fb6cc535547a8569471300622ed33fb))
-*  MapProxy build is not working anymore (close [#68](https://github.com/kalisio/kargo/pull/68)) ([2a21ff99](https://github.com/kalisio/kargo/commit/2a21ff998eb454ad02ac173c6ebb67aec6b22ab7))
-
-##### Other Changes
-
-*  Upgrade default version of MapProxy to 1.12.0 [#132](https://github.com/kalisio/kargo/pull/132) ([b03322be](https://github.com/kalisio/kargo/commit/b03322be8faf2ff8da28d9438c1e343c329199f5))
-*  MapProxy build is not working anymore [#68](https://github.com/kalisio/kargo/pull/68) ([e106fb31](https://github.com/kalisio/kargo/commit/e106fb31b03b836aa285eefa5c4d9ed2331fafce))
-*  MapProxy build is not working anymore [#68](https://github.com/kalisio/kargo/pull/68) ([eebf8665](https://github.com/kalisio/kargo/commit/eebf8665f6eb09487690733111971f5a12ac0ece))
-*  MapProxy build is not working anymore [#68](https://github.com/kalisio/kargo/pull/68) ([815c018f](https://github.com/kalisio/kargo/commit/815c018ff7366bdad9bed8569a7182f29b23bfb4))
+*  [MapProxy] MapProxy build is not working anymore (close [#68](https://github.com/kalisio/kargo/pull/68)) ([2a21ff99](https://github.com/kalisio/kargo/commit/2a21ff998eb454ad02ac173c6ebb67aec6b22ab7))
 
 ### 0.5.0 (2020-01-15)
 
