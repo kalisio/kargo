@@ -123,7 +123,7 @@ Once the gateway is implemented and started, it is necessary to define the consu
 1. create a `consumers.config.js` file in the `configs\express-gateway` directory of your workspace
 2. edit the file and define your consumers using the following formalism:
 
-<<< @/docs/../configs/express-gateway/consumers.config.js
+<<< @/../configs/express-gateway/consumers.config.js
 
 ::: tip
 Refer to the [consumer-management](https://www.express-gateway.io/docs/consumer-management/) section to learn mode about `keyId` and `keySecret`.
