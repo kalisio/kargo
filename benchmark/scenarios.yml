@@ -43,6 +43,29 @@ scenarios:
           url: "{{ wmts }}/osm-bright/GLOBAL_WEBMERCATOR/14/8256/5980.png{{ qs }}"
       - get:
           url: "{{ wmts }}/osm-bright/GLOBAL_WEBMERCATOR/14/8256/5981.png{{ qs }}"
+      - think: 2         
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/63/46.jpeg{{ qs }}" 
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/63/47.jpeg{{ qs }}"
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/63/48.jpeg{{ qs }}"                      
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/63/49.jpeg{{ qs }}" 
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/64/46.jpeg{{ qs }}"
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/64/47.jpeg{{ qs }}"             
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/64/48.jpeg{{ qs }}" 
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/65/46.jpeg{{ qs }}"
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/65/47.jpeg{{ qs }}"   
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/65/48.jpeg{{ qs }}" 
+      - get:
+          url: "{{ wmts }}/mosaic/GLOBAL_WEBMERCATOR/7/65/49.jpeg{{ qs }}"                             
       - log: "Virtual WMTS user dying on {{ $environment }}"
     weight: 50
     beforeScenario: "beforeScenario"

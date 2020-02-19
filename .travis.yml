@@ -31,6 +31,7 @@ jobs:
     language: node_js
     node_js:
     - '8'
+    install: true
     script: bash .travis.doc.sh
     deploy:
       provider: pages

@@ -2,11 +2,11 @@ config:
   target: "" # No default target, depends on environment
   processor: "./benchmark.js"
   phases:
-    - duration: 30
-      arrivalRate: 1
-      name: "Kargo warm up"
-    - duration: 30
+    - duration: 60
       arrivalRate: 2
+      name: "Kargo warm up"
+    - duration: 60
+      arrivalRate: 3
       name: "Kargo sustained load"
   environments:
     public:

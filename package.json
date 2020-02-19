@@ -11,14 +11,10 @@
     "release:major": "npm run changelog -- -M && git add CHANGELOG.md && git commit -m \"chore: updated CHANGELOG.md\" && npm version --force major",
     "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"chore: Updated CHANGELOG.md\" && npm version --force minor",
     "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"chore: Updated CHANGELOG.md\" && npm version --force patch",
-    "postversion": "git push origin --tags",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "postversion": "git push origin --tags"
   },
   "devDependencies": {
-    "generate-changelog": "^1.7.1",
-    "vuepress": "^1.3.0",
-    "vuepress-theme-kalisio": "http://github.com/kalisio/vuepress-theme-kalisio#1.3.0"
+    "generate-changelog": "^1.7.1"
   },
   "dependencies": {}
 }
