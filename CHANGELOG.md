@@ -5,12 +5,6 @@
 *  Allow to execute a test script on a given service (close [#141](https://github.com/kalisio/kargo/pull/141)) ([6412cd3c](https://github.com/kalisio/kargo/commit/6412cd3c7c40e721e66ab8398f87677c32574b3b))
 *  [Hub'Eau] Upgrade the default version to 1.0.1 (close [#140](https://github.com/kalisio/kargo/pull/140)) ([6d734d87](https://github.com/kalisio/kargo/commit/6d734d8786dbd91c6190ab5e367c09e4fc5eba67))
 
-##### Other Changes
-
-*  Allow to execute a test script on a given service [#141](https://github.com/kalisio/kargo/pull/141) ([30c8acc0](https://github.com/kalisio/kargo/commit/30c8acc0426fc94abdd50bc1437d6d0cdbcf5006))
-*  Allow to execute a test script on a given service [#141](https://github.com/kalisio/kargo/pull/141) ([19f3619b](https://github.com/kalisio/kargo/commit/19f3619b11c49a21b381f1e126dfff5513f529ff))
-*  Allow to execute a test script on a given service [#141](https://github.com/kalisio/kargo/pull/141) ([d3551eb2](https://github.com/kalisio/kargo/commit/d3551eb2cd289395bf7189e4ae32ef1fd838a9e6))
-*  Allow to execute a test script on a given service [#141](https://github.com/kalisio/kargo/pull/141) ([2fe282b7](https://github.com/kalisio/kargo/commit/2fe282b7ef7688b8c9ec3b95bd61ef46c5ab4d4b))
 
 ### 0.6.0 (2020-01-22)
 
