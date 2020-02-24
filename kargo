@@ -21,7 +21,6 @@ kargo_usage()
   printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-25s %s\n" "remove" "<stack|all>" "remove the given stack"
-  printf " %-10s %-25s %s\n" "test" "<service>" "test the given service" 
   printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack" 
   printf " %-10s %-25s %s\n" "use" "<workspace>" "select the given workspace"  
   printf "\n"
@@ -116,15 +115,11 @@ kargo_configure()
   # build a temporary configuration to facilitate the synchronization
   mkdir -p .tmp
   cp -R ./build  .tmp/.
-  cp -R ./test .tmp/.
   cp -R ./scripts .tmp/.
   cp -R ./deploy .tmp/.
   cp -R ./configs .tmp/.
   if [ -d "$WORKSPACE"/build ]; then
     cp -R "$WORKSPACE"/build .tmp/.
-  fi
-  if [ -d "$WORKSPACE"/test ]; then
-    cp -R "$WORKSPACE"/test .tmp/.
   fi
   if [ -d "$WORKSPACE"/scripts ]; then
     cp -R "$WORKSPACE"/scripts .tmp/.
@@ -142,7 +137,6 @@ kargo_configure()
   done
   # synchronize the configuration
   rsync -au --delete .tmp/build .kargo/
-  rsync -au --delete .tmp/test .kargo/
   rsync -au --delete .tmp/scripts .kargo/
   rsync -au --delete .tmp/deploy .kargo/
   rsync -au --delete .tmp/configs .kargo/
@@ -187,27 +181,6 @@ kargo_build()
     exit 1
   fi
   pushd .kargo/build > /dev/null
-  source ./$SERVICE
-  popd > /dev/null
-}
-
-kargo_test()
-{
-  kargo_read_configuration
-  # check whether an agument is provided
-  if [ -z "$1" ]; then
-    echo error: the command \"kargo test\" requires one argument.
-    echo usage: kargo test \<service\>
-    exit 1
-  fi
-  # check whethet the argument is valid
-  local SERVICE=$1.sh
-  if [ ! -f ".kargo/test/$SERVICE" ]; then
-    echo error: the specified service \"$1\" does not exist
-    echo tip: use the commande \"kargo info\" to list the services to test
-    exit 1
-  fi
-  pushd .kargo/test > /dev/null
   source ./$SERVICE
   popd > /dev/null
 }
@@ -381,7 +354,6 @@ case $1 in
   deploy) kargo_deploy "$2" "$3";;
   update) kargo_update "$2" "$3";;
   remove) kargo_remove "$2";;
-  test) kargo_test "$2";;
   exec) kargo_exec "$2";;
   *) kargo_usage
 esac
