@@ -50,6 +50,12 @@ Deploys the specified stack. The stack must be defined in the `STACKS`.
 
 When specifying `all`, it deploys all the stacks. The stacks are deployed in the order defined in the `STACKS` variable and a `delay` (in seconds) can be specified to wait before deploying each stack. By default the delay is `5` seconds.
 
+### exec
+
+`usage: kargo exec <script>`
+
+Tells **Kargo** to execute the given script.
+
 ### info
 
 `usage: kargo info`
@@ -85,6 +91,7 @@ Pulls the workspace from the remote **Git** repository.
 Removes the specified stack. The stack must be defined in the `STACKS` variable.
 
 When specifying `all`, it removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
+
 
 ### update
 

@@ -13,16 +13,17 @@ kargo_usage()
   printf " -v, --version\t print the version and quit\n"
   printf " -h, --help\t print this help and quit\n\n"
   printf "commands:\n"
-  printf " %-10s %-25s %s\n" "use" "<workspace>" "select the given workspace"
+  printf " %-10s %-25s %s\n" "build" "<service>" "build the given service"  
   printf " %-10s %-25s %s\n" "configure" "" "generate the current configuration"
-  printf " %-10s %-25s %s\n" "info" "" "generate the current configuration"
-  printf " %-10s %-25s %s\n" "build" "<service>" "build the given service"
-  printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "deploy" "<stack|all> [delay]" "deploy the given stack"
-  printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack"
+  printf " %-10s %-25s %s\n" "exec" "<script>" "exec the given script"    
+  printf " %-10s %-25s %s\n" "info" "" "generate the current configuration"
+  printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-25s %s\n" "remove" "<stack|all>" "remove the given stack"
-  printf " %-10s %-25s %s\n" "test" "<service>" "test the given service"
+  printf " %-10s %-25s %s\n" "test" "<service>" "test the given service" 
+  printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack" 
+  printf " %-10s %-25s %s\n" "use" "<workspace>" "select the given workspace"  
   printf "\n"
 }
 
@@ -116,6 +117,7 @@ kargo_configure()
   mkdir -p .tmp
   cp -R ./build  .tmp/.
   cp -R ./test .tmp/.
+  cp -R ./scripts .tmp/.
   cp -R ./deploy .tmp/.
   cp -R ./configs .tmp/.
   if [ -d "$WORKSPACE"/build ]; then
@@ -123,6 +125,9 @@ kargo_configure()
   fi
   if [ -d "$WORKSPACE"/test ]; then
     cp -R "$WORKSPACE"/test .tmp/.
+  fi
+  if [ -d "$WORKSPACE"/scripts ]; then
+    cp -R "$WORKSPACE"/scripts .tmp/.
   fi
   if [ -d "$WORKSPACE"/deploy ]; then
     cp -R "$WORKSPACE"/deploy .tmp/.
@@ -138,6 +143,7 @@ kargo_configure()
   # synchronize the configuration
   rsync -au --delete .tmp/build .kargo/
   rsync -au --delete .tmp/test .kargo/
+  rsync -au --delete .tmp/scripts .kargo/
   rsync -au --delete .tmp/deploy .kargo/
   rsync -au --delete .tmp/configs .kargo/
   rm -fr .tmp
@@ -204,7 +210,27 @@ kargo_test()
   pushd .kargo/test > /dev/null
   source ./$SERVICE
   popd > /dev/null
+}
 
+kargo_exec()
+{
+  kargo_read_configuration
+  # check whether an agument is provided
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo exec\" requires one argument.
+    echo usage: kargo exec \<script\>
+    exit 1
+  fi
+  # check whethet the argument is valid
+  local SCRIPT=$1.sh
+  if [ ! -f ".kargo/scripts/$SCRIPT" ]; then
+    echo error: the specified script \"$1\" does not exist
+    echo tip: use the commande \"kargo info\" to list the available scripts
+    exit 1
+  fi
+  pushd .kargo/scripts > /dev/null
+  source ./$SCRIPT
+  popd > /dev/null
 }
 
 kargo_load()
