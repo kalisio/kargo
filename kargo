@@ -16,7 +16,7 @@ kargo_usage()
   printf " %-10s %-25s %s\n" "build" "<service>" "build the given service"  
   printf " %-10s %-25s %s\n" "configure" "" "generate the current configuration"
   printf " %-10s %-25s %s\n" "deploy" "<stack|all> [delay]" "deploy the given stack"
-  printf " %-10s %-25s %s\n" "exec" "<script>" "exec the given script"    
+  printf " %-10s %-25s %s\n" "execute" "<script>" "exec the given script"    
   printf " %-10s %-25s %s\n" "info" "" "generate the current configuration"
   printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"

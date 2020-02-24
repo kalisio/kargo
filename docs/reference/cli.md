@@ -54,7 +54,11 @@ When specifying `all`, it deploys all the stacks. The stacks are deployed in the
 
 `usage: kargo exec <script>`
 
-Tells **Kargo** to execute the given script.
+Tells **Kargo** to execute the given script. The script must be stored in the `scripts` folder. 
+
+::: tip
+Using the `exec` command allows you to take into account the environment within your scripts.
+:::
 
 ### info
 
