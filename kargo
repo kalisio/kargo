@@ -382,6 +382,7 @@ case $1 in
   update) kargo_update "$2" "$3";;
   remove) kargo_remove "$2";;
   test) kargo_test "$2";;
+  exec) kargo_exec "$2";;
   *) kargo_usage
 esac
 
