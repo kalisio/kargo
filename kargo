@@ -231,8 +231,9 @@ kargo_load()
   if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
     echo copying $ARCHIVE
     local LOCAL_ARCHIVE=${ARCHIVE//:/_}
-    rclone copyto $ARCHIVE archives/$LOCAL_ARCHIVE
-    ARCHIVE=archives/$LOCAL_ARCHIVE
+    local LOCAL_ARCHIVE_NAME=`basename $LOCAL_ARCHIVE`
+    rclone copyto $ARCHIVE archives/$LOCAL_ARCHIVE_NAME
+    ARCHIVE=archives/$LOCAL_ARCHIVE_NAME
   fi
   # load the archive
   echo loading $ARCHIVE
