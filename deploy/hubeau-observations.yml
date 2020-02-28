@@ -2,7 +2,7 @@ version: '3.5'
 
 services: 
   hubeau-observations:
-    image: ${HUBEAU_IMAGE}:observations-${HUBEAU_TAG}
+    image: ${HUBEAU_OBSERVATIONS_IMAGE}:${HUBEAU_OBSERVATIONS_TAG}
     environment:
       - DB_URL=${HUBEAU_DB_URL}
       - TTL=${HUBEAU_OBSERVATIONS_TTL}
