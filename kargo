@@ -317,7 +317,10 @@ kargo_save()
     local SERVICE_IMAGE=${!SERVICE_IMAGE_NAME}
     local SERVICE_TAG_NAME=${SERVICE_NAME}_TAG
     local SERVICE_TAG=${!SERVICE_TAG_NAME}
-    docker pull ${SERVICE_IMAGE}:${SERVICE_TAG}
+    local REGISTRY_PATTERN="localhost:5000/.*"
+    if [[ ! "$SERVICE_IMAGE" =~ $REGISTRY_PATTERN ]]
+      docker pull ${SERVICE_IMAGE}:${SERVICE_TAG}
+    fi 
     local ARCHIVE_NAME=${SERVICE_IMAGE//\//_}
     docker save ${SERVICE_IMAGE}:${SERVICE_TAG} | gzip > archives/${ARCHIVE_NAME}.tar.gz
   fi
