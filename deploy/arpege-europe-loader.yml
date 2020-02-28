@@ -26,9 +26,6 @@ services:
       - kargo-network
     deploy:
       replicas: 1
-      placement:
-        constraints:
-         - node.labels.weacast == true
       restart_policy:
         condition: on-failure
 
