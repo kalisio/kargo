@@ -24,3 +24,4 @@ configs/mapproxy/app.py
 .kargo
 .workspace
 workspaces
+archives

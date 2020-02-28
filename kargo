@@ -231,8 +231,8 @@ kargo_load()
   if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
     echo copying $ARCHIVE
     local LOCAL_ARCHIVE=${ARCHIVE//:/_}
-    rclone copyto $ARCHIVE /tmp/$LOCAL_ARCHIVE
-    ARCHIVE=/tmp/$LOCAL_ARCHIVE
+    rclone copyto $ARCHIVE archives/$LOCAL_ARCHIVE
+    ARCHIVE=archives/$LOCAL_ARCHIVE
   fi
   # load the archive
   echo loading $ARCHIVE
@@ -312,22 +312,14 @@ kargo_save()
   # Check whether it is already an archive
   local SERVICE_ARCHIVE_NAME=${SERVICE_NAME}_ARCHIVE
   local SERVICE_ARCHIVE=${!SERVICE_ARCHIVE_NAME}
-  if [ "$SERVICE_ARCHIVE" != "" ]; then
-    local STORE_PATTERN=".*:.*"
-    local HTTP_PATTERN="^http(s?)://.*"
-    if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
-      echo copying $ARCHIVE
-      local LOCAL_ARCHIVE=${ARCHIVE//:/_}
-      rclone copyto $ARCHIVE $LOCAL_ARCHIVE
-    fi  
-  else
+  if [ "$SERVICE_ARCHIVE" == "" ]; then
     local SERVICE_IMAGE_NAME=${SERVICE_NAME}_IMAGE
     local SERVICE_IMAGE=${!SERVICE_IMAGE_NAME}
-    local SERVICE_IMAGE_TAG=${SERVICE_NAME}_TAG
-    local SERVICE_TAG=${!SERVICE_TAG}
-    docker pull ${SERVICE_NAME}:${SERVICE_TAG}
+    local SERVICE_TAG_NAME=${SERVICE_NAME}_TAG
+    local SERVICE_TAG=${!SERVICE_TAG_NAME}
+    docker pull ${SERVICE_IMAGE}:${SERVICE_TAG}
     local ARCHIVE_NAME=${SERVICE_IMAGE//\//_}
-    docker save ${SERVICE_NAME}:${SERVICE_TAG} | gzip > ${ARCHIVE_NAME}.tar.gz
+    docker save ${SERVICE_IMAGE}:${SERVICE_TAG} | gzip > archives/${ARCHIVE_NAME}.tar.gz
   fi
 }
 
