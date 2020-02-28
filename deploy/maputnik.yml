@@ -5,7 +5,7 @@ services:
     image: ${MAPUTNIK_IMAGE}:${MAPUTNIK_TAG}
     environment:
       - HTTP_PROXY
-      - HHTPS_PROXY
+      - HTTPS_PROXY
       - NO_PROXY      
       - SUBDOMAIN
     healthcheck:

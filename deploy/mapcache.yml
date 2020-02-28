@@ -5,7 +5,7 @@ services:
     image: ${MAPCACHE_IMAGE}:${MAPCACHE_TAG}
     environment:
       - HTTP_PROXY
-      - HHTPS_PROXY
+      - HTTPS_PROXY
       - NO_PROXY        
     volumes:
       - ../configs/mapcache:/etc/mapcache

@@ -7,7 +7,7 @@ services:
       - DB_URL=${HUBEAU_DB_URL}
       - DEBUG=${HUBEAU_STATIONS_DEBUG}
       - HTTP_PROXY
-      - HHTPS_PROXY
+      - HTTPS_PROXY
       - NO_PROXY      
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL

@@ -5,7 +5,7 @@ services:
     image: ${MAPSERVER_IMAGE}:${MAPSERVER_TAG}
     environment:
       - HTTP_PROXY
-      - HHTPS_PROXY
+      - HTTPS_PROXY
       - NO_PROXY        
     volumes:
       - ./../configs/mapserver:/etc/mapserver

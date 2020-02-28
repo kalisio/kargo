@@ -20,7 +20,7 @@ services:
       - COTE_DELAY=60000 # Ensure healthcheck has passed
       - SUBDOMAIN
       - HTTP_PROXY
-      - HHTPS_PROXY
+      - HTTPS_PROXY
       - NO_PROXY      
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/capabilities"]
