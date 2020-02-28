@@ -21,6 +21,7 @@ kargo_usage()
   printf " %-10s %-25s %s\n" "load" "<service>" "load the given service from an archive"
   printf " %-10s %-25s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-25s %s\n" "remove" "<stack|all>" "remove the given stack"
+  printf " %-10s %-25s %s\n" "save" "<service>" "save the given service to an archive file"
   printf " %-10s %-25s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack" 
   printf " %-10s %-25s %s\n" "use" "<workspace>" "select the given workspace"  
   printf "\n"
@@ -211,7 +212,7 @@ kargo_load()
   kargo_read_configuration
   # check whether an agument is provided
   if [ -z "$1" ]; then
-    echo error: the command \"kargo import\" requires one argument.
+    echo error: the command \"kargo load\" requires one argument.
     echo usage: kargo load \<service\>
     exit 1
   fi
@@ -297,6 +298,39 @@ kargo_deploy()
   fi
 }
 
+kargo_save()
+{
+  kargo_read_configuration
+  # check whether an agument is provided
+  if [ -z "$1" ]; then
+    echo error: the command \"kargo save\" requires one argument.
+    echo usage: kargo save \<service\>
+    exit 1
+  fi
+  local SERVICE_NAME=${1^^}
+  SERVICE_NAME=${SERVICE_NAME//-/_}
+  # Check whether it is already an archive
+  local SERVICE_ARCHIVE_NAME=${SERVICE_NAME}_ARCHIVE
+  local SERVICE_ARCHIVE=${!SERVICE_ARCHIVE_NAME}
+  if [ "$SERVICE_ARCHIVE" != "" ]; then
+    local STORE_PATTERN=".*:.*"
+    local HTTP_PATTERN="^http(s?)://.*"
+    if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
+      echo copying $ARCHIVE
+      local LOCAL_ARCHIVE=${ARCHIVE//:/_}
+      rclone copyto $ARCHIVE $LOCAL_ARCHIVE
+    fi  
+  else
+    local SERVICE_IMAGE_NAME=${SERVICE_NAME}_IMAGE
+    local SERVICE_IMAGE=${!SERVICE_IMAGE_NAME}
+    local SERVICE_IMAGE_TAG=${SERVICE_NAME}_TAG
+    local SERVICE_TAG=${!SERVICE_TAG}
+    docker pull ${SERVICE_NAME}:${SERVICE_TAG}
+    local ARCHIVE_NAME=${SERVICE_IMAGE//\//_}
+    docker save ${SERVICE_NAME}:${SERVICE_TAG} | gzip > ${ARCHIVE_NAME}.tar.gz
+  fi
+}
+
 kargo_update()
 {
   local STACK=$1
@@ -345,16 +379,17 @@ kargo_remove()
 case $1 in
   -v|--version)  kargo_version;;
   -h|--help) kargo_usage;;
-  use) kargo_use "$2";;
-  pull) kargo_pull;;
-  configure) kargo_configure;;
-  info) kargo_info;;
   build) kargo_build "$2";;
-  load) kargo_load "$2";;
+  configure) kargo_configure;;
   deploy) kargo_deploy "$2" "$3";;
-  update) kargo_update "$2" "$3";;
-  remove) kargo_remove "$2";;
   exec) kargo_exec "$2";;
+  info) kargo_info;;
+  load) kargo_load "$2";;
+  pull) kargo_pull;;
+  remove) kargo_remove "$2";;
+  save) kargo_save "$2";;
+  update) kargo_update "$2" "$3";;
+  use) kargo_use "$2";;
   *) kargo_usage
 esac
 
