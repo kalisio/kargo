@@ -321,7 +321,7 @@ kargo_save()
     local LOCAL_REPOSITORY_PATTERN="localhost:5000/(.*)"
     [[ "$SERVICE_REPOSITORY" =~ $LOCAL_REPOSITORY_PATTERN ]]
     local LOCAL_SERVICE_NAME="${BASH_REMATCH[1]}"
-    if [ "$LOCAL_SERVICE_NAME" == "" ]; then
+    if [ ! -z "$LOCAL_SERVICE_NAME" ]; then
       docker tag ${SERVICE_REPOSITORY}:${SERVICE_TAG} ${LOCAL_SERVICE_NAME}:${SERVICE_TAG} 
       SERVICE_REPOSITORY=${LOCAL_SERVICE_NAME}
     else
