@@ -39,4 +39,3 @@ for SERVICE in $DELIVERY; do
 done
 rclone copy archives s3:bucket/path --include *.gz
 ```
-
