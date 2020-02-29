@@ -369,7 +369,7 @@ kargo_update()
   fi
 }
 
-redeploy()
+kargo_redeploy()
 {
   kargo_check_stack redeploy $1
   kargo_remove $1

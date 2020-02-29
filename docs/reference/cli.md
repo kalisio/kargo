@@ -115,6 +115,15 @@ Removes the specified stack. The stack must be defined in the `STACKS` variable.
 
 When specifying `all`, it removes all the stacks. The stacks are removed in the inverse order defined in the `STACKS` variable.
 
+### redeploy
+
+`usage: kargo redeploy <stack|all>`
+
+Re-deploys the specified stack. The stack must be defined in the `STACKS` variable.
+
+::: tip
+This is a convenient command that run the series of commands: `remove`, `configure` and `deploy`.
+:::
 
 ### update
 
