@@ -19,6 +19,7 @@ kargo_usage()
   printf " %-10s %-30s %s\n" "execute" "<script>" "exec the given script"    
   printf " %-10s %-30s %s\n" "info" "" "generate the current configuration"
   printf " %-10s %-30s %s\n" "image" "<load|save> <service>" "load/save the given service from an archive/to an archive"
+  printf " %-10s %-30s %s\n" "labels" "<add|remove>" "add/remove the labels assigned to the nodes"
   printf " %-10s %-30s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-30s %s\n" "redeploy" "<stack|all>" "re deploy the given stack"  
   printf " %-10s %-30s %s\n" "remove" "<stack|all>" "remove the given stack"
@@ -256,6 +257,27 @@ kargo_image()
   esac
 }
 
+kargo_labels()
+{
+  kargo_read_configuration
+  if [ -z $1 || $1 != "add" || $1 != "remove" ]; then
+    echo error: the command \"kargo labels\" requires one argument.
+    echo usage: kargo labels \<add|remove\>
+    exit 1
+  fi
+  for NODE in $NODES; do
+    local NODE_ID=`docker node ls | grep $NODE | awk '{print $1}'
+    local NODE_LABELS_VAR=${STACK^^}_LABELS
+    local NODE_LABELS=${!NODE_LABELS_VAR}
+    for LABEL in $NODE_LABELS; do
+      if [ $1 == "add" ]; then
+        docker node update --label-add $LABEL $NODE_ID > /dev/null
+      else
+        docker node update --label-rm $LABEL $NODE_ID > /dev/null
+    done
+  done
+}
+
 kargo_build()
 {
   kargo_read_configuration
@@ -403,6 +425,7 @@ case $1 in
   exec) kargo_exec "$2";;
   info) kargo_info;;
   image) kargo_image "$2" "$3";;
+  labels) kargo_labels "$2";;
   pull) kargo_pull;;
   redeploy) kargo_redeploy "$2";;  
   remove) kargo_remove "$2";;
