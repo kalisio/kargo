@@ -17,7 +17,7 @@ services:
       - S3_SECRET_ACCESS_KEY
       - S3_BUCKET=${KANO_S3_BUCKET}
       - LAUNCH_DELAY=${KANO_LAUNCH_DELAY}
-      - COTE_DELAY=60000 # Ensure healthcheck has passed
+      - COTE_DELAY=70000 # Ensure healthcheck has passed
       - SUBDOMAIN
       - HTTP_PROXY
       - HTTPS_PROXY
