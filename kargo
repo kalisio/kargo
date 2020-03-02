@@ -262,16 +262,20 @@ kargo_labels()
   kargo_read_configuration
   if [ -z $1 ]; then
     echo "error: the command \"kargo labels\" requires one argument."
-    echo "usage: kargo labels <add|remove>"
+    kargo_usage
     exit 1
   fi
   if [ "$1" != "add" ] && [ "$1" != "remove" ]; then
     echo "error: the argument of the command \"kargo labels\" should be either \"add\" or \"remove\"."
-    echo "usage: kargo labels <add|remove>"
+    kargo_usage
     exit 1
   fi
   for NODE in $NODES; do
     local NODE_ID=`docker node ls | grep $NODE | awk '{print $1}'`
+    if [ -z $NODE_ID ]; then
+      echo "error: uable to find the node $NODE"
+      exit 1
+    fi
     local NODE_NAME=${NODE//-/_}
     local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
     local NODE_LABELS=${!NODE_LABELS_VAR}
