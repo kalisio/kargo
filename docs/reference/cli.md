@@ -101,6 +101,12 @@ The service should be running before archiving.
 
 Displays some information about the current workspace
 
+### labels
+
+`usage: kargo labels <add|remove>`
+
+Add or remove the labels assigned to the nodes. The node list is read from the environment variable `NODES` and the labels are read for each node from the environment variable `<NODE_NAME>_LABLELS`.
+
 ### pull
 
 `usage: kargo pull`

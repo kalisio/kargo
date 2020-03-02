@@ -147,32 +147,6 @@ It is up to you to copy your data to the different nodes. You must have to keep 
 We can provide datasets from different sources such as public catalogs and those of our partners such as [OpenMapTiles](https://openmaptiles.com/), [PlanetObserver](https://www.planetobserver.com/). Do bot hesitate to contact us at contact@kalisio.com.
 :::
 
-### Define node constraints
-
-Once you have copy the datasets to the different nodes, you need to add some labels to the nodes that can be used to specify constraints when deploying the services.
-
-In our case, we need to add the following labels:
-
-```bash
-# On worker-0
-$docker node update --label-add tileservergl=true jqtuxajexk18ypiylk6i6dv0q
-# On worker-1 
-$docker node update --label-add weacast=true wfr5hwhfd5413p2ql9hwitbkw
-# On worker-2
-$docker node update --label-add mongodb=true 8980x3d76x1r7kxoa7h5lzob8
-$docker node update --label-add postgis=true 8980x3d76x1r7kxoa7h5lzob8
-```
-
-Check your node labels mapping: 
-
-```bash
-$docker node ls -q | xargs sudo docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
-jqtuxajexk18ypiylk6i6dv0q [worker-0]: map[tileservergl:true]
-x6tc2sqi99vp106icwf2nmyp0 [manager]: map[]
-wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
-8980x3d76x1r7kxoa7h5lzob8 [worker-2]: map[mongodb:true postgis:true]
-```
-
 ## Setup the services
 
 ### Setup your workspace
@@ -183,9 +157,27 @@ wfr5hwhfd5413p2ql9hwitbkw [worker-1]: map[weacast:true]
 
 3. Edit the `.env` file and configure the services you want to deploy. See the section [Environment](./reference/environment) to have the complete reference of the services settings.
 
-4. Define the stacks you want to deploy:
+4. Define node constraints: 
+   1. Define the `NODES` variable listing the nodes
+   2. For each node, define a variable `<NODE_NAME>_LABELS` listing the labels to be assigned to the node
+
+```bash
+NODES="manager worker-0 worker-1"
+MANAGER_LABELS=""
+WORKER_0_LABELS="tileservergl=true mongodb=true"
+WORKER_1_LABELS="tileservergl=true"
+```
+
+::: tip
+To check you node labels mapping, use the following command:
+```bash
+$docker node ls -q | xargs sudo docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
+```
+:::
+
+5. Define the stacks you want to deploy:
    1. Define the `STACKS` variable listing the stacks
-   2. For each stacks, define a variable `<NAME>_STACK` listing the services to deploy
+   2. For each stack, define a variable `<STACK_NAME>_STACK` listing the services to deploy
 
 ```bash
 STACKS="dbs weacast hydro air apps"
@@ -196,27 +188,27 @@ VIGICRUES_HYDRO="vigicrues hubeau-stations hubeau-observations"
 AIR_STACK="teleray openaq"
 ```
 
-5. Tell kargo to use your workspace
+6. Tell kargo to use your workspace
 
 ```bash
 $./kargo use <path/to/your/workspace/directory>
 ```
 
 ::: tip
-We strongly recommend to use **Git** to manage your workspace
+We strongly recommend to use **Git** to manage your workspace. If using **Git**, you can take advantage of the command `kargo pull` to pull the workspace.
 :::
 
-### Generate the configuration
-
-Since **Kargo** allows you to override the default configuration with your workspace configuration, it is required to generate the merged configuration before deploying the services. Simply, run the command:
+7. Configure Kargo
 
 ```bash
-$./kargo update
+$./kargo configure
 ```
 
-::: tip
-When using **Git** to manage your workspace, you can take advantage of the command `kargo pull` to pull the workspace.
-:::
+8. Create the constraint labels on the nodes
+
+```bash
+$./kargo labels add
+```
 
 ### Build the services
 
