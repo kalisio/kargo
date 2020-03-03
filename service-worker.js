@@ -27,27 +27,27 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "0ae61ba1b782e53ce20e75d24262e94b"
+    "revision": "d67af19ab1cf0108b748fa3cfa3a8b76"
   },
   {
     "url": "about/contact.html",
-    "revision": "f385bb32fc8f033092125992e7a719d0"
+    "revision": "87de557a507ef5384872cb9a2d2ed283"
   },
   {
     "url": "about/contributing.html",
-    "revision": "31c7042ca67ac2b568e4c1277c900e8d"
+    "revision": "ab01f1293c4eeb8e2af905dcf129bab9"
   },
   {
     "url": "about/introduction.html",
-    "revision": "7c156fc4a504f5b170830510d7f86717"
+    "revision": "eb5627dd9f76cf6cb02f95f2b3e93f61"
   },
   {
     "url": "about/license.html",
-    "revision": "540143d0d3948b5d53bfcf773fc303c0"
+    "revision": "04d094b5d62d1823f072c41a2ba50e05"
   },
   {
     "url": "about/roadmap.html",
-    "revision": "fe8183ed2be46e54fe8b9c79ee140e6e"
+    "revision": "b2ac4590b6b0ff3220e2d76090e2b6d4"
   },
   {
     "url": "assets/css/0.styles.4122b163.css",
@@ -170,52 +170,52 @@ self.__precacheManifest = [
     "revision": "92faad8536733b9704a0a1a15dbaf716"
   },
   {
-    "url": "assets/js/app.9af102a8.js",
-    "revision": "5b78dbd08d739410ce54acd9430684e5"
+    "url": "assets/js/app.dfa73523.js",
+    "revision": "94195aff84313ce90e5a5077eb9d7649"
   },
   {
     "url": "guides/advanced-usage.html",
-    "revision": "8a21bb92ab01c94ab9440acbb6eeda86"
+    "revision": "3aa6e37767679401741037607cf77279"
   },
   {
     "url": "guides/getting-started.html",
-    "revision": "ddb3fe858373a0f1ac5321a2206de21f"
+    "revision": "7e5e956c45c5a3321ce4d8b034d45748"
   },
   {
     "url": "guides/understanding-kargo.html",
-    "revision": "7b677a4f7f573e1695dc48c50ff2618a"
+    "revision": "10f6ee6650499060ff02c663b700a18a"
   },
   {
     "url": "index.html",
-    "revision": "38821f0e8e6286fc5c24cd2a5368a2b6"
+    "revision": "f145891457ecb08c4f61c5d839d013ec"
   },
   {
     "url": "reference/cli.html",
-    "revision": "a44ba0061cb65a35cdbbf9571657b770"
+    "revision": "60f0c6470100aade55dd110a72367dcb"
   },
   {
     "url": "reference/environment.html",
-    "revision": "159115bddb986c522875a6b75f45b971"
+    "revision": "0d3c5c9f3c68a952625764293b853630"
   },
   {
     "url": "tips/extracting-osm-data.html",
-    "revision": "11fb2a4185ce8434e170d5ab54aad77d"
+    "revision": "4a2ef5d6d1fd2c546ab44b02dc6cbbe5"
   },
   {
     "url": "tips/handling-long-running-process.html",
-    "revision": "f794dcaee6d8d7b7aa30298af6cb9c55"
+    "revision": "66668cc1144eb2487516e8362436de76"
   },
   {
     "url": "tips/packaging-images.html",
-    "revision": "713a9fc52c415d5e4402d45991118c7d"
+    "revision": "568a7d9de863252af592ec043aeff3d2"
   },
   {
     "url": "tips/using-kargo-toolbox.html",
-    "revision": "8f2989e687dd4ee239d6a6b01d232769"
+    "revision": "b0f22f114daf516654bea05d890dbaea"
   },
   {
     "url": "tips/using-mongodb-atlas.html",
-    "revision": "df78ea87edc2f0c899e05ab64193090a"
+    "revision": "1ab13eee84bed450ed79ade8e48e2e74"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
