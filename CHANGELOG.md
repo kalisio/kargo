@@ -1,3 +1,35 @@
+### 0.8.0 (2020-03-04)
+
+##### New Features
+
+*  Allow to handle labels on the nodes (close [#148](https://github.com/kalisio/kargo/pull/148)) ([312a945c](https://github.com/kalisio/kargo/commit/312a945cbbbde62e32bf626dfdb72f784bc082b2))
+*  Provide a redeploy command (close [#147](https://github.com/kalisio/kargo/pull/147)) ([d348ea16](https://github.com/kalisio/kargo/commit/d348ea16d8d1a67fbaf7330ab88271dd453f2318))
+*  Allow to save the image of a given service (close [#142](https://github.com/kalisio/kargo/pull/142)) ([d32dfd03](https://github.com/kalisio/kargo/commit/d32dfd031132ac2f6efe55a11c5801d84e41dc5b))
+
+##### Bug Fixes
+
+*  hubeau-stations env variable error ([f1bb42f1](https://github.com/kalisio/kargo/commit/f1bb42f1155cb57d1923a36239cfe33723c62c07))
+*  Healthcheck of Krawler jobs fails behind a proxy (close [#143](https://github.com/kalisio/kargo/pull/143)) ([451cd1f5](https://github.com/kalisio/kargo/commit/451cd1f5bcc284840df1823c95c18cfd2cd428bc))
+*  Weacast loaders do not require the constraint weacast == true anymore (close [#146](https://github.com/kalisio/kargo/pull/146)) [skip ci] ([eec9f311](https://github.com/kalisio/kargo/commit/eec9f311fa42d4ee647bbba5015ec939a33941ea))
+*  Spelling error of YML files that expose HTTPS_PROXY (close [#144](https://github.com/kalisio/kargo/pull/144)) ([e6253908](https://github.com/kalisio/kargo/commit/e6253908e6a53d6d527d35a5f998eaf46b2125bf))
+
+##### Other Changes
+
+*  Allow to handle labels on the nodes [#148](https://github.com/kalisio/kargo/pull/148) ([aa464cbe](https://github.com/kalisio/kargo/commit/aa464cbedbe8963ee4655d7c884686fedb0fe74d))
+*  Provide a redeploy command [#147](https://github.com/kalisio/kargo/pull/147) ([8f1114bb](https://github.com/kalisio/kargo/commit/8f1114bbd194618f5d7e93abf45f8df98abde3c4))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) ([d34e8f8e](https://github.com/kalisio/kargo/commit/d34e8f8e7a9c4cd43f264455fc154114eceeadf6))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) ([6b4cc519](https://github.com/kalisio/kargo/commit/6b4cc519c3d8f64ee17de9b8b7bfdb5e4cd11b8c))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) ([2bf4e1a3](https://github.com/kalisio/kargo/commit/2bf4e1a3d310998cc84fc8ae2150aaf2f50d77a1))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([9da6cf67](https://github.com/kalisio/kargo/commit/9da6cf67ac6090271c12b6662264a9c596ef7e06))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([7d52f549](https://github.com/kalisio/kargo/commit/7d52f5495c230db91b4310e121a492671d14dece))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([b83bfb23](https://github.com/kalisio/kargo/commit/b83bfb233d0005c7fd24f2d60fc37e0bcdf2a0eb))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([0f1fc5ee](https://github.com/kalisio/kargo/commit/0f1fc5eed03098042a99a67370631e44068f3304))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([d8c082f7](https://github.com/kalisio/kargo/commit/d8c082f7f4f5794d3314f69017cc4116a9465786))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([3945e6e4](https://github.com/kalisio/kargo/commit/3945e6e4de8a51151702ac1852f65188803f9043))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([fb061323](https://github.com/kalisio/kargo/commit/fb061323d4f44c1e581adda66bc18cbde64d2c00))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([60eab7af](https://github.com/kalisio/kargo/commit/60eab7af64d3126c9349a4cad85ed3f84469b948))
+*  Allow to save the image of a given service [#142](https://github.com/kalisio/kargo/pull/142) [skip ci] ([7ba737a1](https://github.com/kalisio/kargo/commit/7ba737a1f6684c69ab1ec0f785704f53f38f2e59))
+
 ### 0.7.0 (2020-02-24)
 
 ##### New Features
