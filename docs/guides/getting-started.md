@@ -171,7 +171,7 @@ WORKER_1_LABELS="tileservergl=true"
 ::: tip
 To check you node labels mapping, use the following command:
 ```bash
-$docker node ls -q | xargs sudo docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
+$docker node ls -q | xargs docker node inspect -f '{{ .ID }} [{{ .Description.Hostname }}]: {{ .Spec.Labels }}'
 ```
 :::
 
