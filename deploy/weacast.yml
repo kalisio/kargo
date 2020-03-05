@@ -10,7 +10,6 @@ services:
       - DATA_DB_URL=${WEACAST_DATA_DB_URL}
       - COTE_DISCOVERY_REDIS_URL=${REDIS_URL}
       - COTE_DELAY=90000 # Ensure healthcheck has passed
-      - BASE_PORT=10000
       - APP_SECRET=${WEACAST_APP_SECRET}
       - LAUNCH_DELAY=${WEACAST_LAUNCH_DELAY}
       - SUBDOMAIN
@@ -19,8 +18,6 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
-    ports:
-      - "10000-10500:10000-10500" # Seems to be required to make feathers-distributed work correctly
     deploy:
       replicas: ${WEACAST_REPLICAS}
       placement:
