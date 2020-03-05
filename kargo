@@ -32,7 +32,7 @@ kargo_use()
 {
   if [ -z "$1" ]; then 
     echo error: the command \"kargo use\" requires one argument.
-    echo usage: kargo use \<workspace\>
+    kargo_usage
     exit 1 
   fi
   # check whether the workspace exist
@@ -82,7 +82,7 @@ kargo_check_stack()
 {
   if [ -z "$2" ]; then
     echo error: the command \"kargo $1\" requires one argument.
-    echo usage: kargo $2 \<stack\|all\>
+    kargo_usage
     exit 1
   fi
   kargo_read_configuration
@@ -298,7 +298,7 @@ kargo_build()
   # check whether an agument is provided
   if [ -z "$1" ]; then
     echo error: the command \"kargo build\" requires one argument.
-    echo usage: kargo build \<service\>
+    kargo_usage
     exit 1
   fi
   # check whethet the argument is valid
@@ -319,7 +319,7 @@ kargo_exec()
   # check whether an agument is provided
   if [ -z "$1" ]; then
     echo error: the command \"kargo exec\" requires one argument.
-    echo usage: kargo exec \<script\>
+    kargo_usage
     exit 1
   fi
   # check whethet the argument is valid
@@ -384,7 +384,7 @@ kargo_update()
   if [ -n "$2" ]; then
     if [ "$1" != "--force" ] && [ "$1" != "-f" ]; then
       echo error: cannot use the command \"kargo update\" with the arguments \"$1\" and \"$2\"
-      echo usage: kargo update [--force\|-f] \<stack\|all\>
+      kargo_usage
       exit 1
     fi
     STACK=$2
