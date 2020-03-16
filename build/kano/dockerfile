@@ -9,12 +9,12 @@ ENV NODE_APP_INSTANCE=$NODE_APP_INSTANCE
 ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
 
-WORKDIR /opt/kdk/kano
+WORKDIR /opt/kalisio/kano
 
 COPY kano.tgz .
 RUN tar xvf kano.tgz
 
 RUN npm run build
 
-WORKDIR /opt/kdk/kano/api
+WORKDIR /opt/kalisio/kano/api
 
