@@ -11,13 +11,15 @@ services:
       - DB_URL=${KANO_DB_URL}
       - DATA_DB_URL=${KANO_DATA_DB_URL}
       - COTE_DISCOVERY_REDIS_URL=${REDIS_URL}
+      - COTE_DELAY=90000 # Ensure healthcheck has passed
+      - BASE_PORT=11000
+      - HIGHEST_PORT=11500
       - APP_SECRET=${KANO_APP_SECRET}
       - CESIUM_TOKEN=${KANO_CESIUM_TOKEN}
       - S3_ACCESS_KEY
       - S3_SECRET_ACCESS_KEY
       - S3_BUCKET=${KANO_S3_BUCKET}
       - LAUNCH_DELAY=${KANO_LAUNCH_DELAY}
-      - COTE_DELAY=70000 # Ensure healthcheck has passed
       - SUBDOMAIN
       - HTTP_PROXY
       - HTTPS_PROXY
@@ -28,7 +30,7 @@ services:
       timeout: 10s
       retries: 3
     ports:
-      - "11000:11500" # Seems to be required to make feathers-distributed work correctly
+      - "10001:10001" # Seems to be required to make feathers-distributed work correctly
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_NETWORK}"
