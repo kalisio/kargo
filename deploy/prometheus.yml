@@ -141,6 +141,7 @@ services:
           - node.role == manager          
     networks:
       - kargo-network  
+      
 volumes:
   prometheus_data: {}
 
