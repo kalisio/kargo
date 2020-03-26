@@ -70,7 +70,7 @@ For each stack, there must be such an entry:
 | `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `604 800` (7 days) |
 | `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
 | `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
-| `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `90%` |
+| `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `75%` |
 | `HUBEAU_OBSERVATIONS_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### K2
