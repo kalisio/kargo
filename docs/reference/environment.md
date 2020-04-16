@@ -90,6 +90,8 @@ For each stack, there must be such an entry:
 | `KANO_IMAGE` | The image to be used. | `kalisio/kano` |
 | `KANO_TAG` | The version to be used. | `0.1.0-dev` |
 | `KANO_APP_SECRET` | The app secret used to authenticate a client. | - |
+| `KANO_CESIUM_TOKEN` | The **Cesium** token to be used. | - |
+| `KANO_MAPILLARY_CLIENID` | The **Mapillary** Client ID to be used. | - |
 | `KANO_DB_URL` | The application database. | - |
 | `KANO_DATA_DB_URL` | The database URL used by the services to access the data. | - |
 | `KANO_S3_BUCKET` | The S3 bucket used to store the files. | - |
