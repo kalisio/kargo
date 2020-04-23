@@ -6,6 +6,7 @@ services:
     environment:
       - DB_URL=${TELERAY_DB_URL}
       - DEBUG=${TELERAY_DEBUG}
+      - TTL=${TELERAY_MEASUREMENTS_TTL}
       - HTTP_PROXY
       - HTTPS_PROXY
       - NO_PROXY      
