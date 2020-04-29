@@ -231,7 +231,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `VIGICRUES_IMAGE` | The image to be used. | `kalisio/k-vigicrues` |
-| `VIGICRUES_TAG` | The tag of the image to be used for scraping the stations. | `1.0.0` |
+| `VIGICRUES_TAG` | The tag of the image to be used for scraping the stations. | `1.1.0` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. | - |
 | `VIGICRUES_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
