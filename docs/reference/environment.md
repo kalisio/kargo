@@ -60,7 +60,7 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `HUBEAU_IMAGE` | The image to be used. | `kalisio/k-hubeau` |
-| `HUBEAU_TAG` | The tag of the image to be used. | `1.0.1` |
+| `HUBEAU_TAG` | The tag of the image to be used. | `1.1.0` |
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
 | `HUBEAU_STATIONS_IMAGE` | The image to be used for scraping the stations. | `${HUBEAU_IMAGE}` |
 | `HUBEAU_STATIONS_TAG` | The tag of the image to be used for scraping the stations. | `stations-${HUBEAU_TAG}` |
@@ -194,7 +194,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
-| `TELERAY_TAG` | The version to be used. | `1.0.0` |
+| `TELERAY_TAG` | The version to be used. | `1.1.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
 | `TELERAY_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
