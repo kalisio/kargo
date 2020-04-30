@@ -44,3 +44,18 @@ if [ $1 == "mapproxy" ]; then
   docker push kalisio/mapproxy:$MAPPROXY_VERSION
   popd
 fi
+
+# Build Artillery
+if [ $1 == "artillery" ]; then
+  ARTILLERY_VERSION=1.60.
+  pushd tools/artillery
+  docker build --force-rm --build-arg VERSION=$ARTILLERY_VERSION -f dockerfile -t kalisio/artillery:$ARTILLERY_VERSION .
+  RESULT_CODE=$?
+  if [ $RESULT_CODE -ne 0 ]; then
+    echo "Artillery generation failed [error: $RESULT_CODE]"
+    exit 1
+  fi
+  docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
+  docker push kalisio/artillery:$ARTILLERY_VERSION
+  popd
+fi
