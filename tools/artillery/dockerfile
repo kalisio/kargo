@@ -1,0 +1,12 @@
+FROM node:12-buster-slim
+LABEL maintainer="contact@kalisio.xyz"
+
+ARG VERSION
+
+RUN apt-get update && \
+    apt-get install -y curl nano && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g --allow-root --unsafe-perm=true artillery@${VERSION}
+
+WORKDIR /benchmark

@@ -18,7 +18,7 @@ jobs:
   - stage: BUILD
     language: node_js
     node_js:
-    - '8'
+    - '12'
     services:
     - docker
     script: bash .travis.build.sh express-gateway
@@ -26,11 +26,13 @@ jobs:
     script: bash .travis.build.sh maputnik
   - # added to BUILD stage
     script: bash .travis.build.sh mapproxy
+  - # added to BUILD stage
+    script: bash .travis.build.sh artillery
 
   - stage: DOC
     language: node_js
     node_js:
-    - '8'
+    - '12'
     install: true
     script: bash .travis.doc.sh
     deploy:
