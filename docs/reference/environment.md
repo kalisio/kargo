@@ -138,6 +138,15 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MONGODB_TAG` | The version to be used. | `3.6.5` |
 | `MONGODB_DATABASE` | The database name. | `kargo` |
 
+### Mongo Express
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MONGO_EXPRESS_IMAGE` | The image to be used. | `mongo-express` |
+| `MONGO_EXPRESS_TAG` | The version to be used. | `0.54` |
+| `MONGO_EXPRESS_MONGODB_SERVER` | The **MongoDB** server name. | `mongodb` |
+| `MONGO_EXPRESS_MONGODB_PORT` | The **MongoDB** port. | `27017` |
+
 ### OpenAQ
 
 | Variable | Description | Default value |
