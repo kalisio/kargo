@@ -48,7 +48,7 @@ fi
 # Build Artillery
 if [ $1 == "artillery" ]; then
   ARTILLERY_VERSION=1.6.0
-  pushd tools/artillery
+  pushd build/artillery
   docker build --force-rm --build-arg VERSION=$ARTILLERY_VERSION -f dockerfile -t kalisio/artillery:$ARTILLERY_VERSION .
   RESULT_CODE=$?
   if [ $RESULT_CODE -ne 0 ]; then
