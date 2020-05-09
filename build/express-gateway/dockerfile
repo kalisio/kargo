@@ -1,5 +1,5 @@
-ARG TAG
-FROM express-gateway:$TAG
+ARG VERSION
+FROM express-gateway:$VERSION
 
 # Install the dependencies
 RUN yarn global add prom-client@10.2.3 aws-sdk

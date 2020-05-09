@@ -1,6 +1,6 @@
-ARG TAG
+ARG VERSION
 
-FROM geographica/gdal2:$TAG
+FROM geographica/gdal2:$VERSION
 
 LABEL maintainer "contact@kalisio.com"
 
