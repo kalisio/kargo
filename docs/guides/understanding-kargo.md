@@ -56,15 +56,21 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 
 A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
+  * [Express Gateway](https://www.express-gateway.io/)
+  * [Grafana](https://grafana.com/)
   * [Hub'eau](https://https://github.com/kalisio/k-hubeau)
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
   * [MapProxy](https://mapproxy.org/)
   * [MapServer](https://https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
-  * [MongoDB](https://www.mongodb.com/fr)
+  * [MongoDB](https://www.mongodb.com)
+  * [Mongo Express](https://github.com/mongo-express/mongo-express)
   * [OpenAQ](https://https://github.com/kalisio/k-openaq)
   * [PostGis](https://postgis.net/)
+  * [Prometheus](https://prometheus.io/)
+  * [redis](https://redis.io/)
+  * [Redis Commander](http://joeferner.github.io/redis-commander/)
   * [Seeder](https://github.com/kalisio/k-seeder)
   * [Teleray](https://github.com/kalisio/k-teleray)
   * [TileServer GL](http://tileserver.org/)
@@ -72,7 +78,6 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [Vigicrues](https://github.com/kalisio/k-vigicrues) 
   * [Weacast API](https://weacast.github.io/weacast-docs/)
   * [Weacast loaders](https://weacast.github.io/weacast-docs/)
-  * [redis](https://redis.io/)
 
 ::: tip
 **Redis** is required to enable Kano and Weacast to communicate in Cloud environments using [feathers-distributed](https://github.com/kalisio/feathers-distributed) under-the-hood.
@@ -80,6 +85,7 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
 
 By default, most of the images of the services are pulled from the [Docker Hub](https://hub.docker.com/). Meanwhile **Kargo** provides a mean to build some of them to ensure better customization and maintainability:
 
+* Express Gateway
 * MapProxy
 * MapServer
 * Kano
