@@ -13,7 +13,7 @@ module.exports = {
       { text: 'About', link: '/about/introduction' },
       { text: 'Guides', link: '/guides/understanding-kargo' },
       { text: 'Reference', link: '/reference/environment' },
-      { text: 'Tips', link: '/tips/using-kargo-toolbox' },
+      { text: 'Tips', link: '/tips/using-gdal-image' },
       { text: 'GitHub', link: 'https://github.com/kalisio/kargo' }
     ],
     sidebar: {
