@@ -16,13 +16,7 @@ config:
         wcs: "https://mapserver.{{ $processEnvironment.SUBDOMAIN }}//cgi-bin/ows"
         k2: "https://k2.{{ $processEnvironment.SUBDOMAIN }}"
         qs: "?"
-    gravitee:
-      variables:
-        mapproxy: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/mapproxy"
-        mapserver: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/mapserver"
-        k2: "https://apim.{{ $processEnvironment.SUBDOMAIN }}/k2"
-        qs: "?access_token={{ $processEnvironment.API_GATEWAY_JWT }}"
-    express:
+    api:
       variables:
         wms: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wms"
         wmts: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wmts"

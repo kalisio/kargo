@@ -2,9 +2,9 @@
 sidebarDepth: 3
 ---
 
-# Using the GDAL image
+# Using GDAL
 
-**Kargo** provides is a [GDAL](https://www.gdal.org/index.html) docker image shipped with a set of additional tools:
+**Kargo** provides a [GDAL](https://www.gdal.org/index.html) docker image shipped with a set of additional tools:
 * [ImageMagick](https://www.imagemagick.org/)
 * [sqlitepipe](https://github.com/icetan/sqlitepipe)
 

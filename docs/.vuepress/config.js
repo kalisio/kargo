@@ -13,7 +13,7 @@ module.exports = {
       { text: 'About', link: '/about/introduction' },
       { text: 'Guides', link: '/guides/understanding-kargo' },
       { text: 'Reference', link: '/reference/environment' },
-      { text: 'Tips', link: '/tips/using-gdal-image' },
+      { text: 'Tips', link: '/tips/using-gdal' },
       { text: 'GitHub', link: 'https://github.com/kalisio/kargo' }
     ],
     sidebar: {
@@ -52,8 +52,8 @@ function getReferenceSidebar () {
 
 function getTipsSidebar () {
   return [
-    'using-gdal-image',
-    'packaging-images',
+    'using-gdal',
+    'using-artillery',
     'handling-long-running-process',
     'using-mongodb-atlas',    
     'extracting-osm-data'
