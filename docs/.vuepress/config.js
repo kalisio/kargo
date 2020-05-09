@@ -52,7 +52,7 @@ function getReferenceSidebar () {
 
 function getTipsSidebar () {
   return [
-    'using-kargo-toolbox',
+    'using-gdal-image',
     'packaging-images',
     'handling-long-running-process',
     'using-mongodb-atlas',    
