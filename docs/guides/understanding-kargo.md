@@ -43,7 +43,9 @@ It allows to define:
 * the stacks of services to deploy
 * the deployment settings for each service
 
-For convenience, a sample of an environment file is provided [here](https://github.com/kalisio/kargo/blob/master/.env.sample)
+A sample of such an environment file is shown below:
+
+<<< @/../.env.sample
 
 ## Stack
 
