@@ -6,26 +6,9 @@
 *  Add a benchmark tool and/or command (close [#98](https://github.com/kalisio/kargo/pull/98)) [skip ci] ([ddb8800a](https://github.com/kalisio/kargo/commit/ddb8800a8f29984244c33fab293eb07f965ef902))
 *  Provide a tool to perform command line processing (close [#156](https://github.com/kalisio/kargo/pull/156)) ([d193948d](https://github.com/kalisio/kargo/commit/d193948d2d5b87388428ebea3d48040ea4f55121))
 *  Provide a gui to MongoDB (close [#157](https://github.com/kalisio/kargo/pull/157)) ([0d319bea](https://github.com/kalisio/kargo/commit/0d319bea402e3eb3b4e2bbcd47ae37f1b2c5ce03))
-*  Bump Hubeau version to 1.1.0 (close [#154](https://github.com/kalisio/kargo/pull/154)) feat: Bump teleray version to 1.1.0 (close [#153](https://github.com/kalisio/kargo/pull/153)) ([6f235f1d](https://github.com/kalisio/kargo/commit/6f235f1d233d6eeb3a5601ab80b8ec7414de7a4c))
+*  Bump Hubeau version to 1.1.0 (close [#154](https://github.com/kalisio/kargo/pull/154)) 
 *  Enhance Kano deploy file to take into account Mapillary client ID (close [#151](https://github.com/kalisio/kargo/pull/151)) ([dcf0c623](https://github.com/kalisio/kargo/commit/dcf0c623056212f6b72a92c6ae77790b4e367bc5))
 *  Decrease default rare success of the hubeau-observations job (decreased to 75%) (close [#150](https://github.com/kalisio/kargo/pull/150)) ([d1d60a4f](https://github.com/kalisio/kargo/commit/d1d60a4ff0aa6b15de8025f30d59be64c340a344))
-
-##### Other Changes
-
-*  Add a benchmark tool and/or command [#98](https://github.com/kalisio/kargo/pull/98) ([1ba0e7b1](https://github.com/kalisio/kargo/commit/1ba0e7b1377bfa8770d6cef9692d4ad1cf11f458))
-*  Provide a tool to perform command line processing [#156](https://github.com/kalisio/kargo/pull/156) ([3e4f46c2](https://github.com/kalisio/kargo/commit/3e4f46c271949b4bcaf139d3f63955697478286a))
-*  Provide a tool to perform command line processing [#156](https://github.com/kalisio/kargo/pull/156) ([ea4aabfb](https://github.com/kalisio/kargo/commit/ea4aabfb0dd8defb8ba2778bd4efe53c38f7ecdf))
-*  Provide a tool to perform command line processing [#156](https://github.com/kalisio/kargo/pull/156) ([8063b9ef](https://github.com/kalisio/kargo/commit/8063b9ef2d134afbb3fc82d2706096243a2abec7))
-*  Provide a tool to perform command line processing [#156](https://github.com/kalisio/kargo/pull/156) ([1d868c5b](https://github.com/kalisio/kargo/commit/1d868c5baee7009b5d7d10499bb9a7974fbc739a))
-*  Add a benchmark tool and/or command [#98](https://github.com/kalisio/kargo/pull/98) ([93d45fc9](https://github.com/kalisio/kargo/commit/93d45fc9019392d6cbe1bd114ac08f1bf6bc880b))
-*  Provide a gui to MongoDB ([19f560ef](https://github.com/kalisio/kargo/commit/19f560ef4313162483cefb1ec69fef620567c808))
-*  Add a benchmark tool and/or command [#98](https://github.com/kalisio/kargo/pull/98) ([a452c542](https://github.com/kalisio/kargo/commit/a452c5429f9618a6e597f00383d0185e39d42d39))
-*  Add a benchmark tool and/or command [#98](https://github.com/kalisio/kargo/pull/98) ([d62b51e3](https://github.com/kalisio/kargo/commit/d62b51e3b0c88d7c90d46112a61c96f53ba375dc))
-*  Allow to configure the TTL of the Teleray measurements [#152](https://github.com/kalisio/kargo/pull/152) ([bc659fbd](https://github.com/kalisio/kargo/commit/bc659fbd70e3e4e2c17da8092192ef3a7b3d9e32))
-*  Enhance Kano deploy file to take into account Mapillary client ID [#151](https://github.com/kalisio/kargo/pull/151) [skip ci] ([21f40d40](https://github.com/kalisio/kargo/commit/21f40d403bcc314de2f83e4333ec6cf6c96a0984))
-*  Integrate the new Atlas jobs [#149](https://github.com/kalisio/kargo/pull/149) [skip ci] ([b8b06bd4](https://github.com/kalisio/kargo/commit/b8b06bd40f9131281013710456fe9e0a423042e4))
-*  Integrate the new Atlas jobs [#149](https://github.com/kalisio/kargo/pull/149) [skip ci] ([0f032280](https://github.com/kalisio/kargo/commit/0f0322809f2552171c5492a06ae065f9b30afb5a))
-*  Integrate the new Atlas jobs [#149](https://github.com/kalisio/kargo/pull/149) ([34ee8442](https://github.com/kalisio/kargo/commit/34ee844227e40742c24d2561d3934bba8d98b44c))
 
 ### 0.8.0 (2020-03-04)
 
