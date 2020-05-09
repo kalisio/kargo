@@ -4,6 +4,7 @@ build_and_push()
 {
   TOOL=$1
   TAG=$2
+  echo "Building $TOOL:$TAG"
   pushd build/$TOOL
   docker build --force-rm --build-arg VERSION=$TAG -f dockerfile -t kalisio/$TOOL:$TAG .
   RESULT_CODE=$?
