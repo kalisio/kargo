@@ -9,7 +9,7 @@ sidebarDepth: 3
 * [sqlitepipe](https://github.com/icetan/sqlitepipe)
 
 ::: tip
-It extends the [Geographica GDAL2 image](https://hub.docker.com/r/geographica/gdal2/).
+Th **GDAL** image extends the [Geographica GDAL2 image](https://hub.docker.com/r/geographica/gdal2/).
 :::
 
 ## Basic usage

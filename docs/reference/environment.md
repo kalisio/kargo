@@ -280,10 +280,5 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.2.0` |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
-::: warning
-The **Weacast loaders** are preconfigured to use a local image that must be built using the [build](./cli.md#build) command:
-```bash
-$kargo build weacast-loaders
-```
 :::
 
