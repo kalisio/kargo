@@ -28,6 +28,8 @@ jobs:
     script: bash .travis.build.sh mapproxy
   - # added to BUILD stage
     script: bash .travis.build.sh artillery
+  - # added to BUILD stage
+    script: bash .travis.build.sh gdal
 
   - stage: DOC
     language: node_js

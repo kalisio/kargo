@@ -1,0 +1,24 @@
+ARG TAG
+
+FROM geographica/gdal2:$TAG
+
+LABEL maintainer "contact@kalisio.com"
+
+RUN apt-get update
+
+#  Install prerequisites
+RUN apt-get -y install apt-utils git libcurl4 curl
+
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get update && apt-get install -y nodejs
+
+# Sqlitepipe
+RUN apt-get -y install libsqlite3-dev
+RUN git clone https://github.com/icetan/sqlitepipe && cd sqlitepipe && make && make install
+
+# ImageMagick
+RUN apt-get -y install imagemagick
+
+# Nano
+RUN apt-get -y install nano
