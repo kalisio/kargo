@@ -43,6 +43,10 @@ It allows to define:
 * the stacks of services to deploy
 * the deployment settings for each service
 
+A sample of such an environment file is shown below:
+
+<<< @/../.env.sample
+
 ## Stack
 
 A **stack** of interrelated services that can be orchestrated and scaled together.
