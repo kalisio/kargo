@@ -262,23 +262,21 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `WEACAST_MODELS` | The list of models to be downloaded. | `"arpege-world arpege-europe arome-france gfs-world"` |
-| `WEACAST_LOADERS_TAG` | A default tag value.  | `1.2.0` |
 | `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `localhost:5000/arpege-world-loader` |
-| `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.2.0` |
+| `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.4.1` |
 | `ARPEGE_WORLD_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `localhost:5000/arpege-europe-loader` |
-| `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `1.2.0` |
+| `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `1.4.1` |
 | `ARPEGE_EUROPE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
-| `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `1.2.0` |
+| `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `1.4.1` |
 | `AROME_FRANCE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_HIGH_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `localhost:5000/arome-france-loader` |
-| `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `1.2.0` |
+| `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `1.4.1` |
 | `AROME_FRANCE_HIGH_LOADER_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. | `localhost:5000/gfs-world-loader` |
-| `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.2.0` |
+| `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.4.1` |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 :::
