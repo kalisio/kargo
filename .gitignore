@@ -15,7 +15,6 @@ yarn-error.log*
 node_modules
 
 # Docs
-docs/yarn.lock
 docs/.vuepress/dist
 
 # Mapproxy
