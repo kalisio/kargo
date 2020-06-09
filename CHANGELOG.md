@@ -1,3 +1,9 @@
+### 0.10.0 (2020-06-09)
+
+##### New Features
+
+*  Disable Weacast loaders build (close [#158](https://github.com/kalisio/kargo/pull/158)) ([5c4376b5](https://github.com/kalisio/kargo/commit/5c4376b5c1c11e82d2efad2bdf6f3fe3ad131998))
+
 ### 0.9.0 (2020-05-09)
 
 ##### New Features
