@@ -5,6 +5,7 @@ services:
     image: ${OPENAQ_IMAGE}:${OPENAQ_TAG}
     environment:
       - DB_URL=${OPENAQ_DB_URL}
+      - CRON=${OPENAQ_CRON}
       - DEBUG=${OPENAQ_DEBUG}
       - HTTP_PROXY
       - HTTPS_PROXY

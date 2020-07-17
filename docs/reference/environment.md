@@ -154,6 +154,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
 | `OPENAQ_TAG` | The version to be used. | `latest` |
 | `OPENAQ_DB_URL` | The database URL where to write the data. | - |
+| `OPENAQ_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
 | `OPENAQ_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### PostGis
