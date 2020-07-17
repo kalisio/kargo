@@ -205,7 +205,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
 | `TELERAY_TAG` | The version to be used. | `1.1.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
-| `TELERAY_MEASUREMENTS_TTL` | The measurements data time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `TELERAY_MEASUREMENTS_TTL` | The measurements data time to live. It must be expressed in seconds. | `2592000` (30 days) |
+| `TELERAY_CRON` | The cron expression used to run the job. | `0 */10 * * * *` (every 10 minutes) | 
 | `TELERAY_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### Thredds
