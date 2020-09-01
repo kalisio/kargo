@@ -6,6 +6,8 @@ services:
     environment:
       - DB_URL=${VIGICRUES_DB_URL}
       - DEBUG=${VIGICRUES_DEBUG}
+      - TTL=${VIGICRUES_TTL}
+      - CRON=${VIGICRUES_CRON}
       - HTTP_PROXY
       - HTTPS_PROXY
       - NO_PROXY      

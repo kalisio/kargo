@@ -6,7 +6,6 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-64x64.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  plugins: ['vuepress-plugin-export'],
   theme: 'kalisio',
   themeConfig: {
     docsDir: 'docs',

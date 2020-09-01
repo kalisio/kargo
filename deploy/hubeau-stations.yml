@@ -5,6 +5,7 @@ services:
     image: ${HUBEAU_STATIONS_IMAGE}:${HUBEAU_STATIONS_TAG}
     environment:
       - DB_URL=${HUBEAU_DB_URL}
+      - CRON=${HUBEAU_STATIONS_CRON}
       - DEBUG=${HUBEAU_STATIONS_DEBUG}
       - HTTP_PROXY
       - HTTPS_PROXY

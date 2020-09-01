@@ -64,6 +64,7 @@ For each stack, there must be such an entry:
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
 | `HUBEAU_STATIONS_IMAGE` | The image to be used for scraping the stations. | `${HUBEAU_IMAGE}` |
 | `HUBEAU_STATIONS_TAG` | The tag of the image to be used for scraping the stations. | `stations-${HUBEAU_TAG}` |
+| `HUBEAU_STATIONS_CRON` | The cron expression used to run the job. | `0 0 0 * * *` (every day) |
 | `HUBEAU_STATIONS_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `HUBEAU_OBSERVATIONS_IMAGE` | The image to be used for scraping the observations. | `${HUBEAU_IMAGE}` |
 | `HUBEAU_OBSERVATIONS_TAG` | The tag of the image to be used for scraping the observations. | `observations-${HUBEAU_TAG}` |
@@ -71,6 +72,7 @@ For each stack, there must be such an entry:
 | `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
 | `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
 | `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `75%` |
+| `HUBEAU_OBSERVATIONS_CRON` | The cron expression used to run the job. | `0 */15 * * * *` (every 15 minutes) |
 | `HUBEAU_OBSERVATIONS_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### K2
@@ -154,6 +156,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
 | `OPENAQ_TAG` | The version to be used. | `latest` |
 | `OPENAQ_DB_URL` | The database URL where to write the data. | - |
+| `OPENAQ_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
 | `OPENAQ_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### PostGis
@@ -205,7 +208,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
 | `TELERAY_TAG` | The version to be used. | `1.1.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
-| `TELERAY_MEASUREMENTS_TTL` | The measurements data time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `TELERAY_MEASUREMENTS_TTL` | The measurements data time to live. It must be expressed in seconds. | `2592000` (30 days) |
+| `TELERAY_CRON` | The cron expression used to run the job. | `0 */10 * * * *` (every 10 minutes) | 
 | `TELERAY_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### Thredds
