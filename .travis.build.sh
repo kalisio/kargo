@@ -39,5 +39,5 @@ fi
 
 # Build GDAL
 if [ $1 == "gdal" ]; then
-  build_and_push gdal 2.4.0
+  build_and_push gdal 3.1.2
 fi
