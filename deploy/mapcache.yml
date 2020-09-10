@@ -24,7 +24,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:mapcache.${SUBDOMAIN}"
         - "traefik.port=80"
-      replicas: ${MAPSERVER_REPLICAS}
+      replicas: ${MAPCACHE_REPLICAS}
       update_config:
         delay: 1m
       placement:
