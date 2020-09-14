@@ -141,7 +141,6 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MGOB_STORAGE_PATH` | The path where to store local backups. | `` |
 | `MGOB_RCLONE_PATH` | The path to the **rclone** configuration file. | `` |
 
-
 ### MongoDB
 
 | Variable | Description | Default value |
@@ -295,5 +294,4 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `1.4.1` |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
-:::
 
