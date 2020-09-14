@@ -132,6 +132,16 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MAPUTNIK_TAG` | The version to be used. | `1.6.1` |
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
+### Mgob
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MGOB_IMAGE` | The image to be used. | `` |
+| `MGOB_TAG` | The version to be used. | `edge` |
+| `MGOB_STORAGE_PATH` | The path where to store local backups. | `` |
+| `MGOB_RCLONE_PATH` | The path to the **rclone** configuration file. | `` |
+
+
 ### MongoDB
 
 | Variable | Description | Default value |

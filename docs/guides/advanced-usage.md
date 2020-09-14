@@ -182,7 +182,7 @@ $./kargo deploy api
 
 ### Managing the gateway
 
-**Kargo** rely on the [express-gateway cli](https://www.express-gateway.io/docs/cli/) to manage the gateway:
+**Kargo** relies on the [express-gateway cli](https://www.express-gateway.io/docs/cli/) to manage the gateway:
 
 ```bash
 $docker exec -ti <express-gateway-container-id> sh

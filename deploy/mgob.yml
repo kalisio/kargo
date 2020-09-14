@@ -4,19 +4,19 @@ services:
   mgob:
     image: ${MGOB_IMAGE}:${MGOB_TAG}
     configs:
-      - source: rclone_conf
+      - source: mgob-rclone_config
         target: /rclone.conf
     volumes:
       - ./../configs/mgob:/config
       - ${MGOB_STORAGE_PATH}:/storage
       - mgob_data:/data
       - mgob_tmp:/tmp
-    # healthcheck:
-    #  test: ["CMD", "echo", "\'db.runCommand(\"ping\").ok\'", "|", "mongo", "localhost:27017/${MGOB_DATABASE}", "--quiet"]
-    #  interval: 30s
-    #  timeout: 10s
-    #  retries: 3
-    #  start_period: 1m
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/status"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
     deploy:
       replicas: 1
       placement:
@@ -28,7 +28,7 @@ services:
       - kargo-network        
 
 configs:
-  rclone_conf:
+  mgob-rclone_config:
     file: ${MGOB_RCLONE_PATH}
 
 volumes:
