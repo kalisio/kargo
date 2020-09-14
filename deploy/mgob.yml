@@ -32,8 +32,8 @@ configs:
     file: ${MGOB_RCLONE_PATH}
 
 volumes:
-  mgobdb_data: {}
-  mgobdb_tmp: {}
+  mgob_data: {}
+  mgob_tmp: {}
 
 networks:
   kargo-network:
