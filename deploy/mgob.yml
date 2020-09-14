@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  MGOB:
+  mgob:
     image: ${MGOB_IMAGE}:${MGOB_TAG}
     configs:
       - source: rclone_conf
