@@ -136,7 +136,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `MGOB_IMAGE` | The image to be used. | `` |
+| `MGOB_IMAGE` | The image to be used. | `stefanprodan/mgob` |
 | `MGOB_TAG` | The version to be used. | `edge` |
 | `MGOB_STORAGE_PATH` | The path where to store local backups. | `` |
 | `MGOB_RCLONE_PATH` | The path to the **rclone** configuration file. | `` |
