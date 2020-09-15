@@ -21,15 +21,10 @@ filePath = "/logs/access.log"
     [[entryPoints.https.tls.certificates]]
 
 [docker]
+endpoint = "tcp://docker-socket-proxy:2375"
 watch = true
 exposedbydefault = false
 swarmmode = true
-
-[docker.tls]
-ca = "/tls/ca.pem"
-key = "/tls/key.pem"
-cert = "/tls/cert.pem"
-insecureSkipVerify = true
 
 [ping]
 entryPoint = "http"

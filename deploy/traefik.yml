@@ -1,12 +1,11 @@
 version: '3.5'
 
-services:
+services: 
   traefik:
     image: ${TRAEFIK_IMAGE}:${TRAEFIK_TAG}
-    command: --api --docker.endpoint=${DOCKER_HOST} --acme.email=${CONTACT} --acme.caServer=${CA_SERVER}
+    command: --api --acme.email=${CONTACT} --acme.caServer=${CA_SERVER}
     volumes:
       - ./../configs/traefik/traefik.toml:/traefik.toml    
-      - $HOME/.docker:/tls
       - ./../logs:/logs
       - ./../acme:/acme
     healthcheck:
@@ -25,10 +24,12 @@ services:
         published: 443
         mode: host
     deploy:
-      replicas: 1
+      replicas: ${TRAEFIK_REPLICAS}
       placement:
         constraints:
-         - node.role == manager
+          - node.role == manager
+        preferences:
+          - spread: node.labels.traefik            
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
@@ -41,9 +42,12 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network        
-
+      - kargo-network
+      - docker-socket-proxy-network
+  
 networks:
   kargo-network:
     name: ${DOCKER_NETWORK}
     external: true
+  docker-socket-proxy-network:
+
