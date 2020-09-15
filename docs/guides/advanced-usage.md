@@ -22,6 +22,22 @@ NO_PROXY="localhost"
 The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jobs healthcheck work correctly.
 :::
 
+## Routing the traffic
+
+**Kargo** relies on [Traefik](https://containo.us/traefik/) to manage the incoming requests to the platform. **Traefik** is a reverse proxy and load balancer that help routes the incoming requests to the deployed services (backend) using so called [frontends](https://docs.traefik.io/v1.7/basics/#frontends). A frontend consists of a set of rules that determine how incoming requests are forwarded from an entrypoint to a backend.
+
+![kargo-traefik](../assets/kargo-traefik.svg)
+
+The services provided by **Kargo** are already configured to be directly deployed and discovered by **Traefik**. Sometimes, you might be The services provided by **Kargo** are already configured to be discovered by **Traefik** once deployed. Sometimes you may need to override or extend this configuration. 
+
+::: warning
+**Kargo** still uses the version `1.7` of **Traefik**. Check the documentation [here](https://docs.traefik.io/v1.7/)
+::: 
+
+::: warning
+For security reason, **Traefik** relies on [docker-socket-proxy](https://github.com/Tecnativa/docker-socket-proxy) to secure the access to the Docker socket. Read this [note](https://docs.traefik.io/providers/docker/#docker-api-access) to learn more about this security concern.
+:::
+
 ## Using the API Gateway
 
 As a reminder, an API gateway allows you to map endpoints to a set of services or applications using url rules. Moreover it is possible to protect those endpoints using various authorization strategies ([Key authentication](https://en.wikipedia.org/wiki/Key_authentication), [JSON Web Tokens](https://jwt.io/), [OAuth](https://oauth.net/2/)...) and defining quotas and rate limiting. To enable such a features **Kargo** relies on [express gateway](https://www.express-gateway.io/). 
