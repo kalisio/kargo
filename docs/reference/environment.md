@@ -239,6 +239,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `TRAEFIK_IMAGE` | The image to be used. | `traefik` |
 | `TRAEFIK_TAG` | The version to be used. | `1.7-alpine` |
+| `TRAEFIK_REPLICAS` | The number of replicas. | `1` |
 
 ### TileServer GL
 
