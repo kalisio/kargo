@@ -24,11 +24,15 @@ The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jo
 
 ## Routing the traffic
 
-**Kargo** relies on [Traefik](https://containo.us/traefik/) to manage the incoming requests to the platform. **Traefik** is a reverse proxy and load balancer that help routes the incoming requests to the deployed services (backend) using so called [frontends](https://docs.traefik.io/v1.7/basics/#frontends). A frontend consists of a set of rules that determine how incoming requests are forwarded from an entrypoint to a backend.
+**Kargo** relies on [Traefik](https://containo.us/traefik/) to manage the incoming requests to the platform. **Traefik** is a reverse proxy and load balancer that help routes the incoming requests to the deployed services (backend) using so called [frontends](https://docs.traefik.io/v1.7/basics/#frontends). A frontend consists of a set of rules that determine how incoming requests are forwarded from an entry point to a backend.
 
 ![kargo-traefik](../assets/kargo-traefik.svg)
 
-The services provided by **Kargo** are already configured to be directly deployed and discovered by **Traefik**. Sometimes, you might be The services provided by **Kargo** are already configured to be discovered by **Traefik** once deployed. Sometimes you may need to override or extend this configuration. 
+By default **Traefik** is configured with 2 entry points:
+* `80`: this port ensures HTTP traffic. It is mainly used to enable [Let's Encrypt](https://letsencrypt.org/) ACME management. However, the port is redirected to the port `443`
+* `443`: this port ensures HTTPS traffic.
+  
+The services provided by **Kargo** are already configured to be automatically discovered by **Traefik** once deployed. Sometimes you may need to override or extend this configuration. See the section [extending the services](#extending-the-services).
 
 ::: warning
 **Kargo** still uses the version `1.7` of **Traefik**. Check the documentation [here](https://docs.traefik.io/v1.7/)
