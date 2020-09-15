@@ -4,7 +4,7 @@ services:
   mgob:
     image: ${MGOB_IMAGE}:${MGOB_TAG}
     configs:
-      - source: mgob-rclone_config
+      - source: mgob-rclone-config
         target: /rclone.conf
     volumes:
       - ./../configs/mgob:/config
@@ -28,7 +28,7 @@ services:
       - kargo-network        
 
 configs:
-  mgob-rclone_config:
+  mgob-rclone-config:
     file: ${MGOB_RCLONE_PATH}
 
 volumes:
