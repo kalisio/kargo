@@ -4,7 +4,7 @@ groups:
 
   - alert: high_swap_memory_usage
     expr: (((node_memory_SwapTotal_bytes-node_memory_SwapFree_bytes)/node_memory_SwapTotal_bytes)*100) > 85
-    for: 5m
+    for: 15m
     labels:
       severity: page
     annotations:
@@ -13,7 +13,7 @@ groups:
 
   - alert: high_memory_usage
     expr: (((node_memory_MemTotal_bytes-node_memory_MemFree_bytes-node_memory_Cached_bytes)/(node_memory_MemTotal_bytes)*100)) > 85
-    for: 5m
+    for: 15m
     labels:
       severity: page
     annotations:

@@ -4,7 +4,7 @@ groups:
 
   - alert: root_free_files
     expr: node_filesystem_files_free{mountpoint="/"} / node_filesystem_files{mountpoint="/"} < 0.25
-    for: 30s
+    for: 1m
     labels:
       severity: page
     annotations:
@@ -13,7 +13,7 @@ groups:
 
   - alert: root_free_disk_space
     expr: node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"} < 0.25
-    for: 30s
+    for: 1m
     labels:
       severity: page
     annotations:
