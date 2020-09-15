@@ -27,9 +27,7 @@ services:
       replicas: ${TRAEFIK_REPLICAS}
       placement:
         constraints:
-          - node.role == manager
-        preferences:
-          - spread: node.labels.traefik            
+          - node.role == manager       
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
