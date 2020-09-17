@@ -24,7 +24,7 @@ jobs:
     script: bash .travis.build.sh express-gateway
   - # added to BUILD stage
     script: bash .travis.build.sh maputnik
-    - # added to BUILD stage
+  - # added to BUILD stage
     script: bash .travis.build.sh mapcache    
   - # added to BUILD stage
     script: bash .travis.build.sh mapproxy
