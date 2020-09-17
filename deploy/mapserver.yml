@@ -29,7 +29,6 @@ services:
         delay: 1m
       placement:
         constraints:
-         - node.role == worker
          - node.labels.mapserver == true
       restart_policy:
         condition: on-failure
