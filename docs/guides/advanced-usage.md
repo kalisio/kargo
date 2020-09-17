@@ -4,24 +4,6 @@ sidebarDepth: 3
 
 # Advanced usage
 
-## Configuring proxy settings
-
-When you choose an on-premises deployment, it may be necessary to configure **Kargo** to use the corporate proxy server.
-To use a proxy, you can set the environment variables `HTTP_PROXY`, `HTTPS_PROXY`, `FTP_PROXY` and `NO_PROXY`. 
-
-Depending on the traffic type, set the required variables in your `.env` file:
-
-```env
-HTTP_PROXY="http://USER:PASSWORD@PROXY_SERVER:PORT"
-HTTPS_PROXY="https://USER:PASSWORD@PROXY_SERVER:PORT"
-FTP_PROXY="http://USER:PASSWORD@PROXY_SERVER:PORT"
-NO_PROXY="localhost"
-```
-
-::: warning
-The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jobs healthcheck work correctly.
-:::
-
 ## Routing the traffic
 
 **Kargo** relies on [Traefik](https://containo.us/traefik/) to manage the incoming requests to the platform. **Traefik** is a reverse proxy and load balancer that help routes the incoming requests to the deployed services (backend) using so called [frontends](https://docs.traefik.io/v1.7/basics/#frontends). A frontend consists of a set of rules that determine how incoming requests are forwarded from an entry point to a backend.
@@ -243,6 +225,24 @@ $docker exec -ti <express-gateway-container-id> sh
   "type": "jwt"
 }
 ```
+
+## Configuring proxy settings
+
+When you choose an on-premises deployment, it may be necessary to configure **Kargo** to use the corporate proxy server.
+To use a proxy, you can set the environment variables `HTTP_PROXY`, `HTTPS_PROXY`, `FTP_PROXY` and `NO_PROXY`. 
+
+Depending on the traffic type, set the required variables in your `.env` file:
+
+```env
+HTTP_PROXY="http://USER:PASSWORD@PROXY_SERVER:PORT"
+HTTPS_PROXY="https://USER:PASSWORD@PROXY_SERVER:PORT"
+FTP_PROXY="http://USER:PASSWORD@PROXY_SERVER:PORT"
+NO_PROXY="localhost"
+```
+
+::: warning
+The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jobs healthcheck work correctly.
+:::
 
 ## Extending the services
 

@@ -22,6 +22,11 @@ if [ $1 == "express-gateway" ]; then
   build_and_push express-gateway 1.16.9
 fi
 
+# Build MapCache
+if [ $1 == "mapcache" ]; then 
+  build_and_push mapcache 1.10
+fi
+
 # Build Maputnik
 if [ $1 == "maputnik" ]; then
   build_and_push maputnik 1.6.1
