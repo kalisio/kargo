@@ -14,6 +14,10 @@ apiEndpoints:
     host: '*'
     paths: '/wmts/*'
     scopes: ["wmts"]
+  tms:
+    host: '*'
+    paths: '/tms/*'
+    scopes: ["tms"]  
   wfs:
     host: '*'
     paths: '/wfs*'
@@ -38,6 +42,8 @@ serviceEndpoints:
     url: 'http://mapproxy:80/service'
   wmts:
     url: 'http://mapproxy:80/wmts'    
+  tms:
+    url: 'http://mapcache:80/tms/1.0.0'
   wfs:
     url: 'http://mapserver:80/cgi-bin/wfs'
   wcs:
@@ -131,7 +137,37 @@ pipelines:
           - action:
               serviceEndpoint: wmts 
               changeOrigin: true
-              stripPath: true                            
+              stripPath: true
+  tms:
+    apiEndpoints:
+      - tms
+    policies:
+      - metrics:              
+      - cors:
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
+              checkCredentialExistence: true 
+              audience: ${SUBDOMAIN}
+              passThrough: true  
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'query'
+              jwtExtractorField: 'jwt'
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
+              checkCredentialExistence: true            
+              audience: ${SUBDOMAIN}
+      - scopes:
+      - proxy:
+          - action:
+              serviceEndpoint: tms 
+              changeOrigin: true
+              stripPath: true                                         
   wfs:
     apiEndpoints:
       - wfs

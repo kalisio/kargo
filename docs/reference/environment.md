@@ -101,6 +101,15 @@ For each stack, there must be such an entry:
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
 
+### MapCache
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MAPCACHE_IMAGE` | The image to be used. | `kalisio/mapcache` |
+| `MAAPCACHE_TAG` | The version to be used. | `1.10` |
+| `MAPCACHE_DATA_PATH` | The path to the data. | `/mnt/data0/mapcache_data` |
+| `MAPCACHE_REPLICAS` | The number of replicas. | `1` |
+
 ### MapProxy
 
 | Variable | Description | Default value |
