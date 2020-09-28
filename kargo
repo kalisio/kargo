@@ -372,7 +372,7 @@ kargo_deploy()
       fi
     done
     pushd .kargo > /dev/null
-    docker stack deploy $SERVICES_TO_DEPLOY kargo-$1
+    docker stack deploy  --with-registry-auth $SERVICES_TO_DEPLOY kargo-$1
     popd > /dev/null
   fi
 }
