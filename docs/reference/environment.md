@@ -255,7 +255,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `TILESERVERGL_IMAGE` | The image to be used. | `klokantech/tileserver-gl` |
-| `TILESERVERGL_TAG` | The version to be used. | `v2.4.0` |
+| `TILESERVERGL_TAG` | The version to be used. | `v3.0.0` |
 | `TILESERVERGL_DATA_PATH` | The path to the data. | `/mnt/data0/tileservergl_data` |
 | `TILESERVERGL_REPLICAS` | The number of replicas. | `1` |
 
