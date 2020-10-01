@@ -3,7 +3,7 @@ version: '3.5'
 services: 
   traefik:
     image: ${TRAEFIK_IMAGE}:${TRAEFIK_TAG}
-    command: --api --acme.email=${CONTACT} --acme.caServer=${CA_SERVER}
+    command: --api --acme.email=${TRAEFIK_ACME_EMAIL} --acme.caServer=${TRAEFIK_ACME_SERVER}
     volumes:
       - ./../configs/traefik/traefik.toml:/traefik.toml    
       - ./../logs:/logs
@@ -40,12 +40,13 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
       - docker-socket-proxy-network
+      - kargo-network
   
 networks:
+  docker-socket-proxy-network:
   kargo-network:
     name: ${DOCKER_NETWORK}
     external: true
-  docker-socket-proxy-network:
+  
 

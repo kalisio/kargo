@@ -39,11 +39,11 @@ serviceEndpoints:
   admin: 
     url: 'http://localhost:9876'
   wms:
-    url: 'http://mapproxy:80/service'
+    url: 'http://mapcache:80/mapcache'
   wmts:
-    url: 'http://mapproxy:80/wmts'    
+    url: 'http://mapcache:80/mapcache/wmts/1.0.0'    
   tms:
-    url: 'http://mapcache:80/tms/1.0.0'
+    url: 'http://mapcache:80/mapcache/tms/1.0.0'
   wfs:
     url: 'http://mapserver:80/cgi-bin/wfs'
   wcs:
@@ -97,12 +97,7 @@ pipelines:
               secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
-      - scopes:
-      - request-transformer:
-          - action:
-              headers:
-                add:
-                  X-Script-Name: "'/wms'"      
+      - scopes:     
       - proxy:
           - action:
               serviceEndpoint: wms 

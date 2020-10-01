@@ -10,6 +10,7 @@ sidebarDepth: 3
 | --- | --- | --- | 
 | `DOMAIN` | The domain where to access the services. It should be similar to `kalisio.xyz`. | - |
 | `SUBDOMAIN` | The subdomain where to access the service. It should be similar to `kargo.kalisio.xyz`. | - |
+| `CONTACT` | The common email address to be used. | - |
 | `AUTH_USER` | The authentication identity to access the services. | - |
 | `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. | - |
 | `SECRET` | The secret key to generate JWT. It is mainly used by **Kano**, **Weacast** and **express-gateway** to validate authentication tokens. | - |
@@ -248,6 +249,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `TRAEFIK_IMAGE` | The image to be used. | `traefik` |
 | `TRAEFIK_TAG` | The version to be used. | `1.7-alpine` |
+| `TRAEFIK_ACME_SERVER` | The url of the **Let's Encrypt** ACME CA server. | `https://acme-v02.api.letsencrypt.org/directory` |
+| `TRAEFIK_ACME_EMAIL` | The email address to be used by **Let's Encrypt** ACME server. | `$CONTACT` |
 | `TRAEFIK_REPLICAS` | The number of replicas. | `1` |
 
 ### TileServer GL
