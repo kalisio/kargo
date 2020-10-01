@@ -60,7 +60,7 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `HUBEAU_IMAGE` | The image to be used. | `kalisio/k-hubeau` |
-| `HUBEAU_TAG` | The tag of the image to be used. | `1.1.0` |
+| `HUBEAU_TAG` | The tag of the image to be used. | `1.2.0` |
 | `HUBEAU_DB_URL` | The database URL where to write the data. | - |
 | `HUBEAU_STATIONS_IMAGE` | The image to be used for scraping the stations. | `${HUBEAU_IMAGE}` |
 | `HUBEAU_STATIONS_TAG` | The tag of the image to be used for scraping the stations. | `stations-${HUBEAU_TAG}` |
@@ -172,7 +172,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `OPENAQ_IMAGE` | The image to be used. | `kalisio/k-openaq` |
-| `OPENAQ_TAG` | The version to be used. | `latest` |
+| `OPENAQ_TAG` | The version to be used. | `1.0.0` |
 | `OPENAQ_DB_URL` | The database URL where to write the data. | - |
 | `OPENAQ_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
 | `OPENAQ_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
@@ -224,7 +224,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `TELERAY_IMAGE` | The image to be used. | `kalisio/k-teleray` |
-| `TELERAY_TAG` | The version to be used. | `1.1.0` |
+| `TELERAY_TAG` | The version to be used. | `1.2.0` |
 | `TELERAY_DB_URL` | The database URL where to write the data. | - |
 | `TELERAY_MEASUREMENTS_TTL` | The measurements data time to live. It must be expressed in seconds. | `2592000` (30 days) |
 | `TELERAY_CRON` | The cron expression used to run the job. | `0 */10 * * * *` (every 10 minutes) | 
@@ -264,7 +264,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `VIGICRUES_IMAGE` | The image to be used. | `kalisio/k-vigicrues` |
-| `VIGICRUES_TAG` | The tag of the image to be used for scraping the stations. | `1.2.0` |
+| `VIGICRUES_TAG` | The tag of the image to be used for scraping the stations. | `1.3.0` |
 | `VIGICRUES_DB_URL` | The database URL where to write the data. | - |
 | `VIGICRUES_TTL` | The forecasts data time to live. It must be expressed in seconds. | `2592000` (30 days) |
 | `VIGICRUES_CRON` | The cron expression used to run the job. | `0 0 */3 * * *` (every 3 hours) |
