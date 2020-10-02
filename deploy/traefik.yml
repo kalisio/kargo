@@ -45,6 +45,7 @@ services:
   
 networks:
   docker-socket-proxy-network:
+    driver: overlay
   kargo-network:
     name: ${DOCKER_NETWORK}
     external: true

@@ -246,9 +246,9 @@ The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jo
 
 ## Using Mongors
 
-**Kargo** provides a [Mongors](../reference/environment.md#mongors) service that can help you setting up a [MongoDB Replicat Set](https://docs.mongodb.com/manual/replication/). It creates 3 **MongoDB** instances, `mongodb0`, `mongodb1` and `mongodb2`, configured to be used as a **Replica Set** named `mongors`.
+**Kargo** provides a [Mongors](../reference/environment.md#mongors) service that can help you setting up a [MongoDB Replica Set](https://docs.mongodb.com/manual/replication/). It creates 3 **MongoDB** instances, `mongodb0`, `mongodb1` and `mongodb2`, configured to be used as a **Replica Set** named `mongors`.
 
-### How to setup the Replica Set
+### Setting up the Replica Set
 
 Execute the following procedure
 
@@ -273,8 +273,13 @@ $mongo --host mongodb0 --eval 'rs.initiate({ _id: "mongors", version: 1, members
 6. Check the status of the **Replica Set**
 
 ```bash
-$docker exec -ti <constainer_id> bash
+$mongo --host mongodb0 --eval 'rs.status()'
 ```
+
+### Troubleshooting the Replica Set
+
+A member of a replica set could enter `RECOVERING` state when it is not ready to accept reads. 
+To restore the instance in a core state, you may want to turn off the container, remove the volume and restart the container. The member will begin an initial sync and remain in `STARTUP2` state. Afterwards, the member will transit to  `RECOVERING` state and then its core state.
 
 ## Extending the services
 
