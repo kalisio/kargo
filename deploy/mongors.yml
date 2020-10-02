@@ -3,7 +3,7 @@ version: '3.5'
 services:
   mongodb0:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod 
+    command: mongod --replSet mongors
     volumes:
       - mongodb0_data:/data/db
     configs:
@@ -21,7 +21,7 @@ services:
 
   mongodb1:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod 
+    command: mongod --replSet mongors
     volumes:
       - mongodb1_data:/data/db
     configs:
@@ -39,7 +39,7 @@ services:
 
   mongodb2:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod 
+    command: mongod --replSet mongors
     volumes:
       - mongodb2_data:/data/db
     configs:

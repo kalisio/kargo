@@ -244,6 +244,38 @@ NO_PROXY="localhost"
 The `NO_PROXY` must at least contain the value `localhost` to let the Krawler jobs healthcheck work correctly.
 :::
 
+## Using Mongors
+
+**Kargo** provides a [Mongors](../reference/environment.md#mongors) service that can help you setting up a [MongoDB Replicat Set](https://docs.mongodb.com/manual/replication/). It creates 3 **MongoDB** instances, `mongodb0`, `mongodb1` and `mongodb2`, configured to be used as a **Replica Set** named `mongors`.
+
+### How to setup the Replica Set
+
+Execute the following procedure
+
+1. You first need to assign a constraint label on the nodes where you want to deploy the **MongoDB** instances.
+
+2. Declare the service **mongors** within a stack of your choice. We recommend to use a dedicated stack.
+
+3. Deploy the stack and therefore the service
+   
+4. Start a session on the **Primary** container:
+
+```bash
+$docker exec -ti <constainer_id> bash
+```
+
+5. Configure the **Replica Set**
+
+```bash
+$mongo --host mongodb0 --eval 'rs.initiate({ _id: "mongors", version: 1, members: [ { _id: 0, host : "mongodb0:27017" }, { _id: 1, host : "mongodb1:27017" }, { _id: 2, host : "mongodb2:27017" } ] })'
+```
+
+6. Check the status of the **Replica Set**
+
+```bash
+$docker exec -ti <constainer_id> bash
+```
+
 ## Extending the services
 
 **Kargo** allows you to extend the default services settings for a given cluster. You can either overwrite the default settings files of a service or extend the way the service will be deployed (specify the healthcheck, add some constraints...)
