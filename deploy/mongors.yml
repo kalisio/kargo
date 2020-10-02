@@ -1,0 +1,74 @@
+version: '3.5'
+
+services:
+  mongodb0:
+    image: ${MONGORS_IMAGE}:${MONGORS_TAG}
+    command: mongod 
+    volumes:
+      - mongodb0_data:/data/db
+    configs:
+      - source: mongodb0_conf
+        target: /etc/mongo/mongod.conf
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.labels.mongodb0 == true
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+  mongodb1:
+    image: ${MONGORS_IMAGE}:${MONGORS_TAG}
+    command: mongod 
+    volumes:
+      - mongodb1_data:/data/db
+    configs:
+      - source: mongodb1_conf
+        target: /etc/mongo/mongod.conf
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.mongodb1 == true
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+  mongodb2:
+    image: ${MONGORS_IMAGE}:${MONGORS_TAG}
+    command: mongod 
+    volumes:
+      - mongodb2_data:/data/db
+    configs:
+      - source: mongodb2_conf
+        target: /etc/mongo/mongod.conf
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.mongodb2 == true
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+configs:
+  mongodb0_conf:
+    file: ./../configs/mongors/mongodb.conf
+  mongodb1_conf:
+    file: ./../configs/mongors/mongodb.conf
+  mongodb2_conf:
+    file: ./../configs/mongors/mongodb.conf
+  
+volumes:
+  mongodb0_data: {}
+  mongodb1_data: {}
+  mongodb2_data: {}
+
+networks: 
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
