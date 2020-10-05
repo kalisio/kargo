@@ -102,7 +102,8 @@ pipelines:
           - action:
               serviceEndpoint: wms 
               changeOrigin: true
-              stripPath: true       
+              stripPath: true
+              timeout: 120000
   wmts:
     apiEndpoints:
       - wmts
@@ -133,6 +134,7 @@ pipelines:
               serviceEndpoint: wmts 
               changeOrigin: true
               stripPath: true
+              timeout: 120000
   tms:
     apiEndpoints:
       - tms
@@ -162,7 +164,8 @@ pipelines:
           - action:
               serviceEndpoint: tms 
               changeOrigin: true
-              stripPath: true                                         
+              stripPath: true
+              timeout: 120000                                    
   wfs:
     apiEndpoints:
       - wfs
@@ -193,6 +196,7 @@ pipelines:
               serviceEndpoint: wfs 
               changeOrigin: true
               stripPath: true
+              timeout: 120000
   wcs:
     apiEndpoints:
       - wcs
@@ -223,6 +227,7 @@ pipelines:
               serviceEndpoint: wcs 
               changeOrigin: true
               stripPath: true
+              timeout: 120000
   k2:
     apiEndpoints:
       - k2
@@ -251,6 +256,7 @@ pipelines:
               serviceEndpoint: k2
               changeOrigin: true
               stripPath: true
+              timeout: 120000
   s3:
     apiEndpoints:
       - s3
@@ -281,3 +287,4 @@ pipelines:
               serviceEndpoint: s3
               changeOrigin: true
               stripPath: true
+              timeout: 120000
