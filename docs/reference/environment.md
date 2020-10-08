@@ -108,7 +108,7 @@ For each stack, there must be such an entry:
 | --- | --- | --- |
 | `MAPCACHE_IMAGE` | The image to be used. | `kalisio/mapcache` |
 | `MAAPCACHE_TAG` | The version to be used. | `1.10` |
-| `MAPCACHE_DATA_PATH` | The path to the data. | `/mnt/data0/mapcache_data` |
+| `MAPCACHE_DATA_PATH` | The path to the data. | `/var/cache/mapcache` |
 | `MAPCACHE_REPLICAS` | The number of replicas. | `1` |
 
 ### MapProxy
@@ -286,7 +286,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `WEACAST_IMAGE` | The image to be used. | `weacast/weacast-api` |
-| `WEACAST_TAG` | The version to be used. | `1.1.0` |
+| `WEACAST_TAG` | The version to be used. | `1.2.2` |
 | `WEACAST_APP_SECRET` | The app secret used to authenticate a client. | - |
 | `WEACAST_DB_URL` | The application database URL. | - |
 | `WEACAST_DATA_DB_URL` | The database URL where to read the data downloaded by the loaders. | - |
