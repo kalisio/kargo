@@ -16,13 +16,6 @@ services:
       retries: 3
       start_period: 1m
     deploy:
-      labels:
-        - "traefik.backend=tileservergl"
-        - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.enable=true"
-        - "traefik.port=80"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:tileservergl.${SUBDOMAIN}"
       replicas: ${TILESERVERGL_REPLICAS}
       update_config:
         delay: 1m

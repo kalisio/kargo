@@ -14,13 +14,6 @@ services:
       retries: 3
       start_period: 1m
     deploy:
-      labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.backend=k2"
-        - "traefik.enable=true"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:k2.${SUBDOMAIN}"
-        - "traefik.port=8080"
       replicas: ${K2_REPLICAS}
       update_config:
         delay: 1m

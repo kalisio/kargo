@@ -20,13 +20,6 @@ services:
       retries: 3
       start_period: 1m
     deploy:
-      labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
-        - "traefik.backend=mapproxy"
-        - "traefik.enable=true"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:mapproxy.${SUBDOMAIN}"
-        - "traefik.port=80"
       replicas: ${MAPPROXY_REPLICAS}
       update_config:
         delay: 1m
