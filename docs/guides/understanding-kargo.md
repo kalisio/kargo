@@ -54,11 +54,11 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
 
   * [Express Gateway](https://www.express-gateway.io/)
   * [Grafana](https://grafana.com/)
-  * [Hub'eau](https://https://github.com/kalisio/k-hubeau)
+  * [Hub'eau](https://github.com/kalisio/k-hubeau)
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
   * [MapProxy](https://mapproxy.org/)
-  * [MapServer](https://https://mapserver.org)
+  * [MapServer](https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [MongoDB](https://www.mongodb.com)
   * [Mongo Express](https://github.com/mongo-express/mongo-express)
