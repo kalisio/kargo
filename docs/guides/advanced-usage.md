@@ -21,6 +21,11 @@ The services provided by **Kargo** are already configured to be automatically di
 ::: 
 
 ::: warning
+When testing the your configuration, we highly recommend to use the **staging** mode provided by **Let's Encrypt** otherwise you may reach the [rate limits](https://letsencrypt.org/docs/rate-limits/).
+Setup the variable `TRAEFIK_ACME_SERVER` with the following url `https://acme-staging-v02.api.letsencrypt.org/directory`
+:::
+
+::: warning
 For security reason, **Traefik** relies on [docker-socket-proxy](https://github.com/Tecnativa/docker-socket-proxy) to secure the access to the Docker socket. Read this [note](https://docs.traefik.io/providers/docker/#docker-api-access) to learn more about this security concern.
 :::
 
