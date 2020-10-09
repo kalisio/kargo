@@ -330,7 +330,7 @@ kargo_exec()
     exit 1
   fi
   pushd .kargo/scripts > /dev/null
-  source ./$SCRIPT
+  source ./$SCRIPT $2
   popd > /dev/null
 }
 
@@ -436,7 +436,7 @@ case $1 in
   build) kargo_build "$2";;
   configure) kargo_configure;;
   deploy) kargo_deploy "$2" "$3";;
-  exec) kargo_exec "$2";;
+  exec) kargo_exec "$2" "$3";;
   info) kargo_info;;
   image) kargo_image "$2" "$3";;
   labels) kargo_labels "$2";;

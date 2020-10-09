@@ -34,7 +34,6 @@ The services that can be built are the following:
 | `mapproxy` | the **MapProxy** application. The version to build is read from the `MAPPROXY_TAG` variable. |
 | `maputnik` | the **maputnik**. The version to build is read from the `MAPUTNIK_TAG` variable. |
 | `mapserver` | the **MapServer** application. The version to build is read from the `MAPSERVER_TAG` variable. |
-| `weacast-loaders` | The list of the loaders to be build is read from the `WEACAST_MODELS` variable. For all the loaders to be built, the version and database url are read from the `WEACAST_LOADER_TAG` and `WEACAST_DB_URL` variables. |
 
 ### configure
 
