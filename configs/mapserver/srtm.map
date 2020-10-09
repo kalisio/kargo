@@ -1,0 +1,19 @@
+LAYER
+  NAME "srtm"
+  METADATA
+      "wcs_label" "SRTM 4.1 (3 arc-secs)"
+      "wcs_formats" "geotiff16"
+      "wcs_nativeformat" "geotiff"
+      "wcs_extent" "-180.0095834 -60.0095855 180.0095920 60.0095841"
+      "wcs_resolution" "0.000833333353512 -0.000833333353512"
+  END
+  STATUS OFF
+  TYPE RASTER
+
+  TILEINDEX "/mnt/data/srtm.shp"
+  TILEITEM "location"
+
+  PROJECTION
+      "init=epsg:4326"
+  END
+END
