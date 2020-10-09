@@ -1,0 +1,25 @@
+LAYER
+    NAME    "ign_mask"
+    TYPE    POLYGON
+    STATUS  OFF
+
+    METADATA
+        "wms_attribution_onlineresource" "https://github.com/gregoiredavid/france-geojson"
+        "wms_enable_request" "!*" # hide layer from list of requestable wms layers
+    END
+
+    # DATA    "/mnt/data/ign_orthomask.shp"
+
+    CONNECTIONTYPE  OGR
+    CONNECTION      "/mnt/data/ign_orthomask.geojson"
+
+    CLASS
+        STYLE
+            COLOR   0 0 0
+        END
+    END
+
+    PROJECTION
+        AUTO
+    END
+END
