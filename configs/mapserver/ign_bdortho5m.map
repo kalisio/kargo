@@ -1,0 +1,53 @@
+LAYER
+    NAME    "ign_bdortho5m"
+    TYPE    RASTER
+    STATUS  OFF
+
+    # BDORTHO5M is very pixelated without this, seems related to EPSG:102110 -> EPSG:3857 reprojection
+    PROCESSING "RESAMPLE=AVERAGE"
+
+    METADATA
+        "wms_title" "IGN BDORTHO5M"
+        "wms_attribution_title" "IGN"
+        "wms_attribution_onlineresource" "https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#bd-ortho-5-m"
+        "wms_abstract" "Orthoimages from IGN BDORTHO5M"
+        "wms_format" "image/jpeg"
+        "wms_opaque" "1"
+    END
+
+    TILEINDEX   "/mnt/data/ign_bdortho5m.shp"
+    TILEITEM    "location"
+    TILESRS     "tile_srs"
+
+    PROJECTION
+        AUTO
+    END
+
+    MAXSCALEDENOM   50000
+    MASK            "ign_mask"
+END
+
+LAYER
+    NAME    "ign_bdortho5m_nomask"
+    TYPE    RASTER
+    STATUS  OFF
+
+    METADATA
+        "wms_title" "IGN BDORTHO5M"
+        "wms_attribution_title" "IGN"
+        "wms_attribution_onlineresource" "https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#bd-ortho-5-m"
+        "wms_abstract" "Orthoimages from IGN BDORTHO5M"
+        "wms_format" "image/jpeg"
+        "wms_opaque" "1"
+    END
+
+    TILEINDEX   "/mnt/data/ign_bdortho5m.shp"
+    TILEITEM    "location"
+    TILESRS     "tile_srs"
+
+    PROJECTION
+        AUTO
+    END
+
+    MAXSCALEDENOM   150000
+END

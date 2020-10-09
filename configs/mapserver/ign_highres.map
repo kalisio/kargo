@@ -1,0 +1,50 @@
+LAYER
+    NAME    "ign_highres"
+    TYPE    RASTER
+    STATUS  OFF
+
+    METADATA
+        "wms_title" "IGN BDORTHO / ORTHOHR"
+        "wms_attribution_title" "IGN"
+        "wms_attribution_onlineresource" "https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#ortho-hr-sous-licence-ouverte"
+        "wms_abstract" "Mix of orthoimages from IGN BDORTHO and ORTHOHR sets."
+        "wms_format" "image/jpeg"
+        "wms_opaque" "1"
+    END
+
+    TILEINDEX   "/mnt/data/ign_highres.shp"
+    TILEITEM    "location"
+    TILESRS     "tile_srs"
+
+    PROJECTION
+        AUTO
+    END
+
+    MAXSCALEDENOM   25000
+    MASK            "ign_mask"
+END
+
+LAYER
+    NAME    "ign_highres_nomask"
+    TYPE    RASTER
+    STATUS  OFF
+
+    METADATA
+        "wms_title" "IGN BDORTHO / ORTHOHR"
+        "wms_attribution_title" "IGN"
+        "wms_attribution_onlineresource" "https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#ortho-hr-sous-licence-ouverte"
+        "wms_abstract" "Mix of orthoimages from IGN BDORTHO and ORTHOHR sets."
+        "wms_format" "image/jpeg"
+        "wms_opaque" "1"
+    END
+
+    TILEINDEX   "/mnt/data/ign_highres.shp"
+    TILEITEM    "location"
+    TILESRS     "tile_srs"
+
+    PROJECTION
+        AUTO
+    END
+
+    MAXSCALEDENOM   75000
+END

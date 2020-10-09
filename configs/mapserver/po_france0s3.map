@@ -1,0 +1,23 @@
+LAYER
+    NAME    "po_france0s3"
+    TYPE    RASTER
+    STATUS  OFF
+
+    METADATA
+        "wms_title" "Planet Observer France 0s3"
+        "wms_attribution_title" "Planet Observer"
+        "wms_attribution_onlineresource" "https://planetobserver.com"
+        "wms_format" "image/jpeg"
+        "wms_opaque" "1"
+    END
+
+    TILEINDEX   "/mnt/data/po_france0s3.shp"
+    TILEITEM    "location"
+    TILESRS     "tile_srs"
+
+    PROJECTION
+        AUTO
+    END
+
+    MAXSCALEDENOM   600000
+END

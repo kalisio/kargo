@@ -1,0 +1,19 @@
+LAYER
+  NAME "dem"
+  METADATA
+    "wcs_label" "OpenMapTiles DEM (1 arc-secs)"
+    "wcs_formats" "geotiff16"
+    "wcs_nativeformat" "geotiff"
+    "wcs_extent" "-179.9804167 -57.0001389 179.9720833 72.0004167"
+    "wcs_resolution" "0.000277777777778 -0.000277777777778"
+  END
+  STATUS OFF
+  TYPE RASTER
+  
+  TILEINDEX "/mnt/data/dem.shp"
+  TILEITEM "location"
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+END
