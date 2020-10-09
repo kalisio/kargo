@@ -301,24 +301,24 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `weacast/weacast-arpege` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `world-1.4.1` |
-| `ARPEGE_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `367200` (102 hours)|
+| `ARPEGE_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days)|
 | `ARPEGE_WORLD_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `weacast/weacast-arpege` |
 | `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `europe-1.4.1` |
-| `ARPEGE_EUROPE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `367200` (102 hours)|
+| `ARPEGE_EUROPE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days)|
 | `ARPEGE_EUROPE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `weacast/weacast-arome` |
 | `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `france-1.4.1` |
-| `AROME_FRANCE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `151200` (42 hours)|
+| `AROME_FRANCE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `129600` (36 hours)|
 | `AROME_FRANCE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_HIGH_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `weacast/weacast-arome` |
 
 | `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `france-high-1.4.1` |
-| `AROME_FRANCE_HIGH_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `151200`(42 hours)|
+| `AROME_FRANCE_HIGH_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `86400`(24 hours)|
 | `AROME_FRANCE_HIGH_LOADER_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. | `weacast/weacast-gfs` |
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `world-1.4.1` |
-| `GFS_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `864000` (10 days) |
+| `GFS_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `259200` (3 days) |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 
