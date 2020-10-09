@@ -34,6 +34,7 @@ The services that can be built are the following:
 | `mapproxy` | the **MapProxy** application. The version to build is read from the `MAPPROXY_TAG` variable. |
 | `maputnik` | the **maputnik**. The version to build is read from the `MAPUTNIK_TAG` variable. |
 | `mapserver` | the **MapServer** application. The version to build is read from the `MAPSERVER_TAG` variable. |
+| `mapcache` | the **MapCache** application. The version to build is read from the `MAPCACHE_TAG` variable. |
 
 ### configure
 
@@ -51,7 +52,7 @@ When specifying `all`, it deploys all the stacks. The stacks are deployed in the
 
 ### exec
 
-`usage: kargo exec <script>`
+`usage: kargo exec <script> <arguments>`
 
 Tells **Kargo** to execute the given script. The script must be stored in the `scripts` folder. 
 
@@ -59,6 +60,9 @@ Tells **Kargo** to execute the given script. The script must be stored in the `s
 Using the `exec` command allows you to take into account the environment within your scripts.
 :::
 
+::: warning
+If you need to provide multiple arguments to the script, it requires double quotes around the arguments list.
+:::
 
 ### image load
 
