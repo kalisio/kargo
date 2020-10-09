@@ -46,7 +46,8 @@ function getGuidesSidebar () {
 function getReferenceSidebar () {
   return [
     'environment',
-    'cli'
+    'cli',
+    'helper-scripts'
   ]
 }
 
