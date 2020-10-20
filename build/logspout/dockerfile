@@ -1,4 +1,5 @@
 ARG VERSION
 FROM gliderlabs/logspout:$VERSION
 
+ONBUILD COPY ./build.sh /src/build.sh
 ONBUILD COPY ./modules.go /src/modules.go
