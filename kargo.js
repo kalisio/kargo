@@ -132,16 +132,16 @@ function diffConfig () {
   return true
 }*/
 
-function listEnvironment () {
-  let variables = []
-  _.forEach(_.toPairs(config.environment), variable => {
-    variables.push({ name: variable[0], value: variable[1]})
+function setEnvironment () {
+  if (!readStates()) return false
+  _.forEach(_.toPairs(states.config.environment), variable => {
+    shell.env[_.toUpper(_.snakeCase(variable[0]))] = variable[1]
   })
-  return variables
+  return true
 }
 
 function listStacks () {
-  return _.keys(config.stacks)
+  return _.keys(states.config.stacks)
 }
 
 function listServices (stack) {
@@ -237,7 +237,8 @@ async function apply () {
 
 async function deploy (stackOrAll) {
   debug('[subcommand] deploy')
-  if (!readConfig()) return
+  if (!setEnvironment()) return
+
   
   
     /*if (writeConfig()) {
@@ -251,25 +252,31 @@ async function deploy (stackOrAll) {
   }*/
 }
 
-function exec () {
+function exec (script) {
   debug('[subcommand] exec')
-  if (readConfig()) {
+  if (!setEnvironment()) return false
+  let scriptFile = path.join(runtimeScriptsDir, script)
+  if (!fs.existsSync(scriptFile)) {
+    log('The specified script file \'' + script + '\' does not exist', 'error')
+    return
+  }
+  if (shell.exec(scriptFile).code!==0) {
+    log('An error has occured while executing \'' + script + '\'', 'error')
   }
 }
 
 function info () {
   debug('[subcommand] info')
-  if (readConfig()) {
-    _.forEach(listStacks(), stack => {
-      console.log('- %s', stack)
-      _.forEach(listServices(stack), service => {
-        console.log('  - %s', service.name)
-        _.forEach(_.toPairs(service.settings), settings => {
-          console.log('    - %s: %s', settings[0], settings[1])
-        })
+  if (!readStates()) return false
+  _.forEach(listStacks(), stack => {
+    console.log('- %s', stack)
+    _.forEach(listServices(stack), service => {
+      console.log('  - %s', service.name)
+      _.forEach(_.toPairs(service.settings), settings => {
+        console.log('    - %s: %s', settings[0], settings[1])
       })
     })
-  }
+  })
 }
 
 function plan () {
@@ -289,6 +296,7 @@ function pull () {
 }
 
 function use (workspace) {
+  debug('[subcommand] use')
   // TODO check states
   // Check whether the specified path exists
   if (!fs.existsSync(workspace)) {
@@ -314,7 +322,12 @@ function use (workspace) {
   // Configure the states  
   states = {
     'workspace': { 'name': path.basename(workspace), 'path': workspace },
-    'config': { environment: {}, labels: {}, stacks: {} }
+    'config': { 
+      environment: {
+        "kargo-version": require('./package.json').version
+      }, 
+      labels: {}, 
+      stacks: {} }
   }
   // Save the states
   if (writeStates()) {
@@ -345,7 +358,6 @@ program
 program
   .command('use <workspace>')
   .action((workspace) => use(workspace))
-  
- program.parse(process.argv)
+program.parse(process.argv)
 
 
