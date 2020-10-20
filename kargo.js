@@ -69,10 +69,6 @@ function readStates () {
 }
 
 function writeStates () {
-  if (shell.mkdir('-p', runtimeDir).code!==0) {
-    log('An error has occured while creating ' + runtimeDir, 'error')
-    return false
-  }
   try {
     fs.writeFileSync(runtimeStatesFile, JSON.stringify(states,  undefined, 2))
   } catch (error) {
@@ -296,11 +292,19 @@ function use (workspace) {
     log('The workspsace \'' + workspace + '\' does not exist', 'error')
     return
   }
+  let workspaceConfigFile = path.join(workspace, workspaceConfigFileName)
+  if (!fs.existsSync(workspaceConfigFile)) {
+    log('The workspsace \'' + workspace + '\' does not contains any \'config.json\' file', 'error')
+  }
+  // Ensure the runtime structure exists
+  shell.mkdir('-p', runtimeDir)
+  shell.mkdir('-p', runtimeDeployDir)
+  shell.mkdir('-p', runtimeConfigsDir)
+  shell.mkdir('-p', runtimeScriptsDir)
+  // Configure the states  
   _.set(states, 'workspace', { name: path.basename(workspace), path: workspace })
+  // Save the states
   if (writeStates()) {
-    shell.mkdir('-p', runtimeDeployDir)
-    shell.mkdir('-p', runtimeConfigsDir)
-    shell.mkdir('-p', runtimeScriptsDir)
     log('Switched to \'' + states.workspace.name + '\'')
   }
 }
