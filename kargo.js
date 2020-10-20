@@ -122,17 +122,8 @@ function diffConfig () {
   return jsondiffpatch.diff(runtimeConfig, config)
 }
 
-/*function writeConfig () {
-  try {
-    fs.writeFileSync(runtimeConfigFile, JSON.stringify(config, undefined, 2))
-  } catch (error) {
-    log(error, 'error')
-    return false
-  }
-  return true
-}*/
-
 function setEnvironment () {
+  debug('[function] setEnvironment')
   if (!readStates()) return false
   _.forEach(_.toPairs(states.config.environment), variable => {
     shell.env[_.toUpper(_.snakeCase(variable[0]))] = variable[1]
@@ -196,16 +187,25 @@ async function deployService (service) {
   return deployFiles
 }
 
+
+
+function updateStack (stack, delta) {
+  debug('[function] updateStack ' + stack + ' ' + delta)
+}
+
+function updateLabels (node, delta) {
+  debug('[function] updateLabels: ' + node + ' ' + delta)
+}
+
 async function apply () {
   debug('[subcommand] apply')
   // Compute the difference
   let delta = diffConfig()
   if (!delta) return
-  console.log(delta)
   // Apply the difference on labels
   let labels = _.get(delta, 'labels', undefined)
-  console.log(labels)
-  _.forEach(_.toPairs(labels), node => {
+  _.forEach(_.toPairs(labels), pair => updateLabels(pair[0], pair[1]))
+ /* {
     let command = './scripts/update-labels.sh ' + node[0] + ' '
     if (node[1].length > 2 ) {
       console.log('remove labels ' + node[1] + ' on node ' + node[0])
@@ -218,12 +218,10 @@ async function apply () {
       command += '"' + node[1] + '"'
     }
     shell.exec(command)
-  })
+  })*/
   // Apply the difference on stacks
   let stacks = _.get(delta, 'stacks', undefined)
-  _.forEach(_.toPairs(stacks), stack => {
-    console.log(stack[0] + ' must be updated')
-  })
+  _.forEach(_.toPairs(stacks), pair => updateStack(pair[0], pair[1]))
   // Update the script files
   shell.rm('-rf', runtimeScriptsDir);
   shell.cp('-R', scriptsDir, runtimeScriptsDir)
@@ -297,7 +295,6 @@ function pull () {
 
 function use (workspace) {
   debug('[subcommand] use')
-  // TODO check states
   // Check whether the specified path exists
   if (!fs.existsSync(workspace)) {
     log('The path \'' + workspace + '\' does not exist', 'error')
