@@ -69,6 +69,10 @@ function readStates () {
 }
 
 function writeStates () {
+  if (shell.mkdir('-p', runtimeDir).code!==0) {
+    log('An error has occured while creating ' + runtimeDir, 'error')
+    return false
+  }
   try {
     fs.writeFileSync(runtimeStatesFile, JSON.stringify(states,  undefined, 2))
   } catch (error) {
@@ -281,7 +285,7 @@ function pull () {
   debug('[subcommand] pull')
   if (!readStates()) return false
   shell.cd(workspaceDir)
-  if (shell.exec('git pull').code !== 0) {
+  if (shell.exec('git pull').code!==0) {
     log('An error has occured while pulling ' + workspaceDir, 'error')
   }
 }
