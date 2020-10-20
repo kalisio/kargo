@@ -6,6 +6,10 @@ services:
     volumes:
       - /etc/hostname:/etc/host_hostname:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - 'slack'
+    port:
+      - "8000:80"
     environment:
       - SLACK_WEBHOOK_URL
       - SLACK_MESSAGE_FILTER=${SLACK_LOGSPOUT_FILTER}
