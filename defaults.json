@@ -1,0 +1,56 @@
+{
+  "express-gateway": {
+    "image": "kalisio/express-gateway",
+    "tag": "1.16.9",
+    "replicas": 1
+  },
+  "grafana": {
+    "image": "grafana/grafana",
+    "tag": "6.1.6"
+  },
+  "hubeau": {
+    "stations-images": "kalisio/k-hubeau",
+    "stations-tag": "stations-1.2.0",
+    "stations-cron": "0 0 0 * * *",
+    "stations-debug": "",
+    "observations-images": "kalisio/k-hubeau",
+    "observations-tag": "obseervations-1.2.0",
+    "observations-ttl": 2592000,
+    "observations-history": 86400000,
+    "observations-timeout": 1800000,
+    "observations-success-rate": 0.75,
+    "observations-cron": "0 */15 * * * *",
+    "observations-debug": ""
+  },
+  "k2": {
+    "image": "kalisio/k2",
+    "tag": "latest",
+    "data-path": "/srv/k2",
+    "replicas": 1
+  },
+  "kano": {
+    "image": "kalisio/kano",
+    "tag": "1.0.0-prod",
+    "log-level": "verbose",
+    "replicas": 1,
+    "debug": ""
+  },
+  "mapcache": {
+    "image": "kalisio/mapcache",
+    "tag": "1.10",
+    "data-path": "/srv/mapcache",
+    "replicas": 1
+
+  },
+  "mapserver": {
+    "image": "kalisio/mapserver",
+    "tag": "7.4",
+    "data-path": "/srv/mapserver",
+    "replicas": 1
+  },
+  "maputnik": {
+    "image": "kalisio/maputnik",
+    "tag": "1.6.1",
+    "replicas": 1    
+  }
+}
