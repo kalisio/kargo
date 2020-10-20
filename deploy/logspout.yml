@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  logspout:
+    image: ${LOGSPOUT_IMAGE}:${LOGSPOUT_TAG}
+    volumes:
+      - /etc/hostname:/etc/host_hostname:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:80/healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1m
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-network
+
+networks:
+  kargo-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+    
