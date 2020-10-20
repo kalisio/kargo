@@ -1,0 +1,11 @@
+{
+  "express-gateway": {
+    "image": "kalisio/express-gateway",
+    "tag": "1.16.9",
+    "replicas": 1
+  },
+  "grafana": {
+    "image": "grafana/grafana",
+    "tag": "6.1.6"
+  }
+}
