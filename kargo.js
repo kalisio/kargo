@@ -201,10 +201,12 @@ async function apply () {
   // Compute the difference
   let delta = diffConfig()
   if (!delta) return
+  console.log(delta)
   // Apply the difference on labels
   let labels = _.get(delta, 'labels', undefined)
+  console.log(labels)
   _.forEach(_.toPairs(labels), node => {
-    let command = './scripts/update-labels ' + node[0] + ' '
+    let command = './scripts/update-labels.sh ' + node[0] + ' '
     if (node[1].length > 2 ) {
       console.log('remove labels ' + node[1] + ' on node ' + node[0])
       command += '""'
@@ -288,13 +290,21 @@ function pull () {
 
 function use (workspace) {
   // TODO check states
+  // Check whether the specified path exists
   if (!fs.existsSync(workspace)) {
-    log('The workspsace \'' + workspace + '\' does not exist', 'error')
+    log('The path \'' + workspace + '\' does not exist', 'error')
     return
   }
+  // Check whether the path is a directory
+  if (!fs.lstatSync(workspace).isDirectory()) {
+    log('The path \'' + workspace + '\' must be a directory', 'error')
+    return
+  }
+  // Check wether it contains a config.json file
   let workspaceConfigFile = path.join(workspace, workspaceConfigFileName)
   if (!fs.existsSync(workspaceConfigFile)) {
-    log('The workspsace \'' + workspace + '\' does not contains any \'config.json\' file', 'error')
+    log('The directory \'' + workspace + '\' does not contains any \'config.json\' file', 'error')
+    return
   }
   // Ensure the runtime structure exists
   shell.mkdir('-p', runtimeDir)
@@ -302,7 +312,10 @@ function use (workspace) {
   shell.mkdir('-p', runtimeConfigsDir)
   shell.mkdir('-p', runtimeScriptsDir)
   // Configure the states  
-  _.set(states, 'workspace', { name: path.basename(workspace), path: workspace })
+  states = {
+    'workspace': { 'name': path.basename(workspace), 'path': workspace },
+    'config': { environment: {}, labels: {}, stacks: {} }
+  }
   // Save the states
   if (writeStates()) {
     log('Switched to \'' + states.workspace.name + '\'')
