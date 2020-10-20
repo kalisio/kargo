@@ -7,7 +7,7 @@ services:
       - /etc/hostname:/etc/host_hostname:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command:
-      - 'slack://localhost:80?filter.name=*aktnmap'
+      - 'slack://localhost:80?filter.sources=stdout%2Cstderr&filter.name=*'
     ports:
       - target: 80
         published: 8000
