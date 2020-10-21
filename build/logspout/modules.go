@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/kalisio/logspout-slack"
 	_ "github.com/gliderlabs/logspout/adapters/multiline"
 	_ "github.com/gliderlabs/logspout/adapters/raw"
 	_ "github.com/gliderlabs/logspout/adapters/syslog"
@@ -10,5 +11,4 @@ import (
 	_ "github.com/gliderlabs/logspout/transports/tcp"
 	_ "github.com/gliderlabs/logspout/transports/tls"
 	_ "github.com/gliderlabs/logspout/transports/udp"
-	_ "github.com/kalisio/logspout-slack"
 )
