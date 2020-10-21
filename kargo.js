@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const shell = require('shelljs')
 const _ = require('lodash')
-const jsondiffpatch = require('jsondiffpatch')
+const jsondiffpatch = require('jsondiffpatch').create({ textDiff: { minLength: 999 } })
 const envsub = require('envsub')
 const makeDebug = require('debug')
 const debug = makeDebug('kargo')
@@ -191,10 +191,18 @@ async function deployService (service) {
 
 function updateStack (stack, delta) {
   debug('[function] updateStack ' + stack + ' ' + delta)
+  return true
 }
 
 function updateLabels (node, delta) {
   debug('[function] updateLabels: ' + node + ' ' + delta)
+  log('Update ' + node + ' with labels ' + delta[1])
+  const command = './scripts/update-labels.sh ' + node + ' "' + delta[1] + '"'
+  if (shell.exec(command).code!==0) {
+    log('An errror has occcured while upating labels on node \'' + node + '\'', 'error')
+    return false
+  }
+  return true
 }
 
 async function apply () {
@@ -203,51 +211,31 @@ async function apply () {
   let delta = diffConfig()
   if (!delta) return
   // Apply the difference on labels
+  let errorOccured = false
   let labels = _.get(delta, 'labels', undefined)
-  _.forEach(_.toPairs(labels), pair => updateLabels(pair[0], pair[1]))
- /* {
-    let command = './scripts/update-labels.sh ' + node[0] + ' '
-    if (node[1].length > 2 ) {
-      console.log('remove labels ' + node[1] + ' on node ' + node[0])
-      command += '""'
-    } else if (node[1].length > 1) {
-      console.log('update node ' + node[0] + ' with labels ' + node[1])
-      command += '"' + node[1] + '"'
-    } else {
-      console.log('add labels ' + node[1] + ' on node ' + node[0])
-      command += '"' + node[1] + '"'
+  _.forEach(_.toPairs(labels), pair => {
+    if(!updateLabels(pair[0], pair[1])) {
+       errorOccured = true
+       return false
     }
-    shell.exec(command)
-  })*/
+  })
+  if (errorOccured) return
   // Apply the difference on stacks
   let stacks = _.get(delta, 'stacks', undefined)
-  _.forEach(_.toPairs(stacks), pair => updateStack(pair[0], pair[1]))
+  _.forEach(_.toPairs(stacks), pair => {
+    if (!updateStack(pair[0], pair[1])) {
+      errorOccured = true
+      return false
+    }
+  })
+  if (errorOccured) return
   // Update the script files
   shell.rm('-rf', runtimeScriptsDir);
   shell.cp('-R', scriptsDir, runtimeScriptsDir)
   if (fs.existsSync(workspaceScriptsDir)) shell.cp('-R', path.join(workspaceScriptsDir, '*'), runtimeScriptsDir)
-
-
   // Override the runtime configuration 
-  //_.set(states, 'config', config)
-  //writeStates()
-}
-
-async function deploy (stackOrAll) {
-  debug('[subcommand] deploy')
-  if (!setEnvironment()) return
-
-  
-  
-    /*if (writeConfig()) {
-      _.forEach(listEnvironment(), variable => {
-        shell.env[_.toUpper(_.snakeCase(variable.name))] = variable.value
-      })
-      _.forEach(listStacks(), stack => {
-        if (stackOrAll === 'all' || stackOrAll === stack) await deployStack(stack)
-      })
-    }
-  }*/
+  _.set(states, 'config', config)
+  writeStates()
 }
 
 function exec (script) {
@@ -337,9 +325,6 @@ program
 program
   .command('apply')
   .action(() => apply())
-program
-  .command('deploy <stack|all>')
-  .action((stack) => deploy(stack))  
 program
   .command('exec <script>')
   .action((script) => exec(script))
