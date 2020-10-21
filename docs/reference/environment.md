@@ -49,6 +49,17 @@ For each stack, there must be such an entry:
 | `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
 | `EXPRESS_GATEWAY_KEY_SECRET` | A secret that can be used to identify JWT issuer. 
 
+### Logspout
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `LOGSPOUT_IMAGE` | The image to be used. | `kalisio/logspout` |
+| `LOGSPOUT_TAG` | The version to be used. | `v3.2.11` |
+| `LOGSPOUT_SLACK_WEBHOOK_URL` | The Slack webhook URL to be used to post messages
+| `LOGSPOUT_SLACK_MESSAGE_FILTER` | The regex to be used to filter messages to be sent to Slack
+
+More configuration details on our logspout [Slack adapter](https://github.com/kalisio/logspout-slack).
+
 ### Grafana
 
 | Variable | Description | Default value |

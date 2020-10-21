@@ -65,6 +65,7 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [OpenAQ](https://https://github.com/kalisio/k-openaq)
   * [PostGis](https://postgis.net/)
   * [Prometheus](https://prometheus.io/)
+  * [Logspout](https://github.com/gliderlabs/logspout)
   * [redis](https://redis.io/)
   * [Redis Commander](http://joeferner.github.io/redis-commander/)
   * [Seeder](https://github.com/kalisio/k-seeder)
@@ -82,6 +83,7 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
 By default, most of the images of the services are pulled from the [Docker Hub](https://hub.docker.com/). Meanwhile **Kargo** provides a mean to build some of them to ensure better customization and maintainability:
 
 * Express Gateway
+* Logspout
 * MapProxy
 * MapServer
 * Kano
