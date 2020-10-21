@@ -1,4 +1,8 @@
 {
+  "docker-socket-proxy": {
+    "image": "tecnativa/docker-socket-proxy",
+    "tag": "latest"
+  },
   "express-gateway": {
     "image": "kalisio/express-gateway",
     "tag": "1.16.9",
@@ -51,6 +55,34 @@
   "maputnik": {
     "image": "kalisio/maputnik",
     "tag": "1.6.1",
-    "replicas": 1    
+    "replicas": 1    ,
+  },
+  "redis": {
+    "image": "redis",
+    "tag": 5,
+    "url": "redis://redis:6379"
+  },
+  "redis-commander": {
+    "image": "rediscommander/redis-commander",
+    "tag": "latest"
+  },
+  "traefik": {
+    "image": "traefik",
+    "tag": "1.7-alpine",
+    "acme-server": "https://acme-v02.api.letsencrypt.org/directory",
+    "replicas": 1
+  },
+  "teleray": {
+    "image": "kalisio/k-teleray",
+    "tag": "1.2.0",
+    "measurements-ttl": 2592000,
+    "cron": "0 */10 * * * *",
+    "debug": ""
+  },
+  "tileserver-gl": {
+    "image": "maptiler/tileserver-gl",
+    "tag": "v3.0.0",
+    "data-path": "/srv/tileserver-gl",
+    "replicas": 1
   }
 }
