@@ -58,7 +58,7 @@ For each stack, there must be such an entry:
 | `LOGSPOUT_SLACK_WEBHOOK_URL` | The Slack webhook URL to be used to post messages
 | `LOGSPOUT_SLACK_MESSAGE_FILTER` | The regex to be used to filter messages to be sent to Slack
 
-More configuration details on our logspout [Slack adapter](https://github.com/kalisio/logspout-slack).
+More configuration details on our Logspout [Slack adapter](https://github.com/kalisio/logspout-slack).
 
 ### Grafana
 
