@@ -68,7 +68,6 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [Logspout](https://github.com/gliderlabs/logspout)
   * [redis](https://redis.io/)
   * [Redis Commander](http://joeferner.github.io/redis-commander/)
-  * [Seeder](https://github.com/kalisio/k-seeder)
   * [Teleray](https://github.com/kalisio/k-teleray)
   * [TileServer GL](http://tileserver.org/)
   * [Thredds](https://www.unidata.ucar.edu/software/thredds/current/tds/)

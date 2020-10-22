@@ -230,15 +230,6 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `REDIS_TAG` | The version to be used. | `5` |
 | `REDIS_URL` | The URL to the service. |  `redis://redis:6379` |
 
-### Seeder
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `SEEDER_IMAGE` | The image to be used. | `kalisio/k-seeder` |
-| `SEEDER_TAG` | The version to be used. | `latest` |
-| `SEEDER_CONFIG_PATH` | The path to the seeder configuration. | `/home/ubuntu/kargo/.kargo/configs/seeder` |
-| `SEEDER_MAPPROXY_CONFIG_PATH` | The path to the **MapProxy** configuration. | `/home/ubuntu/kargo/.kargo/configs/mapproxy` |
-
 ### Teleray
 
 | Variable | Description | Default value |
