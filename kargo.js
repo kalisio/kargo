@@ -5,28 +5,18 @@ const path = require('path')
 const fs = require('fs')
 const shell = require('shelljs')
 const _ = require('lodash')
-const jsondiffpatch = require('jsondiffpatch').create({ textDiff: { minLength: 999 } })
+const jsondiffpatch = require('jsondiffpatch')
+const jsondiffpatchInstance = require('jsondiffpatch').create({ textDiff: { minLength: 999 } })
 const envsub = require('envsub')
 const makeDebug = require('debug')
 const debug = makeDebug('kargo')
 
-const defaultsFile = path.join('.', 'defaults.json')
 const deployDir = 'deploy'
 const configsDir = 'configs'
 const scriptsDir = 'scripts'
-const runtimeDir = '.kargo'
-const runtimeDeployDir = path.join(runtimeDir, deployDir)
-const runtimeConfigsDir = path.join(runtimeDir, configsDir)
-const runtimeScriptsDir = path.join(runtimeDir, scriptsDir)
-const runtimeStatesFile = path.join(runtimeDir, 'states.json')
-const workspaceConfigFileName = 'config.json'
-let workspaceDir = null
-let workspaceDeployDir = null
-let workspaceConfigsDir = null
-let workspaceScriptsDir = null
-let workspaceConfigFile = null
 
-const defaults = JSON.parse(fs.readFileSync(defaultsFile))
+const defaults = JSON.parse(fs.readFileSync(path.join('.', 'defaults.json')))
+
 let states = null
 let config = null
 
@@ -47,30 +37,62 @@ function log (message, type = 'info') {
   console.error('%s[kargo] %s\x1b[0m', color, message)
 }
 
+function getRuntimeElementPath (element) {
+  const runtimeDir = '.kargo'
+  switch (element) {
+    case 'deployDir': 
+      return path.join(runtimeDir, deployDir)
+    case 'configsDir':
+      return path.join(runtimeDir, configsDir)
+    case 'scriptsDir': 
+      return path.join(runtimeDir, scriptsDir)
+    case 'statesFile': 
+      return path.join(runtimeDir, 'states.json')
+    default:
+  }
+  return runtimeDir
+}
+
+function getWorkspaceElementPath (element) {
+  const workspaceDir = _.get(states, 'workspace.path')
+  switch (element) {
+    case 'deployDir': 
+      return path.join(workspaceDir, deployDir)
+    case 'configsDir':
+      return path.join(workspaceDir, configsDir)
+    case 'scriptsDir': 
+      return path.join(workspaceDir, scriptsDir)
+    case 'configFile': 
+      return path.join(workspaceDir, _.get(states, 'workspace.configFile'))
+    default:
+  }
+  return workspaceDir
+}
+
 function readStates () {
-  debug('[function] readStates')
+  debug('(readStates)')
+  // Read the states file
   try {
-    states =  JSON.parse(fs.readFileSync(runtimeStatesFile))
+    states =  JSON.parse(fs.readFileSync(getRuntimeElementPath('statesFile')))
   } catch (error) {
-    log('It looks like you have not selected any workspace. You must select a worksapce using the command \'use\'', 'error')
+    log('It looks like you haven\'t selected any workspace', 'error') 
+    log('You must select a worksapce using the command \'use\'')
     return false
   }
+  // Ensures the workspace is correct
   const workspace = _.get(states, 'workspace', null)
   if (!workspace) {
-    log('It looks like the states file is corrupted. Did you select a worksapce using the command \'use\'', 'error')
+    log('It looks like the states file is corrupted', 'error')
+    log('Did you select a worksapce using the command \'use\' ?')
     return false
   } 
-  workspaceDir = workspace.path
-  workspaceConfigFile = path.join(workspaceDir, workspaceConfigFileName)
-  workspaceDeployDir = path.join(workspaceDir, deployDir)
-  workspaceConfigsDir = path.join(workspaceDir, configsDir)
-  workspaceScriptsDir = path.join(workspaceDir, scriptsDir)
   return true
 }
 
 function writeStates () {
+  debug('(writeStates)')
   try {
-    fs.writeFileSync(runtimeStatesFile, JSON.stringify(states,  undefined, 2))
+    fs.writeFileSync(getRuntimeElementPath('statesFile'), JSON.stringify(states,  undefined, 2))
   } catch (error) {
     log(error, 'error')
     return false
@@ -78,12 +100,17 @@ function writeStates () {
   return true
 }
 
+function getStates() {
+  debug('(getStates)')
+  if (states) return true
+  return readStates()
+}
+
 function readConfig () {
-  debug('[function] readConfig')
-  // Read the states
-  if (!readStates()) return false
+  debug('(readConfig)')
+  if (!getStates()) return false
   try {
-    config = JSON.parse(fs.readFileSync(workspaceConfigFile))
+    config = JSON.parse(fs.readFileSync(getWorkspaceElementPath('configFile')))
   } catch (error) {
     log(error, 'error')
     return null
@@ -114,16 +141,22 @@ function readConfig () {
   return true
 }
 
+function getConfig() {
+  debug('(getConfig)')
+  if (config) return true
+  return readConfig()
+}
+
 function diffConfig () {
-  debug('[function] diffConfig')
-  if (!readConfig()) return null
+  debug('(diffConfig)')
+  if (!getConfig()) return null
   // Compute the difference between the configuration and the runtime configuration
   const runtimeConfig = _.get(states, 'config', undefined)
-  return jsondiffpatch.diff(runtimeConfig, config)
+  return jsondiffpatchInstance.diff(runtimeConfig, config)
 }
 
 function setEnvironment () {
-  debug('[function] setEnvironment')
+  debug('(setEnvironment)')
   if (!readStates()) return false
   _.forEach(_.toPairs(states.config.environment), variable => {
     shell.env[_.toUpper(_.snakeCase(variable[0]))] = variable[1]
@@ -131,50 +164,28 @@ function setEnvironment () {
   return true
 }
 
-function listStacks () {
-  return _.keys(states.config.stacks)
-}
-
-function listServices (stack) {
-  let services = []
-  _.forEach(_.toPairs(config.stacks[stack]), service => {
-    services.push({ name: service[0], settings: service[1]})
-  })
-  return services
-}
-
-async function deployStack (stack) {
-  log('Deploying \'' + stack + '\' stack')
-  let stackDeployFiles = []
-  _.forEach(listServices(stack), service => {
-    let serviceDeployFiles = deployService(service)
-    if (serviceDeployFiles.length === 0) return false
-    console.log(serviceDeployFiles)
-    stackDeployFiles = _.concat(stackDeployFiles, serviceDeployFiles)
-  })
-  console.log(stackDeployFiles)
-  return true
-}
-
-async function deployService (service) {
+async function deployService (service, properties) {
+  debug('(deployService) ' + service)
   // Update environement 
-  let serviceNamePrefix = _.toUpper(_.snakeCase(service.name))
+  /*let serviceNamePrefix = _.toUpper(_.snakeCase(service.name))
   _.forEach(_.toPairs(service.settings), settings => {
     shell.env[serviceNamePrefix + '_' + _.toUpper(_.snakeCase(settings[0]))] = settings[1]
-  })
+  })*/
   // Update config files
-  let serviceConfigDir = path.join('configs', service.name)
-  if (fs.existsSync(serviceConfigDir)) shell.cp('-Ru', serviceConfigDir, runtimeConfigsDir)
-  if (fs.existsSync(path.join(states.workspace.path, serviceConfigDir))) shell.cp('-Ru', path.join(states.workspace.path, serviceConfigDir), runtimeConfigsDir)
+  const serviceConfigDir = path.join('configs', service)
+  if (fs.existsSync(serviceConfigDir)) shell.cp('-Ru', serviceConfigDir, getRuntimeElementPath('configsDir'))
+  const workspaceServiceConfigsDir = path.join(getWorkspaceElementPath('configsDir'), service)
+  if (fs.existsSync(workspaceServiceConfigsDir)) shell.cp('-Ru', workspaceServiceConfigsDir, getRuntimeElementPath('configsDir'))
   // Updated config template file
-  const templateFilesFilter = '.*\.tpl'
-  const templateFiles = shell.find(path.join(runtimeConfigsDir, service.name)).filter(file => file.match(templateFilesFilter))
+  //const templateFilesFilter = '.*\.tpl'
+  //const templateFiles = shell.find(path.join(runtimeConfigsDir, service.name)).filter(file => file.match(templateFilesFilter))
   //const envsubOptions = 
-  _.forEach(templateFiles, file => {
+  //_.forEach(templateFiles, file => {
     //await substituteFile()
-  })
+  //})
   // Update default deploy file
-  let deployFiles = [ service.name + '.yml' ]
+  let deployFiles = []
+  /*const serviceDeployFile = 
   shell.cp(path.join(deployDir, deployFiles[0]), path.join(runtimeDeployDir, deployFiles[0]))
   // Updated extention files
   const extensionFilesFilter = service.name + '-.*\.yml'
@@ -183,38 +194,103 @@ async function deployService (service) {
     let extentionFile =  path.basename(file)
     shell.cp(file, path.join(runtimeDeployDir, extentionFile))
     deployFiles.push(extentionFile)
-  })
+  })*/
   return deployFiles
 }
 
-
-
-function updateStack (stack, delta) {
-  debug('[function] updateStack ' + stack + ' ' + delta)
+function removeService (service) {
+  debug('(removeService) ' + service)
+  log('Removing service \'' + service + '\'')
+  // Remove configs dir if any
+  const runtimeServiceConfigsDir = path.join(getRuntimeElementPath('configsDir'), service)
+  if (fs.existsSync(runtimeServiceConfigsDir)) shell.rm('-rf', runtimeServiceConfigsDir)
+  // Remove deploy files
+  const deployFilesFilter = service.name + '.*\.yml'
+  let deployFiles = shell.find(path.join(getRuntimeElementPath('deployDir'))).filter(file => file.match(deployFilesFilter))
+  _.forEach(deployFiles, deployFile => shell.rm(deployFile))
   return true
 }
 
+function deployStack (stack, services) {
+  debug('(deployStack) ' + stack)
+  log('Deploying stack \'' + stack + '\'')
+  let stackDeployFiles = []
+  let errorOccured = false
+  _.forEach(_.toPairs(services), pair => {
+    let serviceDeployFiles = deployService(pair[0], pair[1])
+    if (serviceDeployFiles.length === 0) {
+      errorOccured = false
+      return false
+    }
+    stackDeployFiles = _.concat(stackDeployFiles, serviceDeployFiles)
+  })
+  if (errorOccured) return []
+  console.log(stackDeployFiles)
+  return stackDeployFiles
+}
+
+function removeStack (stack, services) {
+  debug('(removeStack) ' + stack)
+  log('Removing stack \'' + stack + '\'')
+  let errorOccured = false
+  _.forEach(_.toPairs(services), pair => {
+    if (!removeService(pair[0])) {
+      errorOccured = true
+      return false // exit iteration
+    }
+  })
+  if (errorOccured) return false
+  //console.log(stackDeployFiles)
+  return true
+}
+
+function updateStack (stack, delta) {
+  debug('(updateStack) ' + stack + ' ' + delta)
+  if (delta.length === 3) {
+    log('Remove ' + stack)
+    return removeStack(stack, delta[0])
+  }
+  if (delta.length === 1) {
+    log('Add ' + stack)
+    return deployStack(stack, delta[0])
+  }
+  log('Update ' + stack)
+  if (!removeStack(stack, delta[0])) return false
+  return deployStack(stack, delta[1])
+}
+
 function updateLabels (node, delta) {
-  debug('[function] updateLabels: ' + node + ' ' + delta)
-  log('Update ' + node + ' with labels ' + delta[1])
-  const command = './scripts/update-labels.sh ' + node + ' "' + delta[1] + '"'
-  if (shell.exec(command).code!==0) {
+  debug('(updateLabels) ' + node + ' ' + delta)
+  const labels = ''
+  if (delta.length === 3) {
+    log('Removing labels ' + delta[0] + ' from node ' + node)
+  } else if (delta.length === 1) {
+    log('Adding labels ' + delta[0] + ' to node ' + node)
+    labels = delta[0]
+  } else {
+    log('Updating node ' +  node + ' with labels ' + delta[1])
+    labels = delta[1]
+  }
+  const command = './scripts/update-labels.sh ' + node + '"' + labels + '"'
+ /* if (shell.exec(command).code!==0) {
     log('An errror has occcured while upating labels on node \'' + node + '\'', 'error')
     return false
-  }
+  } */
   return true
 }
 
 async function apply () {
-  debug('[subcommand] apply')
+  debug('[apply]')
   // Compute the difference
   let delta = diffConfig()
   if (!delta) return
+  // Override the runtime configuration 
+  _.set(states, 'config', config)
   // Apply the difference on labels
   let errorOccured = false
   let labels = _.get(delta, 'labels', undefined)
   _.forEach(_.toPairs(labels), pair => {
-    if(!updateLabels(pair[0], pair[1])) {
+    if (!updateLabels(pair[0], pair[1])) {
        errorOccured = true
        return false
     }
@@ -230,18 +306,20 @@ async function apply () {
   })
   if (errorOccured) return
   // Update the script files
-  shell.rm('-rf', runtimeScriptsDir);
-  shell.cp('-R', scriptsDir, runtimeScriptsDir)
-  if (fs.existsSync(workspaceScriptsDir)) shell.cp('-R', path.join(workspaceScriptsDir, '*'), runtimeScriptsDir)
+  shell.rm('-rf', getRuntimeElementPath('scriptsDir'));
+  shell.cp('-R', scriptsDir, getRuntimeElementPath('scriptsDir'))
+  if (fs.existsSync(getWorkspaceElementPath('scriptsDir'))) {
+    shell.cp('-R', path.join(getWorkspaceElementPath('scriptsDir'), '*'), getRuntimeElementPath('scriptsDir'))
+  }
   // Override the runtime configuration 
-  _.set(states, 'config', config)
+  //_.set(states, 'config', config)
   writeStates()
 }
 
 function exec (script) {
-  debug('[subcommand] exec')
+  debug('[exec]')
   if (!setEnvironment()) return false
-  let scriptFile = path.join(runtimeScriptsDir, script)
+  let scriptFile = path.join(getRuntimeElementPath('scriptsDir'), script)
   if (!fs.existsSync(scriptFile)) {
     log('The specified script file \'' + script + '\' does not exist', 'error')
     return
@@ -252,7 +330,7 @@ function exec (script) {
 }
 
 function info () {
-  debug('[subcommand] info')
+  debug('[info]')
   if (!readStates()) return false
   _.forEach(listStacks(), stack => {
     console.log('- %s', stack)
@@ -266,58 +344,49 @@ function info () {
 }
 
 function plan () {
-  debug('[subcommand] plan')
+  debug('[plan]')
   let delta = diffConfig()
   if (!delta) return
-  console.log(jsondiffpatch.formatters.console.format(delta))
+  jsondiffpatch.formatters.console.log(delta)
 }
 
 function pull () {
-  debug('[subcommand] pull')
-  if (!readStates()) return false
-  shell.cd(workspaceDir)
+  debug('[pull]')
+  if (!getStates()) return false
+  shell.pushd(workspaceDir)
   if (shell.exec('git pull').code!==0) {
     log('An error has occured while pulling ' + workspaceDir, 'error')
   }
+  shell.popd()
+  plan()
 }
 
-function use (workspace) {
-  debug('[subcommand] use')
+function use (workspaceConfigFile) {
+  debug('[use] ' + workspaceConfigFile)
   // Check whether the specified path exists
-  if (!fs.existsSync(workspace)) {
-    log('The path \'' + workspace + '\' does not exist', 'error')
-    return
-  }
-  // Check whether the path is a directory
-  if (!fs.lstatSync(workspace).isDirectory()) {
-    log('The path \'' + workspace + '\' must be a directory', 'error')
-    return
-  }
-  // Check wether it contains a config.json file
-  let workspaceConfigFile = path.join(workspace, workspaceConfigFileName)
   if (!fs.existsSync(workspaceConfigFile)) {
-    log('The directory \'' + workspace + '\' does not contains any \'config.json\' file', 'error')
+    log('The file \'' + workspaceConfigFile + '\' does not exist', 'error')
     return
   }
   // Ensure the runtime structure exists
-  shell.mkdir('-p', runtimeDir)
-  shell.mkdir('-p', runtimeDeployDir)
-  shell.mkdir('-p', runtimeConfigsDir)
-  shell.mkdir('-p', runtimeScriptsDir)
+  shell.mkdir('-p', getRuntimeElementPath())
+  shell.mkdir('-p', getRuntimeElementPath('deployDir'))
+  shell.mkdir('-p', getRuntimeElementPath('configsDir'))
+  shell.mkdir('-p', getRuntimeElementPath('scriptsDir'))
   // Configure the states  
   states = {
-    'workspace': { 'name': path.basename(workspace), 'path': workspace },
-    'config': { 
-      environment: {
-        "kargo-version": require('./package.json').version
-      }, 
-      labels: {}, 
-      stacks: {} }
+    'workspace': { 
+      'name': path.parse(path.basename(workspaceConfigFile)).name, 
+      'path': path.dirname(workspaceConfigFile),
+      'configFile': path.basename(workspaceConfigFile)
+    },
+    'config': { environment: {}, labels: {}, stacks: {} }
   }
   // Save the states
   if (writeStates()) {
     log('Switched to \'' + states.workspace.name + '\'')
   }
+  plan()
 }
 
 program

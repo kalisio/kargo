@@ -44,7 +44,6 @@
     "tag": "1.10",
     "data-path": "/srv/mapcache",
     "replicas": 1
-
   },
   "mapserver": {
     "image": "kalisio/mapserver",
@@ -55,7 +54,7 @@
   "maputnik": {
     "image": "kalisio/maputnik",
     "tag": "1.6.1",
-    "replicas": 1    ,
+    "replicas": 1
   },
   "redis": {
     "image": "redis",
