@@ -71,6 +71,9 @@ kargo_read_configuration()
     echo tip: use the command \"kargo configure\" to generate the configuration
     exit 1
   fi
+  # add kargo specific configuration
+  KARGO_USER_ID=`id -u $USER`
+  KARGO_GROUP_ID=`id -g $USER`
   # read the configuration
   set -a
   . .kargo/.env.default
@@ -157,6 +160,7 @@ kargo_pull()
 kargo_info()
 {
   kargo_read_configuration
+  echo current user id/group id: $KARGO_USER_ID/$KARGO_GROUP_ID
   echo current workspace is: \"$WORKSPACE\"
   echo available stacks are:
   for STACK in $STACKS; do
@@ -430,8 +434,9 @@ kargo_remove()
   fi
 }
 
+
 case $1 in
-  -v|--version)  kargo_version;;
+  -v|--version) kargo_version;;
   -h|--help) kargo_usage;;
   build) kargo_build "$2";;
   configure) kargo_configure;;
