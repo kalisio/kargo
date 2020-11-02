@@ -210,11 +210,10 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `POSTGIS_IMAGE` | The image to be used. | `mdillon/postgis` |
-| `POSTGIS_TAG` | The version to be used. | `9.6-alpine` |
-| `POSTGIS_USER` | The POSTGRES user. | `postgres` |
-| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
-| `POSTGIS_DATA_PATH` | The path to the database. | `/mnt/data0/postgis_data` |
+| `POSTGIS_IMAGE` | The image to be used. | `postgis/postgis` |
+| `POSTGIS_TAG` | The version to be used. | `13-3.0-alpine` |
+| `POSTGIS_USER` | The POSTGRES user. | `postgis` |
+| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgis` |
 
 ### Prometheus
 
