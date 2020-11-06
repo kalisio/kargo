@@ -14,8 +14,6 @@
     <LowerRightY>-20037508.34557879</LowerRightY>
   </DataWindow>
   <BandsCount>4</BandsCount>
-  <Cache />
-  <UnsafeSSL>true</UnsafeSSL>
   <ZeroBlockHttpCodes>204,404</ZeroBlockHttpCodes>
   <ZeroBlockOnServerException>true</ZeroBlockOnServerException>
 </GDAL_WMTS>
