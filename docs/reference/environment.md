@@ -4,7 +4,14 @@ sidebarDepth: 3
 
 # Environment
 
-## Kargo configuration
+## Kargo environment variables
+
+| Variable | Description | 
+| --- | --- |
+| `KARGO_USER_ID` | The current user id running **Kargo** | 
+| `KARGO_GROUP_ID` | The current group id running **Kargo** | 
+
+## Global configuration
 
 | Variable | Description | Default value | 
 | --- | --- | --- | 
@@ -48,17 +55,6 @@ For each stack, there must be such an entry:
 | `EXPRESS_GATEWAY_TAG` | The version to be used. | `1.16.9` |
 | `EXPRESS_GATEWAY_REPLICAS` | The number of replicas. | 1 |
 | `EXPRESS_GATEWAY_KEY_SECRET` | A secret that can be used to identify JWT issuer. 
-
-### Logspout
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `LOGSPOUT_IMAGE` | The image to be used. | `kalisio/logspout` |
-| `LOGSPOUT_TAG` | The version to be used. | `v3.2.11` |
-| `LOGSPOUT_SLACK_WEBHOOK_URL` | The Slack webhook URL to be used to post messages
-| `LOGSPOUT_SLACK_MESSAGE_FILTER` | The regex to be used to filter messages to be sent to Slack
-
-More configuration details on our Logspout [Slack adapter](https://github.com/kalisio/logspout-slack).
 
 ### Grafana
 
@@ -112,6 +108,19 @@ More configuration details on our Logspout [Slack adapter](https://github.com/ka
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
+
+### Logspout
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `LOGSPOUT_IMAGE` | The image to be used. | `kalisio/logspout` |
+| `LOGSPOUT_TAG` | The version to be used. | `v3.2.11` |
+| `LOGSPOUT_SLACK_WEBHOOK_URL` | The Slack webhook URL to be used to post messages
+| `LOGSPOUT_SLACK_MESSAGE_FILTER` | The regex to be used to filter messages to be sent to Slack
+
+::: tip
+More configuration details on our [Logspout Slack adapter](https://github.com/kalisio/logspout-slack).
+:::
 
 ### MapCache
 
@@ -201,11 +210,10 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `POSTGIS_IMAGE` | The image to be used. | `mdillon/postgis` |
-| `POSTGIS_TAG` | The version to be used. | `9.6-alpine` |
-| `POSTGIS_USER` | The POSTGRES user. | `postgres` |
-| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
-| `POSTGIS_DATA_PATH` | The path to the database. | `/mnt/data0/postgis_data` |
+| `POSTGIS_IMAGE` | The image to be used. | `postgis/postgis` |
+| `POSTGIS_TAG` | The version to be used. | `13-3.0-alpine` |
+| `POSTGIS_USER` | The POSTGRES user. | `postgis` |
+| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgis` |
 
 ### Prometheus
 
@@ -247,8 +255,10 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `THREDDS_IMAGE` | The image to be used.| `unidata/thredds-docker` |
 | `THREDDS_TAG` | The version to be used. | `4.6.11` |
-| `THREDDS_DATA_PATH` | The path to the data. | `/mnt/data0/thredds_data` |
-| `THREDDS_CACHE_PATH` | The path to the cache. | `/mnt/data0/thredds_cache` |
+| `THREDDS_DATA_PATH` | The path to the data. | `/srv/thredds/data` |
+| `THREDDS_CACHE_PATH` | The path to the cache. | `/srv/thredds/cache` |
+| `THREDDS_USER_ID` | The user id to use when running **Tomcat**. | `$KARGO_USER_ID` |
+| `THREDDS_GROUP_ID` | The group id to use when running **Tomcat**. | `$KARGO_GROUP_ID` |
 | `THREDDS_REPLICAS` | The number of replicas. | `1` |
 | `THREDDS_XMX_SIZE` | JVM Max Heap Size (xmx). | `4G` |
 | `THREDDS_XMS_SIZE` | JVM Min Heap Size (xms). | `4G` |
@@ -303,24 +313,22 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `weacast/weacast-arpege` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `world-1.4.1` |
-| `ARPEGE_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days)|
+| `ARPEGE_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days) |
 | `ARPEGE_WORLD_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `ARPEGE_EUROPE_LOADER_IMAGE` | The image to be used to scrape Arpege Europe data. | `weacast/weacast-arpege` |
 | `ARPEGE_EUROPE_LOADER_TAG` | The tag of the image to be used to scrape Arpege Europe data. | `europe-1.4.1` |
-| `ARPEGE_EUROPE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days)|
+| `ARPEGE_EUROPE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days) |
 | `ARPEGE_EUROPE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `weacast/weacast-arome` |
 | `AROME_FRANCE_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `france-1.4.1` |
-| `AROME_FRANCE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `129600` (36 hours)|
+| `AROME_FRANCE_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `129600` (36 hours) |
 | `AROME_FRANCE_LOADER_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `AROME_FRANCE_HIGH_LOADER_IMAGE` | The image to be used to scrape Arome France data. | `weacast/weacast-arome` |
-
 | `AROME_FRANCE_HIGH_LOADER_TAG` | The tag of the image to be used to scrape Arome France World data. | `france-high-1.4.1` |
-| `AROME_FRANCE_HIGH_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `86400`(24 hours)|
+| `AROME_FRANCE_HIGH_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `86400`(24 hours) |
 | `AROME_FRANCE_HIGH_LOADER_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `GFS_WORLD_LOADER_IMAGE` | The image to be used to scrape GFS World data. | `weacast/weacast-gfs` |
 | `GFS_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `world-1.4.1` |
 | `GFS_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `259200` (3 days) |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
-
 

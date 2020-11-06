@@ -53,6 +53,7 @@ function getReferenceSidebar () {
 
 function getTipsSidebar () {
   return [
+    'using-private-registry',
     'using-gdal',
     'using-artillery',
     'handling-long-running-process',

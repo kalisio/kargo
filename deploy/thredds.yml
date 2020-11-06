@@ -6,6 +6,8 @@ services:
     environment:
       - THREDDS_XMX_SIZE
       - THREDDS_XMS_SIZE
+      - TOMCAT_USER_ID=${THREDDS_USER_ID}
+      - TOMCAT_GROUP_ID=${THREDDS_GROUP_ID}
       - HTTP_PROXY
       - HTTPS_PROXY
       - NO_PROXY      

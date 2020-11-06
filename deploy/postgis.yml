@@ -7,17 +7,24 @@ services:
       - POSTGRES_USER=${POSTGIS_USER}
       - POSTGRES_PASSWORD=${POSTGIS_PASSWORD}
     volumes:
-      - ${POSTGIS_DATA_PATH}:/var/lib/postgresql/data
+      - postgis_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGIS_USER}"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
     deploy:
       replicas: 1
       placement:
         constraints:
-          - node.role == worker
           - node.labels.postgis == true
       restart_policy:
         condition: on-failure
     networks:
       - kargo-network
+
+volumes:
+  postgis_data: {}
 
 networks:
   kargo-network:
