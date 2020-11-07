@@ -212,8 +212,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `POSTGIS_IMAGE` | The image to be used. | `postgis/postgis` |
 | `POSTGIS_TAG` | The version to be used. | `13-3.0-alpine` |
-| `POSTGIS_USER` | The POSTGRES user. | `postgis` |
-| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgis` |
+| `POSTGIS_USER` | The POSTGRES user. | `postgres` |
+| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
 
 ### Prometheus
 
