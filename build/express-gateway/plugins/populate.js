@@ -46,7 +46,6 @@ async function processUsers(oldUsers, newUsers) {
       await createUser(userName, apps);
     } else {
       logger.info('user ' + userName + ' already exists: ' + user.id);
-      logger.info('process user apps: ' + Object.keys(apps));
       await processApps(user.id, apps);
     }
   }
@@ -62,8 +61,10 @@ async function createUser(newUserName, newApps) {
 }
 
 async function processApps(userId, newApps) {
-  let result = await adminClient.apps.list({ userId });
+  logger.info('process apps: ' + Object.keys(newApps));
+  let result = await adminClient.apps.list({ userId: userId });
   let oldApps = result.apps || [];
+  logger.info('existing apps: ' + oldApps);
   let newAppsNames = Object.keys(newApps)
   // delete undefined old apps
   for (let i = 0; i < oldApps.length; ++i) {
