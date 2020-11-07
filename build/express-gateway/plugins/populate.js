@@ -45,7 +45,7 @@ async function processUsers(oldUsers, newUsers) {
       logger.info('create user ' + userName);
       await createUser(userName, apps);
     } else {
-      logger.info('process user ' + userName);
+      logger.info('process user ' + userName + ' with ' + Object.keys(apps));
       await processApps(user.id, apps);
     }
   }
