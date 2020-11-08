@@ -62,35 +62,34 @@ async function createUser(newUserName, newApps) {
 
 async function processApps(userId, newApps) {
   logger.info('process apps: ' + Object.keys(newApps));
-  let result = await adminClient.apps.list({ userId: userId });
-  let oldApps = result.apps || [];
-  logger.info('existing apps: ' + oldApps);
+  let result = await adminClient.apps.list();
+  let definedApps = result.apps || [];
   let newAppsNames = Object.keys(newApps)
   // delete undefined old apps
-  for (let i = 0; i < oldApps.length; ++i) {
-    const oldApp = oldApps[i]
-    if (!newAppsNames.includes(oldApp.name)) {
-      logger.info('delete app ' + oldApp.name)
-      await adminClient.apps.remove(oldApp.id)
+  for (let i = 0; i < definedApps.length; ++i) {
+    const definedApp = definedApps[i]
+    if ((definedApp.userId === userId) && (!newAppsNames.includes(definedApp.name))) {
+      logger.info('delete app ' + definedApp.name)
+      await adminClient.apps.remove(definedApp.id)
     }
   }
   // process new apps
   for (const [newAppName, newAppData] of Object.entries(newApps)) {
-    let oldApp = _.find(oldApps, { 'name': newAppName });
-    if (oldApp === undefined) {
+    let definedApp = _.find(definedApps, { 'userId': userId, 'name': newAppName });
+    if (definedApp === undefined) {
       logger.info('create app ' + newAppName + ' ...');
       await createApp(userId, newAppName, newAppData);
     } else {
       logger.info('process app ' + newAppName + ' ...')
       // must check whether the scopes of credential changed. If yes we need to create a new app
-      const result = await adminClient.credentials.list(oldApp.id); 
+      const result = await adminClient.credentials.list(definedApp.id); 
       const oldCredential = _.get(result, 'credentials[0]', []);
       const newCredential =_.get(newAppData, 'credential', []);
-      let oldScopes = _.sortBy(_.split(oldApp.scopes, ','));
+      let oldScopes = _.sortBy(_.split(definedApp.scopes, ','));
       let newScopes = _.sortBy(newAppData.scopes);
       if (!_.isEqual(oldScopes, newScopes) || (oldCredential.type !== newCredential.type)) {
         logger.info (newAppName + ' need to be recreated ...');
-        await adminClient.apps.remove(oldApp.id);
+        await adminClient.apps.remove(definedApp.id);
         await createApp(userId, newAppName, newAppData);
       } else logger.info(newAppName + ' is ok');
     }
