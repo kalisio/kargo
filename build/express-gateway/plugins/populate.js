@@ -45,7 +45,7 @@ async function processUsers(oldUsers, newUsers) {
       logger.info('create user ' + userName);
       await createUser(userName, apps);
     } else {
-      logger.info('user ' + userName + ' already exists: ' + user.id);
+      logger.info('user ' + userName + ' already exists [' + user.id + ']');
       await processApps(user.id, apps);
     }
   }
