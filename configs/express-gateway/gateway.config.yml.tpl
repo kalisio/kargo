@@ -39,11 +39,11 @@ serviceEndpoints:
   admin: 
     url: 'http://localhost:9876'
   wms:
-    url: 'http://mapcache:80/mapcache'
+    url: 'http://mapserver:80/cgi-bin/mapserv'
   wmts:
-    url: 'http://mapcache:80/mapcache/wmts/1.0.0'    
+    url: 'http://mapcache:80/mapcache/wmts'    
   tms:
-    url: 'http://mapcache:80/mapcache/tms/1.0.0'
+    url: 'http://mapcache:80/mapcache/tms'
   wfs:
     url: 'http://mapserver:80/cgi-bin/wfs'
   wcs:
