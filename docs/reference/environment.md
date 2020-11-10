@@ -35,6 +35,16 @@ For each stack, there must be such an entry:
 
 ## Services configuration
 
+### Adminer
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `ADMINER_IMAGE` | The image to be used. | `adminer` |
+| `ADMINER_TAG` | The version to be used. | `4.7.7-standalone` |
+| `ADMINER_PLUGINS` | The plugins to be loaded. The list is available [here](). | `` |
+| `ADMINER_DESIGN` | The theme to be used. The list is available [here](). | `lucas-sandery` |
+| `ADMINER_DEFAULT_SERVER` | The default server to use. | `` |
+
 ### Atlas
 
 | Variable | Description | Default value |

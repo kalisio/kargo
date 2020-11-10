@@ -16,7 +16,7 @@ services:
         - "traefik.frontend.rule=Host:adminer.${SUBDOMAIN}"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"
-        - "traefik.port=8081"
+        - "traefik.port=8080"
       replicas: 1
       placement:
         constraints:
