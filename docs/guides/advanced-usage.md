@@ -269,17 +269,18 @@ Execute the following procedure
 $docker exec -ti <constainer_id> bash
 ```
 
-5. Configure the **Replica Set**
+5. [Initiate](https://docs.mongodb.com/manual/tutorial/deploy-replica-set/#initiate-the-replica-set) the **Replica Set**
 
 ```bash
 $mongo --host mongodb0 --eval 'rs.initiate({ _id: "mongors", version: 1, members: [ { _id: 0, host : "mongodb0:27017" }, { _id: 1, host : "mongodb1:27017" }, { _id: 2, host : "mongodb2:27017" } ] })'
 ```
 
-6. Check the status of the **Replica Set**
+6. [Check the status](https://docs.mongodb.com/manual/tutorial/troubleshoot-replica-sets/#check-replica-set-status) of the **Replica Set**
 
 ```bash
 $mongo --host mongodb0 --eval 'rs.status()'
 ```
+
 
 ### Troubleshooting the Replica Set
 
