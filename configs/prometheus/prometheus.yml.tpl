@@ -53,3 +53,6 @@ scrape_configs:
     static_configs:
     - targets: ['express-gateway:8080']
 
+  - job_name: 'mongodb'
+    static_configs:
+    - targets: ['mongodb-exporter:9216']
