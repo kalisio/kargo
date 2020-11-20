@@ -5,14 +5,8 @@ FROM express-gateway:$VERSION
 RUN yarn global add prom-client@10.2.3 aws-sdk
 
 # Override the consumers models
-COPY ./models /var/lib/eg/models
+COPY models /var/lib/eg/models
 
 # Install the plugins
 RUN mkdir -p /plugins
-COPY ./plugins /plugins
-
-
-
-
-
-
+COPY plugins /plugins
