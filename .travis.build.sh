@@ -4,7 +4,7 @@ build_and_push()
 {
   TOOL=$1
   VERSION=$2
-  CONTEXT=.
+  CONTEXT="build/$TOOL"
   DOCKERFILE_OPT="-f build/$TOOL/dockerfile"
   if [ $# -ge 3 ]; then
     CONTEXT=$3
