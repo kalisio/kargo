@@ -5,13 +5,14 @@ build_and_push()
   TOOL=$1
   VERSION=$2
   CONTEXT=.
+  DOCKERFILE_OPT="-f dockerfile"
   if [ $# -ge 3 ]; then
     CONTEXT=$3
+    DOCKERFILE_OPT=""
   fi
 
   echo "Building $TOOL:$VERSION from $CONTEXT"
-  pushd build/$TOOL
-  docker build --force-rm --build-arg VERSION=$VERSION -f dockerfile -t kalisio/$TOOL:$VERSION $CONTEXT
+  docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$TOOL:$VERSION $CONTEXT
   RESULT_CODE=$?
   if [ $RESULT_CODE -ne 0 ]; then
     echo "$TOOL generation failed [error: $RESULT_CODE]"
@@ -19,7 +20,6 @@ build_and_push()
   fi
   docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   docker push kalisio/$TOOL:$VERSION
-  popd
 }
 
 # Build express-gateway
