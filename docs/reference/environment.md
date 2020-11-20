@@ -222,7 +222,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `OPENRADIATION_IMAGE` | The image to be used. | `kalisio/k-openaq` |
 | `OPENRADIATION_TAG` | The version to be used. | `1.0.0` |
-| `OPENRADIATION_KEY` | The key to be able to consume the **OpenRadiation** API. | - |
+| `OPENRADIATION_KEY` | The key to be able to consume the **OpenRadiation** API. The key must be asked to the **OpenRadiation** team. | - |
+| `OPENRADIATION_COMPLETE` | An option to specify whether the job should request the complete list of fields. Check the [documentation](https://github.com/openradiation/openradiation-api#requesting-the-api) for more details. | `true` |
 | `OPENRADIATION_DB_URL` | The database URL where to write the data. | - |
 | `OPENRADIATION_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
 | `OPENRADIATION_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
