@@ -32,6 +32,8 @@ jobs:
     script: bash .travis.build.sh artillery
   - # added to BUILD stage
     script: bash .travis.build.sh gdal
+  - # added to BUILD stage
+    script: bash .travis.build.sh mongodb-exporter
 
   - stage: DOC
     language: node_js
@@ -46,4 +48,4 @@ jobs:
       github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
       keep-history: true
       on:
-        branch: master        
+        branch: master

@@ -4,9 +4,14 @@ build_and_push()
 {
   TOOL=$1
   VERSION=$2
-  echo "Building $TOOL:$TAG"
+  CONTEXT=.
+  if [ $# -ge 3 ]; then
+    CONTEXT=$3
+  fi
+
+  echo "Building $TOOL:$VERSION from $CONTEXT"
   pushd build/$TOOL
-  docker build --force-rm --build-arg VERSION=$VERSION -f dockerfile -t kalisio/$TOOL:$VERSION .
+  docker build --force-rm --build-arg VERSION=$VERSION -f dockerfile -t kalisio/$TOOL:$VERSION $CONTEXT
   RESULT_CODE=$?
   if [ $RESULT_CODE -ne 0 ]; then
     echo "$TOOL generation failed [error: $RESULT_CODE]"
@@ -45,4 +50,9 @@ fi
 # Build GDAL
 if [ $1 == "gdal" ]; then
   build_and_push gdal 3.1.2
+fi
+
+# Build mongodb-exporter
+if [ $1 == "mongodb-exporter" ]; then
+  build_and_push mongodb-exporter v0.11.2 https://github.com/percona/mongodb_exporter.git#v0.11.2
 fi
