@@ -4,8 +4,8 @@ services:
   nextcloud:
     image: nextcloud
     environment:
-      - NEXTCLOUD_ADMIN_USER=c3x@irsn.fr
-      - NEXTCLOUD_ADMIN_PASSWORD=C3x@01112019
+      - NEXTCLOUD_ADMIN_USER
+      - NEXTCLOUD_ADMIN_PASSWORD
       - NEXTCLOUD_TRUSTED_DOMAINS=localhost
       - MYSQL_HOST=mariadb
       - MYSQL_DATABASE=nextcloud
