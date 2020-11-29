@@ -99,27 +99,28 @@ kargo_check_stack()
 
 kargo_update_labels()
 {
-  if [ -n "$NODES" ]; then
-    for NODE in $NODES; do
-      local NODE_NAME=${NODE//-/_}
-      local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
-      local NODE_NEW_LABELS=${!NODE_LABELS_VAR}
-      local NODE_EXISTING_LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }}={{ $v }} {{end}}' $NODE`
-      # Keep the existing labels if needed
-      for NODE_EXISTING_LABEL in $NODE_EXISTING_LABELS; do
-        if [[ ! $NODE_NEW_LABELS =~ $NODE_EXISTING_LABEL ]]; then
-          local NODE_EXISTING_LABEL_KEY=${NODE_EXISTING_LABEL%=*}
-          docker node update --label-rm $NODE_EXISTING_LABEL_KEY $NODE > /dev/null
-        fi
-      done
-      # Add the label of needed
-      for NODE_NEW_LABEL in $NODE_NEW_LABELS; do
-        if [[ ! $NODE_EXISTING_LABELS =~ $NODE_NEW_LABEL ]]; then
-          docker node update --label-add $NODE_NEW_LABEL $NODE > /dev/null
-        fi
-      done
+  local NODES = `docker node ls --format "{{.Hostname}}"`
+  for NODE in $NODES; do
+    local NODE_NAME=${NODE//-/_}
+    local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
+    local NODE_NEW_LABELS=${!NODE_LABELS_VAR}
+    local NODE_EXISTING_LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }}={{ $v }} {{end}}' $NODE`
+    # Keep the existing labels if needed
+    for NODE_EXISTING_LABEL in $NODE_EXISTING_LABELS; do
+      if [[ ! $NODE_NEW_LABELS =~ $NODE_EXISTING_LABEL ]]; then
+        echo Removing $NODE_EXISTING_LABEL from $NODE_NAME
+        local NODE_EXISTING_LABEL_KEY=${NODE_EXISTING_LABEL%=*}
+        docker node update --label-rm $NODE_EXISTING_LABEL_KEY $NODE > /dev/null
+      fi
     done
-  fi
+    # Add the label of needed
+    for NODE_NEW_LABEL in $NODE_NEW_LABELS; do
+      if [[ ! $NODE_EXISTING_LABELS =~ $NODE_NEW_LABEL ]]; then
+        echo Adding $NODE_NEW_LABEL to $NODE_NAME
+        docker node update --label-add $NODE_NEW_LABEL $NODE > /dev/null
+      fi
+    done
+  done
 }
 
 kargo_configure()
