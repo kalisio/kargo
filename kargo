@@ -99,7 +99,7 @@ kargo_check_stack()
 
 kargo_update_labels()
 {
-  local NODES = `docker node ls --format "{{.Hostname}}"`
+  local NODES=`docker node ls --format "{{.Hostname}}"`
   for NODE in $NODES; do
     local NODE_NAME=${NODE//-/_}
     local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
