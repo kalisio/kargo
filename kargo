@@ -409,7 +409,6 @@ case $1 in
   pull) kargo_pull;;
   redeploy) kargo_redeploy "$2";;  
   remove) kargo_remove "$2";;
-  update) kargo_update "$2" "$3";;
   use) kargo_use "$2";;
   *) kargo_usage
 esac
