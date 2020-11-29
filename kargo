@@ -19,7 +19,6 @@ kargo_usage()
   printf " %-10s %-30s %s\n" "execute" "<script>" "exec the given script"    
   printf " %-10s %-30s %s\n" "info" "" "generate the current configuration"
   printf " %-10s %-30s %s\n" "image" "<load|save> <service>" "load/save the given service from an archive/to an archive"
-  printf " %-10s %-30s %s\n" "labels" "<add|remove>" "add/remove the labels assigned to the nodes"
   printf " %-10s %-30s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-30s %s\n" "redeploy" "<stack|all>" "re deploy the given stack"  
   printf " %-10s %-30s %s\n" "remove" "<stack|all>" "remove the given stack"
@@ -98,6 +97,31 @@ kargo_check_stack()
   fi
 }
 
+kargo_update_labels()
+{
+  if [ -n "$NODES" ]; then
+    for NODE in $NODES; do
+      local NODE_NAME=${NODE//-/_}
+      local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
+      local NODE_NEW_LABELS=${!NODE_LABELS_VAR}
+      local NODE_EXISTING_LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }}={{ $v }} {{end}}' $NODE`
+      # Keep the existing labels if needed
+      for NODE_EXISTING_LABEL in $NODE_EXISTING_LABELS; do
+        if [[ ! $NODE_NEW_LABELS =~ $NODE_EXISTING_LABEL ]]; then
+          local NODE_EXISTING_LABEL_KEY=${NODE_EXISTING_LABEL%=*}
+          docker node update --label-rm $NODE_EXISTING_LABEL_KEY $NODE > /dev/null
+        fi
+      done
+      # Add the label of needed
+      for NODE_NEW_LABEL in $NODE_NEW_LABELS; do
+        if [[ ! $NODE_EXISTING_LABELS =~ $NODE_NEW_LABEL ]]; then
+          docker node update --label-add $NODE_NEW_LABEL $NODE > /dev/null
+        fi
+      done
+    done
+  fi
+}
+
 kargo_configure()
 {
   kargo_read_workspace
@@ -145,6 +169,7 @@ kargo_configure()
   rsync -au --delete .tmp/deploy .kargo/
   rsync -au --delete .tmp/configs .kargo/
   rm -fr .tmp
+  kargo_update_labels
   echo workspace \"$WORKSPACE\" ready.
 }
 
@@ -258,41 +283,6 @@ kargo_image()
     save) kargo_image_save "$2";;
     *) kargo_usage
   esac
-}
-
-kargo_labels()
-{
-  kargo_read_configuration
-  if [ -z $1 ]; then
-    echo "error: the command \"kargo labels\" requires one argument."
-    kargo_usage
-    exit 1
-  fi
-  if [ "$1" != "add" ] && [ "$1" != "remove" ]; then
-    echo "error: the argument of the command \"kargo labels\" should be either \"add\" or \"remove\"."
-    kargo_usage
-    exit 1
-  fi
-  for NODE in $NODES; do
-    local NODE_ID=`docker node ls | grep $NODE | awk '{print $1}'`
-    if [ -z $NODE_ID ]; then
-      echo "error: uable to find the node $NODE"
-      exit 1
-    fi
-    local NODE_NAME=${NODE//-/_}
-    local NODE_LABELS_VAR=${NODE_NAME^^}_LABELS
-    local NODE_LABELS=${!NODE_LABELS_VAR}
-    for LABEL in $NODE_LABELS; do
-      if [ "$1" == "add" ]; then
-        echo -e "  adding $LABEL to $NODE"
-        docker node update --label-add $LABEL $NODE_ID > /dev/null
-      else
-        local LABEL_KEY=`echo $LABEL | cut -d'=' -f1`
-        echo -e "  removing $LABEL_KEY from $NODE"
-        docker node update --label-rm $LABEL_KEY $NODE_ID  > /dev/null
-      fi
-    done
-  done
 }
 
 kargo_build()
@@ -415,7 +405,6 @@ case $1 in
   exec) kargo_exec "$2" "$3";;
   info) kargo_info;;
   image) kargo_image "$2" "$3";;
-  labels) kargo_labels "$2";;
   pull) kargo_pull;;
   redeploy) kargo_redeploy "$2";;  
   remove) kargo_remove "$2";;

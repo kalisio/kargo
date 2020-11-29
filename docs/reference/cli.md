@@ -104,12 +104,6 @@ The service should be running before archiving.
 
 Displays some information about the current workspace
 
-### labels
-
-`usage: kargo labels <add|remove>`
-
-Add or remove the labels assigned to the nodes. The node list is read from the environment variable `NODES` and the labels are read for each node from the environment variable `<NODE_NAME>_LABLELS`.
-
 ### pull
 
 `usage: kargo pull`
@@ -132,16 +126,6 @@ Re-deploys the specified stack. The stack must be defined in the `STACKS` variab
 
 ::: tip
 This is a convenient command that run the series of commands: `remove`, `configure` and `deploy`.
-:::
-
-### update
-
-`usage: kargo update [--force|-f] <stack|all>`
-
-Tells **Kargo** to update the services of the given stack. You can force the update with the option `--force`. 
-
-::: tip
-The `--force` flag causes the service’s tasks to be shut down and replaced with new ones.
 :::
 
 ### use
