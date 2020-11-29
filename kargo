@@ -23,7 +23,6 @@ kargo_usage()
   printf " %-10s %-30s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-30s %s\n" "redeploy" "<stack|all>" "re deploy the given stack"  
   printf " %-10s %-30s %s\n" "remove" "<stack|all>" "remove the given stack"
-  printf " %-10s %-30s %s\n" "update" "[--force|-f] <stack|all>" "update the given stack" 
   printf " %-10s %-30s %s\n" "use" "<workspace>" "select the given workspace"  
   printf "\n"
 }
@@ -378,34 +377,6 @@ kargo_deploy()
     pushd .kargo > /dev/null
     docker stack deploy  --with-registry-auth $SERVICES_TO_DEPLOY kargo-$1
     popd > /dev/null
-  fi
-}
-
-kargo_update()
-{
-  local STACK=$1
-  local FORCE=
-  if [ -n "$2" ]; then
-    if [ "$1" != "--force" ] && [ "$1" != "-f" ]; then
-      echo error: cannot use the command \"kargo update\" with the arguments \"$1\" and \"$2\"
-      kargo_usage
-      exit 1
-    fi
-    STACK=$2
-    FORCE=--force
-  fi
-  kargo_check_stack "update [--force|-f]" $STACK
-  if [ $STACK == 'all' ]; then
-    for STACK_TO_UPDATE in $STACKS; do
-      echo updating $STACK_TO_UPDATE stack
-      kargo_update $FORCE $STACK_TO_UPDATE
-    done
-  else
-    local STACK_NAME=kargo-$STACK
-    local SERVICES=`docker stack services $STACK_NAME --format {{.Name}}`
-    for SERVICE_TO_UPDATE in $SERVICES; do
-      docker service update $FORCE $SERVICE_TO_UPDATE
-    done
   fi
 }
 
