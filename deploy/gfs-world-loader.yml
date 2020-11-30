@@ -16,8 +16,9 @@ services:
       - S3_SECRET_ACCESS_KEY
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
+      - INFRA
     healthcheck:
-      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--success-rate", "0.75", "--link-template", "https://portainer.<%= SUBDOMAIN %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--success-rate", "0.75", "--link-template", "https://portainer.<%= SUBDOMAIN %>", "--message-template", "Job <%= jobId %>@<%= INFRA %>: <%= error.message %>"]
       interval: 1m
       timeout: 10s
       retries: 3
