@@ -13,9 +13,8 @@ services:
       - NO_PROXY      
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
-      - INFRA
     healthcheck:
-      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>", "--message-template", "Job <%= jobId %>@<%= INFRA %>: <%= error.message %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>", "--message-template", "Job <%= jobId %>@<%= SUBDOMAIN %>: <%= error.message %>"]
       interval: 1m
       timeout: 10s
       retries: 3
