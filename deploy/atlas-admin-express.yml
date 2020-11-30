@@ -16,7 +16,7 @@ services:
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL
     healthcheck:
-      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>"]
+      test: ["CMD", "node", "/opt/krawler/healthcheck.js", "--debug", "--link-template", "https://alertmanager.<%= SUBDOMAIN %>", "--message-template", "Job <%= jobId %>@<%= SUBDOMAIN %>: <%= error.message %>"]
       interval: 1m
       timeout: 10s
       retries: 3
