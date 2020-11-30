@@ -55,4 +55,4 @@ scrape_configs:
 
   - job_name: 'mongodb'
     static_configs:
-    - targets: ['mongodb-exporter:9216']
+    - targets: ['mongodb0-exporter:9216', 'mongodb1-exporter:9216', 'mongodb2-exporter:9216']
