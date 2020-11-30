@@ -1,0 +1,53 @@
+version: '3.5'
+
+services:
+  mongodb0-exporter:
+    image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
+    command:
+      - '--mongodb.uri=mongodb://mongodb0'
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+      placement:
+        constraints:
+         - node.labels.mongodb0 == true
+    networks:
+      - kargo-network
+
+  mongodb1-exporter:
+    image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
+    command:
+      - '--mongodb.uri=mongodb://mongodb1'
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+      placement:
+        constraints:
+         - node.labels.mongodb1 == true
+    networks:
+      - kargo-network
+
+  mongodb2-exporter:
+    image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
+    command:
+      - '--mongodb.uri=mongodb://mongodb2'
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+      placement:
+        constraints:
+         - node.labels.mongodb2 == true
+    networks:
+      - kargo-network

@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  mongodb-exporter:
+    image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
+    command:
+      - '--mongodb.uri=mongodb://mongodb'
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+      placement:
+        constraints:
+         - node.labels.mongodb == true
+    networks:
+      - kargo-network
