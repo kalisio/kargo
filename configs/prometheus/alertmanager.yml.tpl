@@ -8,4 +8,5 @@ receivers:
       - send_resolved: true
         api_url: '${SLACK_WEBHOOK_URL}' 
         channel: '${SLACK_CHANNEL}'
-        text: '${SUBDOMAIN}: {{ .CommonAnnotations.summary }}'
+        title: '${SUBDOMAIN}'
+        text: '{{ if eq .Status "resolved" }}[RESOLVED] {{ end }}{{ .CommonAnnotations.summary }}'
