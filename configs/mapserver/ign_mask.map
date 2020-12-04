@@ -11,7 +11,7 @@ LAYER
     # DATA    "/mnt/data/ign_orthomask.shp"
 
     CONNECTIONTYPE  OGR
-    CONNECTION      "/mnt/data/ign_orthomask.geojson"
+    CONNECTION      "/mnt/data/ign_orthomask_smooth.geojson"
 
     CLASS
         STYLE
