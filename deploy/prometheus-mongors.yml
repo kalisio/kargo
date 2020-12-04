@@ -5,6 +5,7 @@ services:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
       - '--mongodb.uri=mongodb://mongodb0'
+      - '--collect.collection'
     deploy:
       replicas: 1
       resources:
@@ -22,6 +23,7 @@ services:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
       - '--mongodb.uri=mongodb://mongodb1'
+      - '--collect.collection'
     deploy:
       replicas: 1
       resources:
@@ -39,6 +41,7 @@ services:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
       - '--mongodb.uri=mongodb://mongodb2'
+      - '--collect.collection'
     deploy:
       replicas: 1
       resources:
