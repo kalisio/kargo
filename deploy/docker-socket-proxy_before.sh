@@ -2,6 +2,6 @@
 
 EXISTING_NETWORK=`docker network ls | grep $DOCKER_SOCKET_NETWORK`
 if [ -z "$EXISTING_NETWORK" ]; then
-  echo creating $1 network
+  echo creating $DOCKER_SOCKET_NETWORK network
   docker network create -d overlay --attachable $DOCKER_SOCKET_NETWORK
 fi
