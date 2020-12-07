@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  mongodb0:
+  ${MONGORS_NAME}db0:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
@@ -19,7 +19,7 @@ services:
     networks:
       - kargo-back-network
 
-  mongodb1:
+  ${MONGORS_NAME}db1:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
@@ -37,7 +37,7 @@ services:
     networks:
       - kargo-back-network
 
-  mongodb2:
+  ${MONGORS_NAME}db2:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
