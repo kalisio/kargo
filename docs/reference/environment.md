@@ -21,7 +21,7 @@ sidebarDepth: 3
 | `AUTH_USER` | The authentication identity to access the services. | - |
 | `AUTH_PASSWORD` | The authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. | - |
 | `SECRET` | The secret key to generate JWT. It is mainly used by **Kano**, **Weacast** and **express-gateway** to validate authentication tokens. | - |
-| `DB_URL` | The common database URL. | - |
+| `DOCKER_SOCKET_NETWORK` | The docker socket network | `kargo-docker-socket` |
 | `DOCKER_FRONT_NETWORK` | The front docker network | `kargo-front` |
 | `DOCKER_BACK_NETWORK` | The back docker network | `kargo-back` |
 | `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
