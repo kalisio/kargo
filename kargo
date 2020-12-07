@@ -376,7 +376,7 @@ kargo_deploy()
       fi
       local SERVICE_BEFORE_HOOK=deploy/${SERVICE}_before.sh
       if [ -f "$SERVICE_BEFORE_HOOK" ]; then
-        source deploy/$SERVICE_BEFORE_HOOK
+        source $SERVICE_BEFORE_HOOK
       fi
       local SERVICE_AFTER_HOOK=deploy/${SERVICE}_after.sh
       if [ -f "$SERVICE_AFTER_HOOK" ]; then
@@ -385,7 +385,7 @@ kargo_deploy()
     done
     docker stack deploy  --with-registry-auth $SERVICES_TO_DEPLOY kargo-$1
     for AFTER_HOOK in $AFTER_HOOKS_TO_RUN; do
-      source deploy/$AFTER_HOOK
+      source $AFTER_HOOK
     done
     popd > /dev/null
   fi
