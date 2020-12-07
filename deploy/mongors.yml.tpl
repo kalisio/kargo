@@ -19,7 +19,7 @@ services:
     networks:
       - kargo-back-network
 
-  ${MONGORS_NAME}db1:
+  ${MONGORS_NAME}1:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
@@ -37,7 +37,7 @@ services:
     networks:
       - kargo-back-network
 
-  ${MONGORS_NAME}db2:
+  ${MONGORS_NAME}2:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
