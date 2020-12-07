@@ -1,19 +1,19 @@
 version: '3.5'
 
 services:
-  ${MONGORS_NAME}db0:
+  ${MONGORS_NAME}0:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
-      - mongodb0_data:/data/db
+      - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}0_data:/data/db
     configs:
-      - source: mongodb0_conf
+      - source: ${MONGORS_NAME}0_conf
         target: /etc/mongo/mongod.conf
     deploy:
       replicas: 1
       placement:
         constraints:
-         - node.labels.mongodb0 == true
+         - node.labels.${MONGORS_NAME}0 == true
       restart_policy:
         condition: on-failure
     networks:
@@ -23,15 +23,15 @@ services:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
-      - mongodb1_data:/data/db
+      - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}1_data:/data/db
     configs:
-      - source: mongodb1_conf
+      - source: ${MONGORS_NAME}1_conf
         target: /etc/mongo/mongod.conf
     deploy:
       replicas: 1
       placement:
         constraints:
-          - node.labels.mongodb1 == true
+          - node.labels.${MONGORS_NAME}1 == true
       restart_policy:
         condition: on-failure
     networks:
@@ -41,32 +41,32 @@ services:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
     command: mongod --replSet mongors
     volumes:
-      - mongodb2_data:/data/db
+      - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}2_data:/data/db
     configs:
-      - source: mongodb2_conf
+      - source: ${MONGORS_NAME}2_conf
         target: /etc/mongo/mongod.conf
     deploy:
       replicas: 1
       placement:
         constraints:
-          - node.labels.mongodb2 == true
+          - node.labels.${MONGORS_NAME}2 == true
       restart_policy:
         condition: on-failure
     networks:
       - kargo-back-network
 
 configs:
-  mongodb0_conf:
+  ${MONGORS_NAME}0_conf:
     file: ./../configs/mongors/mongodb.conf
-  mongodb1_conf:
+  ${MONGORS_NAME}1_conf:
     file: ./../configs/mongors/mongodb.conf
-  mongodb2_conf:
+  ${MONGORS_NAME}2_conf:
     file: ./../configs/mongors/mongodb.conf
   
 volumes:
-  mongodb0_data: {}
-  mongodb1_data: {}
-  mongodb2_data: {}
+  ${MONGORS_NAME}0_data: {}
+  ${MONGORS_NAME}1_data: {}
+  ${MONGORS_NAME}2_data: {}
 
 networks:
   kargo-back-network:

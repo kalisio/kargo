@@ -1,3 +1,3 @@
 #!/bin/bash
 
-envsubst "$MONGORS_NAME" < mongors.yml.tpl > mongors.yml
+envsubst '${MONGORS_NAME}' < deploy/mongors.yml.tpl > deploy/mongors.yml
