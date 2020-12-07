@@ -23,9 +23,9 @@ services:
       retries: 3
       start_period: 1m
     networks:
-      - kargo-back-network
+      - kargo-socket-network
 
 networks:
-  kargo-back-network:
-    name: ${DOCKER_BACK_NETWORK}
+  kargo-socket-network:
+    name: ${{DOCKER_SOCKET_NETWORK}
     external: true
