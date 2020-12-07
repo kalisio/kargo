@@ -340,6 +340,7 @@ kargo_exec()
 
 kargo_deploy()
 {
+  pushd .kargo > /dev/null
   kargo_check_stack deploy $1
   kargo_check_network $DOCKER_SOCKET_NETWORK
   kargo_check_network $DOCKER_FRONT_NETWORK
@@ -358,6 +359,7 @@ kargo_deploy()
     local STACK_NAME=${1^^}_STACK
     local STACK=${!STACK_NAME}
     local SERVICES_TO_DEPLOY=
+    local AFTER_HOOKS_TO_RUN=
     for SERVICE in $STACK; do
       echo initializing service $SERVICE
       SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
@@ -373,11 +375,21 @@ kargo_deploy()
       if [ "$SERVICE_EXTENSION" != "" ]; then
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
+      local SERVICE_BEFORE_HOOK=deploy/${SERVICE}_before.sh
+      if [ -f "$SERVICE_BEFORE_HOOK" ]; then
+        source deploy/$SERVICE_BEFORE_HOOK
+      fi
+      local SERVICE_AFTER_HOOK=deploy/${SERVICE}_after.sh
+      if [ -f "$SERVICE_AFTER_HOOK" ]: then
+        AFTER_HOOKS_TO_RUN="$AFTER_HOOKS_TO_RUN $SERVICE_AFTER_HOOK"
+      fi
     done
-    pushd .kargo > /dev/null
     docker stack deploy  --with-registry-auth $SERVICES_TO_DEPLOY kargo-$1
-    popd > /dev/null
+    for AFTER_HOOK in $AFTER_HOOKS_TO_RUN; do
+      source deploy/$AFTER_HOOK
+    done
   fi
+  popd > /dev/null
 }
 
 kargo_redeploy()
