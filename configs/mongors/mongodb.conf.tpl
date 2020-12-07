@@ -33,7 +33,7 @@ processManagement:
 
 # replication
 replication:
-   replSetName: mongors
+   replSetName: ${MONGORS_NAME}
 
 #sharding:
 
