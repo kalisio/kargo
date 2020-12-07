@@ -27,5 +27,5 @@ services:
 
 networks:
   kargo-socket-network:
-    name: ${{DOCKER_SOCKET_NETWORK}
+    name: ${DOCKER_SOCKET_NETWORK}
     external: true

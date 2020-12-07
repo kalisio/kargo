@@ -97,6 +97,16 @@ kargo_check_stack()
   fi
 }
 
+kargo_check_network()
+{
+  local EXISTING_NETWORK=`docker network ls | grep $1`
+  if [ -z "$EXISTING_NETWORK" ]; then
+    echo creating $1 network
+    docker network create -d overlay --attachable $1
+  fi
+
+}
+
 kargo_update_labels()
 {
   local NODES=`docker node ls --format "{{.Hostname}}"`
@@ -331,19 +341,9 @@ kargo_exec()
 kargo_deploy()
 {
   kargo_check_stack deploy $1
-  # check whether the networks exist or not.
-  local EXISTING_DOCKER_SOCKET_NETWORK=`docker network ls -q --filter name=^$DOCKER_SOCKET_NETWORK\$`
-  if [ -z "$EXISTING_DOCKER_SOCKET_NETWORK" ]; then
-    docker network create -d overlay --attachable $DOCKER_SOCKET_NETWORK
-  fi
-  local EXISTING_DOCKER_FRONT_NETWORK=`docker network ls -q --filter name=^$DOCKER_FRONT_NETWORK\$`
-  if [ -z "$EXISTING_DOCKER_FRONT_NETWORK" ]; then
-    docker network create -d overlay --attachable $DOCKER_FRONT_NETWORK
-  fi
-  local EXISTING_DOCKER_BACK_NETWORK=`docker network ls -q --filter name=^$DOCKER_BACK_NETWORK\$`
-  if [ -z "$EXISTING_DOCKER_BACK_NETWORK" ]; then
-    docker network create -d overlay --attachable $DOCKER_BACK_NETWORK
-  fi
+  kargo_check_network $DOCKER_SOCKET_NETWORK
+  kargo_check_network $DOCKER_FRONT_NETWORK
+  kargo_check_network $DOCKER_BACK_NETWORK
   if [ $1 == 'all' ]; then
     # deploy all stack
     local DELAY=${2:-5}
