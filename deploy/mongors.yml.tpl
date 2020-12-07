@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.8'
 
 services:
   ${MONGORS_NAME}0:
@@ -64,9 +64,9 @@ configs:
     file: ./../configs/mongors/mongodb.conf
   
 volumes:
-  ${MONGORS_NAME}0_data: {}
-  ${MONGORS_NAME}1_data: {}
-  ${MONGORS_NAME}2_data: {}
+  ${MONGORS_NAME}0_data:
+  ${MONGORS_NAME}1_data:
+  ${MONGORS_NAME}2_data:
 
 networks:
   kargo-back-network:
