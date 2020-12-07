@@ -379,7 +379,7 @@ kargo_deploy()
         source deploy/$SERVICE_BEFORE_HOOK
       fi
       local SERVICE_AFTER_HOOK=deploy/${SERVICE}_after.sh
-      if [ -f "$SERVICE_AFTER_HOOK" ]: then
+      if [ -f "$SERVICE_AFTER_HOOK" ]; then
         AFTER_HOOKS_TO_RUN="$AFTER_HOOKS_TO_RUN $SERVICE_AFTER_HOOK"
       fi
     done
