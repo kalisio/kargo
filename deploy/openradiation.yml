@@ -28,10 +28,10 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network        
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
     external: true
           

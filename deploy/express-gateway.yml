@@ -23,11 +23,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - kargo-network
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
         - "traefik.backend=express-gateway"        
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
@@ -39,6 +37,9 @@ services:
          - node.role == manager
       restart_policy:
         condition: on-failure
+    networks:
+      - kargo-front-network        
+      - kargo-back-network
 
 configs:
   system_conf:
@@ -49,6 +50,9 @@ configs:
     file: ./../configs/express-gateway/consumers.config.js
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-front-network:
+    name: ${DOCKER_FRONT_NETWORK}
+    external: true
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
     external: true

@@ -30,7 +30,7 @@ services:
       labels:
         - "traefik.backend=prometheus"
         - "traefik.enable=true"      
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
         - "traefik.port=9090"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -39,7 +39,8 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network      
+      - kargo-front-network      
+      - kargo-back-network
 
   alertmanager:
     image: ${PROMETHEUS_ALERTMANAGER_IMAGE}:${PROMETHEUS_ALERTMANAGER_TAG}
@@ -67,7 +68,8 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network      
+      - kargo-back-network      
+
 
   node-exporter:
     image: ${PROMETHEUS_NODE_EXPORTER_IMAGE}:${PROMETHEUS_NODE_EXPORTER_TAG}
@@ -90,7 +92,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network        
+      - kargo-back-network        
 
   cadvisor:
     image: ${PROMETHEUS_CADVISOR_IMAGE}:${PROMETHEUS_CADVISOR_TAG}
@@ -111,7 +113,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network  
+      - kargo-back-network  
     
   pushgateway:
     image: ${PROMETHEUS_PUSHGATEWAY_IMAGE}:${PROMETHEUS_PUSHGATEWAY_TAG}
@@ -131,13 +133,16 @@ services:
         constraints:
           - node.role == manager          
     networks:
-      - kargo-network  
+      - kargo-back-network  
       
 volumes:
   prometheus_data: {}
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-front-network:
+    name: ${DOCKER_FRONT_NETWORK}
+    external: true
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
     external: true
     

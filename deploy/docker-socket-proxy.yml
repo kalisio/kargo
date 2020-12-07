@@ -23,8 +23,9 @@ services:
       retries: 3
       start_period: 1m
     networks:
-      - docker-socket-proxy-network
+      - kargo-back-network
 
 networks:
-  docker-socket-proxy-network:
-    driver: overlay
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true

@@ -341,9 +341,13 @@ kargo_deploy()
     done
   else
     # check whether the network exist or not.
-    local EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`
-    if [ -z "$EXISTING_DOCKER_NETWORK" ]; then
-      docker network create -d overlay --attachable $DOCKER_NETWORK
+    local EXISTING_DOCKER_FRONT_NETWORK=`docker network ls --filter name=^$DOCKER_FRONT_NETWORK\$`
+    if [ -z "$EXISTING_DOCKER_FRONT_NETWORK" ]; then
+      docker network create -d overlay --attachable $DOCKER_FRONT_NETWORK
+    fi
+    local EXISTING_DOCKER_BACK_NETWORK=`docker network ls --filter name=^$DOCKER_BACK_NETWORK\$`
+    if [ -z "$EXISTING_DOCKER_BACK_NETWORK" ]; then
+      docker network create -d overlay --attachable $DOCKER_BACK_NETWORK
     fi
     # deploy the stack
     local STACK_NAME=${1^^}_STACK

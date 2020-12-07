@@ -29,7 +29,7 @@ services:
       - kargo-network
 
 networks:
-    kargo-network:
-      name: ${DOCKER_NETWORK}
+    kargo-back-network:
+      name: ${DOCKER_BACK_NETWORK}
       external: true
           

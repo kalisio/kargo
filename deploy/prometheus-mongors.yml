@@ -17,7 +17,7 @@ services:
         constraints:
          - node.labels.mongodb0 == true
     networks:
-      - kargo-network
+      - kargo-back-network
 
   mongodb1-exporter:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
@@ -35,7 +35,7 @@ services:
         constraints:
          - node.labels.mongodb1 == true
     networks:
-      - kargo-network
+      - kargo-back-network
 
   mongodb2-exporter:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
@@ -53,4 +53,9 @@ services:
         constraints:
          - node.labels.mongodb2 == true
     networks:
-      - kargo-network
+      - kargo-back-network
+
+networks:
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true

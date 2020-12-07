@@ -16,4 +16,9 @@ services:
         constraints:
          - node.labels.mongodb == true
     networks:
-      - kargo-network
+      - kargo-back-network
+
+networks:
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true

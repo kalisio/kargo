@@ -26,7 +26,7 @@ services:
       labels:
         - "traefik.backend=grafana"
         - "traefik.enable=true"      
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
         - "traefik.port=3000"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -35,13 +35,13 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network   
+      - kargo-front-network   
 
 volumes:
   grafana_data: {}
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-front-network:
+    name: ${DOCKER_FRONT_NETWORK}
     external: true
     

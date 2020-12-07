@@ -17,7 +17,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network
 
   mongodb1:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
@@ -35,7 +35,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network
 
   mongodb2:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
@@ -53,7 +53,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network
 
 configs:
   mongodb0_conf:
@@ -68,7 +68,7 @@ volumes:
   mongodb1_data: {}
   mongodb2_data: {}
 
-networks: 
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+networks:
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
     external: true

@@ -25,7 +25,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network        
+      - kargo-back-network        
 
 configs:
   mgob-rclone-config:
@@ -36,7 +36,7 @@ volumes:
   mgob_tmp: {}
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
     external: true
 

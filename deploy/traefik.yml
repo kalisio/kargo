@@ -33,7 +33,7 @@ services:
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -42,18 +42,19 @@ services:
       restart_policy:
         condition: any
     networks:
-      - docker-socket-proxy-network
-      - kargo-network
+      - docker-socket-network
+      - kargo-front-network
 
 configs:
   traefik_conf:
     file: ./../configs/traefik/traefik.toml
   
 networks:
-  docker-socket-proxy-network:
-    driver: overlay
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  docker-socket-network:
+    name: ${DOCKER_SOCKET_NETWORK}
+    external: true
+  kargo-front-network:
+    name: ${DOCKER_FRONT_NETWORK}
     external: true
   
 

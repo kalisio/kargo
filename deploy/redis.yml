@@ -6,7 +6,7 @@ services:
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli","ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -18,12 +18,12 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network
 
 volumes:
   redis_data: {}
 
 networks:
-    kargo-network:
-      name: ${DOCKER_NETWORK}
-      external: true
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true

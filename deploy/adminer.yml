@@ -9,7 +9,7 @@ services:
       - ADMINER_DEFAULT_SERVER
     deploy:
       labels:
-        - "traefik.docker.network=${DOCKER_NETWORK}"
+        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
         - "traefik.backend=adminer"
         - "traefik.enable=true"
         - "traefik.frontend.entryPoints=http,https"
@@ -24,9 +24,14 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network        
+      - kargo-front-network        
+      - kargo-back-network
 
 networks:
-  kargo-network:
-    name: ${DOCKER_NETWORK}
+  kargo-front-network:
+    name: ${DOCKER_FRONT_NETWORK}
     external: true
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true
+
