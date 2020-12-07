@@ -340,7 +340,6 @@ kargo_exec()
 kargo_deploy()
 {
   kargo_check_stack deploy $1
-  #kargo_check_network $DOCKER_SOCKET_NETWORK
   kargo_check_network $DOCKER_FRONT_NETWORK
   kargo_check_network $DOCKER_BACK_NETWORK
   if [ $1 == 'all' ]; then
