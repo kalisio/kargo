@@ -281,7 +281,6 @@ $mongo --host mongodb0 --eval 'rs.initiate({ _id: "mongors", version: 1, members
 $mongo --host mongodb0 --eval 'rs.status()'
 ```
 
-
 ### Troubleshooting the Replica Set
 
 A member of a replica set could enter `RECOVERING` state when it is not ready to accept reads. 
@@ -320,6 +319,17 @@ For each service, you need to declare a variable in the `.env` file which tell t
 ::: warning
 Before deploying, do not forget to make the **merged configuration** using the [configure](../reference/cli.md#configure) command.
 :::
+
+## Using hooks
+
+Sometimes, it may be useful to execute some scripts before or after a service is deployed. This is the purpose of the hooks.
+To declare a before or an after hook, create a script in the `deploy` folder named `<service>_before.sh` or `<service>_after.sh`.
+The script will automatically executed when deploying the service.
+
+::: warning
+Note that `after` hooks are executed once the complete stack is deployed.
+:::
+
 
 ## Packaging the services
 
