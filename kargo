@@ -104,7 +104,6 @@ kargo_check_network()
     echo creating $1 network
     docker network create -d overlay --attachable $1
   fi
-
 }
 
 kargo_update_labels()
@@ -342,7 +341,7 @@ kargo_deploy()
 {
   pushd .kargo > /dev/null
   kargo_check_stack deploy $1
-  kargo_check_network $DOCKER_SOCKET_NETWORK
+  #kargo_check_network $DOCKER_SOCKET_NETWORK
   kargo_check_network $DOCKER_FRONT_NETWORK
   kargo_check_network $DOCKER_BACK_NETWORK
   if [ $1 == 'all' ]; then
