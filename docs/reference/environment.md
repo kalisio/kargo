@@ -206,6 +206,8 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `MONGORS_IMAGE` | The **MongoDB** image to be used. | `mongo` |
 | `MONGORS_TAG` | The **MongoDB** version to be used. | `3.6.5` |
+| `MONGORS_NAME` | The name of the **Replica Set**. | `mongors` |
+| `MONGORS_VOLUME_PATH` | The path to the volume to be mounted to store the data. | `` |
 
 ### OpenAQ
 

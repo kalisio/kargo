@@ -3,7 +3,7 @@ version: '3.8'
 services:
   ${MONGORS_NAME}0:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod --replSet mongors
+    command: mongod --replSet ${MONGORS_NAME}
     volumes:
       - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}0_data:/data/db
     configs:
@@ -21,7 +21,7 @@ services:
 
   ${MONGORS_NAME}1:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod --replSet mongors
+    command: mongod --replSet ${MONGORS_NAME}
     volumes:
       - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}1_data:/data/db
     configs:
@@ -39,7 +39,7 @@ services:
 
   ${MONGORS_NAME}2:
     image: ${MONGORS_IMAGE}:${MONGORS_TAG}
-    command: mongod --replSet mongors
+    command: mongod --replSet ${MONGORS_NAME}
     volumes:
       - ${MONGORS_VOLUME_PATH}${MONGORS_NAME}2_data:/data/db
     configs:
