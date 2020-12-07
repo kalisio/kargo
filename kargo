@@ -339,7 +339,6 @@ kargo_exec()
 
 kargo_deploy()
 {
-  pushd .kargo > /dev/null
   kargo_check_stack deploy $1
   #kargo_check_network $DOCKER_SOCKET_NETWORK
   kargo_check_network $DOCKER_FRONT_NETWORK
@@ -359,6 +358,7 @@ kargo_deploy()
     local STACK=${!STACK_NAME}
     local SERVICES_TO_DEPLOY=
     local AFTER_HOOKS_TO_RUN=
+    pushd .kargo > /dev/null
     for SERVICE in $STACK; do
       echo initializing service $SERVICE
       SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
@@ -387,8 +387,9 @@ kargo_deploy()
     for AFTER_HOOK in $AFTER_HOOKS_TO_RUN; do
       source deploy/$AFTER_HOOK
     done
+    popd > /dev/null
   fi
-  popd > /dev/null
+  
 }
 
 kargo_redeploy()
