@@ -150,35 +150,38 @@ kargo_configure()
   cp .env.default .kargo/.env.default
   cp "$WORKSPACE"/.env .kargo/.
   kargo_read_configuration
-  # build a temporary configuration to facilitate the synchronization
-  mkdir -p .tmp
-  cp -R ./build  .tmp/.
-  cp -R ./scripts .tmp/.
-  cp -R ./deploy .tmp/.
-  cp -R ./configs .tmp/.
+  # build folder
+  rm -fr .kargo/build
+  cp -R ./build .kargo/build
   if [ -d "$WORKSPACE"/build ]; then
-    cp -R "$WORKSPACE"/build .tmp/.
+    cp -R "$WORKSPACE"/build .kargo/.
   fi
+  # scripts folder
+  rm -fr .kargo/scripts
+  cp -R ./scripts .kargo/scripts
   if [ -d "$WORKSPACE"/scripts ]; then
-    cp -R "$WORKSPACE"/scripts .tmp/.
+    cp -R "$WORKSPACE"/scripts .kargo/.
   fi
+  # deploy folder
+  rm -fr .kargo/deploy
+  cp -R ./deploy .kargo/deploy
   if [ -d "$WORKSPACE"/deploy ]; then
-    cp -R "$WORKSPACE"/deploy .tmp/.
+    cp -R "$WORKSPACE"/deploy .kargo/.
   fi
+  # configs folder
+  mkdir  /tmp/kargo
+  cp -R ./configs /tmp/kargo
   if [ -d "$WORKSPACE"/configs ]; then
-    cp -R "$WORKSPACE"/configs .tmp/.
+    cp -R "$WORKSPACE"/configs /tmp/kargo/.
   fi
   # template the require configuration files
-  local TEMPLATES=`find .tmp/configs -name "*.tpl"`
+  local TEMPLATES=`find /tmp/kargo/configs -name "*.tpl"`
   for TEMPLATE in $TEMPLATES; do
     envsubst < $TEMPLATE > ${TEMPLATE%.*}
   done
   # synchronize the configuration
-  rsync -au --delete .tmp/build .kargo/
-  rsync -au --delete .tmp/scripts .kargo/
-  rsync -au --delete .tmp/deploy .kargo/
-  rsync -au --delete .tmp/configs .kargo/
-  rm -fr .tmp
+  rsync -au --delete /tmp/kargo/configs .kargo/
+  rm -fr /tmp/kargo
   kargo_update_labels
   echo workspace \"$WORKSPACE\" ready.
 }
