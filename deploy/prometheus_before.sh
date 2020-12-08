@@ -1,3 +1,6 @@
 #!/bin/bash
 
-yq 
+for TARGET in $PROMETHEUS_TARGET; do
+yq
+
+done
