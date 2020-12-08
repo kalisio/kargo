@@ -282,7 +282,7 @@ $mongo --host mongors0 --eval 'rs.status()'
 ```
 
 ::: tip
-You can override the name of the **Replica Set** (as well as the **MongoDB** instances) by setting the `MONGORS_NAME` variable.
+You can override the name of the **Replica Set** (as well as the **MongoDB** instances) by setting the `MONGORS_NAME` variable. By default the **Replica Set** is named `mongors`.
 :::
 
 ### Troubleshooting the Replica Set
