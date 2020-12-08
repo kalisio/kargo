@@ -253,7 +253,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `PROMETHEUS_CADVISOR_TAG` | The **cAdvisor** tag to be used. | `postgres` |
 | `PROMETHEUS_PUSHGATEWAY_IMAGE` | The **Pushgateway** image to be used. | `postgres` |
 | `PROMETHEUS_PUSHGATEWAY_TAG` | The **Pushgateway** tag to be used. | `postgres` |
-| `PROMETHEUS_TARGETS` | The additional targets to add. | `` |
+| `PROMETHEUS_ADDITIONAL_TARGETS` | The additional targets to add. By default the target installed are `prometheus`, `cadvisor` and `node-exppoter`. | `` |
 
 ### Redis
 
