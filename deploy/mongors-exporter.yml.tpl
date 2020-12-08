@@ -1,10 +1,10 @@
 version: '3.5'
 
 services:
-  mongodb0-exporter:
+  ${MONGORS_NAME}0-exporter:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
-      - '--mongodb.uri=mongodb://mongodb0'
+      - '--mongodb.uri=mongodb://${MONGORS_NAME}0'
       - '--collect.collection'
     deploy:
       replicas: 1
@@ -13,16 +13,13 @@ services:
           memory: 128M
         reservations:
           memory: 64M
-      placement:
-        constraints:
-         - node.labels.mongodb0 == true
     networks:
       - kargo-back-network
 
-  mongodb1-exporter:
+  ${MONGORS_NAME}1-exporter:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
-      - '--mongodb.uri=mongodb://mongodb1'
+      - '--mongodb.uri=mongodb://${MONGORS_NAME}1'
       - '--collect.collection'
     deploy:
       replicas: 1
@@ -31,16 +28,13 @@ services:
           memory: 128M
         reservations:
           memory: 64M
-      placement:
-        constraints:
-         - node.labels.mongodb1 == true
     networks:
       - kargo-back-network
 
-  mongodb2-exporter:
+  ${MONGORS_NAME}2-exporter:
     image: ${PROMETHEUS_MONGODB_EXPORTER_IMAGE}:${PROMETHEUS_MONGODB_EXPORTER_TAG}
     command:
-      - '--mongodb.uri=mongodb://mongodb2'
+      - '--mongodb.uri=mongodb://${MONGORS_NAME}2'
       - '--collect.collection'
     deploy:
       replicas: 1
@@ -49,9 +43,6 @@ services:
           memory: 128M
         reservations:
           memory: 64M
-      placement:
-        constraints:
-         - node.labels.mongodb2 == true
     networks:
       - kargo-back-network
 

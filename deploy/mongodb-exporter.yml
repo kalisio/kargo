@@ -12,9 +12,6 @@ services:
           memory: 128M
         reservations:
           memory: 64M
-      placement:
-        constraints:
-         - node.labels.mongodb == true
     networks:
       - kargo-back-network
 
