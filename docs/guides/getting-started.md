@@ -44,7 +44,7 @@ Some of the services proposed by **Kargo** need to be built before you can deplo
 To install it you can run the command `docker stack deploy -c registry.yml registry` where the Compose file `registry.yml` has the following content:
 
 ```
-version: '3.5'
+version: '3.8'
 
 services:
   registry:
