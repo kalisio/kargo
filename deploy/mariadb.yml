@@ -11,7 +11,7 @@ services:
       - MYSQL_USER=${MARIADB_USERNAME}
       - MYSQL_PASSWORD=${MARIADB_PASSWORD}
     healthcheck:
-      test: "mysqladmin ping --silent"
+      test: "mysqladmin ping --silent --password=${MARIADB_ROOT_PASSWORD}"
       interval: 30s
       timeout: 10s
       retries: 3
