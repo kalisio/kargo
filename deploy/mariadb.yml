@@ -7,9 +7,9 @@ services:
       - ${MARIADB_VOLUME_PATH}mariadb_data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MARIADB_DBNAME}
-      - MYSQL_USER=${MARIADB_USERNAME}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+      #- MYSQL_DATABASE=${MARIADB_DBNAME}
+      #- MYSQL_USER=${MARIADB_USERNAME}
+      #- MYSQL_PASSWORD=${MARIADB_PASSWORD}
     healthcheck:
       test: ["CMD", "mysqlshow --user=root --password=${MYSQL_ROOT_PASSWORD}"]
       interval: 30s
