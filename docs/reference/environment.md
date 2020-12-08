@@ -199,7 +199,6 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MONGO_EXPRESS_MONGODB_SERVER` | The **MongoDB** server name. | `mongodb` |
 | `MONGO_EXPRESS_MONGODB_PORT` | The **MongoDB** port. | `27017` |
 
-
 ### MongoRS
 
 | Variable | Description | Default value |
