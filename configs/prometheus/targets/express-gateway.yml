@@ -1,0 +1,4 @@
+scrape_configs:
+  - job_name: 'express-gateway'
+    static_configs:
+    - targets: ['express-gateway:8080']
