@@ -4,7 +4,7 @@ services:
   mariadb:
     image: ${MARIADB_IMAGE}:${MARIADB_TAG}
     volumes:
-      - ${MARIADB_DATA_PATH}mariadb_data:/var/lib/mysql
+      - ${MARIADB_DATA_PATH}mariadb:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MARIADB_DBNAME}
@@ -26,7 +26,7 @@ services:
       - kargo-back-network
 
 volumes:
-  mariadb_data: {}
+  mariadb:
 
 networks:
   kargo-back-network:
