@@ -26,7 +26,7 @@ services:
       restart_policy:
         condition: on-failure
     networks:
-      - kargo-network
+      - kargo-back-network
 
 networks:
     kargo-back-network:
