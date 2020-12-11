@@ -13,6 +13,7 @@ services:
         published: 8000
         mode: host
     environment:
+      - SUBDOMAIN
       - SLACK_WEBHOOK_URL=${KONTROL_SLACK_WEBHOOK_URL}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
