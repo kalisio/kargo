@@ -173,6 +173,18 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MAPUTNIK_TAG` | The version to be used. | `1.6.1` |
 | `MAPUTNIK_REPLICAS` | The number of replicas. | `1` |
 
+### MariaDB
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `MARIADB_IMAGE` | The image to be used. | `mariadb` |
+| `MAPUTNIK_TAG` | The version to be used. | `10.5` |
+| `MARIADB_DATA_PATH` | The path to the data. If not defined, a `mariadb` named volume will be automatically created. | `` |
+| `MARIADB_ROOT_PASSWORD` | The root password. | - |
+| `MARIADB_DBNAME` | The name of a database to be created. | - |
+| `MARIADB_USERNAME` | The name of a user to be created. | - |
+| `MARIADB_PASSWORD` | The password of the user to be created. | - |
+
 ### Mgob
 
 | Variable | Description | Default value |
