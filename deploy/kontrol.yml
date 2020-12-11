@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  kontrol:
+    image: ${KONTROL_IMAGE}:${KONTROL_TAG}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: kontrol_config
+        target: /kontrol/config.js
+    ports:
+      - target: 80
+        published: 8000
+        mode: host
+    environment:
+      - SLACK_WEBHOOK_URL=${KONTROL_SLACK_WEBHOOK_URL}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1m
+    deploy:
+      placement:
+        constraints:
+         - node.role == worker
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-back-network
+
+configs:
+  kontrol_config:
+    file: ./../configs/kontrol/config.js
+
+networks:
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true
