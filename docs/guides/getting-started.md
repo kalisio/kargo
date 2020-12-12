@@ -53,7 +53,6 @@ services:
       - target: 5000
         published: 5000
         protocol: tcp
-        mode: host
     networks:
       - swarm-network
     deploy:

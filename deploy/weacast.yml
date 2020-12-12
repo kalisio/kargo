@@ -24,7 +24,6 @@ services:
       - target: 10000 # Seems to be required to make feathers-distributed work correctly
         published: 10000
         protocol: tcp
-        mode: host    
     deploy:
       replicas: ${WEACAST_REPLICAS}
       placement:

@@ -35,7 +35,6 @@ services:
       - target: 10001 # Seems to be required to make feathers-distributed work correctly
         published: 10001
         protocol: tcp
-        mode: host
     deploy:
       labels:
         - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
