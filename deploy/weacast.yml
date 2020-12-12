@@ -21,7 +21,10 @@ services:
       timeout: 10s
       retries: 3
     ports:
-      - "10000:10000" # Seems to be required to make feathers-distributed work correctly
+      - target: 10000 # Seems to be required to make feathers-distributed work correctly
+        published: 10000
+        protocol: tcp
+        mode: host    
     deploy:
       replicas: ${WEACAST_REPLICAS}
       placement:

@@ -50,7 +50,10 @@ services:
   registry:
     image: registry:2
     ports:
-      - 5000:5000
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: host
     networks:
       - swarm-network
     deploy:
