@@ -27,19 +27,9 @@ services:
       placement:
         constraints: 
           - node.role == manager
-      labels:
-        - "traefik.backend=prometheus"
-        - "traefik.enable=true"      
-        - "traefik.docker.network=${DOCKER_FRONT_NETWORK}"
-        - "traefik.port=9090"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:prometheus.${SUBDOMAIN}"
-        - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"        
       restart_policy:
         condition: on-failure
-    networks:
-      - kargo-front-network      
+    networks:  
       - kargo-back-network
 
   alertmanager:
@@ -47,7 +37,6 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
-      - '--web.external-url=https://alertmanager.${SUBDOMAIN}'
     healthcheck:
       test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:9093/metrics"]
       interval: 30s
