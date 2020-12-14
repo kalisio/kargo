@@ -18,7 +18,6 @@ kargo_usage()
   printf " %-10s %-30s %s\n" "deploy" "<stack|all> [delay]" "deploy the given stack"
   printf " %-10s %-30s %s\n" "execute" "<script>" "exec the given script"    
   printf " %-10s %-30s %s\n" "info" "" "generate the current configuration"
-  printf " %-10s %-30s %s\n" "image" "<load|save> <service>" "load/save the given service from an archive/to an archive"
   printf " %-10s %-30s %s\n" "pull" "" "pull the current workspace"
   printf " %-10s %-30s %s\n" "redeploy" "<stack|all>" "re deploy the given stack"  
   printf " %-10s %-30s %s\n" "remove" "<stack|all>" "remove the given stack"
@@ -207,97 +206,6 @@ kargo_info()
   done
 }
 
-kargo_image_load()
-{
-  kargo_read_configuration
-  # check whether an agument is provided
-  if [ -z "$1" ]; then
-    echo error: the command \"kargo image load\" requires one argument.
-    kargo_usage
-    exit 1
-  fi
-  local SERVICE_NAME=${1^^}
-  SERVICE_NAME=${SERVICE_NAME//-/_}
-  # Is there any archive to import ?
-  local ARCHIVE_VAR=${SERVICE_NAME}_ARCHIVE
-  local ARCHIVE=${!ARCHIVE_VAR}
-  if [ "$ARCHIVE" == "" ]; then
-    echo error: you must define the variable \"$ARCHIVE_VAR\" to set the archive to be imported
-    exit 1
-  fi
-  # do we need to copy the archive first ?
-  local STORE_PATTERN=".*:.*"
-  local HTTP_PATTERN="^http(s?)://.*"
-  if [[ "$ARCHIVE" =~ $STORE_PATTERN ]] && [[ ! "$ARCHIVE" =~ $HTTP_PATTERN ]]; then
-    echo copying $ARCHIVE
-    local LOCAL_ARCHIVE=${ARCHIVE//:/_}
-    local LOCAL_ARCHIVE_NAME=`basename $LOCAL_ARCHIVE`
-    rclone copyto $ARCHIVE archives/$LOCAL_ARCHIVE_NAME
-    ARCHIVE=archives/$LOCAL_ARCHIVE_NAME
-  fi
-  # load the archive
-  echo loading $ARCHIVE
-  local ARCHIVE_IMAGE_TAG=`docker load < $ARCHIVE` 
-  # retrieve the source image and the source tag
-  local REGEXP="Loaded image: (.*):(.*)"
-  [[ "$ARCHIVE_IMAGE_TAG" =~ $REGEXP ]]
-  local ARCHIVE_IMAGE="${BASH_REMATCH[1]}"
-  local TAG="${BASH_REMATCH[2]}"
-  if [ "$ARCHIVE_IMAGE" == "" ] || [ "$TAG" == "" ]; then
-    echo error: an error has occured while loading archive \"$ARCHIVE\"
-    exit 1
-  fi
-  echo -e "  $ARCHIVE_IMAGE:$TAG loaded"
-  # tag and push the loaded image
-  docker tag $ARCHIVE_IMAGE:$TAG localhost:5000/$ARCHIVE_IMAGE:$TAG
-  docker push localhost:5000/$ARCHIVE_IMAGE:$TAG
-  # declare variable for deployment
-  export ${SERVICE_NAME}_IMAGE=localhost:5000/$ARCHIVE_IMAGE
-  export ${SERVICE_NAME}_TAG=$TAG
-}
-
-kargo_image_save()
-{
-  kargo_read_configuration
-  # check whether an agument is provided
-  if [ -z $1 ]; then
-    echo error: the command \"kargo image save\" requires one argument.
-    kargo_usage
-    exit 1
-  fi
-  local SERVICE_NAME=${1^^}
-  SERVICE_NAME=${SERVICE_NAME//-/_}
-  # Check whether it is already an archive
-  local SERVICE_ARCHIVE_NAME=${SERVICE_NAME}_ARCHIVE
-  local SERVICE_ARCHIVE=${!SERVICE_ARCHIVE_NAME}
-  if [ "$SERVICE_ARCHIVE" == "" ]; then
-    local SERVICE_REPOSITORY_NAME=${SERVICE_NAME}_IMAGE
-    local SERVICE_REPOSITORY=${!SERVICE_REPOSITORY_NAME}
-    local SERVICE_TAG_NAME=${SERVICE_NAME}_TAG
-    local SERVICE_TAG=${!SERVICE_TAG_NAME}
-    local LOCAL_REPOSITORY_PATTERN="localhost:5000/(.*)"
-    [[ "$SERVICE_REPOSITORY" =~ $LOCAL_REPOSITORY_PATTERN ]]
-    local LOCAL_SERVICE_NAME="${BASH_REMATCH[1]}"
-    if [ ! -z "$LOCAL_SERVICE_NAME" ]; then
-      docker tag ${SERVICE_REPOSITORY}:${SERVICE_TAG} ${LOCAL_SERVICE_NAME}:${SERVICE_TAG} 
-      SERVICE_REPOSITORY=${LOCAL_SERVICE_NAME}
-    else
-      docker pull ${SERVICE_REPOSITORY}:${SERVICE_TAG}
-    fi 
-    local ARCHIVE_NAME=${SERVICE_REPOSITORY//\//.}
-    docker save ${SERVICE_REPOSITORY}:${SERVICE_TAG} | gzip > archives/${ARCHIVE_NAME}_${SERVICE_TAG}.tar.gz
-  fi
-}
-
-kargo_image() 
-{
-  case $1 in
-    load) kargo_image_load "$2";;
-    save) kargo_image_save "$2";;
-    *) kargo_usage
-  esac
-}
-
 kargo_build()
 {
   kargo_read_configuration
@@ -366,11 +274,6 @@ kargo_deploy()
       SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE.yml"
       local SERVICE_NAME=${SERVICE//-/_} # replace '-' by '_'
       SERVICE_NAME=${SERVICE_NAME^^} # change to uppercase
-      local SERVICE_ARCHIVE_NAME=${SERVICE_NAME}_ARCHIVE
-      local SERVICE_ARCHIVE=${!SERVICE_ARCHIVE_NAME}
-      if [ "$SERVICE_ARCHIVE" != "" ]; then
-        kargo_image_load $SERVICE
-      fi
       local SERVICE_EXTENSION_NAME=${SERVICE_NAME}_EXTENSION
       local SERVICE_EXTENSION=${!SERVICE_EXTENSION_NAME}
       if [ "$SERVICE_EXTENSION" != "" ]; then
@@ -428,7 +331,6 @@ case $1 in
   deploy) kargo_deploy "$2" "$3";;
   exec) kargo_exec "$2" "$3";;
   info) kargo_info;;
-  image) kargo_image "$2" "$3";;
   pull) kargo_pull;;
   redeploy) kargo_redeploy "$2";;  
   remove) kargo_remove "$2";;
