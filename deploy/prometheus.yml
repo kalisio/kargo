@@ -129,9 +129,6 @@ volumes:
   prometheus_data: {}
 
 networks:
-  kargo-front-network:
-    name: ${DOCKER_FRONT_NETWORK}
-    external: true
   kargo-back-network:
     name: ${DOCKER_BACK_NETWORK}
     external: true
