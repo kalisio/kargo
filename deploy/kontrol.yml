@@ -8,10 +8,6 @@ services:
     configs:
       - source: kontrol_config
         target: /kontrol/config.js
-    ports:
-      - target: 80
-        published: 8000
-        mode: host
     environment:
       - SUBDOMAIN
       - SLACK_WEBHOOK_URL=${KONTROL_SLACK_WEBHOOK_URL}
