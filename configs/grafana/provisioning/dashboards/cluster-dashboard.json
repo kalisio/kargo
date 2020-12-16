@@ -15,10 +15,130 @@
   "description": "Cluster metrics",
   "editable": false,
   "gnetId": null,
-  "graphTooltip": 0,
-  "iteration": 1607701091680,
+  "graphTooltip": 1,
+  "id": 2,
+  "iteration": 1608115653305,
   "links": [],
   "panels": [
+    {
+      "columns": [],
+      "datasource": "Prometheus",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 84,
+      "links": [],
+      "pageSize": 3,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Node IP",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "instance",
+          "type": "string"
+        },
+        {
+          "alias": "CPU Count",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "Value #C",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Hostname",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "nodename",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Total RAM",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #B",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "count (node_uname_info) by (instance, nodename)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "A"
+        },
+        {
+          "expr": "max(node_memory_MemTotal_bytes) by (instance)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
+          "expr": "count (node_cpu_seconds_total{mode=\"idle\"}) by (instance)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "C"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "All nodes",
+      "transform": "table",
+      "type": "table"
+    },
     {
       "cacheTimeout": null,
       "colorBackground": false,
@@ -38,10 +158,10 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 3,
+        "h": 2,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 10,
       "interval": null,
@@ -77,8 +197,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "sparkline": {
@@ -112,101 +232,106 @@
       "valueName": "name"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "Prometheus",
-      "editable": false,
-      "error": false,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
+      "description": "Shows CPU usage normalized over all cpus (100% = all cpus used)",
+      "fill": 1,
       "gridPos": {
-        "h": 2,
+        "h": 7,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 7
       },
-      "id": 20,
-      "interval": null,
+      "id": 82,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
       "repeat": "node",
+      "repeatDirection": "h",
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "expr": "count(node_cpu_seconds_total{instance=~\"$node\", mode=\"system\"}) or count(node_cpu{instance=~\"$node\", mode=\"system\"})",
+          "expr": "sum(sum(rate(node_cpu_seconds_total{instance=~\"$node\", mode!=\"idle\"}[1m])) by(mode) / count without(cpu, instance, job) (node_cpu_seconds_total{instance=~\"$node\", mode!=\"idle\"})) * 100",
           "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "",
-          "metric": "",
-          "refId": "A",
-          "step": 14400,
-          "target": ""
-        }
-      ],
-      "thresholds": "",
-      "title": "CPU Cores",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
+          "intervalFactor": 1,
+          "legendFormat": "total",
+          "refId": "A"
+        },
         {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
+          "expr": "sum(rate(node_cpu_seconds_total{instance=~\"$node\", mode=\"iowait\"}[1m])) by(mode) / count without(cpu, instance, job) (node_cpu_seconds_total{instance=~\"$node\", mode=\"iowait\"}) * 100",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "iowait",
+          "refId": "B"
         }
       ],
-      "valueName": "avg"
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -214,6 +339,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "Shows normalized load over all cpus (<= 1.0 = every process that needed the CPU could use it immediately without being blocked)",
       "editable": false,
       "error": false,
       "fill": 1,
@@ -222,7 +348,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 14
       },
       "id": 30,
       "legend": {
@@ -235,7 +361,7 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
       "maxPerRow": 6,
       "nullPointMode": "connected",
@@ -248,8 +374,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "seriesOverrides": [],
@@ -258,22 +384,38 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_load5{instance=~\"$node\"}",
+          "expr": "node_load5{instance=~\"$node\"} / count without(cpu, mode) (node_cpu_seconds_total{instance=~\"$node\", mode=\"idle\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "load",
+          "legendFormat": "load5",
           "metric": "",
           "refId": "A",
           "step": 1200,
           "target": ""
+        },
+        {
+          "expr": "node_load15{instance=~\"$node\"} / count without(cpu, mode) (node_cpu_seconds_total{instance=~\"$node\", mode=\"idle\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "legendFormat": "load15",
+          "refId": "B"
+        },
+        {
+          "expr": "node_load1{instance=~\"$node\"} / count without(cpu, mode) (node_cpu_seconds_total{instance=~\"$node\", mode=\"idle\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "legendFormat": "load1",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Load5",
+      "title": "Load",
       "tooltip": {
         "msResolution": false,
         "shared": true,
@@ -301,7 +443,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -315,37 +457,29 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "decimals": 2,
-      "editable": false,
-      "error": false,
       "fill": 1,
-      "grid": {},
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 21
       },
-      "id": 40,
+      "id": 86,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
-        "hideEmpty": false,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "percentage": true,
-      "pointradius": 5,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "repeat": "node",
@@ -353,8 +487,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "seriesOverrides": [],
@@ -363,26 +497,26 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - (rate(node_cpu_seconds_total{job=\"node-exporter\",instance=~\"$node\",mode=\"idle\"}[1m]) * 100)",
+          "expr": "100 - (100 * node_memory_MemAvailable_bytes{instance=~\"$node\"} / node_memory_MemTotal_bytes{instance=~\"$node\"})",
           "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "CPU {{cpu}}",
-          "metric": "",
-          "refId": "A",
-          "step": 1200,
-          "target": ""
+          "intervalFactor": 1,
+          "legendFormat": "total",
+          "refId": "A"
+        },
+        {
+          "expr": "100 * (node_memory_Buffers_bytes{instance=~\"$node\"} + node_memory_Cached_bytes{instance=~\"$node\"}) / node_memory_MemTotal_bytes{instance=~\"$node\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "buff/cache",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "CPU (usage over 1m)",
+      "title": "Memory usage",
       "tooltip": {
-        "msResolution": false,
         "shared": true,
         "sort": 0,
         "value_type": "individual"
@@ -398,7 +532,7 @@
       "yaxes": [
         {
           "format": "percent",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": "100",
           "min": "0",
@@ -406,125 +540,11 @@
         },
         {
           "format": "short",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Slab": "#E5A8E2",
-        "Swap": "#E24D42"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "decimals": 2,
-      "editable": false,
-      "error": false,
-      "fill": 1,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 19
-      },
-      "id": 50,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "maxPerRow": 6,
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": "node",
-      "repeatDirection": "h",
-      "scopedVars": {
-        "node": {
-          "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "node_memory_MemTotal_bytes{instance=~'$node'}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Available",
-          "refId": "N"
-        },
-        {
-          "expr": "node_memory_MemTotal_bytes{instance=~'$node'} - node_memory_MemFree_bytes{instance=~'$node'} - node_memory_Buffers_bytes{instance=~'$node'} - node_memory_Cached_bytes{instance=~'$node'}",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "Used",
-          "metric": "",
-          "refId": "A",
-          "step": 1200,
-          "target": ""
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Memory",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -547,7 +567,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 60,
       "legend": {
@@ -573,8 +593,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "seriesOverrides": [],
@@ -649,7 +669,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 36
       },
       "id": 70,
       "legend": {
@@ -675,8 +695,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "seriesOverrides": [],
@@ -750,7 +770,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 43
       },
       "id": 80,
       "legend": {
@@ -776,8 +796,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.33:9100",
-          "value": "10.0.2.33:9100"
+          "text": "10.0.2.72:9100",
+          "value": "10.0.2.72:9100"
         }
       },
       "seriesOverrides": [
@@ -791,10 +811,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(node_network_receive_bytes_total{instance=~'$node'}[1m])*8",
+          "expr": "rate(node_network_receive_bytes_total{instance=~'$node', device!=\"lo\"}[1m])",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "In {{device}}",
           "metric": "",
           "refId": "A",
@@ -802,10 +822,10 @@
           "target": ""
         },
         {
-          "expr": "rate(node_network_transmit_bytes_total{instance=~'$node'}[1m])*8",
+          "expr": "rate(node_network_transmit_bytes_total{instance=~'$node', device!=\"lo\"}[1m])",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "Out {{device}}",
           "refId": "B",
           "step": 1200
@@ -832,7 +852,7 @@
       },
       "yaxes": [
         {
-          "format": "bits",
+          "format": "Bps",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -866,9 +886,9 @@
         "current": {
           "selected": false,
           "tags": [],
-          "text": "10.0.2.33:9100",
+          "text": "10.0.2.72:9100",
           "value": [
-            "10.0.2.33:9100"
+            "10.0.2.72:9100"
           ]
         },
         "datasource": "Prometheus",
@@ -894,7 +914,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -926,5 +946,5 @@
   "timezone": "browser",
   "title": "Cluster dashboard",
   "uid": "TsGDuCAiz",
-  "version": 1
+  "version": 2
 }
