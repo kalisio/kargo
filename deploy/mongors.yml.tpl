@@ -16,6 +16,9 @@ services:
          - node.labels.${MONGORS_NAME}0 == true
       restart_policy:
         condition: on-failure
+      resources:
+        limits:
+          memory: ${MONGORS_MEMORY_LIMIT}
     networks:
       - kargo-back-network
 
@@ -34,6 +37,9 @@ services:
           - node.labels.${MONGORS_NAME}1 == true
       restart_policy:
         condition: on-failure
+      resources:
+        limits:
+          memory: ${MONGORS_MEMORY_LIMIT}
     networks:
       - kargo-back-network
 
@@ -52,6 +58,9 @@ services:
           - node.labels.${MONGORS_NAME}2 == true
       restart_policy:
         condition: on-failure
+      resources:
+        limits:
+          memory: ${MONGORS_MEMORY_LIMIT}
     networks:
       - kargo-back-network
 

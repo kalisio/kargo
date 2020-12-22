@@ -16,8 +16,8 @@
   "editable": false,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 2,
-  "iteration": 1608115653305,
+  "id": 3,
+  "iteration": 1608194306497,
   "links": [],
   "panels": [
     {
@@ -197,8 +197,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "sparkline": {
@@ -247,13 +247,14 @@
       },
       "id": 82,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
-        "max": false,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -268,8 +269,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [],
@@ -352,13 +353,15 @@
       },
       "id": 30,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
-        "max": false,
+        "max": true,
         "min": false,
-        "show": false,
+        "rightSide": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -374,8 +377,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [],
@@ -487,8 +490,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [],
@@ -593,8 +596,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [],
@@ -695,8 +698,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [],
@@ -796,8 +799,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.72:9100",
-          "value": "10.0.2.72:9100"
+          "text": "10.0.2.100:9100",
+          "value": "10.0.2.100:9100"
         }
       },
       "seriesOverrides": [
@@ -886,9 +889,9 @@
         "current": {
           "selected": false,
           "tags": [],
-          "text": "10.0.2.72:9100",
+          "text": "10.0.2.100:9100",
           "value": [
-            "10.0.2.72:9100"
+            "10.0.2.100:9100"
           ]
         },
         "datasource": "Prometheus",
@@ -946,5 +949,5 @@
   "timezone": "browser",
   "title": "Cluster dashboard",
   "uid": "TsGDuCAiz",
-  "version": 2
+  "version": 3
 }
