@@ -37,48 +37,6 @@ If you do not have such an infrastructure, you may have a look at [**Kaabah**](h
 
 ### Install the prerequisites
 
-#### Install a local Registry
-
-Some of the services proposed by **Kargo** need to be built before you can deploy it. For this reason, it is necessary to have a local Registry on the Manager node to store the images.
-
-To install it you can run the command `docker stack deploy -c registry.yml registry` where the Compose file `registry.yml` has the following content:
-
-```
-version: '3.8'
-
-services:
-  registry:
-    image: registry:2
-    ports:
-      - target: 5000
-        published: 5000
-        protocol: tcp
-    networks:
-      - swarm-network
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
-
-networks:
-  swarm-network:
-    name: <swarm network>
-    external: true
-```
-
-#### Install SSHFS
-
-As we will see later, **SSHFS** is used to share the **Kargo** configuration among the nodes. You need to install **SSHFS** on each worker. 
-To install **SSHFS** you may run the following procedure:
-
-```bash
-sudo apt-get install sshfs
-# Edit fuse conf to enable the allow_other option
-sudo nano /etc/fuse.conf and uncomment the line
-#user_allow_other
-```
-
 #### Install rclone
 
 **rclone** is used to provision the nodes with the static data that are used by the services (i.e. geospatial datasets, docker images...). **rclone** allows you to retrieve these data from most 
@@ -104,6 +62,12 @@ On the manager, type the following command:
 ```bash
 sudo apt-get install jq
 ```
+
+#### Install yq
+
+**[yq]()** is a lightweight and portable command-line YAML processor. The CLI uses **yq** to merge configuration files.
+
+Please refer to the [installation section](https://github.com/mikefarah/yq#install) to install **yq**
 
 ### Install kargo
 
@@ -159,12 +123,9 @@ We can provide datasets from different sources such as public catalogs and those
 
 3. Edit the `.env` file and configure the services you want to deploy. See the section [Environment](./reference/environment) to have the complete reference of the services settings.
 
-4. Define node constraints: 
-   1. Define the `NODES` variable listing the nodes
-   2. For each node, define a variable `<NODE_NAME>_LABELS` listing the labels to be assigned to the node
+4. Define node constraints. For each node, define a variable `<NODE_NAME>_LABELS` listing the labels to be assigned to the node
 
 ```bash
-NODES="manager worker-0 worker-1"
 MANAGER_LABELS=""
 WORKER_0_LABELS="tileservergl=true mongodb=true"
 WORKER_1_LABELS="tileservergl=true"
