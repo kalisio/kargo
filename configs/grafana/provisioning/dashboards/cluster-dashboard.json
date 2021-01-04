@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 3,
-  "iteration": 1608194306497,
+  "iteration": 1609775556415,
   "links": [],
   "panels": [
     {
@@ -197,8 +197,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "sparkline": {
@@ -269,8 +269,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [],
@@ -377,8 +377,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [],
@@ -490,8 +490,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [],
@@ -512,6 +512,13 @@
           "intervalFactor": 1,
           "legendFormat": "buff/cache",
           "refId": "B"
+        },
+        {
+          "expr": "100 - (100 * node_memory_SwapFree_bytes{instance=~\"$node\"} / node_memory_SwapTotal_bytes{instance=~\"$node\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "swap",
+          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -596,8 +603,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [],
@@ -698,8 +705,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [],
@@ -799,8 +806,8 @@
       "scopedVars": {
         "node": {
           "selected": true,
-          "text": "10.0.2.100:9100",
-          "value": "10.0.2.100:9100"
+          "text": "10.0.2.237:9100",
+          "value": "10.0.2.237:9100"
         }
       },
       "seriesOverrides": [
@@ -889,9 +896,9 @@
         "current": {
           "selected": false,
           "tags": [],
-          "text": "10.0.2.100:9100",
+          "text": "10.0.2.237:9100",
           "value": [
-            "10.0.2.100:9100"
+            "10.0.2.237:9100"
           ]
         },
         "datasource": "Prometheus",
@@ -949,5 +956,5 @@
   "timezone": "browser",
   "title": "Cluster dashboard",
   "uid": "TsGDuCAiz",
-  "version": 3
+  "version": 4
 }
