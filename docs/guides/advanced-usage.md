@@ -275,7 +275,7 @@ $docker exec -ti <constainer_id> bash
 $mongo --host mongors0 --eval 'rs.initiate({ _id: "mongors", version: 1, members: [ { _id: 0, host : "mongors0:27017" }, { _id: 1, host : "mongors1:27017" }, { _id: 2, host : "mongors2:27017" } ] })'
 ```
 
-6. [Maybe define a bigger OpLog size](https://docs.mongodb.com/manual/core/replica-set-oplog/#oplog-size). You'll need to run this on all replica set members that may become primary.
+6. [Maybe define a bigger OpLog size](https://docs.mongodb.com/manual/core/replica-set-oplog/#workloads-that-might-require-a-larger-oplog-size)
 
 ```bash
 $mongo --host mongors0 --eval 'db.adminCommand({replSetResizeOplog: 1, size: 51200})'
