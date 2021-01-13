@@ -1,0 +1,132 @@
+scenarios:
+
+  - flow: # Simulate a typical user viewing a 2D map part on a client app then paning 2 times
+      - log: "New virtual TMS user running on {{ $environment }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66245/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66245/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66245/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66245/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66246/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66246/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66246/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66246/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66247/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66247/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66247/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66247/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66248/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66248/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66248/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66248/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66249/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66249/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66249/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66249/83070.png{{ qs }}"
+      - log: "Virtual TMS user pausing on {{ $environment }}"
+      - think: 5
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66250/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66250/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66250/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66250/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66251/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66251/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66251/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66251/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66252/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66252/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66252/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66252/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66253/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66253/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66253/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66253/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66254/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66254/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66254/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66254/83070.png{{ qs }}"
+      - think: 2         
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66255/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66255/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66255/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66255/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66256/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66256/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66256/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66256/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66257/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66257/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66257/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66257/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66258/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66258/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66258/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66258/83070.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66259/83067.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66259/83068.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66259/83069.png{{ qs }}"
+      - get:
+          url: "{{ tms }}/1.0.0/osm-bright@GLOBAL_WEBMERCATOR/17/66259/83070.png{{ qs }}"
+      - log: "Virtual TMS user dying on {{ $environment }}"
+    weight: 50
+    beforeScenario: "beforeScenario"
+    afterScenario: "afterScenario"
+    name: "TMS"

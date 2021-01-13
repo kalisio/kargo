@@ -22,6 +22,7 @@ config:
         wmts: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wmts"
         wcs: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wcs"
         wfs: "https://api.{{ $processEnvironment.SUBDOMAIN }}/wfs"
+        tms: "https://api.{{ $processEnvironment.SUBDOMAIN }}/tms"
         k2: "https://api.{{ $processEnvironment.SUBDOMAIN }}/k2"
         qs: "?jwt={{ $processEnvironment.API_GATEWAY_JWT }}"
 
