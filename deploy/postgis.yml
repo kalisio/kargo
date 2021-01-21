@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=${POSTGIS_USER}
       - POSTGRES_PASSWORD=${POSTGIS_PASSWORD}
-      - POSTGRES_DB=${POSTGIS_DB}
+      - POSTGRES_DB=${POSTGIS_DATABASE}
     volumes:
       - ${POSTGIS_VOLUME_PATH}postgis_data:/var/lib/postgresql/data
     healthcheck:
