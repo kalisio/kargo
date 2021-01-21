@@ -7,7 +7,7 @@ services:
       - POSTGRES_USER=${POSTGIS_USER}
       - POSTGRES_PASSWORD=${POSTGIS_PASSWORD}
     volumes:
-      - postgis_data:/var/lib/postgresql/data
+      - ${POSTGIS_VOLUME_PATH}postgis_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGIS_USER}"]
       interval: 30s
