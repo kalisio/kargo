@@ -42,11 +42,10 @@ rclone lsf -R --files-only $1 > $WORK_DIR/tiles.lst
 sed -i -e "s#^\(.*\)\$#/vsis3/$BUCKET_PATH/\1#" $WORK_DIR/tiles.lst
 
 # fetch required env vars to access the object storage
-RCLONE_SECTION=$(cat $HOME/.config/rclone/rclone.conf | grep -A 10 "\[$SOURCE\]")
-AWS_S3_ENDPOINT=$(echo "$RCLONE_SECTION" | grep "endpoint" | awk -F '=' '{ print $2 }' | xargs)
-AWS_REGION=$(echo "$RCLONE_SECTION" | grep "region" | awk -F '=' '{ print $2 }' | xargs)
-AWS_SECRET_ACCESS_KEY=$(echo "$RCLONE_SECTION" | grep "secret_access_key" | awk -F '=' '{ print $2 }' | xargs)
-AWS_ACCESS_KEY_ID=$(echo "$RCLONE_SECTION" | grep "access_key_id" | awk -F '=' '{ print $2 }' | xargs)
+AWS_S3_ENDPOINT=$(rclone config dump | jq -r ".$SOURCE.endpoint")
+AWS_REGION=$(rclone config dump | jq -r ".$SOURCE.region")
+AWS_SECRET_ACCESS_KEY=$(rclone config dump | jq -r ".$SOURCE.secret_access_key")
+AWS_ACCESS_KEY_ID=$(rclone config dump | jq -r ".$SOURCE.access_key_id")
 
 # run gdaltindex from gdal docker
 printf "Generating tile index ...\n"
