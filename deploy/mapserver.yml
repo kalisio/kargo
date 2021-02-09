@@ -20,9 +20,6 @@ services:
       replicas: ${MAPSERVER_REPLICAS}
       update_config:
         delay: 1m
-      placement:
-        constraints:
-         - node.labels.mapserver == true
       restart_policy:
         condition: on-failure
     networks:

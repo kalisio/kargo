@@ -26,9 +26,6 @@ services:
         protocol: tcp
     deploy:
       replicas: ${WEACAST_REPLICAS}
-      placement:
-        constraints:
-         - node.role == worker
       restart_policy:
         condition: on-failure
     networks:

@@ -16,9 +16,6 @@ services:
       retries: 5
     deploy:
       replicas: 1
-      placement:
-        constraints:
-          - node.labels.postgis == true
       restart_policy:
         condition: on-failure
     networks:

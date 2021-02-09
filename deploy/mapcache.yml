@@ -20,9 +20,6 @@ services:
       replicas: ${MAPCACHE_REPLICAS}
       update_config:
         delay: 1m
-      placement:
-        constraints:
-         - node.labels.mapcache == true
       restart_policy:
         condition: on-failure
     networks:

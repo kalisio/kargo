@@ -23,10 +23,6 @@ services:
       replicas: ${MAPPROXY_REPLICAS}
       update_config:
         delay: 1m
-      placement:
-        constraints:
-         - node.role == worker
-         - node.labels.mapproxy == true
       restart_policy:
         condition: on-failure
     networks:

@@ -24,9 +24,6 @@ services:
         - "traefik.frontend.rule=Host:maputnik.${SUBDOMAIN}"
         - "traefik.port=8888"
       replicas: ${MAPUTNIK_REPLICAS}
-      placement:
-        constraints:
-         - node.role == worker
       restart_policy:
         condition: on-failure
     networks:

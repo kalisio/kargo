@@ -20,9 +20,6 @@ services:
       start_period: 1m
     deploy:
       replicas: 1
-      placement:
-        constraints:
-         - node.role == worker
       restart_policy:
         condition: on-failure
     networks:

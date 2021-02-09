@@ -27,9 +27,6 @@ services:
         mode: host
     deploy:
       replicas: ${TRAEFIK_REPLICAS}
-      placement:
-        constraints:
-          - node.role == manager
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
