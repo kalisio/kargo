@@ -279,6 +279,29 @@ kargo_deploy()
       if [ "$SERVICE_EXTENSION" != "" ]; then
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
+
+      # list services in the deploy file
+      local DEPLOY_SERVICES=$(yq r --printMode p -P deploy/$SERVICE.yml 'services.*' | awk -F '.' '{ print $2 }')
+      local YAML_CONSTRAINTS=""
+      # foreach service, check if deploy constraints were specified in the .env
+      for DEPLOY_SERVICE in $DEPLOY_SERVICES; do
+        local CONSTRAINTS_NAME=${DEPLOY_SERVICE^^}_CONSTRAINTS
+        local CONSTRAINTS=${!CONSTRAINTS_NAME}
+        if [ "$CONSTRAINTS" != "" ]; then
+          # generate yaml to declare deploy constraints
+          YAML_CONSTRAINTS=$(printf "%s\nservices:\n\t%s:\n\t\tdeploy:\n\t\t\tplacement:\n\t\t\t\tconstraints:" "$YAML_CONSTRAINTS" "$DEPLOY_SERVICE")
+          for CONSTRAINT in $CONSTRAINTS; do
+            YAML_CONSTRAINTS=$(printf "%s\n\t\t\t\t\t- %s" "$YAML_CONSTRAINTS" "$CONSTRAINT")
+          done
+        fi
+      done
+      # write constraints yaml file and add it to yaml files to load
+      if [ "$YAML_CONSTRAINTS" != "" ]; then
+        local YAML_FILE=deploy/$SERVICE-deploy-constraints.yml
+        printf "version: '3.8'\n%s\n" "$YAML_CONSTRAINTS" > $YAML_FILE
+        SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $YAML_FILE"
+      fi
+
       local SERVICE_BEFORE_HOOK=deploy/${SERVICE}_before.sh
       if [ -f "$SERVICE_BEFORE_HOOK" ]; then
         source $SERVICE_BEFORE_HOOK
