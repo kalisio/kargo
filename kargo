@@ -291,16 +291,16 @@ kargo_deploy()
         local CONSTRAINTS=${!CONSTRAINTS_NAME}
         if [ "$CONSTRAINTS" != "" ]; then
           # generate yaml to declare deploy constraints
-          YAML_CONSTRAINTS=$(printf "%s\nservices:\n\t%s:\n\t\tdeploy:\n\t\t\tplacement:\n\t\t\t\tconstraints:" "$YAML_CONSTRAINTS" "$DEPLOY_SERVICE")
+          YAML_CONSTRAINTS=$(printf "%s\n  %s:\n    deploy:\n      placement:\n        constraints:" "$YAML_CONSTRAINTS" "$DEPLOY_SERVICE")
           for CONSTRAINT in $CONSTRAINTS; do
-            YAML_CONSTRAINTS=$(printf "%s\n\t\t\t\t\t- %s" "$YAML_CONSTRAINTS" "$CONSTRAINT")
+            YAML_CONSTRAINTS=$(printf "%s\n          - %s" "$YAML_CONSTRAINTS" "$CONSTRAINT")
           done
         fi
       done
       # write constraints yaml file and add it to yaml files to load
       if [ "$YAML_CONSTRAINTS" != "" ]; then
         local YAML_FILE=deploy/$SERVICE-deploy-constraints.yml
-        printf "version: '3.8'\n%s\n" "$YAML_CONSTRAINTS" > $YAML_FILE
+        printf "version: '3.8'\n\nservices:%s\n" "$YAML_CONSTRAINTS" > $YAML_FILE
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $YAML_FILE"
       fi
 
