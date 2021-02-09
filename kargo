@@ -285,7 +285,9 @@ kargo_deploy()
       local YAML_CONSTRAINTS=""
       # foreach service, check if deploy constraints were specified in the .env
       for DEPLOY_SERVICE in $DEPLOY_SERVICES; do
-        local CONSTRAINTS_NAME=${DEPLOY_SERVICE^^}_CONSTRAINTS
+        # normalize constraint env var (ie. arpege-loader => ARPEGE_LOADER_CONSTRAINTS)
+        local UPPER_SERVICE=${DEPLOY_SERVICE^^}
+        local CONSTRAINTS_NAME=${UPPER_SERVICE//-/_}_CONSTRAINTS
         local CONSTRAINTS=${!CONSTRAINTS_NAME}
         if [ "$CONSTRAINTS" != "" ]; then
           # generate yaml to declare deploy constraints
