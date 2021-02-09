@@ -369,3 +369,6 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `GFS_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `259200` (3 days) |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
+## Placement constraints
+
+For each service defined there's a `$(NAME_OF_SERVICE)_CONSTRAINTS` variable that you can define to specify placement constraints. The content of these variable should follow the [docker service constraints syntax](https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-constraints---constraint). Spaces are not allowed in the variable content, except to specify multiple constraints, in which case space is used as a separator.
