@@ -138,6 +138,10 @@ $docker node ls -q | xargs docker node inspect -f '{{ .ID }} [{{ .Description.Ho
 ```
 :::
 
+::: tip
+The labels you define on nodes can be used as placement constraints for the services you'll deploy, see [here](../reference/environment#placement-constraints)
+:::
+
 5. Define the stacks you want to deploy:
    1. Define the `STACKS` variable listing the stacks
    2. For each stack, define a variable `<STACK_NAME>_STACK` listing the services to deploy
