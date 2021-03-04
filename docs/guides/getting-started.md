@@ -65,52 +65,30 @@ sudo apt-get install jq
 
 #### Install yq
 
-**[yq]()** is a lightweight and portable command-line YAML processor. The CLI uses **yq** to merge configuration files.
+**[yq](https://github.com/mikefarah/yq)** is a lightweight and portable command-line YAML processor. The CLI uses **yq** to merge configuration files.
 
 Please refer to the [installation section](https://github.com/mikefarah/yq#install) to install **yq**
+
+#### Install GlusterFS
+
+To use **Kargo**, it is required to share the configuration among the nodes of the swarm. To create a shared filesystem, we recommend to use **[GlusterFS](https://www.gluster.org/)**. Please refer to the [documentation](https://docs.gluster.org/en/latest/Quick-Start-Guide/Quickstart/).
 
 ### Install kargo
 
 1. Clone the **Kargo** repository
 
-On the manager node, clone the repository in your home directory:
+On the manager node and clone the repository in the shared directory of your choice:
 
 ```bash
 $git clone https://github.com/kalisio/kargo.git
 ```
-
-2. Share the **Kargo** configuration with the workers.
-
-On each worker, use `sshfs` to share the `configs` directory. The path to the shared directory must be the same on the workers as on the manager.
-
-```bash
-mkdir -p /home/ubuntu/kargo/.kargo/configs
-sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other
-```
-
-For the volume to be permanently mounted (even at restart), we can add the following entry in the crontab:
-
-```bash
-@reboot sshfs ubuntu@<swam manager ip>:/home/ubuntu/kargo/.kargo/configs /home/ubuntu/kargo/.kargo/configs -o IdentityFile=/home/ubuntu/.ssh/ssh.pem -o allow_other -o StrictHostKeyChecking=no
-```
-
-::: warning
-As we faced various issues using `/etc/fstab` to automatically mount the the shared directory, we found more convenient to use use the crontab solution.
-:::
-
-::: tip
-**Kargo** provides an helper script that can be used to share the configuration. You have to copy the script on each nodes and execute it with the manager private IP:
-```bash
-$./setup-worker <manager_private_ip>
-```
-:::
 
 ### Provision the data
 
 It is up to you to copy your data to the different nodes. You must have to keep in mind that these data will have to be accessible by the services that you want to deploy. 
 
 ::: tip Looking for data ?
-We can provide datasets from different sources such as public catalogs and those of our partners such as [OpenMapTiles](https://openmaptiles.com/), [PlanetObserver](https://www.planetobserver.com/). Do bot hesitate to contact us at contact@kalisio.com.
+We can provide datasets from different sources such as public catalogs and those of our partners such as [OpenMapTiles](https://openmaptiles.com/), [PlanetObserver](https://www.planetobserver.com/). Do bot hesitate to contact us at **contact@kalisio.com.**
 :::
 
 ## Setup the services
