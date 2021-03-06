@@ -185,15 +185,6 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MARIADB_USERNAME` | The name of a user to be created. | - |
 | `MARIADB_PASSWORD` | The password of the user to be created. | - |
 
-### Mgob
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `MGOB_IMAGE` | The image to be used. | `stefanprodan/mgob` |
-| `MGOB_TAG` | The version to be used. | `edge` |
-| `MGOB_STORAGE_PATH` | The path where to store local backups. | `` |
-| `MGOB_RCLONE_PATH` | The path to the **rclone** configuration file. | `` |
-
 ### MongoDB
 
 | Variable | Description | Default value |
