@@ -190,7 +190,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `MONGODB_IMAGE` | The image to be used. | `mongo` |
-| `MONGODB_TAG` | The version to be used. | `3.6.5` |
+| `MONGODB_TAG` | The version to be used. | `4.2` |
 | `MONGODB_DATABASE` | A database name used to check the health of the service. | `kargo` |
 
 ### Mongo Express
@@ -207,7 +207,7 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `MONGORS_IMAGE` | The **MongoDB** image to be used. | `mongo` |
-| `MONGORS_TAG` | The **MongoDB** version to be used. | `3.6.5` |
+| `MONGORS_TAG` | The **MongoDB** version to be used. | `4.2` |
 | `MONGORS_NAME` | The name of the **Replica Set**. | `mongors` |
 | `MONGORS_VOLUME_PATH` | The path to the volume to be mounted to store the data. | `` |
 
