@@ -4,26 +4,20 @@
 
 *  Remove setup-worker script (close [#206](https://github.com/kalisio/kargo/pull/206)) ([a72f1c0c](https://github.com/kalisio/kargo/commit/a72f1c0cbd3a52a11011a8c1bfc3b4c3a942dbbc))
 *  Add a way to specify deploy constraints from the .env file [close [#226](https://github.com/kalisio/kargo/pull/226)] ([33d8a5e3](https://github.com/kalisio/kargo/commit/33d8a5e32e4362f7d6e3d581073ec62f9262b3b3))
-*  allow to specify postgis db name using env vars. [skip doc] [skip build] ([8ecd7729](https://github.com/kalisio/kargo/commit/8ecd772949573e89b373f8df4577ffb3b4c929d4))
-*  add total swap to cluster dashboard + autorefresh every minute. [skip build] [skip doc] ([22c17eba](https://github.com/kalisio/kargo/commit/22c17ebaddffba8ae74e2032c7dd1251dbddcbdb))
-*  add swap usage to cluster dashboard. ([aad1bb4b](https://github.com/kalisio/kargo/commit/aad1bb4b47c8584713678a37c4204fc39470c138))
-*  add configuration variable to limit mongors available memory (close [#221](https://github.com/kalisio/kargo/pull/221)) ([7ff619bd](https://github.com/kalisio/kargo/commit/7ff619bdcfbfb7daab9c3fef0f4d3696fc172707))
-*  add max/avg load & cpu usage to cluster dashboard. ([aa4e59dc](https://github.com/kalisio/kargo/commit/aa4e59dca51e007a822b8aaf5e2f8eeacd988fc6))
+*  Allow to specify postgis db name using env vars. [skip doc] [skip build] ([8ecd7729](https://github.com/kalisio/kargo/commit/8ecd772949573e89b373f8df4577ffb3b4c929d4))
+*  add total swap to cluster dashboard + autorefresh every minute. [skip build] [skip doc] ([22c17eba](https://github.com/kalisio/kargo/commit/22cA7ebaddffba8ae74e2032c7dd1251dbddcbdb))
+*  Add swap usage to cluster dashboard. ([aad1bb4b](https://github.com/kalisio/kargo/commit/aad1bb4b47c8584713678a37c4204fc39470c138))
+*  Add configuration variable to limit mongors available memory (close [#221](https://github.com/kalisio/kargo/pull/221)) ([7ff619bd](https://github.com/kalisio/kargo/commit/7ff619bdcfbfb7daab9c3fef0f4d3696fc172707))
+*  Add max/avg load & cpu usage to cluster dashboard. ([aa4e59dc](https://github.com/kalisio/kargo/commit/aa4e59dca51e007a822b8aaf5e2f8eeacd988fc6))
 *  Drop image archives support (close [#219](https://github.com/kalisio/kargo/pull/219) ) ([b5044d27](https://github.com/kalisio/kargo/commit/b5044d27fbe9bc41faee1fe01a3e4cc56bcd97b4))
 
 ##### Bug Fixes
 
-*  fixed deploy constraint yaml extension generation. ([96238f3b](https://github.com/kalisio/kargo/commit/96238f3b2b4f7e930be874dad1e9eaedee32665d))
+*  Fixed deploy constraint yaml extension generation. ([96238f3b](https://github.com/kalisio/kargo/commit/96238f3b2b4f7e930be874dad1e9eaedee32665d))
 *  properly normalize deploy constraint env var name generation. ([19c5d90d](https://github.com/kalisio/kargo/commit/19c5d90dac6e4fbff6b1f9065377788566a8c0ff))
-*  tileservergl deploy constraint rely on tileservergl label only. ([18397e98](https://github.com/kalisio/kargo/commit/18397e9845bea5fd3c2c8435d1a3e18e2033b622))
-*  upgraded Vigicrues job to v1.4 (closes [#224](https://github.com/kalisio/kargo/pull/224)) ([454dad1a](https://github.com/kalisio/kargo/commit/454dad1a3303e5231cc29a825ac7cdce5ca2c0b6))
-*  grafana must be able to reach prometheus on kargo-back-network. ([b093edb3](https://github.com/kalisio/kargo/commit/b093edb35d4e4423d44165ad5369bd1acac4f5b9))
-
-##### Other Changes
-
-*  removed mgob [#169](https://github.com/kalisio/kargo/pull/169) ([f470f673](https://github.com/kalisio/kargo/commit/f470f6734d4fd7d10ce287852bdf2817480ac205))
-*  added tip about placement constraints. [skip build] ([24a9e1a4](https://github.com/kalisio/kargo/commit/24a9e1a40c80af51f421542c4b8745bab5c7a01e))
-*  Add documentation about placement constraints. [skip build] ([2b8fdb5e](https://github.com/kalisio/kargo/commit/2b8fdb5e3d6348c8860a25f72a4f952a39fcca1a))
+*  Tileservergl deploy constraint rely on tileservergl label only. ([18397e98](https://github.com/kalisio/kargo/commit/18397e9845bea5fd3c2c8435d1a3e18e2033b622))
+*  Upgraded Vigicrues job to v1.4 (closes [#224](https://github.com/kalisio/kargo/pull/224)) ([454dad1a](https://github.com/kalisio/kargo/commit/454dad1a3303e5231cc29a825ac7cdce5ca2c0b6))
+*  Grafana must be able to reach prometheus on kargo-back-network. ([b093edb3](https://github.com/kalisio/kargo/commit/b093edb35d4e4423d44165ad5369bd1acac4f5b9))
 
 ### 0.12.0 (2020-12-14)
 
