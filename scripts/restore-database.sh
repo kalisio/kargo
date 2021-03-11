@@ -19,7 +19,7 @@ exec() {
   if [ -d "$DIRECTORY" ]; then
     local MANAGER_IMAGE=${MANAGER^^}_IMAGE
     local MANAGER_TAG=${MANAGER^^}_TAG
-    local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${MANAGER_IMAGE}:${MANAGER_TAG}"
+    local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${!MANAGER_IMAGE}:${!MANAGER_TAG}"
     
     echo restoring ${DBNAME}
     if [ $MANAGER = "mariadb" ]; then

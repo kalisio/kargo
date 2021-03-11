@@ -16,7 +16,7 @@ exec() {
   local DATABASE=$4
   local MANAGER_IMAGE=${MANAGER^^}_IMAGE
   local MANAGER_TAG=${MANAGER^^}_TAG
-  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MANAGER_IMAGE}:${MANAGER_TAG}"
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${!MANAGER_IMAGE}:${!MANAGER_TAG}"
 
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
@@ -28,12 +28,17 @@ exec() {
   else
     DATABASE_EXISTS=`${DOCKER_RUN} ${PSQL} -tc "SELECT 1 FROM pg_database WHERE datname = '${DATABASE}'"`
   fi
-  if [ -z "${DATABASE_EXIST}" ]; then
+  if [ -z "${DATABASE_EXISTS}" ]; then
     echo creating database \"${DATABASE}\"
-    if [ $MANAGER "mariadb"]; then
-      ${DOCKER_RUN} ${MYSQL} "CREATE DATABASE ${DATABASE}; CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASSWORD}'; GRANT ALL PRIVILEGES ON ${USER}.* TO '${USER}'@'localhost'; FLUSH PRIVILEGES;"
+    if [ $MANAGER = "mariadb" ]; then
+      ${DOCKER_RUN} ${MYSQL} "CREATE DATABASE ${DATABASE};"
+      ${DOCKER_RUN} ${MYSQL} "CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASSWORD}';"
+      ${DOCKER_RUN} ${MYSQL} "GRANT ALL PRIVILEGES ON ${USER}.* TO '${USER}'@'localhost';"
+      ${DOCKER_RUN} ${MYSQL} "FLUSH PRIVILEGES;"
     else
-      ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE}; CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}'; GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
+      ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
+      ${DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
+      ${DOCKER_RUN} ${PSQL} -c "GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
     fi
   else
     echo the database \"${DATABASE}\" already exists
@@ -49,6 +54,6 @@ fi
 case $1 in
   -h|--help) help;;
   postgis) exec "$1" "$2" "$3" "$4";;
-  mariadb) exec "$1" "$2" "$3" "$4;;
+  mariadb) exec "$1" "$2" "$3" "$4";;
   *) usage
 esac
