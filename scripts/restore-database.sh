@@ -15,8 +15,8 @@ exec() {
   local PASSWORD=$3
   local DATABASE=$4
   local DIRECTORY=$5
-    
-  if [ -d "$DIRECTORY" ]; then
+  local BACKUP_FILE=${DIRECTORY}/${DATABASE}.sql
+  if [ -f "${BACKUP_FILE}" ]; then
     local MANAGER_IMAGE=${MANAGER^^}_IMAGE
     local MANAGER_TAG=${MANAGER^^}_TAG
     local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${!MANAGER_IMAGE}:${!MANAGER_TAG}"
@@ -28,7 +28,7 @@ exec() {
       ${DOCKER_RUN} bash -c "psql -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.dump"
     fi
   else
-    echo error: the specified directory \"$DIRECTORY\" does not exist
+    echo error: the specified backup file \"${BACKUP_FILE}\" does not exist
   fi
 }
 

@@ -28,7 +28,7 @@ exec() {
       ${DOCKER_RUN} bash -c "pg_dump -Ft postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${DATABASE}.tar"
     fi
   else
-    echo error: the specified directory \"$DIRECTORY\" does not exist
+    echo error: the specified directory \"${DIRECTORY}\" does not exist
   fi
 }
 
