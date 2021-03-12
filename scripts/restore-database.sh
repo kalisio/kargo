@@ -21,7 +21,7 @@ exec() {
     local MANAGER_TAG=${MANAGER^^}_TAG
     local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${!MANAGER_IMAGE}:${!MANAGER_TAG}"
     
-    echo restoring ${DBNAME}
+    echo restoring ${DATABASE}
     if [ $MANAGER = "mariadb" ]; then
       ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE}"
     else # postgis
