@@ -39,10 +39,12 @@ create_mariadb_db() {
 }
 
 drop_postgis_db(){
-  local DATABASE=$1
+  local USER=$1
+  local DATABASE=$2
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
 
+  ${DOCKER_RUN} ${PSQL} -c "DROP ROLE ${USER}"
   ${DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
 }
 
@@ -51,6 +53,7 @@ drop_mariadb_db(){
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MARIADB_IMAGE}:${MARIADB_TAG}"
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
+  ${DOCKER_RUN} ${MYSQL} "DROP ROLE ${USER}"
   ${DOCKER_RUN} ${MYSQL} "DROP DATABASE ${DATABASE};"
 }
 
