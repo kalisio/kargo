@@ -113,7 +113,7 @@ restore_mariadb_db() {
 
   if [ -f "${BACKUP_FILE}" ]; then
     echo restoring ${DATABASE}
-    ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE}"
+    ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
   else
     echo error: the specified backup file \"${BACKUP_FILE}\" does not exist
   fi
