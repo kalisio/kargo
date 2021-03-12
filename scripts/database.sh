@@ -11,11 +11,9 @@ create_postgis_db() {
   local DATABASE_EXISTS=`${DOCKER_RUN} ${PSQL} -tc "SELECT 1 FROM pg_database WHERE datname = '${DATABASE}'"`
   if [ -z "${DATABASE_EXISTS}" ]; then
     echo creating database \"${DATABASE}\"
-    if [ $MANAGER = "mariadb" ]; then
-      ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
-      ${DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
-      ${DOCKER_RUN} ${PSQL} -c "GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
-    fi
+    ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
+    ${DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
+    ${DOCKER_RUN} ${PSQL} -c "GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
   else
     echo the database \"${DATABASE}\" already exists
   fi
@@ -45,7 +43,7 @@ drop_postgis_db(){
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
 
-  ${DOCKER_RUN} ${PSQL} -c "dropdb -f ${DATABASE}"
+  ${DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
 }
 
 drop_mariadb_db(){
