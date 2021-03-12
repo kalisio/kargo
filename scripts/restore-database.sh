@@ -25,7 +25,7 @@ exec() {
     if [ $MANAGER = "mariadb" ]; then
       ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE}"
     else # postgis
-      ${DOCKER_RUN} bash -c "pg_restore postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.gz"
+      ${DOCKER_RUN} bash -c "pg_restore -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.gz"
     fi
   else
     echo error: the specified backup file \"${BACKUP_FILE}\" does not exist
