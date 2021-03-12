@@ -23,7 +23,6 @@ exec() {
 
   local DATABASE_EXISTS   
   if [ $MANAGER = "mariadb" ]; then
-    SQL_COMMAND="mysql --host=mariadb --user=${USER} --password=${PASSWORD}"
     DATABASE_EXISTS=`${DOCKER_RUN} ${MYSQL} --qfsBe "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${DATABASE}'"`
   else
     DATABASE_EXISTS=`${DOCKER_RUN} ${PSQL} -tc "SELECT 1 FROM pg_database WHERE datname = '${DATABASE}'"`
