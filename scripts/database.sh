@@ -30,7 +30,7 @@ create_mariadb_db() {
   if [ -z "${DATABASE_EXISTS}" ]; then
     echo creating database \"${DATABASE}\"
     ${DOCKER_RUN} ${MYSQL} -e "CREATE DATABASE ${DATABASE};"
-    ${DOCKER_RUN} ${MYSQL} -e "CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASSWORD}';"
+    ${DOCKER_RUN} ${MYSQL} -e "CREATE USER '${USER} IDENTIFIED BY '${PASSWORD}';"
     ${DOCKER_RUN} ${MYSQL} -e "GRANT ALL PRIVILEGES ON ${USER}.* TO '${USER}'@'localhost';"
     ${DOCKER_RUN} ${MYSQL} -e "FLUSH PRIVILEGES;"
   else
@@ -54,7 +54,7 @@ drop_mariadb_db(){
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   ${DOCKER_RUN} ${MYSQL} "DROP DATABASE ${DATABASE};"
-  ${DOCKER_RUN} ${MYSQL} "DROP ROLE ${USER}"
+  ${DOCKER_RUN} ${MYSQL} "DROP USER ${USER}"
 }
 
 backup_postgis_db() {
