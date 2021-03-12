@@ -23,9 +23,9 @@ exec() {
 
     echo backuping ${DATABASE} 
     if [ $MANAGER = "mariadb" ]; then
-      ${DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} > /tmp/${DATABASE}.sql"
+      ${DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${DATABASE}.gz"
     else # postgis
-      ${DOCKER_RUN} bash -c "pg_dump -Ft postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${DATABASE}.tar"
+      ${DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${DATABASE}.gz"
     fi
   else
     echo error: the specified directory \"${DIRECTORY}\" does not exist

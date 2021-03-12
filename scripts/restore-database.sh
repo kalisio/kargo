@@ -15,7 +15,7 @@ exec() {
   local PASSWORD=$3
   local DATABASE=$4
   local DIRECTORY=$5
-  local BACKUP_FILE=${DIRECTORY}/${DATABASE}.sql
+  local BACKUP_FILE=${DIRECTORY}/${DATABASE}.gz
   if [ -f "${BACKUP_FILE}" ]; then
     local MANAGER_IMAGE=${MANAGER^^}_IMAGE
     local MANAGER_TAG=${MANAGER^^}_TAG
@@ -23,9 +23,9 @@ exec() {
     
     echo restoring ${DBNAME}
     if [ $MANAGER = "mariadb" ]; then
-      ${DOCKER_RUN} bash -c "mysql --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} < /tmp/${DATABASE}.sql"
+      ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE}"
     else # postgis
-      ${DOCKER_RUN} bash -c "psql -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.dump"
+      ${DOCKER_RUN} bash -c "pg_restore postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.gz"
     fi
   else
     echo error: the specified backup file \"${BACKUP_FILE}\" does not exist
