@@ -85,7 +85,6 @@ backup_mariadb_db() {
     echo error: the specified directory \"${DIRECTORY}\" does not exist
   fi
 }
-}
 
 restore_postgis_db() {
   local USER=$1
