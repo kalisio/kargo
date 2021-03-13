@@ -34,14 +34,10 @@ create_postgis_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
 
-  if ! exist_postgis_db ${DATABASE}; then
-    echo creating database \"${DATABASE}\"
-    ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
-    ${DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
-    ${DOCKER_RUN} ${PSQL} -c "GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
-  else
-    echo warning: the specified database \"${DATABASE}\" already exist
-  fi
+  echo creating database \"${DATABASE}\"
+  ${DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
+  ${DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
+  ${DOCKER_RUN} ${PSQL} -c "GRANT ALL PRIVILEGES ON DATABASE ${DATABASE} TO ${USER};"
 }
 
 create_mariadb_db() {
@@ -51,14 +47,10 @@ create_mariadb_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MARIADB_IMAGE}:${MARIADB_TAG}"
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
-  if ! exist_mariadb_db ${DATABASE}; then
-    echo creating database \"${DATABASE}\"
-    ${DOCKER_RUN} ${MYSQL} -e "CREATE DATABASE ${DATABASE};"
-    ${DOCKER_RUN} ${MYSQL} -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USER}'@'%' IDENTIFIED BY '${PASSWORD}';"
-    ${DOCKER_RUN} ${MYSQL} -e "FLUSH PRIVILEGES;"
-  else
-    echo warning: the specified database \"${DATABASE}\" already exist
-  fi
+  echo creating database \"${DATABASE}\"
+  ${DOCKER_RUN} ${MYSQL} -e "CREATE DATABASE ${DATABASE};"
+  ${DOCKER_RUN} ${MYSQL} -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USER}'@'%' IDENTIFIED BY '${PASSWORD}';"
+  ${DOCKER_RUN} ${MYSQL} -e "FLUSH PRIVILEGES;"
 }
 
 drop_postgis_db() {
@@ -67,13 +59,9 @@ drop_postgis_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
 
-  if exist_postgis_db ${DATABASE}; then
-    echo droping database \"${DATABASE}\"
-    ${DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
-    ${DOCKER_RUN} ${PSQL} -c "DROP ROLE ${USER}"
-  else
-    echo waarning: the specified database \"${DATABASE}\" doest not exist
-  fi
+  echo droping database \"${DATABASE}\"
+  ${DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
+  ${DOCKER_RUN} ${PSQL} -c "DROP ROLE ${USER}"
 }
 
 drop_mariadb_db() {
@@ -82,13 +70,9 @@ drop_mariadb_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MARIADB_IMAGE}:${MARIADB_TAG}"
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
-  if exists_mariadb_db ${DATABASE}; then
-    echo droping database \"${DATABASE}\"
-    ${DOCKER_RUN} ${MYSQL} -e "DROP DATABASE ${DATABASE};"
-    ${DOCKER_RUN} ${MYSQL} -e "DROP USER ${USER}"
-  else
-    echo warning: the specified database \"${DATABASE}\" doest not exist    
-  fi
+  echo droping database \"${DATABASE}\"
+  ${DOCKER_RUN} ${MYSQL} -e "DROP DATABASE ${DATABASE};"
+  ${DOCKER_RUN} ${MYSQL} -e "DROP USER ${USER}"
 }
 
 backup_postgis_db() {
