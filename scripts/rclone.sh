@@ -24,7 +24,7 @@ copy_to_store() {
   if remote_exists "${REMOTE}"; then
     if file_path_exists "${SOURCE}"; then
       log_info copy ${SOURCE} to ${REMOTE}:${DESTINATION}
-      rclone --progress copy ${SOURCE} ${REMOTE}:${DESTINATION}
+      rclone copy --progress ${SOURCE} ${REMOTE}:${DESTINATION}
     else
       log_error the specified source \"${SOURCE}\" does not exist
     fi
@@ -41,7 +41,7 @@ copy_from_store() {
   if remote_exists "${REMOTE}"; then
     if file_path_exists "${DESTINATION}"; then
       log_info copy from ${REMOTE}:${SOURCE} to ${DESTINATION}
-      rclone --progress copy $REMOTE:${SOURCE} ${DESTINATION}
+      rclone copy --progress $REMOTE:${SOURCE} ${DESTINATION}
     else
       log_error the specified destination \"${DESTINATION}\" does not exist
     fi
