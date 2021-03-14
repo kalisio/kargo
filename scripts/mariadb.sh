@@ -3,8 +3,8 @@
 K_MARIADB=1
 
 # Include useful scripts
-source ${K_SCRIPTS_PATH}/log.sh
-source ${K_SCRIPTS_PATH}/file.sh
+source ${KARGO_SCRIPTS_PATH}/log.sh
+source ${KARGO_SCRIPTS_PATH}/file.sh
 
 # Define common variables
 K_MARIADB_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MARIADB_IMAGE}:${MARIADB_TAG}"
