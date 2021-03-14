@@ -1,9 +1,7 @@
 
 #!/bin/bash
-[[ $__K_LOG__ ]] && return
-__K_LOG__=1
-
-set -euo pipefail
+[[ ! -z "${K_LOG-}" ]] && return
+K_LOG=1
 
 # https://arnaudr.io/2015/12/06/bash-logging-helpers/
 

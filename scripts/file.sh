@@ -1,8 +1,6 @@
 #!/bin/bash
-[[ $__K_FILE__ ]] && return
-__K_FILE__=1
-
-set -euo pipefail
+[[ ! -z "${K_FILE-}" ]] && return
+K_FILE=1
 
 file_exists() {
   if [ -f "$1" ]; then

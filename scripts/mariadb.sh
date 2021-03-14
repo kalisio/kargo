@@ -1,12 +1,10 @@
 #!/bin/bash
-[[ $__K_MARIADB__ ]] && return
-__K_MARIADB__=1
-
-set -euo pipefail
+[[ ! -z "${K_MARIADB-}" ]] && return
+K_MARIADB=1
 
 # Include useful scripts
-source ./log.sh
-source ./file.sh
+source ./scripts/log.sh
+source ./scripts/file.sh
 
 # Define common variables
 K_MARIADB_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${MARIADB_IMAGE}:${MARIADB_TAG}"

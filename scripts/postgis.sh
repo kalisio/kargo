@@ -1,12 +1,10 @@
 #!/bin/bash
-[[ $__K_POSTGIS__ ]] && return
-__K_POSTGIS__=1
-
-set -euo pipefail
+[[ ! -z "${K_POSTGIS-}" ]] && return
+K_POSTGIS=1
 
 # Include useful scripts
-source ./log.sh
-source ./file.sh
+source ./scripts/log.sh
+source ./scripts/file.sh
 
 # Define common variables
 K_POSTGIS_K_POSTGIS_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
