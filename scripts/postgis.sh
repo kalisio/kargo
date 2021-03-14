@@ -3,8 +3,9 @@
 K_POSTGIS=1
 
 # Include useful scripts
-source ./scripts/log.sh
-source ./scripts/file.sh
+K_PATH=`dirname $0`
+source ${K_PATH}/log.sh
+source ${K_PATH}/file.sh
 
 # Define common variables
 K_POSTGIS_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
