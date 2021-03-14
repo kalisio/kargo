@@ -17,3 +17,11 @@ directory_exists() {
     return 1
   fi
 }
+
+file_path_exists() {
+  if file_exists "$1" || directory_exists "$1"; then
+    return 0
+  else
+    return 1
+  fi
+}
