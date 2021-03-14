@@ -83,7 +83,7 @@ restore_postgis_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local BACKUP_FILE=${DATABASE}.gz
 
-  if file_exists "${DIRECOTRY}/${BACKUP_FILE}"; then
+  if file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
     log_info restoring ${DATABASE}
     ${DOCKER_RUN} bash -c "pg_restore -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${BACKUP_FILE}"
   else
