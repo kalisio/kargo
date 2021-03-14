@@ -7,15 +7,15 @@ K_LOG=1
 
 log_info() {
   local MESSAGE="[INFO] $@"
-  [ -t 1 ]] &&  echo -e "${MESSAGE}" || logger -t $(basename $0) -p user.info "${MESSAGE}";
+  [[ -t 1 ]] &&  echo -e "${MESSAGE}" || logger -t $(basename $0) -p user.info "${MESSAGE}";
 }
 
 log_warning() {
   local MESSAGE="[WARNING] $@"
-  [ -t 1 ]] && echo -e "\e[93m${MESSAGE}\e[0m" || logger -t $(basename $0) -p user.warning "${MESSAGE}";
+  [[ -t 1 ]] && echo -e "\e[93m${MESSAGE}\e[0m" || logger -t $(basename $0) -p user.warning "${MESSAGE}";
 }
 
 log_error() {
   local MESSAGE="[ERROR] $@"
-  [ -t 1 ]] && >&2 echo -e "\e[91m${MESSAGE}\e[0m" || logger -t $(basename $0) -p user.err "${MESSAGE}";
+  [[ -t 1 ]] && >&2 echo -e "\e[91m${MESSAGE}\e[0m" || logger -t $(basename $0) -p user.err "${MESSAGE}";
 }
