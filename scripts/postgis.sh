@@ -7,7 +7,7 @@ source ./scripts/log.sh
 source ./scripts/file.sh
 
 # Define common variables
-K_POSTGIS_K_POSTGIS_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
+K_POSTGIS_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
 
 postgis_db_exists() {
   local DATABASE="$1"

@@ -13,7 +13,7 @@ mariadb_db_exists() {
   local DATABASE=$1
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
-  local DATABASE_EXISTS=`${DOCKER_RUN} ${MYSQL} -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${DATABASE}'"`
+  local DATABASE_EXISTS=`$K_MARIADB_DOCKER_RUN ${MYSQL} -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${DATABASE}'"`
   if [ -z "${DATABASE_EXISTS}" ]; then
     return 1
   else
@@ -26,7 +26,7 @@ create_mariadb_db() {
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   log_info creating database \"${DATABASE}\"
-  ${DOCKER_RUN} ${MYSQL} -e "CREATE DATABASE ${DATABASE};"
+  $K_MARIADB_DOCKER_RUN ${MYSQL} -e "CREATE DATABASE ${DATABASE};"
 }
 
 create_mariadb_user() {
@@ -36,8 +36,8 @@ create_mariadb_user() {
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   log_info creating user \"${USER}\"
-  ${DOCKER_RUN} ${MYSQL} -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USER}'@'%' IDENTIFIED BY '${PASSWORD}';"
-  ${DOCKER_RUN} ${MYSQL} -e "FLUSH PRIVILEGES;"
+  $K_MARIADB_DOCKER_RUN ${MYSQL} -e "GRANT ALL PRIVILEGES ON ${DATABASE}.* TO '${USER}'@'%' IDENTIFIED BY '${PASSWORD}';"
+  $K_MARIADB_DOCKER_RUN ${MYSQL} -e "FLUSH PRIVILEGES;"
 }
 
 drop_mariadb_db() {
@@ -46,7 +46,7 @@ drop_mariadb_db() {
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   log_info droping database \"${DATABASE}\"
-  ${DOCKER_RUN} ${MYSQL} -e "DROP DATABASE ${DATABASE};"
+  $K_MARIADB_DOCKER_RUN ${MYSQL} -e "DROP DATABASE ${DATABASE};"
 }
 
 drop_mariadb_user() {
@@ -54,7 +54,7 @@ drop_mariadb_user() {
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   log_info droping user \"${USER}\"
-  ${DOCKER_RUN} ${MYSQL} -e "DROP USER ${USER}"
+  $K_MARIADB_DOCKER_RUN ${MYSQL} -e "DROP USER ${USER}"
 }
 
 backup_mariadb_db() {
@@ -65,7 +65,7 @@ backup_mariadb_db() {
 
   if directory_exists "${DIRECTORY}"; then
     log_info backuping ${DATABASE} 
-    ${DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${DATABASE}.gz"
+    $K_MARIADB_DOCKER_RUN bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${DATABASE}.gz"
   else
     log_error the specified directory \"${DIRECTORY}\" does not exist
   fi
@@ -80,7 +80,7 @@ restore_mariadb_db() {
 
   if file_exists "${BACKUP_FILE}"; then
     log_info restoring ${DATABASE}
-    ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
+    $K_MARIADB_DOCKER_RUN bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
   else
     log_error the specified backup file \"${BACKUP_FILE}\" does not exist
   fi
