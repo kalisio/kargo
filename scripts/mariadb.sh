@@ -85,7 +85,7 @@ restore_mariadb_db() {
 
   if file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
     log_info restoring ${DATABASE}
-    ${K_MARIADB_DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
+    ${DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
   else
     log_error the specified backup file \"${DIRECTORY}/${BACKUP_FILE}\" does not exist
   fi
