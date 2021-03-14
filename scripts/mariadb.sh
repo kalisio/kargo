@@ -63,10 +63,15 @@ backup_mariadb_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
+  local BACKUP_FILE=${DATABASE}.gz
 
   if directory_exists "${DIRECTORY}"; then
     log_info backuping ${DATABASE} 
-    ${K_MARIADB_DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${DATABASE}.gz"
+    ${K_MARIADB_DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${BACKUP_FILE}"
+    if ! file_exists "${DIRECTORY}/${BACKUP_FILE}" then
+      log_error an error has occured while dumping \"${DATABASE}\"
+    fi
   else
     log_error the specified directory \"${DIRECTORY}\" does not exist
   fi
@@ -77,12 +82,13 @@ restore_mariadb_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
-  local BACKUP_FILE=${DIRECTORY}/${DATABASE}.gz
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
+  local BACKUP_FILE=${DATABASE}.gz
 
-  if file_exists "${BACKUP_FILE}"; then
+  if file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
     log_info restoring ${DATABASE}
     ${K_MARIADB_DOCKER_RUN} bash -c "gunzip < /tmp/${DATABASE}.gz | mysql --user=${USER} --password=${PASSWORD} ${DATABASE}"
   else
-    log_error the specified backup file \"${BACKUP_FILE}\" does not exist
+    log_error the specified backup file \"${DIRECTORY}/${BACKUP_FILE}\" does not exist
   fi
 }

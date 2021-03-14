@@ -62,12 +62,17 @@ backup_postgis_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
+  local BACKUP_FILE=${DATABASE}.gz
 
-  if [ -d "$DIRECTORY" ]; then
+  if directory_exists ${DIRECTORY} then
     log_info backuping ${DATABASE} 
-    ${K_POSTGIS_DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${DATABASE}.gz"
+    ${DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${BACKUP_FILE}"
+    if ! file_exists "${DIRECTORY}/${BACKUP_FILE}" then
+      log_error an error has occured while dumping \"${DATABASE}\"
+    fi
   else
-    log_error error: the specified directory \"${DIRECTORY}\" does not exist
+    log_error the specified directory \"${DIRECTORY}\" does not exist
   fi
 }
 
@@ -76,11 +81,12 @@ restore_postgis_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
-  local BACKUP_FILE=${DIRECTORY}/${DATABASE}.gz
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
+  local BACKUP_FILE=${DATABASE}.gz
 
-  if [ -f "${BACKUP_FILE}" ]; then
+  if file_exists "${DIRECOTRY}/${BACKUP_FILE}"; then
     log_info restoring ${DATABASE}
-    ${K_POSTGIS_DOCKER_RUN} bash -c "pg_restore -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${DATABASE}.gz"
+    ${DOCKER_RUN} bash -c "pg_restore -d postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} < /tmp/${BACKUP_FILE}"
   else
     log_error error: the specified backup file \"${BACKUP_FILE}\" does not exist
   fi
