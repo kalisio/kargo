@@ -65,7 +65,7 @@ backup_postgis_db() {
   local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${POSTGIS_IMAGE}:${POSTGIS_TAG}"
   local BACKUP_FILE=${DATABASE}.gz
 
-  if directory_exists ${DIRECTORY} then
+  if directory_exists ${DIRECTORY}; then
     log_info backuping ${DATABASE} 
     ${DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${BACKUP_FILE}"
     if ! file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
