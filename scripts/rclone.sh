@@ -24,12 +24,18 @@ copy_to_store() {
   if remote_exists "${REMOTE}"; then
     if file_path_exists "${SOURCE}"; then
       log_info copy ${SOURCE} to ${REMOTE}:${DESTINATION}
-      rclone copy ${SOURCE} ${REMOTE}:${DESTINATION}
+      if rclone copy ${SOURCE} ${REMOTE}:${DESTINATION}; then
+        return 0
+      else
+        return 1
+      fi
     else
       log_error the specified source \"${SOURCE}\" does not exist
+      return 1
     fi
   else
     log_error the specified store \"${REMOTE}\" doest not exist
+    return 1
   fi
 }
 
@@ -41,11 +47,17 @@ copy_from_store() {
   if remote_exists "${REMOTE}"; then
     if file_path_exists "${DESTINATION}"; then
       log_info copy from ${REMOTE}:${SOURCE} to ${DESTINATION}
-      rclone copy $REMOTE:${SOURCE} ${DESTINATION}
+      if rclone copy $REMOTE:${SOURCE} ${DESTINATION}; then
+        return 0
+      else
+        return 1
+      fi
     else
       log_error the specified destination \"${DESTINATION}\" does not exist
+      return 1
     fi
   else
     log_error the specified store \"${REMOTE}\" doest not exist
+    return 1
   fi
 }
