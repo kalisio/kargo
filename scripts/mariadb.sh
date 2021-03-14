@@ -41,8 +41,7 @@ create_mariadb_user() {
 }
 
 drop_mariadb_db() {
-  local USER=$1
-  local DATABASE=$2
+  local DATABASE=$1
   local MYSQL="mysql --host=mariadb --password=${MARIADB_ROOT_PASSWORD}"
 
   log_info droping database \"${DATABASE}\"

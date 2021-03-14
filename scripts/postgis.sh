@@ -41,7 +41,7 @@ create_postgis_user() {
 }
 
 drop_postgis_db() {
-  local USER=$1
+  local DATABASE=$1
   local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
 
   echo droping database \"${DATABASE}\"
