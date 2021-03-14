@@ -61,7 +61,7 @@ backup_mariadb_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
-  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
   local BACKUP_FILE=${DATABASE}.gz
 
   if directory_exists "${DIRECTORY}"; then
@@ -80,7 +80,7 @@ restore_mariadb_db() {
   local PASSWORD=$2
   local DATABASE=$3
   local DIRECTORY=$4
-  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
+  local DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} --volume=${DIRECTORY}:/tmp ${MARIADB_IMAGE}:${MARIADB_TAG}"
   local BACKUP_FILE=${DATABASE}.gz
 
   if file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
