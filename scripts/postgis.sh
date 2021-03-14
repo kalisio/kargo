@@ -68,7 +68,7 @@ backup_postgis_db() {
   if directory_exists ${DIRECTORY} then
     log_info backuping ${DATABASE} 
     ${DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${BACKUP_FILE}"
-    if ! file_exists "${DIRECTORY}/${BACKUP_FILE}" then
+    if ! file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
       log_error an error has occured while dumping \"${DATABASE}\"
     fi
   else
