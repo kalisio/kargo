@@ -8,7 +8,7 @@ services:
         published: 5000
         protocol: tcp
     healthcheck:
-      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:5000/v2"]
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:5000"]
       interval: 30s
       timeout: 5s
       retries: 3
