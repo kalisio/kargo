@@ -4,9 +4,8 @@ services:
   postgis:
     image: ${POSTGIS_IMAGE}:${POSTGIS_TAG}
     environment:
-      - POSTGRES_USER=${POSTGIS_USER}
-      - POSTGRES_PASSWORD=${POSTGIS_PASSWORD}
-      - POSTGRES_DB=${POSTGIS_DATABASE}
+      - POSTGRES_USER=${POSTGIS_ROOT_USER}
+      - POSTGRES_PASSWORD=${POSTGIS_ROOT_PASSWORD}
     volumes:
       - ${POSTGIS_VOLUME_PATH}postgis_data:/var/lib/postgresql/data
     healthcheck:

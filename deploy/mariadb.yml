@@ -7,9 +7,6 @@ services:
       - ${MARIADB_DATA_PATH}mariadb_data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MARIADB_DBNAME}
-      - MYSQL_USER=${MARIADB_USERNAME}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
     healthcheck:
       test: "mysqladmin ping --silent --password=${MARIADB_ROOT_PASSWORD}"
       interval: 30s
