@@ -21,7 +21,7 @@ services:
       - kargo-back-network
 
 volumes:
-  postgis_data: {}
+  postgis_data:
 
 networks:
   kargo-back-network:

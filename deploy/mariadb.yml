@@ -20,7 +20,7 @@ services:
       - kargo-back-network
 
 volumes:
-  mariadb_data: {}
+  mariadb_data:
 
 networks:
   kargo-back-network:
