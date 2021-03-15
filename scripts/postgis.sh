@@ -29,7 +29,7 @@ create_postgis_db() {
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
 }
 
-create_POSTGIS_ROOT_USER() {
+create_postgis_user() {
   local USER="$1"
   local PASSWORD="$2"
   local DATABASE="$3"
