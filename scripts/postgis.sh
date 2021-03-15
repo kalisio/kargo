@@ -11,7 +11,7 @@ K_POSTGIS_DOCKER_RUN="docker run --rm --network=${DOCKER_BACK_NETWORK} ${POSTGIS
 
 postgis_db_exists() {
   local DATABASE="$1"
-  local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
+  local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
   
   local DATABASE_EXISTS=`${K_POSTGIS_DOCKER_RUN} ${PSQL} -tc "SELECT 1 FROM pg_database WHERE datname = '${DATABASE}'"`
   if [ -z "${DATABASE_EXISTS}" ]; then
@@ -23,17 +23,17 @@ postgis_db_exists() {
 
 create_postgis_db() {
   local DATABASE="$1"
-  local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
+  local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
   log_info creating database \"${DATABASE}\"
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "CREATE DATABASE ${DATABASE};"
 }
 
-create_postgis_user() {
+create_POSTGIS_ROOT_USER() {
   local USER="$1"
   local PASSWORD="$2"
   local DATABASE="$3"
-  local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
+  local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
   log_info creating user \"${USER}\"
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "CREATE USER ${USER} WITH ENCRYPTED PASSWORD '${PASSWORD}';"
@@ -42,15 +42,15 @@ create_postgis_user() {
 
 drop_postgis_db() {
   local DATABASE=$1
-  local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
+  local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
   echo droping database \"${DATABASE}\"
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
 }
 
-drop_postgis_user() {
+drop_POSTGIS_ROOT_USER() {
   local USER=$1
-  local PSQL="psql -d postgresql://${POSTGIS_USER}:${POSTGIS_PASSWORD}@postgis"
+  local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
   log_info droping user \"${USER}\"
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "DROP ROLE ${USER}"
