@@ -4,7 +4,7 @@ services:
   mariadb:
     image: ${MARIADB_IMAGE}:${MARIADB_TAG}
     volumes:
-      - ${MARIADB_DATA_PATH}mariadb_data:/var/lib/mysql
+      - ${MARIADB_VOLUME_PATH}mariadb_data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
     healthcheck:
