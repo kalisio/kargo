@@ -16,4 +16,12 @@ notify_slack() {
   fi
 }
 
+notify_slack_good() {
+  notify $1 good
+}
+
+notify_slack_danger() {
+  notify $1 danger
+}
+ 
  
