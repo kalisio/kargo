@@ -66,7 +66,7 @@ backup_mariadb_db() {
 
   if directory_exists "${DIRECTORY}"; then
     log_info backuping ${DATABASE} 
-    ${K_MARIADB_DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${BACKUP_FILE}"
+    ${DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${BACKUP_FILE}"
     if ! file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
       log_error an error has occured while dumping \"${DATABASE}\"
     fi
