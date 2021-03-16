@@ -17,11 +17,11 @@ notify_slack() {
 }
 
 notify_slack_good() {
-  notify $1 good
+  notify_slack $1 good
 }
 
 notify_slack_danger() {
-  notify $1 danger
+  notify_slack $1 danger
 }
  
  
