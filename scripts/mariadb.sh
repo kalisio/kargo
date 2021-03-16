@@ -65,6 +65,7 @@ backup_mariadb_db() {
   local BACKUP_FILE=${DATABASE}.gz
 
   if directory_exists "${DIRECTORY}"; then
+    delete_file_if_exist ${DIRECTORY}/${BACKUP_FILE}
     log_info backuping ${DATABASE} 
     ${DOCKER_RUN} bash -c "mysqldump --host=mariadb --user=${USER} --password=${PASSWORD} ${DATABASE} | gzip -v > /tmp/${BACKUP_FILE}"
     if ! file_exists "${DIRECTORY}/${BACKUP_FILE}"; then

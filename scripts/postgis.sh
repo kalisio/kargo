@@ -65,6 +65,7 @@ backup_postgis_db() {
   local BACKUP_FILE=${DATABASE}.gz
 
   if directory_exists ${DIRECTORY}; then
+    delete_file_if_exist ${DIRECTORY}/${BACKUP_FILE}
     log_info backuping ${DATABASE} 
     ${DOCKER_RUN} bash -c "pg_dump -Fc postgresql://${USER}:${PASSWORD}@postgis/${DATABASE} > /tmp/${BACKUP_FILE}"
     if ! file_exists "${DIRECTORY}/${BACKUP_FILE}"; then
