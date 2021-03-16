@@ -9,7 +9,7 @@ notify_slack() {
   local MESSAGE=$1
   local STYLE=${2:-default}
   if [[ -n "${SLACK_WEBHOOK_URL-}" ]]; then
-    local PAYLOAD="{ \"attachments\": [ { \"color\": \"${STYLE}\", \"title\": \"${SUBDOMAIN}\", \"mrkdwn_in\": [ \"text\" ], \"text\": \"${MESSAGE}\" } ]"
+    local PAYLOAD="{ \"attachments\": [ { \"color\": \"${STYLE}\", \"title\": \"${SUBDOMAIN}\", \"mrkdwn_in\": [ \"text\" ], \"text\": \"${MESSAGE}\" } ] }"
     curl -X POST -H "Content-type: application/json" --data "${PAYLOAD}" ${SLACK_WEBHOOK_URL} > /dev/null
   else
     log_error \"SLACK_WEBHOOK_URL\" variable is undefined 
