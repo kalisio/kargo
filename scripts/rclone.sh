@@ -11,9 +11,8 @@ remote_exists () {
   local REMOTE_EXISTS=`rclone listremotes | grep ${REMOTE}`
   if [ -z "${REMOTE_EXISTS}" ]; then
     return 1
-  else
-    return 0
   fi
+  return 0
 }
 
 copy_to_store() {
@@ -33,10 +32,9 @@ copy_to_store() {
       log_error the specified source \"${SOURCE}\" does not exist
       return 1
     fi
-  else
-    log_error the specified store \"${REMOTE}\" doest not exist
-    return 1
   fi
+  log_error the specified store \"${REMOTE}\" doest not exist
+  return 1
 }
 
 copy_from_store() {
@@ -56,8 +54,7 @@ copy_from_store() {
       log_error the specified destination \"${DESTINATION}\" does not exist
       return 1
     fi
-  else
-    log_error the specified store \"${REMOTE}\" doest not exist
-    return 1
   fi
+  log_error the specified store \"${REMOTE}\" doest not exist
+  return 1
 }
