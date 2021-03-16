@@ -27,7 +27,7 @@ delete_file_if_exist() {
   if file_exists $1; then
     log_info delete file \"$1\"
     rm $1
-  do
+  fi
 }
 
 create_directory_if_not_exist() {
