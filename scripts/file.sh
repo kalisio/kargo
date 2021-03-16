@@ -41,6 +41,6 @@ delete_directory_if_exist() {
   if directory_exists $1; then
     log_info delete directory \"$1\"
     rm -fr $1
-  do
+  fi
 }
 
