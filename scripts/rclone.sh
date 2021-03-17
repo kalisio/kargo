@@ -15,7 +15,7 @@ remote_exists () {
   return 0
 }
 
-copy_to_store() {
+copy_to_remote() {
   local REMOTE=$1
   local SOURCE=$2
   local DESTINATION=$3
@@ -37,7 +37,7 @@ copy_to_store() {
   return 1
 }
 
-copy_from_store() {
+copy_from_remote() {
   local REMOTE=$1
   local SOURCE=$2
   local DESTINATION=$3
