@@ -27,27 +27,27 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "6de47424369eae9eca2795d7645a0c48"
+    "revision": "8aef986120e29266e47f649cf947854d"
   },
   {
     "url": "about/contact.html",
-    "revision": "4c649e34e3df05343fc01c0c2195a893"
+    "revision": "b41385ca54a956e7fd0a7a610a3f7dd4"
   },
   {
     "url": "about/contributing.html",
-    "revision": "494fb6203e68b3a5af8d61b8c6ba7f46"
+    "revision": "7935776160ea1b9f720443d97c93ec17"
   },
   {
     "url": "about/introduction.html",
-    "revision": "aad2f69b238aaa0fb77d85ce071525c4"
+    "revision": "df611c2cfd4d1dca99618123ea48a4a9"
   },
   {
     "url": "about/license.html",
-    "revision": "d12a6f6449b8ed9ed1df1406828ffc45"
+    "revision": "1c9452a09279dbfca12c0021105f7358"
   },
   {
     "url": "about/roadmap.html",
-    "revision": "ade0aabf2a02f40171b756da88013fda"
+    "revision": "395d70f0ccad3eac3fd13b1171a34b4f"
   },
   {
     "url": "assets/css/0.styles.7357db9c.css",
@@ -122,8 +122,8 @@ self.__precacheManifest = [
     "revision": "f41ccb7ceb6f704dadb086d681d8c1c3"
   },
   {
-    "url": "assets/js/20.6ff625c2.js",
-    "revision": "5bc2f782e5ccc23a5bbf6012c961a206"
+    "url": "assets/js/20.91d8f3f4.js",
+    "revision": "1fe48331110f346098c651bad4ec57fb"
   },
   {
     "url": "assets/js/21.7edf6010.js",
@@ -190,68 +190,68 @@ self.__precacheManifest = [
     "revision": "c0b5f79a8f35287179b402722714bf35"
   },
   {
-    "url": "assets/js/8.bd45d044.js",
-    "revision": "ffd054ff6d75ebf1cc2b34544ffd79a3"
+    "url": "assets/js/8.367e7920.js",
+    "revision": "32ce52108e13a8d4691a4b6c0d1c00ee"
   },
   {
     "url": "assets/js/9.09ad2f39.js",
     "revision": "3fdb34f849126c7bc98cb050d7aaf2fd"
   },
   {
-    "url": "assets/js/app.4aee4e70.js",
-    "revision": "799f0a38578f2dcceccbc0e6fad32095"
+    "url": "assets/js/app.700c35dd.js",
+    "revision": "65750bf085c19e8e309853468ab45224"
   },
   {
     "url": "guides/advanced-usage.html",
-    "revision": "4e1a0f0a80d1e7f02dc7de1f775f3853"
+    "revision": "bfa90d9c8b540b2fd6a93d8f7821e621"
   },
   {
     "url": "guides/getting-started.html",
-    "revision": "4a8964fa237d812074a1bc509eb49053"
+    "revision": "1a08c237b533afcc30028912c0ef3a4d"
   },
   {
     "url": "guides/understanding-kargo.html",
-    "revision": "261a008671582fa2f6d3301930f2e407"
+    "revision": "eaac864b1edcae78638a7976f63b4baf"
   },
   {
     "url": "index.html",
-    "revision": "16a82aee2f91fdae75cffd2c65b01897"
+    "revision": "0272235ccbe9f9dd82f9ed54a3a93637"
   },
   {
     "url": "reference/cli.html",
-    "revision": "96d4b0b0dcf708d69a45a2c43497b2ac"
+    "revision": "efeb8ecf97b461b6a2fb5fc5cb353615"
   },
   {
     "url": "reference/environment.html",
-    "revision": "78ead1dc84945270098d2e5f79dcb158"
+    "revision": "0257856aa2f203a6ad6b7d130cee02df"
   },
   {
     "url": "reference/helper-scripts.html",
-    "revision": "2401a5d0a6f770de91259b3cc9bb4b0d"
+    "revision": "250fdc85172dd8d1e1b332c47f1a0ef8"
   },
   {
     "url": "tips/extracting-osm-data.html",
-    "revision": "a0869448e344025754918fba6429b351"
+    "revision": "7a6c5003de80bcd37f9be348742fe050"
   },
   {
     "url": "tips/handling-long-running-process.html",
-    "revision": "266e565102b3932887101312abcc3d97"
+    "revision": "ef36d67ca3cb936a6cc2e71f8feb889c"
   },
   {
     "url": "tips/using-artillery.html",
-    "revision": "3e50d925f81afa13ba6d8349f2abdde7"
+    "revision": "f2821a9c521652e0966d903a7ce77648"
   },
   {
     "url": "tips/using-gdal.html",
-    "revision": "9102c6060d89dd7a198f92458e4457d4"
+    "revision": "3f0d089e42e554c001a46bfef06a4f6b"
   },
   {
     "url": "tips/using-mongodb-atlas.html",
-    "revision": "563ccd8488f933cbf5b35c862675b559"
+    "revision": "d294a489178078de5440d93e148bd468"
   },
   {
     "url": "tips/using-private-registry.html",
-    "revision": "1d9d289d57ecc676c67178b87f1e3e44"
+    "revision": "a337aa241045829adc98fb208e02ffd7"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
