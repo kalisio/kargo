@@ -166,13 +166,13 @@ Usage: `remote_exists <remote>`
 
 Copy the given source to the specified remote location
 
-Usage: `copy_to_store <remote> <source> <destination>`
+Usage: `copy_to_remote <remote> <source> <destination>`
 
 ### copy_from_remote
 
 Copy from given remote source to the specified location
 
-Usage: `copy_from_store <remote> <source> <destination>`
+Usage: `copy_from_remote <remote> <source> <destination>`
 
 ## slack
 
