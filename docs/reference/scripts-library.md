@@ -88,19 +88,19 @@ Deletes the given database.
 
 Usage: `drop_mariadb_db <database>`
 
-### drop_mariadb_user()
+### drop_mariadb_user
 
 Deletes the given user.
 
 Usage: `drop_mariadb_user <user>`
 
-### backup_mariadb_db()
+### backup_mariadb_db
 
 Backup the given database to the specified directory. The generated backup file compressed using **gzip** and is named accordingly the name of the database, e.g. `<database>.gz`.
 
 Usage: `backup_mariadb_db <user> <password> <database> <directory>`
 
-### restore_mariadb_db()
+### restore_mariadb_db
 
 Restore the given database from the specified backup file. The backup file must be compressed using **gzip** compression and located in the specified directory.
 
@@ -132,25 +132,29 @@ Deletes the given database.
 
 Usage: `drop_postgis_db <database>`
 
-### drop_postgis_user()
+### drop_postgis_user
 
 Deletes the given user.
 
 Usage: `drop_postgis_user <user>`
 
-### backup_postgis_db()
+### backup_postgis_db
 
 Backup the given database to the specified directory. The generated backup file compressed using **gzip** and is named accordingly the name of the database, e.g. `<database>.gz`.
 
 Usage: `backup_postgis_db <user> <password> <database> <directory>`
 
-### restore_postgis_db()
+### restore_postgis_db
 
 Restore the given database from the specified backup file. The backup file must be compressed using **gzip** compression and located in the specified directory.
 
 Usage: `restore_postgis_db <user> <password> <database> <directory>`
 
 ## rclone
+
+::: tip 
+Scripts rely on the **rclone** configuration.
+:::
 
 ### remote_exists
 
