@@ -176,6 +176,10 @@ Usage: `copy_from_store <remote> <source> <destination>`
 
 ## slack
 
+::: warning
+To be able to send **Slack** notification you must define the variable `SLACK_WEBHOOK_URL`.
+:::
+
 ### notify_slack
 
 Send an informational message to slack
