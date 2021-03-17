@@ -179,11 +179,9 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `MARIADB_IMAGE` | The image to be used. | `mariadb` |
 | `MAPUTNIK_TAG` | The version to be used. | `10.5` |
-| `MARIADB_DATA_PATH` | The path to the data. If not defined, a `mariadb` named volume will be automatically created. | `` |
 | `MARIADB_ROOT_PASSWORD` | The root password. | - |
-| `MARIADB_DBNAME` | The name of a database to be created. | - |
-| `MARIADB_USERNAME` | The name of a user to be created. | - |
-| `MARIADB_PASSWORD` | The password of the user to be created. | - |
+| `MARIADB_VOLUME_PATH` | The path to the data volume. If not defined, a `mariadb_data` named volume will be automatically created. | - |
+| `MARIADB_CONSTRAINTS` | The constraints to apply when deploying the service.| `node.labels.mariadb==true` |
 
 ### MongoDB
 
@@ -239,8 +237,9 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | --- | --- | --- |
 | `POSTGIS_IMAGE` | The image to be used. | `postgis/postgis` |
 | `POSTGIS_TAG` | The version to be used. | `13-3.0-alpine` |
-| `POSTGIS_USER` | The POSTGRES user. | `postgres` |
-| `POSTGIS_PASSWORD` | The POSTGRES user's password. | `postgres` |
+| `POSTGIS_ROOT_PASSWORD` | The root password. | - |
+| `POSTGIS_VOLUME_PATH` | The path to the data volume. If not defined, a `postgis_data` named volume will be automatically created. | - |
+| `POSTGIS_CONSTRAINTS` | The constraints to apply when deploying the service.| `node.labels.postgis==true` |
 
 ### Prometheus
 
@@ -360,6 +359,5 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `GFS_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `259200` (3 days) |
 | `GFS_WORLD_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
-## Placement constraints
 
-For each service defined there's a `$(NAME_OF_SERVICE)_CONSTRAINTS` variable that you can define to specify placement constraints. The content of these variable should follow the [docker service constraints syntax](https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-constraints---constraint). Spaces are not allowed in the variable content, except to specify multiple constraints, in which case space is used as a separator.
+

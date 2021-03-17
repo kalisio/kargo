@@ -332,6 +332,10 @@ For each service, you need to declare a variable in the `.env` file which tell t
 Before deploying, do not forget to make the **merged configuration** using the [configure](../reference/cli.md#configure) command.
 :::
 
+## Using placement constraints
+
+For each service defined there's a `$(NAME_OF_SERVICE)_CONSTRAINTS` variable that you can define to specify placement constraints. The content of these variable should follow the [docker service constraints syntax](https://docs.docker.com/engine/reference/commandline/service_create/#specify-service-constraints---constraint). Spaces are not allowed in the variable content, except to specify multiple constraints, in which case space is used as a separator.
+
 ## Using hooks
 
 Sometimes, it may be useful to execute some scripts before or after a service is deployed. This is the purpose of the hooks.
