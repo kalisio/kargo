@@ -5,7 +5,7 @@ K_GDAL=1
 # Include useful scripts
 source ${KARGO_SCRIPTS_PATH}/log.sh
 
-make_tile_index_from_remote_folder() {
+make_tile_index_from_remote_directory() {
     local BUCKET=$1
     local OUTPUT_PREFIX=$2
 
@@ -13,6 +13,7 @@ make_tile_index_from_remote_folder() {
     local REMOTE=$(echo ${BUCKET} | awk -F ':' '{ print $1 }')
     local SOURCE=$(echo ${BUCKET} | awk -F ':' '{ print $2 }')
 
+    # split to get output directory and tile index prefix
     local WORK_DIR=$(dirname ${OUTPUT_PREFIX})
     local TILE_INDEX_NAME=$(basename ${OUTPUT_PREFIX})
     
@@ -48,4 +49,3 @@ make_tile_index_from_remote_folder() {
 
     log_info All good, tile index is here: ${WORK_DIR}/${TILE_INDEX_NAME}.shp   
 }
-

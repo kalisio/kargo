@@ -48,6 +48,16 @@ Creates a unique temporary directory in the system's temp and prints it's locati
 
 Usage: `TEMP=$(make_temp_directory <folder_prefix>)`
 
+## gdal
+
+### make_tile_index_from_remote_directory
+
+Creates a tile index from all the files in the given remote directory. Use `remote_location` to specify the bucket where to list files and `tile_index_prefix` to specify where to write the tile index files (on the local file system).
+
+Usage: `make_tile_index_from_remote_directory <remote_location> <tile_index_prefix>`
+
+Example: `make_tile_index_from_remote_directory scw:bunch/of/cog /srv/mapserver/spain` would produce `/srv/mapserver/spain.shp` from all the files located in `scw:bunch/of/cog`.
+
 ## log
 
 ### log_info
