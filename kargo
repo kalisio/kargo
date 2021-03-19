@@ -71,7 +71,8 @@ kargo_read_configuration()
   # add kargo specific configuration
   KARGO_USER_ID=`id -u $USER`
   KARGO_GROUP_ID=`id -g $USER`
-  KARGO_SCRIPTS_PATH=$(dirname `realpath $0`)/.kargo/scripts
+  KARGO_BUILD_PATH=$(dirname `realpath $0`)/.kargo
+  KARGO_SCRIPTS_PATH="$KARGO_BUILD_PATH"/scripts
   # read the configuration
   set -a
   . .kargo/.env.default
