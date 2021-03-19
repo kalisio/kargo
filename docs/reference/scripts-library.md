@@ -34,13 +34,13 @@ Usage: `delete_file_if_exist <file>`
 
 Creates the given directory if it does not exist
 
-Usage: `create_directory_if_not_exist <directory`
+Usage: `create_directory_if_not_exist <directory>`
 
 ### delete_directory_if_exist
 
 Deletes the given directory if it exists.
 
-Usage: `delete_directory_if_exist <directory`
+Usage: `delete_directory_if_exist <directory>`
   
 ## log
 
@@ -61,6 +61,20 @@ Usage: `log_warning <message>`
 Displays error messages.
 
 Usage: `log_error <message>`
+
+## mapcache
+
+### delete_mapcache_tiles
+
+Deletes cached tiles from the given layer. You can control the zoom levels from which it will delete tiles using `from_z` and `to_z` (both included in the deletion). You can also restrict deletion to a given area using a geojson file for example (not required).
+
+Usage: `delete_mapcache_tiles <layer_name> <from_z> <to_z> [area]`
+
+### seed_mapcache_tiles
+
+Seed tiles for the given layer. You can control the zoom levels for which it will seed tiles using `from_z` and `to_z` (both included in the seeding process). You can also restrict seeding to a given area using a geojson file for example (not required).
+
+Usage: `seed_mapcache_tiles <layer_name> <from_z> <to_z> <num_threads> [area]`
 
 ## mariadb
 
