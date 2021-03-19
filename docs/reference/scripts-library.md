@@ -41,7 +41,13 @@ Usage: `create_directory_if_not_exist <directory>`
 Deletes the given directory if it exists.
 
 Usage: `delete_directory_if_exist <directory>`
-  
+
+### make_temp_directory
+
+Creates a unique temporary directory in the system's temp and prints it's location. You must specify a directory prefix to be used as part of the directory final name.
+
+Usage: `TEMP=$(make_temp_directory <folder_prefix>)`
+
 ## log
 
 ### log_info

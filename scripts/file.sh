@@ -44,3 +44,7 @@ delete_directory_if_exist() {
   fi
 }
 
+make_temp_directory() {
+  local FOLDER_PREFIX=$1
+  mktemp -d --tmpdir ${FOLDER_PREFIX}.XXXXXX
+}
