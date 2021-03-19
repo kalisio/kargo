@@ -62,7 +62,7 @@ Displays error messages.
 
 Usage: `log_error <message>`
 
-## mapcache
+## mapcache
 
 ### delete_mapcache_tiles
 
