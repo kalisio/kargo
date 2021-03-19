@@ -197,4 +197,17 @@ Usage: `notify_slack_good <message>`
 Send a message with the style `danger` to slack.
 
 Usage: `notify_slack_danger <message>`
- 
+
+## swarm
+
+### this_swarm_node
+
+Print the name of the runngin node.
+
+Usage: `THIS=$(this_swarm_node)`
+
+### other_swarm_nodes
+
+Print the name of the other nodes in the swarm.
+
+Usage: `OTHER=$(other_swarm_nodes)`
