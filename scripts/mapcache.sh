@@ -36,13 +36,13 @@ delete_mapcache_tiles() {
     local MAPCACHE_SEED="mapcache_seed -c /etc/mapcache/mapcache.xml -t ${LAYER} -z ${FROM_Z},${TO_Z} -m delete"
     if [ -z "${AREA}" ]; then
         log_info deleting ${LAYER} [${FROM_Z} ${TO_Z}] over the planet
-        echo "${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED}"
+        ${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED}
     else
         if ! check_mapcache_area_file ${AREA}; then
             return 1
         fi
         log_info deleting ${LAYER} [${FROM_Z} ${TO_Z}] over ${AREA}
-        echo "${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED} -d ${AREA}"
+        ${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED} -d ${AREA}
     fi
 }
 
@@ -56,13 +56,13 @@ seed_mapcache_tiles() {
     local MAPCACHE_SEED="mapcache_seed -c /etc/mapcache/mapcache.xml -t ${LAYER} -z ${FROM_Z},${TO_Z} -n ${NUM_THREADS} -m seed"
     if [ -z "${AREA}" ]; then
         log_info seeding ${LAYER} [${FROM_Z} ${TO_Z}] over the planet
-        echo "${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED}"
+        ${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED}
     else
         if ! check_mapcache_area_file ${AREA}; then
             return 1
         fi
         log_info seeding ${LAYER} [${FROM_Z} ${TO_Z}] over ${AREA}
-        echo "${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED} -d ${AREA}"
+        ${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED} -d ${AREA}
     fi
 }
 
