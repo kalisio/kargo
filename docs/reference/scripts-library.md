@@ -214,14 +214,26 @@ Usage: `notify_slack_danger <message>`
 
 ## swarm
 
-### this_swarm_node
+### all_swarm_nodes
 
-Print the name of the runngin node.
+Print the name of all the nodes in the swarm
 
-Usage: `THIS=$(this_swarm_node)`
+Usage: `ALL=$(all_swarm_nodes)`
+
+### docker_id_from_name
+
+Print the id of the docker with a matching name
+
+Usage: `DOCKER_ID=$(docker_id_from_name mapserver)`
 
 ### other_swarm_nodes
 
-Print the name of the other nodes in the swarm.
+Print the name of the all nodes in the swarm minus the node we're running on.
 
 Usage: `OTHER=$(other_swarm_nodes)`
+
+### this_swarm_node
+
+Print the name of the running node.
+
+Usage: `THIS=$(this_swarm_node)`
