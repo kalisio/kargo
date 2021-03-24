@@ -17,6 +17,8 @@ services:
       start_period: 1m
     deploy:
       replicas: ${TILESERVERGL_REPLICAS}
+      placement:
+        max_replicas_per_node: 1
       update_config:
         delay: 1m
       restart_policy:
