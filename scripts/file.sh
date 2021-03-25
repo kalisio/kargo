@@ -2,6 +2,9 @@
 [[ ! -z "${K_FILE-}" ]] && return
 K_FILE=1
 
+# Include useful scripts
+source ${KARGO_SCRIPTS_PATH}/log.sh
+
 file_exists() {
   if [[ -f "$1" ]]; then
     return 0
