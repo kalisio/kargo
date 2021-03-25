@@ -33,7 +33,7 @@ delete_file_if_exist() {
 create_directory_if_not_exist() {
   if ! directory_exists $1; then
     log_info create directory \"$1\"
-    mkdir $1
+    mkdir -p $1
   fi
 }
 
