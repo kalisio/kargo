@@ -282,6 +282,15 @@ kargo_deploy()
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c deploy/$SERVICE_EXTENSION.yml"
       fi
 
+      local SERVICE_BEFORE_HOOK=deploy/${SERVICE}_before.sh
+      if [ -f "$SERVICE_BEFORE_HOOK" ]; then
+        source $SERVICE_BEFORE_HOOK
+      fi
+      local SERVICE_AFTER_HOOK=deploy/${SERVICE}_after.sh
+      if [ -f "$SERVICE_AFTER_HOOK" ]; then
+        AFTER_HOOKS_TO_RUN="$AFTER_HOOKS_TO_RUN $SERVICE_AFTER_HOOK"
+      fi
+
       # list services in the deploy file
       local DEPLOY_SERVICES=$(yq r --printMode p -P deploy/$SERVICE.yml 'services.*' | awk -F '.' '{ print $2 }')
       local YAML_CONSTRAINTS=""
@@ -304,15 +313,6 @@ kargo_deploy()
         local YAML_FILE=deploy/$SERVICE-deploy-constraints.yml
         printf "version: '3.8'\n\nservices:%s\n" "$YAML_CONSTRAINTS" > $YAML_FILE
         SERVICES_TO_DEPLOY="$SERVICES_TO_DEPLOY -c $YAML_FILE"
-      fi
-
-      local SERVICE_BEFORE_HOOK=deploy/${SERVICE}_before.sh
-      if [ -f "$SERVICE_BEFORE_HOOK" ]; then
-        source $SERVICE_BEFORE_HOOK
-      fi
-      local SERVICE_AFTER_HOOK=deploy/${SERVICE}_after.sh
-      if [ -f "$SERVICE_AFTER_HOOK" ]; then
-        AFTER_HOOKS_TO_RUN="$AFTER_HOOKS_TO_RUN $SERVICE_AFTER_HOOK"
       fi
     done
     docker stack deploy  --with-registry-auth $SERVICES_TO_DEPLOY kargo-$1
