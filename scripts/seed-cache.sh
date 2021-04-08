@@ -14,7 +14,7 @@ exec() {
   local OPTIONS=$@
   echo "Seeding with options $OPTIONS"
   local CONFIG_PATH=`pwd`/../configs/mapcache
-  k-worker-foreach -c "docker run -d --rm --network=$DOCKER_BACK_NETWORK --user=www-data:www-data --volume=$MAPCACHE_DATA_PATH:/mnt/data --volume=$CONFIG_PATH:/etc/mapcache kalisio/mapcache:1.10 mapcache_seed -c /etc/mapcache/mapcache.xml $OPTIONS"
+  k-node-foreach --worker -c "docker run -d --rm --network=$DOCKER_BACK_NETWORK --user=www-data:www-data --volume=$MAPCACHE_DATA_PATH:/mnt/data --volume=$CONFIG_PATH:/etc/mapcache kalisio/mapcache:1.10 mapcache_seed -c /etc/mapcache/mapcache.xml $OPTIONS"
 }
 
 if [ $# -eq 0 ]; then
