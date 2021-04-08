@@ -6,6 +6,8 @@ LAYER
     METADATA
         "wms_attribution_onlineresource" "https://github.com/gregoiredavid/france-geojson"
         "wms_enable_request" "!*" # hide layer from list of requestable wms layers
+
+        "wcs_enable_request" "!*" # layer can't be served using WCS
     END
 
     # DATA    "/mnt/data/ign_orthomask.shp"

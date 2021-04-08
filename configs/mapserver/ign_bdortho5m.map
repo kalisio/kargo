@@ -13,6 +13,8 @@ LAYER
         "wms_abstract" "Orthoimages from IGN BDORTHO5M"
         "wms_format" "image/jpeg"
         "wms_opaque" "1"
+
+        "wcs_enable_request" "!*" # layer can't be served using WCS
     END
 
     TILEINDEX   "/mnt/data/ign_bdortho5m.shp"
@@ -39,6 +41,8 @@ LAYER
         "wms_abstract" "Orthoimages from IGN BDORTHO5M"
         "wms_format" "image/jpeg"
         "wms_opaque" "1"
+
+        "wcs_enable_request" "!*" # layer can't be served using WCS
     END
 
     TILEINDEX   "/mnt/data/ign_bdortho5m.shp"

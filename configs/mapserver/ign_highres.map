@@ -10,6 +10,8 @@ LAYER
         "wms_abstract" "Mix of orthoimages from IGN BDORTHO and ORTHOHR sets."
         "wms_format" "image/jpeg"
         "wms_opaque" "1"
+
+        "wcs_enable_request" "!*" # layer can't be served using WCS
     END
 
     TILEINDEX   "/mnt/data/ign_highres.shp"
@@ -36,6 +38,8 @@ LAYER
         "wms_abstract" "Mix of orthoimages from IGN BDORTHO and ORTHOHR sets."
         "wms_format" "image/jpeg"
         "wms_opaque" "1"
+
+        "wcs_enable_request" "!*" # layer can't be served using WCS
     END
 
     TILEINDEX   "/mnt/data/ign_highres.shp"
