@@ -65,23 +65,3 @@ seed_mapcache_tiles() {
         ${K_MAPCACHE_DOCKER_RUN} ${MAPCACHE_SEED} -d ${AREA}
     fi
 }
-
-# rsync_mapcache_local_cache() {
-#     local LAYER=${1:-}
-
-#     local CACHE_PATH=$MAPCACHE_DATA_PATH
-#     if [ -n "$LAYER" ] && [ $LAYER != "all" ]; then
-#         CACHE_PATH=$MAPCACHE_DATA_PATH/$LAYER
-#     fi
-
-#     if ! directory_exists $CACHE_PATH; then
-#       log_error the cache directory \"${CACHE_PATH}\" doesn\'t exist
-#       return 1
-#     fi
-    
-#     local THIS_NODE=$(this_swarm_node)
-#     local OTHER_NODES=$(other_swarm_nodes)
-#     for NODE in ${OTHER_NODES}; do
-#         echo "k-node-exec -c $NODE \"cd $CACHE_PATH && sudo rm -fR * && sudo rsync -e \"ssh -o StrictHostKeyChecking=accept-new -i $HOME/.ssh/ssh.pem\" -a --no-i-r --info=progress2 $THIS_NODE:$MAPCACHE_DATA_PATH/ . && sudo chown -R www-data:www-data *\""
-#     done
-# }
