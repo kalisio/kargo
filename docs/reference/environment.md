@@ -133,6 +133,17 @@ For each stack, there must be such an entry:
 More configuration details on our [Logspout Slack adapter](https://github.com/kalisio/logspout-slack).
 :::
 
+### Kontrol
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `KONTROL_IMAGE` | The image to be used. | `kalisio/kontrol` |
+| `KONTROL_TAG` | The version to be used. | `1.0.0` |
+
+::: tip
+More configuration details on our [kontrol repository](https://github.com/kalisio/kontrol).
+:::
+
 ### MapCache
 
 | Variable | Description | Default value |
