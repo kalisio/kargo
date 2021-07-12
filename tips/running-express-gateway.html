@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Running express-gateway locally | Kargo</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-icon-64x64.png">
+    <link rel="manifest" href="/kargo/manifest.json">
+    <meta name="description" content="A Docker based solution to deploy Geospatial Services">
+    
+    <link rel="preload" href="/kargo/assets/css/0.styles.5cd31058.css" as="style"><link rel="preload" href="/kargo/assets/js/app.5ff8a7b5.js" as="script"><link rel="preload" href="/kargo/assets/js/3.f09f66f6.js" as="script"><link rel="preload" href="/kargo/assets/js/25.67d28038.js" as="script"><link rel="preload" href="/kargo/assets/js/4.5c2690c3.js" as="script"><link rel="prefetch" href="/kargo/assets/js/10.98971c2d.js"><link rel="prefetch" href="/kargo/assets/js/11.0c36b719.js"><link rel="prefetch" href="/kargo/assets/js/12.a39d9573.js"><link rel="prefetch" href="/kargo/assets/js/13.3e18226b.js"><link rel="prefetch" href="/kargo/assets/js/14.d94d5659.js"><link rel="prefetch" href="/kargo/assets/js/15.c7477235.js"><link rel="prefetch" href="/kargo/assets/js/16.b3bcda79.js"><link rel="prefetch" href="/kargo/assets/js/17.b923da4c.js"><link rel="prefetch" href="/kargo/assets/js/18.c1aa1da1.js"><link rel="prefetch" href="/kargo/assets/js/19.a77ab062.js"><link rel="prefetch" href="/kargo/assets/js/2.7cc61a80.js"><link rel="prefetch" href="/kargo/assets/js/20.09d629cb.js"><link rel="prefetch" href="/kargo/assets/js/21.7edf6010.js"><link rel="prefetch" href="/kargo/assets/js/22.0641f1a9.js"><link rel="prefetch" href="/kargo/assets/js/23.db3747c6.js"><link rel="prefetch" href="/kargo/assets/js/24.2d863ecb.js"><link rel="prefetch" href="/kargo/assets/js/26.e584bc44.js"><link rel="prefetch" href="/kargo/assets/js/27.9b4e2e6b.js"><link rel="prefetch" href="/kargo/assets/js/28.fd6ed499.js"><link rel="prefetch" href="/kargo/assets/js/29.2e20d60e.js"><link rel="prefetch" href="/kargo/assets/js/30.6482f5a7.js"><link rel="prefetch" href="/kargo/assets/js/31.0ce0911b.js"><link rel="prefetch" href="/kargo/assets/js/32.59be9be9.js"><link rel="prefetch" href="/kargo/assets/js/33.0c30461c.js"><link rel="prefetch" href="/kargo/assets/js/5.59564082.js"><link rel="prefetch" href="/kargo/assets/js/6.208b90d5.js"><link rel="prefetch" href="/kargo/assets/js/7.65777dff.js"><link rel="prefetch" href="/kargo/assets/js/8.367e7920.js"><link rel="prefetch" href="/kargo/assets/js/9.09ad2f39.js">
+    <link rel="stylesheet" href="/kargo/assets/css/0.styles.5cd31058.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/kargo/" class="home-link router-link-active"><!----> <span class="site-name">Kargo</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/kargo/about/introduction.html" class="nav-link">
+  About
+</a></div><div class="nav-item"><a href="/kargo/guides/understanding-kargo.html" class="nav-link">
+  Guides
+</a></div><div class="nav-item"><a href="/kargo/reference/environment.html" class="nav-link">
+  Reference
+</a></div><div class="nav-item"><a href="/kargo/tips/using-gdal.html" class="nav-link">
+  Tips
+</a></div><div class="nav-item"><a href="https://github.com/kalisio/kargo" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/kargo/about/introduction.html" class="nav-link">
+  About
+</a></div><div class="nav-item"><a href="/kargo/guides/understanding-kargo.html" class="nav-link">
+  Guides
+</a></div><div class="nav-item"><a href="/kargo/reference/environment.html" class="nav-link">
+  Reference
+</a></div><div class="nav-item"><a href="/kargo/tips/using-gdal.html" class="nav-link">
+  Tips
+</a></div><div class="nav-item"><a href="https://github.com/kalisio/kargo" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav> <p align="center"><a href="https://kalisio.com"><img src="https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png"></a> <br> <!----></p> <ul class="sidebar-links"><li><a href="/kargo/tips/using-private-registry.html" class="sidebar-link">Using a private registry</a></li><li><a href="/kargo/tips/using-gdal.html" class="sidebar-link">Using GDAL</a></li><li><a href="/kargo/tips/using-artillery.html" class="sidebar-link">Using Artillery</a></li><li><a href="/kargo/tips/handling-long-running-process.html" class="sidebar-link">Handling long-running process</a></li><li><a href="/kargo/tips/using-mongodb-atlas.html" class="sidebar-link">Using MongoDB Atlas</a></li><li><a href="/kargo/tips/extracting-osm-data.html" class="sidebar-link">Extracting OpenStreetMap data</a></li><li><a href="/kargo/tips/running-express-gateway.html" aria-current="page" class="active sidebar-link">Running express-gateway locally</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="running-express-gateway-locally"><a href="#running-express-gateway-locally" class="header-anchor">#</a> Running express-gateway locally</h1> <p>It is sometimes required to play with the API gateway on your local development environment for debug purpose. As Kargo relies on a specific image built with plugins, etc. you can use it but it might not be so convenient. Otherwise you can clone <a href="https://github.com/ExpressGateway/express-gateway" target="_blank" rel="noopener noreferrer">express-gateway<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and do the following to run it locally with e.g. the S3 plugin:</p> <ol><li><p>Add AWS SDK dependency to the <code>package.json</code> file (<code>&quot;aws-sdk&quot;: &quot;^2.607.0&quot;</code>)</p></li> <li><p>Copy the Kargo plugin into the <code>lib</code> directory</p></li> <li><p>Add S3 plugin at the end of the <code>lib/config/system.config.yml</code> file:</p></li></ol> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">plugins</span><span class="token punctuation">:</span>
+  <span class="token key atrule">s3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">package</span><span class="token punctuation">:</span> ./s3
+</code></pre></div><ol start="4"><li>Add S3 endpoint/pipeline the <code>lib/config/gateway.config.yml</code> file:</li></ol> <div class="language-yml extra-class"><pre class="language-yml"><code><span class="token key atrule">apiEndpoints</span><span class="token punctuation">:</span>
+  <span class="token key atrule">s3</span><span class="token punctuation">:</span> 
+    <span class="token key atrule">hosts</span><span class="token punctuation">:</span> <span class="token string">'*'</span>
+    <span class="token key atrule">paths</span><span class="token punctuation">:</span> <span class="token string">'/s3/*'</span>
+<span class="token key atrule">serviceEndpoints</span><span class="token punctuation">:</span>
+  <span class="token key atrule">s3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> <span class="token string">'http://localhost:9876/s3'</span>
+<span class="token key atrule">pipelines</span><span class="token punctuation">:</span>
+  <span class="token key atrule">s3</span><span class="token punctuation">:</span>
+    <span class="token key atrule">apiEndpoints</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> s3
+    <span class="token key atrule">policies</span><span class="token punctuation">:</span>   
+      <span class="token punctuation">-</span> <span class="token key atrule">proxy</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">action</span><span class="token punctuation">:</span>
+              <span class="token key atrule">serviceEndpoint</span><span class="token punctuation">:</span> s3
+              <span class="token key atrule">changeOrigin</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+              <span class="token key atrule">stripPath</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+</code></pre></div><p>Configure the required environment variables (<code>S3_ACCESS_KEY</code>, <code>S3_SECRET_ACCESS_KEY</code>, <code>S3_ENDPOINT</code>) then launch the gateway: <code>npm run start:dev</code>.</p> <p>Now you should be able to access objects using the following URL: http://localhost:9876/s3/bucket/key.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/kargo/tips/extracting-osm-data.html" class="prev">
+        Extracting OpenStreetMap data
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/kargo/assets/js/app.5ff8a7b5.js" defer></script><script src="/kargo/assets/js/3.f09f66f6.js" defer></script><script src="/kargo/assets/js/25.67d28038.js" defer></script><script src="/kargo/assets/js/4.5c2690c3.js" defer></script>
+  </body>
+</html>
