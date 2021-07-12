@@ -59,6 +59,7 @@ function getTipsSidebar () {
     'using-artillery',
     'handling-long-running-process',
     'using-mongodb-atlas',    
-    'extracting-osm-data'
+    'extracting-osm-data',    
+    'running-express-gateway'
   ]
 }
