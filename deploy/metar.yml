@@ -1,7 +1,7 @@
 version: '3.8'
 
 services: 
-  metar-tar-observations:
+  metar:
     image: ${METAR_IMAGE}:${METAR_TAG}
     environment:
       - DB_URL=${METAR_DB_URL}
