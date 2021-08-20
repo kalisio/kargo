@@ -194,6 +194,18 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `MARIADB_VOLUME_PATH` | The path to the data volume. If not defined, a `mariadb_data` named volume will be automatically created. | - |
 | `MARIADB_CONSTRAINTS` | The constraints to apply when deploying the service.| `node.labels.mariadb==true` |
 
+### Metar
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `METAR_IMAGE` | The image to be used. | `kalisio/k-metar` |
+| `METAR_TAG` | The version to be used. | `latest` |
+| `METAR_DB_URL` | The database URL where to write the data. | - |
+| `METAR_TTL` | The observations time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `METAR_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
+| `METAR_BBOX` | The spatial extention for the area of interest. | `-180,-90,180,90` |
+| `METAR_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
+
 ### MongoDB
 
 | Variable | Description | Default value |
@@ -275,6 +287,18 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `REDIS_IMAGE` | The image to be used. | `redis` |
 | `REDIS_TAG` | The version to be used. | `5` |
 | `REDIS_URL` | The URL to the service. |  `redis://redis:6379` |
+
+### Taf
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `TAF_IMAGE` | The image to be used. | `kalisio/k-metar` |
+| `TAF_TAG` | The version to be used. | `latest` |
+| `TAF_DB_URL` | The database URL where to write the data. | - |
+| `TAF_TTL` | The forecasts time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `TAF_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
+| `TAF_BBOX` | The spatial extention for the area of interest. | `-180,-90,180,90` |
+| `TAF_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 
 ### Teleray
 
