@@ -2,5 +2,5 @@ ARG VERSION
 
 FROM camptocamp/mapcache:$VERSION
 
-RUN apt-get -y update && apt-get -y install curl
+RUN apt-get -y update --allow-releaseinfo-change && apt-get -y install curl
 
