@@ -9,6 +9,8 @@ services:
        SWARM: 1
        TASKS: 1
        CONTAINERS: 1
+       # prometheus dockerswarm_sd needs this API
+       NODES: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:

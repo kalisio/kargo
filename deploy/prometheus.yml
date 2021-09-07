@@ -9,8 +9,6 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
     healthcheck:
       test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:9090/status"]
       interval: 30s
@@ -28,6 +26,8 @@ services:
         condition: on-failure
     networks:  
       - kargo-back-network
+      # access to docker socket is required to use dockerswarm_sd
+      - docker-socket-network
 
   alertmanager:
     image: ${PROMETHEUS_ALERTMANAGER_IMAGE}:${PROMETHEUS_ALERTMANAGER_TAG}
@@ -56,18 +56,26 @@ services:
 
   node-exporter:
     image: ${PROMETHEUS_NODE_EXPORTER_IMAGE}:${PROMETHEUS_NODE_EXPORTER_TAG}
-    command: 
-      - '--path.procfs=/host/proc' 
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
-      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    command:
+      - '--path.rootfs=/rootfs'
+      # disable all metrics, then enable what we need
+      - '--collector.disable-defaults'
+      - '--collector.cpu'
+      - '--collector.loadavg'
+      - '--collector.meminfo'
+      - '--collector.netdev'
+      - '--collector.uname'
+      # disable node-exporter metrics
+      - '--web.disable-exporter-metrics'
     volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
+      - /:/rootfs:ro,rslave
+    # useful so that node_exporter uname metric is correct
     hostname: "{{.Node.Hostname}}"
     deploy:
       mode: global
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=node-exporter"
       resources:
         limits:
           memory: 128M
@@ -80,8 +88,11 @@ services:
 
   cadvisor:
     image: ${PROMETHEUS_CADVISOR_IMAGE}:${PROMETHEUS_CADVISOR_TAG}
-    command: 
-      - '-docker_only'
+    command:
+      - '--docker_only'
+      # don't fetch all container labels, we'll pick those we need
+      - '--store_container_labels=false'
+      - '--whitelisted_container_labels=com.docker.swarm.service.name,com.docker.swarm.task.id'
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -89,6 +100,9 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     deploy:
       mode: global
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=cadvisor"
       resources:
         limits:
           memory: 128M
@@ -123,4 +137,6 @@ networks:
   kargo-back-network:
     name: ${DOCKER_BACK_NETWORK}
     external: true
-    
+  docker-socket-network:
+    name: ${DOCKER_SOCKET_NETWORK}
+    external: true
