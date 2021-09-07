@@ -8,398 +8,448 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
-  "description": "Docker Swarm metrics",
   "editable": false,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1577176826839,
-  "links": [],
+  "id": 1,
+  "iteration": 1631006746688,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Jump to ...",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "panels": [
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "Prometheus",
-      "decimals": 2,
-      "editable": false,
-      "error": false,
-      "fill": 1,
-      "grid": {},
+      "description": "Displays CPU usage per service per node. If a service is replicated on a node with X tasks they'll be aggregated as one graph on the node.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 1,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": false
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
       },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "expr": "100 * sum (rate(container_cpu_usage_seconds_total{container_label_com_docker_stack_namespace=~\"$stack_namespace\",container_label_com_docker_swarm_service_name=~\"$service_name\",container_label_com_docker_swarm_node_id=~\"$node\",id=~\"/docker/.*\"}[1m])) by (container_label_com_docker_swarm_task_name)",
-          "format": "time_series",
+          "exemplar": true,
+          "expr": "100 * sum without (cpu, container_label_com_docker_swarm_task_id) (irate(container_cpu_usage_seconds_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]))",
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "100 * sum without (cpu) (irate(container_cpu_usage_seconds_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]))",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        }
+      ],
+      "title": "CPU usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Displays memory usage per service per node. If a service is replicated on a node with X tasks they'll be aggregated as one graph on the node.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum without(container_label_com_docker_swarm_task_id) (container_memory_working_set_bytes{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"})",
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "container_memory_working_set_bytes{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        }
+      ],
+      "title": "Memory usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "description": "Displays network usage per service per node. If a service is replicated on a node with X tasks they'll be aggregated as one graph on the node.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Tx (-) / Rx (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum without(interface, container_label_com_docker_swarm_task_id) (irate(container_network_receive_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]))",
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} rx on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum without(interface, container_label_com_docker_swarm_task_id) (irate(container_network_transmit_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m])) * -1",
           "hide": false,
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
-          "metric": "",
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU usage per task (aggregated over 1m)",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percent",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "show": true
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} tx on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "B"
         },
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
+          "exemplar": true,
+          "expr": "sum without(interface) (irate(container_network_receive_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]))",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} rx on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum without(interface) (irate(container_network_transmit_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m])) * -1",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} tx on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "D"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Network usage",
+      "transformations": [],
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "Prometheus",
-      "editable": false,
-      "error": false,
-      "fill": 3,
-      "grid": {},
+      "description": "Displays disk usage per service per node. If a service is replicated on a node with X tasks they'll be aggregated as one graph on the node.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Writes (-) / Reads (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 24
       },
-      "id": 10,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": false
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
       },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(container_memory_working_set_bytes{container_label_com_docker_stack_namespace=~\"$stack_namespace\",container_label_com_docker_swarm_service_name =~\"$service_name\",container_label_com_docker_swarm_node_id=~\"$node\"}) by (container_label_com_docker_swarm_task_name)",
-          "format": "time_series",
+          "exemplar": true,
+          "expr": "sum without(container_label_com_docker_swarm_task_id) (irate(container_fs_reads_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]))",
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} read on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum without(container_label_com_docker_swarm_task_id) (irate(container_fs_writes_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m])) * -1",
           "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Memory usage per task",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": 0,
-          "show": true
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} write on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "B"
         },
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "editable": false,
-      "error": false,
-      "fill": 1,
-      "grid": {},
-      "gridPos": {
-        "h": 5,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 26,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_receive_bytes_total{container_label_com_docker_stack_namespace=~\"$stack_namespace\",container_label_com_docker_swarm_service_name =~\"$service_name\",container_label_com_docker_swarm_node_id=~\"$node\"}[1m])) by (container_label_com_docker_swarm_task_name)",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Received network traffic (aggragated over 1m)",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "Bps",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "exemplar": true,
+          "expr": "irate(container_fs_reads_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m])",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} read on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "C"
         },
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "exemplar": true,
+          "expr": "irate(container_fs_writes_bytes_total{instance=~\"$node\", container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}[1m]) * -1",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}} write on {{instance}}",
+          "queryType": "randomWalk",
+          "refId": "D"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "editable": false,
-      "error": false,
-      "fill": 1,
-      "grid": {},
-      "gridPos": {
-        "h": 5,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 25,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(container_network_transmit_bytes_total{container_label_com_docker_stack_namespace=~\"$stack_namespace\",container_label_com_docker_swarm_service_name =~\"$service_name\",container_label_com_docker_swarm_node_id=~\"$node\"}[1m])) by (container_label_com_docker_swarm_task_name)",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Sent network traffic (aggragated over 1m)",
-      "tooltip": {
-        "msResolution": true,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "Bps",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 10,
-          "max": 8,
-          "min": 0,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Disk usage",
+      "transformations": [],
+      "type": "timeseries"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 18,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [
     "cAdvisor"
@@ -407,118 +457,95 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
+        "allValue": ".+",
         "current": {
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "",
+        "definition": "label_values(container_cpu_usage_seconds_total, container_label_com_docker_stack_namespace)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": true,
-        "label": "Node ID",
-        "multi": true,
-        "name": "node",
+        "label": "Stack",
+        "multi": false,
+        "name": "stack",
         "options": [],
-        "query": "label_values(container_label_com_docker_swarm_node_id)",
+        "query": {
+          "query": "label_values(container_cpu_usage_seconds_total, container_label_com_docker_stack_namespace)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "tags": [],
-          "text": "kargo-jobs",
-          "value": [
-            "kargo-jobs"
-          ]
-        },
-        "datasource": "Prometheus",
-        "definition": "",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Stack",
-        "multi": true,
-        "name": "stack_namespace",
-        "options": [],
-        "query": "query_result(count(container_last_seen{container_label_com_docker_stack_namespace=~\".+\"}) by (container_label_com_docker_stack_namespace))",
-        "refresh": 1,
-        "regex": "/container_label_com_docker_stack_namespace=\"(.*)\"/",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "type": "query"
       },
       {
         "allValue": ".+",
         "current": {
+          "selected": false,
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": "$__all"
         },
         "datasource": "Prometheus",
-        "definition": "",
+        "definition": "label_values(container_cpu_usage_seconds_total{container_label_com_docker_stack_namespace=~\"$stack\"}, container_label_com_docker_swarm_service_name)",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Service",
-        "multi": true,
-        "name": "service_name",
+        "multi": false,
+        "name": "service",
         "options": [],
-        "query": "query_result(count(container_last_seen{container_label_com_docker_swarm_service_name=~\".+\", container_label_com_docker_stack_namespace=~\"$stack_namespace\"}) by (container_label_com_docker_swarm_service_name))",
+        "query": {
+          "query": "label_values(container_cpu_usage_seconds_total{container_label_com_docker_stack_namespace=~\"$stack\"}, container_label_com_docker_swarm_service_name)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
-        "regex": "/container_label_com_docker_swarm_service_name=\"(.*)\"/",
+        "regex": "",
         "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": ".+",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(container_cpu_usage_seconds_total{container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}, instance)",
+        "description": "",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Hostname",
+        "multi": false,
+        "name": "node",
+        "options": [],
+        "query": {
+          "query": "label_values(container_cpu_usage_seconds_total{container_label_com_docker_stack_namespace=~\"$stack\",container_label_com_docker_swarm_service_name=~\"$service\"}, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-6h",
     "to": "now"
   },
-  "timepicker": {
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
-  "timezone": "browser",
+  "timepicker": {},
+  "timezone": "",
   "title": "Swarm dashboard",
-  "uid": "4-75Du0iz",
-  "version": 2
+  "uid": "5M7hDgSnz",
+  "version": 6
 }
