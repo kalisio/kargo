@@ -73,9 +73,6 @@ services:
     hostname: "{{.Node.Hostname}}"
     deploy:
       mode: global
-      labels:
-        # tell prometheus there's a scrape job here
-        - "prometheus.job=node-exporter"
       resources:
         limits:
           memory: 128M
@@ -100,9 +97,6 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     deploy:
       mode: global
-      labels:
-        # tell prometheus there's a scrape job here
-        - "prometheus.job=cadvisor"
       resources:
         limits:
           memory: 128M
