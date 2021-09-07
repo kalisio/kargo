@@ -1,0 +1,30 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: journal
+  journal:
+    json: false
+    max_age: 12h
+    path: /run/log/journal
+    labels:
+      job: systemd-journal
+  relabel_configs:
+    # include '__journal__hostname' journald field as 'host' log label
+    - source_labels: ['__journal__hostname']
+      target_label: 'host'
+    # extract human readable service name from '__journal__com_docker_swarm_service_name'
+    # and use it as 'service' log label
+    - source_labels: ['__journal_com_docker_swarm_service_name']
+      target_label: 'service'
+      regex: kargo-[^_]+_(.*)
+    # include '__journal__systemd_unit' journald field too
+    - source_labels: ['__journal__systemd_unit']
+      target_label: 'systemd_unit'

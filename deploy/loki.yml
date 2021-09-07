@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  promtail:
+    image: ${PROMTAIL_IMAGE}:${PROMTAIL_TAG}
+    hostname: "{{.Service.Name}}.{{.Node.Hostname}}"
+    command: [ '-config.file=/etc/promtail-config.yml' ]
+    volumes:
+      - ./../configs/promtail/promtail.yml:/etc/promtail-config.yml
+      - /run/log/journal/:/run/log/journal/
+      - /etc/machine-id:/etc/machine-id
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 1m
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-back-network
+
+  loki:
+    image: ${LOKI_IMAGE}:${LOKI_TAG}
+    hostname: "{{.Service.Name}}.{{.Node.Hostname}}"
+    command: [ '-config.file=/etc/loki-config.yml' ]
+    volumes:
+      - ./../configs/loki/loki.yml:/etc/loki-config.yml
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:3100/ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+    networks:
+      - kargo-back-network
+
+networks:
+  kargo-back-network:
+    name: ${DOCKER_BACK_NETWORK}
+    external: true
