@@ -6,6 +6,9 @@ admin:
 apiEndpoints:
   admin:
     host: 'express-gateway'
+  prometheus:
+    host: '*'
+    path: '/metrics'
   wms:
     host: '*'
     paths: '/wms*'
@@ -38,6 +41,8 @@ apiEndpoints:
 serviceEndpoints:
   admin: 
     url: 'http://localhost:9876'
+  prometheus:
+    url: 'http://localhost:9876/metrics'
   wms:
     url: 'http://mapserver:80/cgi-bin/mapserv'
   wmts:
@@ -70,6 +75,15 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: admin
+              changeOrigin: true
+              stripPath: true
+  prometheus:
+    apiEndpoints:
+      - prometheus
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: prometheus
               changeOrigin: true
               stripPath: true
   wms:
