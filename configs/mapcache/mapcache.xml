@@ -4,15 +4,19 @@
       <title>Kargo's mapcache</title>
       <abstract>woot! this is a service abstract!</abstract>
 
-      <!-- url
+    <!-- url below is important since it will be used as a base
+         for all OnlineResource and href to tiles and stuff (in all enabled services).
+         Make sure those api endpoints are properly redirected.
+         $url => wms
+         $url/wmts => wmts
+         $url/tms => tms
 
-           uncomment and modify this if you need to provide another base url for
-           getCapabilities requests (for the OnlineResource tags). You should use 
-           this if there's a proxy between the client and the mod-mapcache service
-           and you want the capabilities document to point to the correct endpoints.
-      
-      <url>http://mysuperhost/proxy/to/mapcache</url>
-      -->
+         it is not possible to use api.${SUBDOMAIN} as base url
+         since it would put wms entry point on this base url.
+    -->
+    <!--
+    <url>https://api.${SUBDOMAIN}/ows</url>
+    -->
    </metadata>
 
    <!--

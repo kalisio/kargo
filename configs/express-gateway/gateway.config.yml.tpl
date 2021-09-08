@@ -36,7 +36,24 @@ apiEndpoints:
   s3: 
     hosts: '*'
     paths: '/s3/*'
-    scopes: ["s3"]    
+    scopes: ["s3"]
+  # these are here to allow mapcache to generate GetCapabilities urls that works.
+  # mapcache internal base url is set to api.$SUBDOMAIN/ows (it can't be just api.$SUBDOMAIN
+  # because this base url is the wms entry point for mapcache).
+  # because of this, GetCapabilities and such expose urls starting with api.$SUBDOMAIN/ows
+  # we have to catch them and redirect them as our 'regular' wms, wmts .. api endpoints
+  mapcache_wmts:
+    host: '*'
+    paths: '/ows/wmts/*'
+    scopes: ["wmts"]
+  mapcache_tms:
+    host: '*'
+    paths: '/ows/tms/*'
+    scopes: ["tms"]
+  mapcache_wms:
+    host: '*'
+    paths: '/ows*'
+    scopes: ["wms"]
 
 serviceEndpoints:
   admin: 
@@ -89,6 +106,7 @@ pipelines:
   wms:
     apiEndpoints:
       - wms
+      - mapcache_wms
     policies:
       - metrics:              
       - cors:
@@ -120,6 +138,7 @@ pipelines:
   wmts:
     apiEndpoints:
       - wmts
+      - mapcache_wmts
     policies:
       - metrics:              
       - cors:
@@ -151,6 +170,7 @@ pipelines:
   tms:
     apiEndpoints:
       - tms
+      - mapcache_tms
     policies:
       - metrics:              
       - cors:
