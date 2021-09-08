@@ -113,7 +113,9 @@
   ],
   "schemaVersion": 30,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "express-gateway"
+  ],
   "templating": {
     "list": [
       {

@@ -521,7 +521,9 @@
   ],
   "schemaVersion": 30,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "node-exporter"
+  ],
   "templating": {
     "list": [
       {

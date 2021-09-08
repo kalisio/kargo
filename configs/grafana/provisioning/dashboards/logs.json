@@ -70,7 +70,9 @@
   ],
   "schemaVersion": 30,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "loki"
+  ],
   "templating": {
     "list": [
       {
