@@ -100,7 +100,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s])",
+          "expr": "sum without(instance, docker_node) (rate(eg{api_endpoint=~\"$endpoint\",consumer=~\"$consumer\",status_code=~\"$status_code\"}[30s]))",
           "interval": "",
           "legendFormat": "{{api_endpoint}} ({{status_code}})",
           "queryType": "randomWalk",
