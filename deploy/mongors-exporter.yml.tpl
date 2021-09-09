@@ -8,10 +8,14 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      placement:
+        constraints:
+         - node.labels.${MONGORS_NAME}0 == true
       labels:
         # tell prometheus there's a scrape job here
         - "prometheus.job=mongodb"
         - "prometheus.port=9216"
+        - "prometheus.updateInstance=true"
       resources:
         limits:
           memory: 128M
@@ -27,10 +31,14 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      placement:
+        constraints:
+         - node.labels.${MONGORS_NAME}1 == true
       labels:
         # tell prometheus there's a scrape job here
         - "prometheus.job=mongodb"
         - "prometheus.port=9216"
+        - "prometheus.updateInstance=true"
       resources:
         limits:
           memory: 128M
@@ -46,10 +54,14 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      placement:
+        constraints:
+         - node.labels.${MONGORS_NAME}2 == true
       labels:
         # tell prometheus there's a scrape job here
         - "prometheus.job=mongodb"
         - "prometheus.port=9216"
+        - "prometheus.updateInstance=true"
       resources:
         limits:
           memory: 128M
