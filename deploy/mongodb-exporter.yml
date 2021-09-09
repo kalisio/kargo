@@ -6,6 +6,10 @@ services:
     command:
       - '--mongodb.uri=mongodb://mongodb'
     deploy:
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=mongodb"
+        - "prometheus.port=9216"
       replicas: 1
       resources:
         limits:

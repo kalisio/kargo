@@ -8,6 +8,10 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=mongodb"
+        - "prometheus.port=9216"
       resources:
         limits:
           memory: 128M
@@ -23,6 +27,10 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=mongodb"
+        - "prometheus.port=9216"
       resources:
         limits:
           memory: 128M
@@ -38,6 +46,10 @@ services:
       - '--collect.collection'
     deploy:
       replicas: 1
+      labels:
+        # tell prometheus there's a scrape job here
+        - "prometheus.job=mongodb"
+        - "prometheus.port=9216"
       resources:
         limits:
           memory: 128M
