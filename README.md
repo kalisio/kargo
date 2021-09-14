@@ -1,7 +1,7 @@
 [![Kargo](https://s3.eu-central-1.amazonaws.com/kalisioscope/kargo/kargo-logo-black-512x168.png)](https://kalisio.github.io/kargo/)
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/kargo?sort=semver&label=latest)](https://github.com/kalisio/kargo/releases)
-[![Build Status](https://travis-ci.org/kalisio/kargo.png?branch=master)](https://travis-ci.org/kalisio/kargo)
+[![Build Status](https://app.travis-ci.com/kalisio/kargo.svg?branch=master)](https://app.travis-ci.com/kalisio/kargo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _A Docker based solution to build and operate Geospatial Platforms_
