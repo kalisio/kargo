@@ -204,7 +204,22 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 | `METAR_TTL` | The observations time to live. It must be expressed in seconds. | `604 800` (7 days) |
 | `METAR_CRON` | The cron expression used to run the job. | `0 0 * * * *` (every hour) |
 | `METAR_BBOX` | The spatial extention for the area of interest. | `-180,-90,180,90` |
-| `METAR_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
+| `METAR_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | 
+
+### Meteo Radar
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `METAORADAR_IMAGE` | The image to be used. | `kalisio/k-meteoradar` |
+| `METAORADAR_TAG` | The version to be used. | `latest` |
+| `METAORADAR_S3_ENDPOINT` | The S3 endpoint where to store the data. | - |
+| `METAORADAR_S3_REGION` | The S3 region where to store the data. | - |
+| `METAORADAR_S3_ACCESS_KEY` | The S3 access key where to store the data. | - |
+| `METAORADAR_S3_SECRET_ACCESS_KEY` | The S3 secret access key where to store the data. | - |
+| `METAORADAR_S3_BUCKET` | The S3 bucket where to store the data. | - |
+| `METAORADAR_CRON` | The cron expression used to run the job. | `0 */15 * * * *` (every 15 minutes) |
+| `METAORADAR_CONSTRAINTS` | The placement constraints to take into account whend deploying the job. | `node.role==worker` |
+| `METAORADAR_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | 
 
 ### MongoDB
 

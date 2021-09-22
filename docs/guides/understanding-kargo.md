@@ -61,6 +61,7 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [MapServer](https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [Metar/Taf](https://github.com/kalisio/k-metar-taf)
+  * [Meteo Radar](https://github.com/kalisio/k-meeteoradar)
   * [MongoDB](https://www.mongodb.com)
   * [Mongo Express](https://github.com/mongo-express/mongo-express)
   * [OpenAQ](https://https://github.com/kalisio/k-openaq)
