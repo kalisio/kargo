@@ -3,7 +3,7 @@ version: '3.8'
 services: 
   tileservergl:
     image: ${TILESERVERGL_IMAGE}:${TILESERVERGL_TAG}
-    user: rootS
+    user: root
     volumes:
       - ./../configs/tileservergl:/data
       - ${TILESERVERGL_DATA_PATH}:/mbtiles
