@@ -3,6 +3,7 @@ version: '3.8'
 services: 
   tileservergl:
     image: ${TILESERVERGL_IMAGE}:${TILESERVERGL_TAG}
+    user: rootS
     volumes:
       - ./../configs/tileservergl:/data
       - ${TILESERVERGL_DATA_PATH}:/mbtiles
@@ -13,8 +14,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:80/health"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 1m
+      retries: 5
+      start_period: 3m
     deploy:
       replicas: ${TILESERVERGL_REPLICAS}
       placement:
