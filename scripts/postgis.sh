@@ -44,11 +44,11 @@ drop_postgis_db() {
   local DATABASE=$1
   local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
-  echo droping database \"${DATABASE}\"
+  log_info droping database \"${DATABASE}\"
   ${K_POSTGIS_DOCKER_RUN} ${PSQL} -c "DROP DATABASE ${DATABASE}"
 }
 
-drop_POSTGIS_ROOT_USER() {
+drop_postgis_user() {
   local USER=$1
   local PSQL="psql -d postgresql://${POSTGIS_ROOT_USER}:${POSTGIS_ROOT_PASSWORD}@postgis"
 
