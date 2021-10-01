@@ -27,7 +27,7 @@ jobs:
   - # added to BUILD stage
     script: bash .travis.build.sh mapcache    
   - # added to BUILD stage
-    script: bash .travis.build.sh mapproxy
+    script: bash .travis.build.sh tileserver-gl
   - # added to BUILD stage
     script: bash .travis.build.sh artillery
   - # added to BUILD stage

@@ -1,0 +1,7 @@
+ARG VERSION
+
+FROM maptiler/tileserver-gl:$VERSION
+
+# added --allow-releaseinfo-change because of https://github.com/kalisio/kargo/issues/255
+RUN apt-get -y update --allow-releaseinfo-change && apt-get -y install curl
+

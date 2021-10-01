@@ -38,8 +38,8 @@ if [ $1 == "maputnik" ]; then
 fi
 
 # Build MapProxy
-if [ $1 == "mapproxy" ]; then
-  build_and_push mapproxy 1.12.0
+if [ $1 == "tileserver-gl" ]; then
+  build_and_push tileserver-gl v3.1.1
 fi
 
 # Build Artillery
