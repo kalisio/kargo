@@ -1,16 +1,16 @@
 module.exports = {
-  scopes: ['mapproxy', 'mapserver', 'k2'],
+  scopes: ['mapcache', 'mapserver', 'k2'],
   users: {
     cutomer1: {
       qgis: {
-        scopes: ['mapproxy', 'mapserver'],
+        scopes: ['mapcache', 'mapserver'],
         credential: {
           type: 'basic-auth',
           password: '<PASSWORD>', 
         }
       },
       leafet: {
-        scopes: ['mapproxy', 'mapserver'],
+        scopes: ['mapcache', 'mapserver'],
         credential: {
           type: 'jwt',
           keyId: '<KEY_ID>', 
@@ -18,7 +18,7 @@ module.exports = {
         }
       },
       kano: {
-        scopes: ['mapproxy', 'k2', 'mapserver'],
+        scopes: ['mapcache', 'k2', 'mapserver'],
         credential: {
           type: 'jwt',
           keyId: '<KEY_ID>', 
@@ -28,7 +28,7 @@ module.exports = {
     },
     customer2: {
       kano: {
-        scopes: ['mapproxy', 'k2'],
+        scopes: ['mapcache', 'k2'],
         credential: {
           type: 'jwt',
           keyId: '<KEY_ID>', 

@@ -57,7 +57,6 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [Hub'eau](https://github.com/kalisio/k-hubeau)
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
-  * [MapProxy](https://mapproxy.org/)
   * [MapServer](https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [Metar/Taf](https://github.com/kalisio/k-metar-taf)
@@ -86,7 +85,7 @@ By default, most of the images of the services are pulled from the [Docker Hub](
 
 * Express Gateway
 * Logspout
-* MapProxy
+* TileServer-GL
 * MapServer
 * Kano
 * The Weacast loaders

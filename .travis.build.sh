@@ -32,12 +32,17 @@ if [ $1 == "mapcache" ]; then
   build_and_push mapcache 1.10
 fi
 
+# Build MapCache
+if [ $1 == "mapserver" ]; then 
+  build_and_push mapcache 7.4
+fi
+
 # Build Maputnik
 if [ $1 == "maputnik" ]; then
   build_and_push maputnik 1.6.1
 fi
 
-# Build MapProxy
+# Build Tileserver-GL
 if [ $1 == "tileserver-gl" ]; then
   build_and_push tileserver-gl v3.1.1
 fi

@@ -11,8 +11,8 @@ config:
   environments:
     public:
       variables:
-        wms: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}/service"
-        wmst: "https://mapproxy.{{ $processEnvironment.SUBDOMAIN }}/wmts"
+        wms: "https://mapcache.{{ $processEnvironment.SUBDOMAIN }}/service"
+        wmst: "https://mapcache.{{ $processEnvironment.SUBDOMAIN }}/wmts"
         wcs: "https://mapserver.{{ $processEnvironment.SUBDOMAIN }}//cgi-bin/ows"
         k2: "https://k2.{{ $processEnvironment.SUBDOMAIN }}"
         qs: "?"

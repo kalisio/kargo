@@ -30,7 +30,7 @@ apiEndpoints:
     paths: '/s3/*'
 serviceEndpoints:
   wmts:
-    url: 'https://mapproxy.test.kalisio.xyz/wmts'    
+    url: 'http://mapcache/wmts'    
   s3:
     url: 'http://localhost:9876/s3'
 policies:

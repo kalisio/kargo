@@ -79,9 +79,9 @@ serviceEndpoints:
   admin: 
     url: 'http://localhost:9876'
   wms:
-    url: 'http://mapproxy:8080'
+    url: 'http://mapserver:80/cgi-bin/mapserv'
   wmts:
-    url: 'http://mapproxy:8080/wmts'      
+    url: 'http://mapcache:80/mapcache/wmts'     
   k2:
     url: 'http://k2:8080' 
 

@@ -31,8 +31,8 @@ The services that can be built are the following:
 | command parameter | services |
 | --- | --- |
 | `kano` | the **Kano** application. The version to build is read from the `KANO_TAG` variable. |
-| `mapproxy` | the **MapProxy** application. The version to build is read from the `MAPPROXY_TAG` variable. |
-| `maputnik` | the **maputnik**. The version to build is read from the `MAPUTNIK_TAG` variable. |
+| `maputnik` | the **maputnik** application. The version to build is read from the `MAPUTNIK_TAG` variable. |
+| `tileserver-gl` | the **TileServer-GL** application. The version to build is read from the `TILESERVERGL_TAG` variable. |
 | `mapserver` | the **MapServer** application. The version to build is read from the `MAPSERVER_TAG` variable. |
 | `mapcache` | the **MapCache** application. The version to build is read from the `MAPCACHE_TAG` variable. |
 

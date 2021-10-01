@@ -25,7 +25,9 @@ jobs:
   - # added to BUILD stage
     script: bash .travis.build.sh maputnik
   - # added to BUILD stage
-    script: bash .travis.build.sh mapcache    
+    script: bash .travis.build.sh mapcache
+  - # added to BUILD stage
+    script: bash .travis.build.sh mapserver        
   - # added to BUILD stage
     script: bash .travis.build.sh tileserver-gl
   - # added to BUILD stage

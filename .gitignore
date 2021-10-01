@@ -17,9 +17,6 @@ node_modules
 # Docs
 docs/.vuepress/dist
 
-# Mapproxy
-configs/mapproxy/app.py
-
 # Kargo
 .kargo
 .workspace

@@ -126,7 +126,7 @@ The labels you define on nodes can be used as placement constraints for the serv
 
 ```bash
 STACKS="dbs weacast hydro air apps"
-APPS_STACK="tileservergl mapproxy maputnik thredds kano"
+APPS_STACK="tileservergl mapserver mapcache maputnik thredds kano"
 DBS_STACK="mongodb"
 WEACAST_STACK="arpege-world-loader arpege-europe-loader arome-france-loader gfs-world-loader weacast"
 VIGICRUES_HYDRO="vigicrues hubeau-stations hubeau-observations"
