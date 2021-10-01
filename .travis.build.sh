@@ -54,7 +54,7 @@ fi
 
 # Build GDAL
 if [ $1 == "gdal" ]; then
-  build_and_push gdal 3.1.2
+  build_and_push gdal 3.3.2
 fi
 
 # Build mongodb-exporter
