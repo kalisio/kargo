@@ -34,7 +34,7 @@ fi
 
 # Build MapCache
 if [ $1 == "mapserver" ]; then 
-  build_and_push mapcache 7.4
+  build_and_push mapserver 7.4
 fi
 
 # Build Maputnik
