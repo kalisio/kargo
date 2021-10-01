@@ -2,6 +2,8 @@ ARG VERSION
 
 FROM maptiler/tileserver-gl:$VERSION
 
+USER root
+
 RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get -qq update \
   && apt-get -y --no-install-recommends install \
