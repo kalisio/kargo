@@ -1,6 +1,6 @@
 {
 	"version": 8,
-	"name": "PLAN IGN",
+	"name": "PLAN IGN (epure)",
     "glyphs":"https://wxs.ign.fr/static/vectorTiles/fonts/{fontstack}/{range}.pbf",
 	"sprite": "https://wxs.ign.fr/static/vectorTiles/styles/PLAN.IGN/sprite/PlanIgn",
     "sources": {
