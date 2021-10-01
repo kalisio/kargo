@@ -354,10 +354,11 @@ The **MapProxy** service is preconfigured to run [Gunicorn](https://gunicorn.org
 
 | Variable | Description | Default value |
 | --- | --- | --- |
-| `TILESERVERGL_IMAGE` | The image to be used. | `maptiler/tileserver-gl` |
+| `TILESERVERGL_IMAGE` | The image to be used. | `kalisio/tileserver-gl` |
 | `TILESERVERGL_TAG` | The version to be used. | `v3.0.0` |
 | `TILESERVERGL_DATA_PATH` | The path to the data. | `/mnt/data0/tileservergl_data` |
 | `TILESERVERGL_REPLICAS` | The number of replicas. | `1` |
+| `TILESERVERGL_CONSTRAINTS` | The constraints to apply when deploying the service.| `node.labels.tileservergl==true` |
 
 ### Vigicrues
 
