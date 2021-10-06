@@ -11,6 +11,7 @@ build_and_push()
     DOCKERFILE_OPT=""
   fi
 
+  docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   echo "Building $TOOL:$VERSION from $CONTEXT"
   docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$TOOL:$VERSION $CONTEXT
   RESULT_CODE=$?
@@ -18,7 +19,6 @@ build_and_push()
     echo "$TOOL generation failed [error: $RESULT_CODE]"
     exit 1
   fi
-  docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   docker push kalisio/$TOOL:$VERSION
 }
 
