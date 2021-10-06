@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  kontrol:
+  kapture:
     image: ${KAPTURE_IMAGE}:${KAPTURE_TAG}
     environment:
       - KANO_URL=${KAPTURE_KANO_URL}
