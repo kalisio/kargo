@@ -3,16 +3,11 @@ version: '3.8'
 services:
   kontrol:
     image: ${KAPTURE_IMAGE}:${KAPTURE_TAG}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    configs:
-      - source: kontrol_config
-        target: /kontrol/config.js
     environment:
-      - KANO_URL
-      - KANO_JWT
+      - KANO_URL=${KAPTURE_KANO_URL}
+      - KANO_JWT=${KAPTURE_KANO_JWT}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthcheck"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -22,21 +17,10 @@ services:
       placement:
         constraints:
          - node.role == manager       
-      resources:
-        limits:
-          cpus: '0.10'
-          memory: 128M
-        reservations:
-          cpus: '0.05'
-          memory: 64M
       restart_policy:
         condition: on-failure
     networks:
       - kargo-back-network
-
-configs:
-  kontrol_config:
-    file: ./../configs/kontrol/config.js
 
 networks:
   kargo-back-network:
