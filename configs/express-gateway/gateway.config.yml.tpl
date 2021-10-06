@@ -37,6 +37,10 @@ apiEndpoints:
     hosts: '*'
     paths: '/s3/*'
     scopes: ["s3"]
+  capture:
+    host: '*'
+    paths: '/capture/*'
+    scopes: ["capture"]
   # these are here to allow mapcache to generate GetCapabilities urls that works.
   # mapcache internal base url is set to api.$SUBDOMAIN/ows (it can't be just api.$SUBDOMAIN
   # because this base url is the wms entry point for mapcache).
@@ -74,6 +78,8 @@ serviceEndpoints:
     url: 'http://k2:8080'
   s3:
     url: 'http://localhost:9876/s3'    
+  capture:
+    url: 'http://kapture:3000'
 
 policies:
   - cors
@@ -320,4 +326,26 @@ pipelines:
               serviceEndpoint: s3
               changeOrigin: true
               stripPath: true
+              timeout: 120000
+  capture:
+    apiEndpoints:
+      - capture
+    policies:
+      - metrics:  
+      - cors:
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
+              checkCredentialExistence: true
+              audience: ${SUBDOMAIN} 
+              passThrough: true             
+      - scopes:
+      - proxy:
+          - action:
+              serviceEndpoint: capture
+              changeOrigin: true
+              stripPath: false
               timeout: 120000
