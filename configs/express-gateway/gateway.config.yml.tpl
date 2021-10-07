@@ -39,7 +39,7 @@ apiEndpoints:
     scopes: ["s3"]
   capture:
     host: '*'
-    paths: '/capture/*'
+    paths: '/capture'
     scopes: ["capture"]
   # these are here to allow mapcache to generate GetCapabilities urls that works.
   # mapcache internal base url is set to api.$SUBDOMAIN/ows (it can't be just api.$SUBDOMAIN
