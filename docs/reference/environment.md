@@ -120,6 +120,28 @@ For each stack, there must be such an entry:
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
 
+### Kapture
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `KAPTURE_IMAGE` | The image to be used. | `kalisio/kapture` |
+| `KAPTURE_TAG` | The version to be used. | `latest` |
+| `KAPTURE_KANO_URL` | The url to access the **Kano** app. | `http://kano:8081` |
+| `KAPTURE_KANO_JWT` | The JWT to allow **kapture** to login to **Kano**. | - |
+| `KAPTURE_REPLICAS` | The number of replicas to deploy. | `1` |
+| `KAPTURE_CONSTRAINTS` | The constraints to apply when deploying the service. | `node.role==worker` |
+
+### Kontrol
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `KONTROL_IMAGE` | The image to be used. | `kalisio/kontrol` |
+| `KONTROL_TAG` | The version to be used. | `1.0.0` |
+
+::: tip
+More configuration details on our [kontrol repository](https://github.com/kalisio/kontrol).
+:::
+
 ### Logspout
 
 | Variable | Description | Default value |
@@ -131,17 +153,6 @@ For each stack, there must be such an entry:
 
 ::: tip
 More configuration details on our [Logspout Slack adapter](https://github.com/kalisio/logspout-slack).
-:::
-
-### Kontrol
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `KONTROL_IMAGE` | The image to be used. | `kalisio/kontrol` |
-| `KONTROL_TAG` | The version to be used. | `1.0.0` |
-
-::: tip
-More configuration details on our [kontrol repository](https://github.com/kalisio/kontrol).
 :::
 
 ### MapCache

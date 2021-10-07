@@ -52,11 +52,13 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 
 A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
+  * [Adminer](https://www.adminer.org/)
   * [Express Gateway](https://www.express-gateway.io/)
   * [Grafana](https://grafana.com/)
   * [Hub'eau](https://github.com/kalisio/k-hubeau)
   * [k2](https://github.com/kalisio/k2)
   * [kano](https://github.com/kalisio/kano)
+  * [kapture](https://github.com/kalisio/kapture)
   * [MapServer](https://mapserver.org)
   * [maputnik](https://maputnik.github.io/)
   * [Metar/Taf](https://github.com/kalisio/k-metar-taf)
@@ -71,7 +73,7 @@ A **service** is an application to be deployed over the Swarm cluster. **Kargo**
   * [redis](https://redis.io/)
   * [Redis Commander](http://joeferner.github.io/redis-commander/)
   * [Teleray](https://github.com/kalisio/k-teleray)
-  * [TileServer GL](http://tileserver.org/)
+  * [TileServer-GL](https://github.com/maptiler/tileserver-gl)
   * [Thredds](https://www.unidata.ucar.edu/software/thredds/current/tds/)
   * [Vigicrues](https://github.com/kalisio/k-vigicrues) 
   * [Weacast API](https://weacast.github.io/weacast-docs/)
