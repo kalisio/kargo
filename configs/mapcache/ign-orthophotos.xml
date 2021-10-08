@@ -1,0 +1,17 @@
+<GDAL_WMTS>
+  <GetCapabilitiesUrl>https://wxs.ign.fr/ortho/geoportail/wmts?SERVICE=WMTS&amp;REQUEST=GetCapabilities</GetCapabilitiesUrl>
+  <Layer>ORTHOIMAGERY.ORTHOPHOTOS</Layer>
+  <Style>normal</Style>
+  <TileMatrixSet>PM</TileMatrixSet>
+  <InfoFormat>text/plain</InfoFormat>
+  <DataWindow>
+    <UpperLeftX>4586.221697095782</UpperLeftX>
+    <UpperLeftY>6392887.297659013</UpperLeftY>
+    <LowerRightX>634427.3347669478</LowerRightX>
+    <LowerRightY>5346617.254491521</LowerRightY>
+  </DataWindow>
+  <BandsCount>4</BandsCount>
+  <UnsafeSSL>true</UnsafeSSL>
+  <ZeroBlockHttpCodes>204,404</ZeroBlockHttpCodes>
+  <ZeroBlockOnServerException>true</ZeroBlockOnServerException>
+</GDAL_WMTS>
