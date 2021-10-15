@@ -13,7 +13,7 @@ scrape_configs:
   journal:
     json: false
     max_age: 12h
-    path: /run/log/journal
+    path: /var/log/journal
     labels:
       job: systemd-journal
   relabel_configs:
