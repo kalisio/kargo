@@ -7,7 +7,7 @@ services:
     command: [ '-config.file=/etc/promtail-config.yml' ]
     volumes:
       - ./../configs/promtail/promtail.yml:/etc/promtail-config.yml
-      - /run/log/journal/:/run/log/journal/
+      - /var/log/journal/:/run/log/journal/
       - /etc/machine-id:/etc/machine-id
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
