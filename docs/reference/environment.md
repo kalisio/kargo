@@ -210,7 +210,6 @@ More configuration details on our [Logspout Slack adapter](https://github.com/ka
 | `METAORADAR_IMAGE` | The image to be used. | `kalisio/k-meteoradar` |
 | `METAORADAR_TAG` | The version to be used. | `latest` |
 | `METAORADAR_S3_ENDPOINT` | The S3 endpoint where to store the data. | - |
-| `METAORADAR_S3_REGION` | The S3 region where to store the data. | - |
 | `METAORADAR_S3_ACCESS_KEY` | The S3 access key where to store the data. | - |
 | `METAORADAR_S3_SECRET_ACCESS_KEY` | The S3 secret access key where to store the data. | - |
 | `METAORADAR_S3_BUCKET` | The S3 bucket where to store the data. | - |
