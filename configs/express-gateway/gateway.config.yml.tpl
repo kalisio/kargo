@@ -15,11 +15,11 @@ apiEndpoints:
     scopes: ["wms"]
   wmts:
     host: '*'
-    paths: '/wmts/*'
+    paths: '/wmts*'
     scopes: ["wmts"]
   tms:
     host: '*'
-    paths: '/tms/*'
+    paths: '/tms*'
     scopes: ["tms"]  
   wfs:
     host: '*'
@@ -28,7 +28,7 @@ apiEndpoints:
   wcs:
     host: '*'
     paths: '/wcs*'
-    scopes: ["wcs"]    
+    scopes: ["wcs"]
   k2:
     host: '*'
     paths: '/k2/*'
@@ -48,11 +48,11 @@ apiEndpoints:
   # we have to catch them and redirect them as our 'regular' wms, wmts .. api endpoints
   mapcache_wmts:
     host: '*'
-    paths: '/ows/wmts/*'
+    paths: '/ows/wmts*'
     scopes: ["wmts"]
   mapcache_tms:
     host: '*'
-    paths: '/ows/tms/*'
+    paths: '/ows/tms*'
     scopes: ["tms"]
   mapcache_wms:
     host: '*'
@@ -116,6 +116,9 @@ pipelines:
     policies:
       - metrics:              
       - cors:
+      - basic-auth:
+          - action:
+              passThrough: true
       - jwt:
           - condition:
               name: anonymous
@@ -134,6 +137,23 @@ pipelines:
               secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
+              passThrough: true
+      # if we get there and still anonymous, add a WWW-Authenticate: Basic header
+      # to advertise basic auth support
+      - response-transformer:
+          - condition:
+              name: anonymous
+            action:
+              headers:
+                add:
+                  WWW-Authenticate: "'Basic'"
+      # and terminate connection using code 401
+      - terminate:
+          - condition:
+              name: anonymous
+            action:
+              statusCode: 401
+              message: "Unauthorized"
       - scopes:     
       - proxy:
           - action:
@@ -148,6 +168,9 @@ pipelines:
     policies:
       - metrics:              
       - cors:
+      - basic-auth:
+          - action:
+              passThrough: true
       - jwt:
           - condition:
               name: anonymous
@@ -166,6 +189,23 @@ pipelines:
               secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
+              passThrough: true
+      # if we get there and still anonymous, add a WWW-Authenticate: Basic header
+      # to advertise basic auth support
+      - response-transformer:
+          - condition:
+              name: anonymous
+            action:
+              headers:
+                add:
+                  WWW-Authenticate: "'Basic'"
+      # and terminate connection using code 401
+      - terminate:
+          - condition:
+              name: anonymous
+            action:
+              statusCode: 401
+              message: "Unauthorized"
       - scopes:
       - proxy:
           - action:
@@ -180,6 +220,9 @@ pipelines:
     policies:
       - metrics:              
       - cors:
+      - basic-auth:
+          - action:
+              passThrough: true
       - jwt:
           - condition:
               name: anonymous
@@ -198,6 +241,23 @@ pipelines:
               secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
               checkCredentialExistence: true            
               audience: ${SUBDOMAIN}
+              passThrough: true
+      # if we get there and still anonymous, add a WWW-Authenticate: Basic header
+      # to advertise basic auth support
+      - response-transformer:
+          - condition:
+              name: anonymous
+            action:
+              headers:
+                add:
+                  WWW-Authenticate: "'Basic'"
+      # and terminate connection using code 401
+      - terminate:
+          - condition:
+              name: anonymous
+            action:
+              statusCode: 401
+              message: "Unauthorized"
       - scopes:
       - proxy:
           - action:
