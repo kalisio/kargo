@@ -1,4 +1,4 @@
-//const logger = require('express-gateway/lib/logger').createLoggerWithLabel('[EG:s3]');
+const logger = require('express-gateway/lib/logger').createLoggerWithLabel('[EG:s3]');
 const _ = require('lodash');
 const aws = require('aws-sdk');
 
