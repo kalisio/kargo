@@ -85,6 +85,7 @@ policies:
   - cors
   - basic-auth
   - response-transformer
+  - terminate
   - scopes
   - jwt
   - log
