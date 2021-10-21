@@ -28,7 +28,7 @@ module.exports = {
       }
       app.get(pluginContext.settings.endpointName + '/:provider/:bucket/*', (req, res) => {
         const provider = req.params.provider;
-        const storageProxy = storageProxies[provider];
+        let storageProxy = storageProxies[provider];
         // Fallback to default provider if not found
         if (!storageProxy) storageProxy = defaultStorageProxy;
         if (storageProxy) {
