@@ -50,7 +50,7 @@ module.exports = {
       });
       // Default provider route
       app.get(pluginContext.settings.endpointName + '/:bucket/*', (req, res) => {
-        logger.info('falling back to default provider')
+        logger.info('falling back to default provider ' + defaultStorageProxy)
         if (defaultStorageProxy) {
           defaultStorageProxy.getObject({
             Bucket: req.params.bucket,
