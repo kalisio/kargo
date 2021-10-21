@@ -11,10 +11,16 @@ module.exports = {
     pluginContext.registerAdminRoute((app) => {
       for (const [provider, options] of Object.entries(pluginContext.settings.providers)) {
         logger.info('Creating storage proxy ' + provider)
-        storageProxies[provider] = new aws.S3(_.omit(options, 'default'))
-        if (options.default) {
-          logger.info('Setting default storage proxy to ' + provider)
-          defaultStorageProxy = storageProxies[provider]
+        const accessKeyId = _.get(options, 'accessKeyId')
+        const accessSecretKey = _.get(options, 'accessSecretKey')
+        if (accessKeyId && accessSecretKey) {
+          storageProxies[provider] = new aws.S3(_.omit(options, 'default'))
+          if (options.default) {
+            logger.debug('Setting default storage proxy to ' + provider)
+            defaultStorageProxy = storageProxies[provider]
+          }
+        } else {
+          logger.debug('Missing accessKeyId or/and accessSecretKey for provider ' + provider)
         }
       }
       app.get(pluginContext.settings.endpointName + '/:provider/:bucket/*', (req, res) => {
