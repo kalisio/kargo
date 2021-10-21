@@ -37,6 +37,10 @@ apiEndpoints:
     hosts: '*'
     paths: '/s3/*'
     scopes: ["s3"]
+  storage: 
+    hosts: '*'
+    paths: '/storage/*'
+    scopes: ["storage"]    
   capture:
     host: '*'
     paths: '/capture'
@@ -77,7 +81,9 @@ serviceEndpoints:
   k2:
     url: 'http://k2:8080'
   s3:
-    url: 'http://localhost:9876/s3'    
+    url: 'http://localhost:9876/s3'
+  storage:
+    url: 'http://localhost:9876/storage'    
   capture:
     url: 'http://kapture:3000'
 
@@ -387,6 +393,37 @@ pipelines:
               changeOrigin: true
               stripPath: true
               timeout: 120000
+  storage:
+    apiEndpoints:
+      - storage
+    policies:
+      - metrics:  
+      - cors:
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'authBearer'
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
+              checkCredentialExistence: true
+              audience: ${SUBDOMAIN} 
+              passThrough: true             
+      - jwt:
+          - condition:
+              name: anonymous
+            action:
+              jwtExtractor: 'query'
+              jwtExtractorField: 'jwt'
+              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
+              checkCredentialExistence: true
+              audience: ${SUBDOMAIN}
+      - scopes:
+      - proxy:
+          - action:
+              serviceEndpoint: storage
+              changeOrigin: true
+              stripPath: true
+              timeout: 120000               
   capture:
     apiEndpoints:
       - capture

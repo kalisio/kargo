@@ -1,19 +1,27 @@
 const logger = require('express-gateway/lib/logger').createLoggerWithLabel('[EG:s3]');
+const _ = require('lodash');
 const aws = require('aws-sdk');
 
 let storageProxies = {}
+let defaultStorageProxy
 
 module.exports = {
   version: '1.2.0',
   init: function (pluginContext) {
     pluginContext.registerAdminRoute((app) => {
       for (const [provider, options] of Object.entries(pluginContext.settings.providers)) {
-        logger.debug('Creating storage proxy ' + provider)
-        storageProxies[provider] = new aws.S3(options)
+        logger.info('Creating storage proxy ' + provider)
+        storageProxies[provider] = new aws.S3(_.omit(options, 'default'))
+        if (options.default) {
+          logger.info('Setting default storage proxy to ' + provider)
+          defaultStorageProxy = storageProxies[provider]
+        }
       }
       app.get(pluginContext.settings.endpointName + '/:provider/:bucket/*', (req, res) => {
-        const provider = req.params.provider
-        const storageProxy = storageProxies[provider]
+        const provider = req.params.provider;
+        const storageProxy = storageProxies[provider];
+        // Fallback to default provider if not found
+        if (!storageProxy) storageProxy = defaultStorageProxy;
         if (storageProxy) {
           storageProxy.getObject({
             Bucket: req.params.bucket,
@@ -34,7 +42,7 @@ module.exports = {
             return res.status(404).send(err);
           })
           .pipe(res);
-        } else {
+         } else {
           logger.debug('Unknown provider: ' + provider)
         }
       });
