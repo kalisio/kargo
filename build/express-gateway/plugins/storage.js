@@ -15,7 +15,7 @@ module.exports = {
         const accessKeyId = _.get(options, 'accessKeyId')
         const secretAccessKey = _.get(options, 'secretAccessKey')
         // Ensure the provider is correctly configured
-        if (accessKeyId && accessSecretKey) {
+        if (accessKeyId && secretAccessKey) {
           storageProxies[provider] = new aws.S3(_.omit(options, 'default'))
           // Check whether the storage proxy should be the default one
           if (options.default) {
@@ -23,7 +23,7 @@ module.exports = {
             defaultStorageProxy = storageProxies[provider]
           }
         } else {
-          logger.info('Missing accessKeyId or/and accessSecretKey for provider ' + provider)
+          logger.info('Missing accessKeyId or/and secretAccessKey for provider ' + provider)
         }
       }
       app.get(pluginContext.settings.endpointName + '/:provider/:bucket/*', (req, res) => {
