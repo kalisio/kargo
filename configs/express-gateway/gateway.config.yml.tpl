@@ -84,6 +84,7 @@ serviceEndpoints:
 policies:
   - cors
   - basic-auth
+  - response-transformer
   - scopes
   - jwt
   - log
