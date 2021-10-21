@@ -24,8 +24,6 @@ sidebarDepth: 3
 | `DOCKER_SOCKET_NETWORK` | The docker socket network | `kargo-docker-socket` |
 | `DOCKER_FRONT_NETWORK` | The front docker network | `kargo-front` |
 | `DOCKER_BACK_NETWORK` | The back docker network | `kargo-back` |
-| `S3_ACCESS_KEY` | The key id to access AWS S3 buckets. | - |
-| `S3_SECRET_ACCESS_KEY` | The secret key to access AWS S3 buckets | - |
 | `HTTP_PROXY` | The address of the proxy server for **HTTP** connections. | - |
 | `HTTPS_PROXY` | The address of the proxy server for **HTTPS** connections. | - |
 | `NO_PROXY` | A comma-separated list of host names that shouldn't go through any proxy. | - |
@@ -100,13 +98,9 @@ For each stack, there must be such an entry:
 | `KANO_TAG` | The version to be used. | `0.1.0-dev` |
 | `KANO_APP_SECRET` | The app secret used to authenticate a client. | - |
 | `KANO_CESIUM_TOKEN` | The **Cesium** token to be used. | - |
-| `KANO_MAPILLARY_CLIENID` | The **Mapillary** Client ID to be used. | - |
+| `KANO_MAPILLARY_TOKEN` | The **Mapillary** Client ID to be used. | - |
 | `KANO_DB_URL` | The application database. | - |
 | `KANO_DATA_DB_URL` | The database URL used by the services to access the data. | - |
-| `KANO_S3_ENDPOINT` | The S3 endpoint used to store the files. | - |
-| `KANO_S3_ACCES_KEY` | The S3 access key used to store the files. | `S3_ACCESS_KEY` |
-| `KANO_S3_SECRET_ACCESS_KEY` | The S3 secret access key used to store the files. | `S3_SECRET_ACCESS_KEY` |
-| `KANO_S3_BUCKET` | The S3 bucket used to store the files. | - |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
 | `KANO_REPLICAS` | The number of replicas. | `1` |
@@ -376,6 +370,10 @@ More configuration details on our [Logspout Slack adapter](https://github.com/ka
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `WEACAST_LOADERS_DB_URL` | The database URL where to write the data. | - |
+| `WEACAST_LOADERS_S3_ENDPOINT` | The storage endpoint where to store the data. | - |
+| `WEACAST_LOADERS_S3_ACCESS_KEY` | The storage access key where to store the data. | - |
+| `WEACAST_LOADERS_S3_SECRET_ACCESS_KEY` | The storage secret access key where to store the data. | - |
+| `WEACAST_LOADERS_S3_BUCKET` | The storage bucket where to store the data. | - |
 | `ARPEGE_WOLRD_LOADER_IMAGE` | The image to be used to scrape Arpege World data. | `weacast/weacast-arpege` |
 | `ARPEGE_WORLD_LOADER_TAG` | The tag of the image to be used to scrape Arpege World data. | `world-1.4.1` |
 | `ARPEGE_WORLD_LOADER_UPPER_LIMIT` | The time limit, in seconds, of the forecast data to be downloaded. | `172800` (2 days) |
