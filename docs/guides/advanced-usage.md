@@ -132,6 +132,8 @@ pipelines:
               stripPath: true
 ```
 
+#### Extending the gateway 
+
 **Kargo** comes with various plugins that extends the **express-gateway** capabilities:
 
 | Plugin | Description |
@@ -139,8 +141,13 @@ pipelines:
 | **populate** | It populates the gateway according the `consumers.config.js` file. |
 | **scopes** | It provides a **policy** that can be used to check the consumer scopes against the endpoint scopes. |
 | **metrics** | It provides a `metrics` route to the gateway application that can be used by [Prometheus](https://prometheus.io/) to scrape requests metrics. |
-| **s3** | It provides a `s3` route to the admin application that can be uses to proxy the requests to an **S3** bucket. The service endpoint to be used is: `http://localhost:9876/s3`|
+| **s3** | It provides a `s3` route to the admin application that can be used to proxy the requests to an **S3** bucket. The service endpoint to be used is: `http://localhost:9876/s3`|
 | **healthcheck** | It provides a `healthcheck` route to be used to check the health of **express gateway**. **Kargo** uses this route to ensure the healthcheck of the service. |
+| **storage** | It provides a `s3` route to the admin application that can be used to proxy the requests to an **S3** compatible bucket. Contrary to the `s3` plugin which works only with the **AWS** provider, the `storage` plugin allows to you to handle multiple providers. Check out the `system.config.yml.tpl` to understand how to configure the plugin. The service endpoint to be used is: `http://localhost:9876/s3`|
+
+::: warning
+It is recommended to use the **storage** plugin insted of the **s3** plugin. 
+:::
 
 #### Defining the consumers
 
