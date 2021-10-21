@@ -13,7 +13,7 @@ module.exports = {
       for (const [provider, options] of Object.entries(pluginContext.settings.providers)) {
         logger.info('Creating storage proxy ' + provider)
         const accessKeyId = _.get(options, 'accessKeyId')
-        const accessSecretKey = _.get(options, 'accessSecretKey')
+        const secretAccessKey = _.get(options, 'secretAccessKey')
         // Ensure the provider is correctly configured
         if (accessKeyId && accessSecretKey) {
           storageProxies[provider] = new aws.S3(_.omit(options, 'default'))
