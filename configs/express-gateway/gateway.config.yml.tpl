@@ -33,14 +33,10 @@ apiEndpoints:
     host: '*'
     paths: '/k2/*'
     scopes: ["k2"]
-  s3: 
-    hosts: '*'
-    paths: '/s3/*'
-    scopes: ["s3"]
   storage: 
     hosts: '*'
-    paths: '/storage/*'
-    scopes: ["storage"]    
+    paths: '/s3/*'
+    scopes: ["s3"]    
   capture:
     host: '*'
     paths: '/capture'
@@ -80,10 +76,8 @@ serviceEndpoints:
     url: 'http://mapserver:80/cgi-bin/wcs'    
   k2:
     url: 'http://k2:8080'
-  s3:
-    url: 'http://localhost:9876/s3'
   storage:
-    url: 'http://localhost:9876/storage'    
+    url: 'http://localhost:9876/s3'    
   capture:
     url: 'http://kapture:3000'
 
@@ -359,37 +353,6 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: k2
-              changeOrigin: true
-              stripPath: true
-              timeout: 120000
-  s3:
-    apiEndpoints:
-      - s3
-    policies:
-      - metrics:  
-      - cors:
-      - jwt:
-          - condition:
-              name: anonymous
-            action:
-              jwtExtractor: 'authBearer'
-              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
-              checkCredentialExistence: true
-              audience: ${SUBDOMAIN} 
-              passThrough: true             
-      - jwt:
-          - condition:
-              name: anonymous
-            action:
-              jwtExtractor: 'query'
-              jwtExtractorField: 'jwt'
-              secretOrPublicKey: ${EXPRESS_GATEWAY_KEY_SECRET}
-              checkCredentialExistence: true
-              audience: ${SUBDOMAIN}
-      - scopes:
-      - proxy:
-          - action:
-              serviceEndpoint: s3
               changeOrigin: true
               stripPath: true
               timeout: 120000

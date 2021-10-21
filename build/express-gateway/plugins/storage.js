@@ -77,7 +77,7 @@ module.exports = {
     properties: {
       endpointName: {
         type: 'string',
-        default: '/storage'
+        default: '/s3'
       },
       providers: {
         type: 'object',
