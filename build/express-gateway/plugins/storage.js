@@ -21,7 +21,6 @@ function parseParams (params, providers) {
         keyIndex = 2
       }
       if (bucket && keyIndex) {
-        console.log(_.slice(tokens, keyIndex))
         let key = _.join(_.slice(tokens, keyIndex), '/')
         return { provider, bucket, key }
       }
