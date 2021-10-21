@@ -46,18 +46,6 @@ For each stack, there must be such an entry:
 | `ADMINER_DESIGN` | The theme to be used. The list is available [here](). | `lucas-sandery` |
 | `ADMINER_DEFAULT_SERVER` | The default server to use. | `` |
 
-### Atlas
-
-| Variable | Description | Default value |
-| --- | --- | --- |
-| `ATLAS_IMAGE` | The generic image to be used. | `kalisio/k-atlas` |
-| `ATLAS_TAG` | The version to be used. | `1.16.9` |
-| `ATLAS_ADMIN_EXPRESS_IMAGE` | The image to be used for scraping the **Admin Express** dataset | `${ATLAS_IMAGE}` |
-| `ATLAS_ADMIN_EXPRESS_TAG` | The tag of the image  to be used for scraping the **Admin Express** dataset | `admin-express-${ATLAS_TAG}` |
-| `ATLAS_ADMIN_EXPRESS_S3_BUCKET`| The S3 bucket where to store **GeoJson** files | `kargo` |
-| `ATLAS_ADMIN_EXPRESS_S3_PATH`| The path where to store the **GeoJson** files | `data/IGN/Admin-Express` |
-| `ATLAS_ADMIN_EXPRESS_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
-
 ### Express Gateway
 
 | Variable | Description | Default value |
@@ -115,6 +103,9 @@ For each stack, there must be such an entry:
 | `KANO_MAPILLARY_CLIENID` | The **Mapillary** Client ID to be used. | - |
 | `KANO_DB_URL` | The application database. | - |
 | `KANO_DATA_DB_URL` | The database URL used by the services to access the data. | - |
+| `KANO_S3_ENDPOINT` | The S3 endpoint used to store the files. | - |
+| `KANO_S3_ACCES_KEY` | The S3 access key used to store the files. | `S3_ACCESS_KEY` |
+| `KANO_S3_SECRET_ACCESS_KEY` | The S3 secret access key used to store the files. | `S3_SECRET_ACCESS_KEY` |
 | `KANO_S3_BUCKET` | The S3 bucket used to store the files. | - |
 | `KANO_LOG_LEVEL` | The log level of the application. | `verbose` |
 | `KANO_DEBUG` | Enable the debug mode. | `` |
