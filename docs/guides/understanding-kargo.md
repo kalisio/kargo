@@ -53,6 +53,7 @@ A **stack** of interrelated services that can be orchestrated and scaled togethe
 A **service** is an application to be deployed over the Swarm cluster. **Kargo** provides the default settings for deploying the following services/applications:
 
   * [Adminer](https://www.adminer.org/)
+  * [Centipede RTK](https://docs.centipede.fr/)
   * [Express Gateway](https://www.express-gateway.io/)
   * [Grafana](https://grafana.com/)
   * [Hub'eau](https://github.com/kalisio/k-hubeau)
