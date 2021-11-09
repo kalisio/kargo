@@ -44,6 +44,17 @@ For each stack, there must be such an entry:
 | `ADMINER_DESIGN` | The theme to be used. The list is available [here](). | `lucas-sandery` |
 | `ADMINER_DEFAULT_SERVER` | The default server to use. | `` |
 
+### Centipede
+
+| Variable | Description | Default value |
+| --- | --- | --- |
+| `CENTIPEDE_IMAGE` | The image to be used. | `kalisio/k-centipede` |
+| `CENTIPEDE_TAG` | The version to be used. | `1.0.0` |
+| `CENTIPEDE_DB_URL` | The database URL where to write the data. | - |
+| `CENTIPEDE_TTL` | The observations time to live. It must be expressed in seconds. | `604800` (7 days) |
+| `CENTIPEDE_CRON` | The cron expression used to run the job. | `0 */5 * * * *` (every 5 minutes) |
+| `CENTIPEDE_DEBUG` | The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | 
+
 ### Express Gateway
 
 | Variable | Description | Default value |
@@ -73,7 +84,7 @@ For each stack, there must be such an entry:
 | `HUBEAU_STATIONS_DEBUG` |The namespaces to enable debug output. Set it to `krawler*` to enable full debug output. | `` |
 | `HUBEAU_OBSERVATIONS_IMAGE` | The image to be used for scraping the observations. | `${HUBEAU_IMAGE}` |
 | `HUBEAU_OBSERVATIONS_TAG` | The tag of the image to be used for scraping the observations. | `observations-${HUBEAU_TAG}` |
-| `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `604 800` (7 days) |
+| `HUBEAU_OBSERVATIONS_TTL` | The observations data time to live. It must be expressed in seconds. | `2592000` (30 days) |
 | `HUBEAU_OBSERVATIONS_HISTORY` | The duration of the observations data history the job has to download. It must be expressed in milliseconds. | `86 400 000` (1 day) |
 | `HUBEAU_OBSERVATIONS_TIMEOUT` | The maximum duration of the observations job. It must be in milliseconds. | `1 800 000` (30 minutes) |
 | `HUBEAU_OBSERVATIONS_SUCCESS_RATE` | The success rate of the observations job. | `75%` |
