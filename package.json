@@ -1,6 +1,6 @@
 {
   "name": "kargo",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "A Docker based solution to build and operate Geospatial Platforms",
   "repository": {
     "url": "https://github.com/kalisio/kargo"
