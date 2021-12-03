@@ -5,7 +5,7 @@ FROM osgeo/gdal:ubuntu-small-$VERSION
 LABEL maintainer "contact@kalisio.com"
 
 # Make sure we have up to date certificates
-RUN apt-get update && apt-get install ca-certificates curl openssl
+RUN apt-get update && apt-get install -y ca-certificates curl openssl
 
 # Add node v12.x
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
