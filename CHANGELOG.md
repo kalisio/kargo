@@ -1,3 +1,22 @@
+### 0.15.0 (2021-12-03)
+
+##### New Features
+
+*  Upgrade Weacast loaders to use the new Météo France API (completed [#266](https://github.com/kalisio/kargo/pull/266)) ([b761c96b](https://github.com/kalisio/kargo/commit/b761c96b26f4cdb4fd02cd443188b025b47d6b0a))
+*  Add support for Centipede job (close [#271](https://github.com/kalisio/kargo/pull/271)) ([fb154d7e](https://github.com/kalisio/kargo/commit/fb154d7eb3fabc6ca43970ee39083743e38b7d77))
+*  Provide environment variables for strategy to avoid rate limiting on weacast loaders (closes [#270](https://github.com/kalisio/kargo/pull/270)) ([b46bbbe9](https://github.com/kalisio/kargo/commit/b46bbbe93e603a9feb10aaad198eac7361abfe13))
+*  Allow to define a different token for each weacast loader (closes [#269](https://github.com/kalisio/kargo/pull/269)) ([8469693b](https://github.com/kalisio/kargo/commit/8469693bd3a79021899d7fa784c39ab2c6e1a76e))
+
+##### Bug Fixes
+
+*  gdal container is no more building [#273](https://github.com/kalisio/kargo/pull/273) feat: bumped gdal container to 3.4.0 ([52d12a2f](https://github.com/kalisio/kargo/commit/52d12a2fdd041090e61f98ad9e8a61f2031d29cc))
+*  test whether the storage proxy exists in storage.js ([90a41c1d](https://github.com/kalisio/kargo/commit/90a41c1d9e7ef53247665ea949c79253b185d50f))
+
+##### Other Changes
+
+*  gdal container is no more building [#273](https://github.com/kalisio/kargo/pull/273) ([b3cfbf95](https://github.com/kalisio/kargo/commit/b3cfbf95e2fc08b40f5da77501c30fedd23cf282))
+*  Add support for Centipede job [#271](https://github.com/kalisio/kargo/pull/271) ([de780b7d](https://github.com/kalisio/kargo/commit/de780b7d503052f1e91b24e76d8529c133374730))
+
 ### 0.14.0 (2021-10-24)
 
 ##### New Features
