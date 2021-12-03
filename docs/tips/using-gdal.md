@@ -9,7 +9,7 @@ sidebarDepth: 3
 * [sqlitepipe](https://github.com/icetan/sqlitepipe)
 
 ::: tip
-Th **GDAL** image extends the [Geographica GDAL2 image](https://hub.docker.com/r/geographica/gdal2/).
+The **GDAL** image extends the official [OSGEO image](https://hub.docker.com/r/osgeo/gdal).
 :::
 
 ## Basic usage
@@ -17,7 +17,7 @@ Th **GDAL** image extends the [Geographica GDAL2 image](https://hub.docker.com/r
 Simply run the following command on a given worker node:
 
 ```bash
-$docker run  -v /path/to/your/data:/data -t -i kalisio/gdal:latest /bin/bash
+$docker run  -v /path/to/your/data:/data -t -i kalisio/gdal:3.4.0 /bin/bash
 $cd /data
 $gdalinfo path/to/my/dataset
 ```
@@ -25,7 +25,7 @@ $gdalinfo path/to/my/dataset
 If you need to access another container you will need to run the GDAL container within the same network. For instance, the following command will allow you to link the GDAL container to an existing `Postgis` container in the network `kargo`.
 
 ```bash
-$docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/gdal:latest /bin/bash
+$docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/gdal:3.4.0 /bin/bash
 ```
 
 If you need to use the AWS CLI, you may need to share your credentials:
