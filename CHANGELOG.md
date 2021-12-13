@@ -1,3 +1,15 @@
+### 0.16.0 (2021-12-13)
+
+##### Bug Fixes
+
+*  Upgrade Thredds to 4.6.18 (close [#276](https://github.com/kalisio/kargo/pull/276)) ([18c7d87a](https://github.com/kalisio/kargo/commit/18c7d87aebcc4bb4e092c14f4771ef3a1ce26599))
+*  MapServer/Mapserver healthchecks should not rely on GetCapabilities request [#275](https://github.com/kalisio/kargo/pull/275) ([dc8fff91](https://github.com/kalisio/kargo/commit/dc8fff917fc8427235603a512dddfbaca6286db9))
+
+##### Other Changes
+
+*  Upgrade Thredds to 4.6.18 [#276](https://github.com/kalisio/kargo/pull/276) ([d97b32e1](https://github.com/kalisio/kargo/commit/d97b32e1fe628a10d09a97d6aefe16bfc24dee65))
+*  MapServer/Mapserver healthchecks should not rely on GetCapabilities request [#275](https://github.com/kalisio/kargo/pull/275) ([47bcc206](https://github.com/kalisio/kargo/commit/47bcc2069d6846b32dad94d85a0cb5d5c4446473))
+
 ### 0.15.0 (2021-12-03)
 
 ##### New Features
