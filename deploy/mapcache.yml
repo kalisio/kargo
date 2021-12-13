@@ -11,7 +11,7 @@ services:
       - ../configs/mapcache:/etc/mapcache
       - ${MAPCACHE_DATA_PATH}:/mnt/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/mapcache/wmts/1.0.0/WMTSCapabilities.xml"]
+      test: ["CMD", "curl", "-f", "http://localhost:80/mapcache/1.0.0/osm-bright/default/GLOBAL_WEBMERCATOR/0/0/0.png"]
       interval: 30s
       timeout: 10s
       retries: 3
