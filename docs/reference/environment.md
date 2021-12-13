@@ -158,6 +158,7 @@ More configuration details on our [Logspout Slack adapter](https://github.com/ka
 | `MAPCACHE_IMAGE` | The image to be used. | `kalisio/mapcache` |
 | `MAAPCACHE_TAG` | The version to be used. | `1.10` |
 | `MAPCACHE_DATA_PATH` | The path to the data. | `/var/cache/mapcache` |
+| `MAPCACHE_HEALTHCHECK_LAYER` | The layer to be used when checking the `WMTS` service. | `osm-bright` |
 | `MAPCACHE_REPLICAS` | The number of replicas. | `2` |
 
 ### MapServer
