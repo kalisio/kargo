@@ -6,6 +6,7 @@ services:
     environment:
       - KANO_URL=${KAPTURE_KANO_URL}
       - KANO_JWT=${KAPTURE_KANO_JWT}
+      - BODY_LIMIT=${KAPTURE_BODY_LIMIT}
     healthcheck:
       test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:3000/healthcheck"]
       interval: 30s

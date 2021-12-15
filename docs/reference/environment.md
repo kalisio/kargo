@@ -124,6 +124,7 @@ For each stack, there must be such an entry:
 | `KAPTURE_TAG` | The version to be used. | `latest` |
 | `KAPTURE_KANO_URL` | The url to access the **Kano** app. | `http://kano:8081` |
 | `KAPTURE_KANO_JWT` | The JWT to allow **kapture** to authenticate to **Kano**. | - |
+| `KAPTURE_BODY_LIMIT` | The body limit size. | `100kb` |
 | `KAPTURE_REPLICAS` | The number of replicas to deploy. | `1` |
 | `KAPTURE_CONSTRAINTS` | The constraints to apply when deploying the service. | `node.role==worker` |
 
