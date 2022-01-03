@@ -325,7 +325,7 @@ More configuration details on our [Logspout Slack adapter](https://github.com/ka
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `THREDDS_IMAGE` | The image to be used.| `unidata/thredds-docker` |
-| `THREDDS_TAG` | The version to be used. | `4.6.18` |
+| `THREDDS_TAG` | The version to be used. | `4.6.19` |
 | `THREDDS_DATA_PATH` | The path to the data. | `/srv/thredds/data` |
 | `THREDDS_CACHE_PATH` | The path to the cache. | `/srv/thredds/cache` |
 | `THREDDS_USER_ID` | The user id to use when running **Tomcat**. | `$KARGO_USER_ID` |
