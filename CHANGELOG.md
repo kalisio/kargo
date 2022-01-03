@@ -5,10 +5,6 @@
 *  Bump to Thredds 4.6.19 (close [#278](https://github.com/kalisio/kargo/pull/278)) ([53338b55](https://github.com/kalisio/kargo/commit/53338b55c09d6e572642d945d06f8a1a6276f32f))
 *  Allow to overwrite the body limit within Kapture (close [#277](https://github.com/kalisio/kargo/pull/277)) ([b543fe33](https://github.com/kalisio/kargo/commit/b543fe335a7c0b2c013cb460cc0e1eb5b36e4248))
 
-##### Other Changes
-
-*  Bump to Thredds 4.6.19 [#278](https://github.com/kalisio/kargo/pull/278) ([cbb1262b](https://github.com/kalisio/kargo/commit/cbb1262ba38eb3059ad6122cbbddea4abf82d357))
-
 ### 0.16.0 (2021-12-13)
 
 ##### Bug Fixes
