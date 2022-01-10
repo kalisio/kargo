@@ -121,7 +121,7 @@ For each stack, there must be such an entry:
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `KAPTURE_IMAGE` | The image to be used. | `kalisio/kapture` |
-| `KAPTURE_TAG` | The version to be used. | `latest` |
+| `KAPTURE_TAG` | The version to be used. | `1.0.0` |
 | `KAPTURE_KANO_URL` | The url to access the **Kano** app. | `http://kano:8081` |
 | `KAPTURE_KANO_JWT` | The JWT to allow **kapture** to authenticate to **Kano**. | - |
 | `KAPTURE_BODY_LIMIT` | The body limit size. | `100kb` |
