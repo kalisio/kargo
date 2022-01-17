@@ -28,10 +28,10 @@ If you need to access another container you will need to run the GDAL container 
 $docker run --network=kargo  -v /mnt/data:/data -t -i kalisio/gdal:3.4.0 /bin/bash
 ```
 
-If you need to use the AWS CLI, you may need to share your credentials:
+If you need to use the **rclone**, you may need to share your configuration:
 
 ```bash
-$docker run  -v /path/to/your/data:/data /home/ubuntu/.aws:/root/.aws -t -i kalisio/gdal:latest /bin/bash
+$docker run  -v /path/to/your/data:/data /home/<user>/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf -t -i kalisio/gdal:3.4.0 /bin/bash
 ```
 
 ## Use cases
