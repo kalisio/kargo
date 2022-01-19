@@ -63,7 +63,7 @@ sqlite> pragma temp_store_directory = '/directory/with/lots/of/space';
 1. list the tiles in a file while prefixing the tile path with the driver `viss3`
 
 ```bash
-$aws s3 ls s3://<bucket>/<path>/ | awk '{print $4}' | sed 's/^/\/vsis3\/<bucket>\/<path>\//' > tiles.txt
+$rclone ls <remote>://<bucket>/<path> | awk '{print $2}' | sed 's/^/\/vsis3\/kalisio-map-data\/<bucket>\/<path>\//' > tiles.txt
 ```
 
 2. Create the tile index
@@ -73,14 +73,28 @@ $gdaltindex <mosaic>.shp --optfile tiles.txt
 ```
 
 ::: tip
+To use **GDAL** utilities with your S3 bucket, you need to set the following environment variables:
 
-If you want to serve the mosaic using **MapServer**, it is recommended to apply the `shptree` command in order
-to optimize the index:
+```bash
+$export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxx
+$export AWS_ACCESS_KEY_ID=xxxxxx
+```
+
+And in case of an alternative S3 compatible storage:
+
+```bash
+$export AWS_ENDPOINT=s3.fr-par.scw.cloud # in case of alternative S3 compatible storage
+$export AWS_REGION=fr-par                # in case of alternative S3 compatible storage
+```
+:::
+
+3. Create the **MapServer** index
 
 ```bash
 $shptree <mosaic>.shp
 ```
 
+::: tip
 In addition you will probably need to provide some parameters, such as `wcs_extent` and `wcs_resolution`. You can get them by building a [VRT](https://gdal.org/drivers/raster/vrt.html):
 
 ```bash
