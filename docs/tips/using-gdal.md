@@ -80,11 +80,11 @@ $export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxx
 $export AWS_ACCESS_KEY_ID=xxxxxx
 ```
 
-And in case of an alternative S3 compatible storage:
+And in case of an alternative S3 compatible storage (i.e. **Scaleway**, **OVH**...)
 
 ```bash
-$export AWS_ENDPOINT=s3.fr-par.scw.cloud # in case of alternative S3 compatible storage
-$export AWS_REGION=fr-par                # in case of alternative S3 compatible storage
+$export AWS_ENDPOINT=s3.fr-par.scw.cloud 
+$export AWS_REGION=fr-par                
 ```
 :::
 
