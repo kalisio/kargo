@@ -1,0 +1,20 @@
+apiVersion: v2
+name: express-gateway
+description: A microservices API Gateway built on Express.js
+annotations:
+  category: api
+version: 0.1.0
+keywords:
+  - express-gateway
+  - api
+sources:
+  - https://github.com/ExpressGateway/express-gateway
+home: https://www.express-gateway.io
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

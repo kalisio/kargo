@@ -1,0 +1,27 @@
+# k-hubeau-observations default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-hubeau
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule (every 15 minutes)
+cron: "*/15 * * * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the measurements time to live (30 days)
+  ttl: "2592000"
+  # The history specifies the data history the job has to be downloaded (1 day expressed in milliseconds)
+  history: "86400000"
+  # timeout specifies the maximum duration of job (30 minutes expressed in milliseconds)
+  timeout: "1800000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

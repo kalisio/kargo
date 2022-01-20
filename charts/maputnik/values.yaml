@@ -1,0 +1,27 @@
+# maputnik default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret:
+  
+replicaCount: 1
+
+image:
+  repository: kalisio/maputnik
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8888
+
+ingress:
+  enabled: true
+  className: nginx
+
+

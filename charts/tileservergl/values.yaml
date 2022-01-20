@@ -1,0 +1,49 @@
+# tileservergl default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+  
+# Common annotations to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/tileserver-gl
+  tag: v3.1.1
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80 # port on which we expose service
+  annotations: {}
+
+# uvThreadPoolSize is the number of thread to allocate for libuv's thread pool
+uvThreadPoolSize: ""
+
+# configVolume is the specification for the volume where the config lies
+configVolume: {}
+#  configMap:
+#    name: '{{ include "common.names.fullname" $ }}-config'
+
+# dataMount is additionnal keys added to the container's data volume mount
+dataMount: {}
+#  subPath: "tileservergl_data"
+
+# dataVolume is the specification for the volume where the data lies
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+# extraVolumes are additional volumes to add to the deployment
+extraVolumes: {}
+
+# initContainers are init container  to add to the deployment
+initContainers: {}

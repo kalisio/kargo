@@ -1,0 +1,80 @@
+# Kano default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Common annotations to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/kano
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8081 
+  extraPorts:
+    - name: quote
+      port: 10001
+      targetPort: 10001
+      protocol: TCP  
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx
+
+distribution:
+  enabled: true
+  port: 10001  
+
+env:
+  # appSecret specifies the application secret
+  appSecret:
+    secret: ""
+    key: ""
+  # appId specifies the application id
+  appId: ""
+  # dbUrl specifies the application database connection string 
+  dbUrl:
+    secret: ""
+    key: ""
+  # dataDbUrl specifies the data database connection string 
+  dataDbUrl:
+    secret: ""
+    key: ""
+  # coteDiscoveryRedisUrl specifies the redis connection string
+  coteDiscoveryRedisUrl:
+    secret: ""
+    key: ""
+  # coteDelay specifies the delay to apply before running quote
+  coteDelay: "3000"
+  # String to define the layers to be integrated into the catalog
+  layersFilter: "*"
+  # mapillaryToken specifies the Mapillary token
+  mapillaryToken: 
+    secret: ""
+    key: ""
+  # cesiumToken specifies the Mapillary token
+  cesiumToken:
+    secret: ""
+    key: ""
+  # apiGateway specifies whether to enable the APII GATEWAY mode    
+  apiGateway: "true"
+  # logLevel specifies the level of frontend log
+  logLevel: ""
+  # debug specified the list of backend modules for which the output is enabled
+  debug: ""

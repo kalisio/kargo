@@ -22,3 +22,7 @@ docs/.vuepress/dist
 .workspace
 workspaces
 archives
+
+# Archvied charts
+*.tgz
+*.lock

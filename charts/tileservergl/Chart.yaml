@@ -1,0 +1,19 @@
+apiVersion: v2
+name: tileservergl
+description: Vector and raster maps with GL styles
+annotations:
+  category: ows
+version: 0.1.0
+keywords:
+  - tileservergl
+sources:
+  - https://github.com/maptiler/tileserver-gl
+home: http://tileserver.org
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

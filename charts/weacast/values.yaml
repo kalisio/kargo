@@ -1,0 +1,62 @@
+# weacast default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Common annotations to add to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: weacast/weacast-api
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8081 # port on which we expose service
+  extraPorts:
+    - name: quote
+      port: 10000
+      targetPort: 10000
+      protocol: TCP
+
+distribution:
+  # enabled distribution mode by default
+  enabled: true
+  # port used for the distribution
+  port: 10000
+
+# livenessEndpoint used when checking liveness
+livenessEndpoint: api/healthcheck
+
+env:
+  # appSecret specifies the application secret
+  appSecret:
+    secret: ""
+    key: ""
+  # dbUrl specifies the application database connection string 
+  dbUrl:
+    secret: ""
+    key: ""
+  # dataDbUrl specifies the data database connection string 
+  dataDbUrl:
+    secret: ""
+    key: ""
+  # coteDiscoveryRedisUrl specifies the redis connection string
+  coteDiscoveryRedisUrl:
+    secret: ""
+    key: ""
+  # coteDelay specifies the delay to apply before running quote
+  coteDelay: "3000"  
+  # String to define the level of frontend log
+  logLevel: ""
+  # String to define the list of backend modules for which the output is enabled
+  debug: ""

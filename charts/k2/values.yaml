@@ -1,0 +1,20 @@
+# k2 default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k2
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+env:
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

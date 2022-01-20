@@ -1,0 +1,19 @@
+apiVersion: v2
+name: kapture
+description: Capture Kano Snapshots as a Service
+version: 0.1.0
+appVersion: "1.0.0"
+home: https://github.com/kalisio/kapture
+annotations:
+  category: Service
+keywords:
+  - kano
+  - capture
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common    
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

@@ -1,0 +1,23 @@
+# k-centipede default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-centipede
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule
+cron: "*/5 * * * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the measurements time to live (7 days)
+  ttl: "604800"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

@@ -1,0 +1,17 @@
+apiVersion: v2
+name: mapserver
+description: An Open Source platform for publishing spatial data and interactive mapping applications to the web
+annotations:
+  category:
+version: 0.1.0
+keywords:
+  - mapserver
+home: https://mapserver.org/
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

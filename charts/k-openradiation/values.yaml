@@ -1,0 +1,27 @@
+# k-openradiation default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-openradiation
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule (every hour)
+cron: "0 * * * *"
+
+env:
+  # key specifies the OpenRadiation API key
+  key: 
+    secret: ""
+    key: ""
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the measurements time to live
+  ttl: "2592000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

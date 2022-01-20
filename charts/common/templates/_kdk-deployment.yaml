@@ -1,0 +1,50 @@
+{{- define "common.kdk-deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- end }}
+    spec:
+      containers:
+        - name: {{ include "common.names.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SUBDOMAIN
+              value: {{ .Values.global.subdomain }}
+            {{- if .Values.distribution.enabled }}
+            - name: DISCOVERY_HOSTNAME
+              value: {{ include "common.names.fullname" . }}
+            {{- end }}
+            {{- include "common.environment.render" . | indent 12 }}
+          ports:
+            - name: {{ include "common.names.name" . }}
+              containerPort: 8081
+            {{- if .Values.distribution.enabled }}
+            - name: distribution
+              containerPort: {{ .Values.distribution.port }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessEndpoint | default "api/capabilities" }}
+              port: {{ include "common.names.name" . }}
+            initialDelaySeconds: 30
+            periodSeconds: 15
+{{- end }}

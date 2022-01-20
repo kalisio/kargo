@@ -1,0 +1,33 @@
+# express-gateway default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Common annotations to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/express-gateway
+  tag: 1.16.9
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080 # port on which we expose service
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx

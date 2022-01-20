@@ -1,0 +1,19 @@
+apiVersion: v2
+name: redis-commander
+description: A Redis web management tool
+annotations:
+  category: database
+version: 0.1.0
+appVersion: "latest"
+home: https://github.com/joeferner/redis-commander
+keywords:
+  - redis
+  - redis-commander
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common    
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

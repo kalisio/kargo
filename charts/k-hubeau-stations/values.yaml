@@ -1,0 +1,21 @@
+# k-hubeau-stations default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-hubeau
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule
+cron: "0 0 * * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

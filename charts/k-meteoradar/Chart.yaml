@@ -1,0 +1,21 @@
+apiVersion: v2
+name: k-meteoradar
+description: A Krawler based service to download public Rainfall Radar data from MeteoFrance.
+version: 0.1.0
+appVersion: "1.0.0"
+home: https://github.com/kalisio/k-meteoradar
+annotations:
+  category: KrawlerJob
+keywords:
+  - france
+  - radar
+  - rain
+  - krawler
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common  
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

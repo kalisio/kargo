@@ -1,0 +1,30 @@
+{{- define "common.krawlerjob" -}}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  schedule: "{{ .Values.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template: 
+        spec:
+          containers:
+            - name: {{ include "common.names.name" . }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:          
+                - name: CRON
+                  value: "" 
+              {{- include "common.environment.render" . | indent 16 }}
+          restartPolicy: Never
+{{- end -}}

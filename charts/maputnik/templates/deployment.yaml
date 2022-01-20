@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-maputnik"
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      component: maputnik
+  template:
+    metadata:
+      labels:
+        component: maputnik
+    spec:
+      containers:
+        - name: maputnik
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8888
+              protocol: TCP
+      

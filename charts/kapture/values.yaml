@@ -1,0 +1,27 @@
+# kapture default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/kapture
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 3000
+  annotations: {}
+
+env:
+  # bodyLimit sets the size limit of the request body
+  bodyLimit: "100kb"
+  # kanoUrl is the Kano url that can be accessed from Kapture
+  kanoUrl: "http://kano:8081"
+  # kanoJwt is the JWT to be authenticated to Kano
+  kanoJwt: ""

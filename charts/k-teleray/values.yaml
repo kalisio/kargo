@@ -1,0 +1,23 @@
+# k-teleray default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-teleray
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule
+cron: "*/10 * * * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the measurements time to live
+  ttl: "2592000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""

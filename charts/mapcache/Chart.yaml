@@ -1,0 +1,19 @@
+apiVersion: v2
+name: mapcache
+description: A server that implements tile caching to speed up access to WMS layers
+annotations:
+  category: ows
+version: 0.1.0
+keywords:
+  - mapcache
+sources:
+  - https://github.com/MapServer/mapcache
+home: https://mapserver.org/mapcache
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

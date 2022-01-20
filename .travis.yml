@@ -2,15 +2,17 @@ notifications:
   email: false
   slack:
     rooms:
-      secure: ARkqV4dCDsOr7zKcuxKSHV/SB2EKfkNpMdlt3WjThsiUrrfoByeuZW0kK3ZvNz1FpCzDVp1+YUpJrelEH4eXq33qa56In6XqXSvjUAkb+ukNDmKC/+kjZbY7rkdVOri2MrQAW45aDxemoHvo8/RQwJAMjzqX6ta+LtSQBDTNu/6TvVySbqX5sF+j6ItyPnXIMtjy+zg7iCBzsurwdrIVJkt5vjv6f4pUewgmBUmIclWS0vuRQ864XaE36sQcIIChxlGGchP7KNtspQfdr9pigIJiauTfGp3Fkz8v/+0nNyg23wPIXPxKkRJolzWbIdjokO8F7JUjLIpdypG3Kz2D2bE8bQCpCSOGRVO7t7k2eNb3AyZ6aB+asb8fVMCw+WhZKMdL56ixeYkkyiq3hHCDYyfrzAPSDyiZAoT5FYPV7u7n72gjoTVwXh27tuMqImYn/eO6dBWGdF5R2Ua/32GScZyvWg9cQj7qP5WYHWqPuQxQ2fdAZYUym0LO2hXVcS8txdfnHYF9RzwaxOsdjicpXrS5uOGHUQzA/cQANEoo3wimr+q95uetClILQw7muqyD7QgFeOkjGEk+TiNuoTp2TFJcUubx9fUJFMvWLB0ZLBGrDR6ojtyP2s3GPp6lVKMJUaBMassZdcQC+6smN4Za531SHPArthMJCTZcBV+8UIM=
+      - secure: ARkqV4dCDsOr7zKcuxKSHV/SB2EKfkNpMdlt3WjThsiUrrfoByeuZW0kK3ZvNz1FpCzDVp1+YUpJrelEH4eXq33qa56In6XqXSvjUAkb+ukNDmKC/+kjZbY7rkdVOri2MrQAW45aDxemoHvo8/RQwJAMjzqX6ta+LtSQBDTNu/6TvVySbqX5sF+j6ItyPnXIMtjy+zg7iCBzsurwdrIVJkt5vjv6f4pUewgmBUmIclWS0vuRQ864XaE36sQcIIChxlGGchP7KNtspQfdr9pigIJiauTfGp3Fkz8v/+0nNyg23wPIXPxKkRJolzWbIdjokO8F7JUjLIpdypG3Kz2D2bE8bQCpCSOGRVO7t7k2eNb3AyZ6aB+asb8fVMCw+WhZKMdL56ixeYkkyiq3hHCDYyfrzAPSDyiZAoT5FYPV7u7n72gjoTVwXh27tuMqImYn/eO6dBWGdF5R2Ua/32GScZyvWg9cQj7qP5WYHWqPuQxQ2fdAZYUym0LO2hXVcS8txdfnHYF9RzwaxOsdjicpXrS5uOGHUQzA/cQANEoo3wimr+q95uetClILQw7muqyD7QgFeOkjGEk+TiNuoTp2TFJcUubx9fUJFMvWLB0ZLBGrDR6ojtyP2s3GPp6lVKMJUaBMassZdcQC+6smN4Za531SHPArthMJCTZcBV+8UIM=
     on_success: always
     on_failure: always
 
 stages:
 - name: BUILD
-  if: commit_message !~ /(skip[ _-]build)/
+  if: commit_message =~ /\[build\]/
+- name: PACK
+  if: commit_message =~ /\[pack\]/
 - name: DOC
-  if: commit_message !~ /(skip[ _-]doc)/
+  if: commit_message =~ /\[doc\]/
 
 jobs:
   include:
@@ -36,6 +38,16 @@ jobs:
     script: bash .travis.build.sh gdal
   - # added to BUILD stage
     script: bash .travis.build.sh mongodb-exporter
+
+  - stage: PACK
+    before_install:
+    - curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+    - curl -L -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+    - unzip rclone-current-linux-amd64.zip
+    - cd rclone-*-linux-amd64 && sudo cp rclone /usr/bin/ && cd ..
+    - sudo chown root:root /usr/bin/rclone
+    - sudo chmod +x /usr/bin/rclone
+    script: bash .travis.pack.sh
 
   - stage: DOC
     language: node_js

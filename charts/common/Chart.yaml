@@ -1,0 +1,16 @@
+apiVersion: v2
+name: common
+description: A Library Helm Chart for grouping common logic between Kargo charts. This chart is not deployable by itself.
+version: 0.1.0
+type: library
+keywords:
+  - common
+  - helper
+  - template
+  - function
+  - Kargo
+  - kalisio
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

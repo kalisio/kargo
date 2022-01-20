@@ -1,0 +1,19 @@
+apiVersion: v2
+name: mongo-express
+description: A web-based MongoDB admin interface
+annotations:
+  category: database
+version: 0.1.0
+appVersion: "1.0.0-alpha"
+home: https://github.com/mongo-express/mongo-express
+keywords:
+  - mongodb
+  - mongo-express
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common    
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

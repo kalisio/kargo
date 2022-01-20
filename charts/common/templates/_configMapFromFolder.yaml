@@ -1,0 +1,18 @@
+{{/*
+Builds a config map from all the files in a folder. Files can be templated.
+@parap .root      The caller's root scope
+@param .name      The name for the created config map
+@param .folder    The folder to scan to create the config map
+*/}}
+{{- define "common.configMapFromFolder" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  namespace: {{ .root.Release.Namespace }}
+data:
+{{- range $path, $_ := (.root.Files.Glob (printf "%s/*" .folder)) }}
+  {{ trimPrefix (printf "%s/" $.folder) $path }}: |
+    {{- tpl ($.root.Files.Get $path) $.root | nindent 4 }}
+{{- end }}
+{{- end -}}

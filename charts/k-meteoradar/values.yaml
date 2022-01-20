@@ -1,0 +1,29 @@
+# k-meteoradar default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: kalisio/k-meteoradar
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule (every hour)
+cron: "*/15 * * * *"
+
+env:
+  # s3Endpoint specifies the store endpoint
+  s3Endpoint: ""
+  # s3AccessKey specifie the key to access the store
+  s3AccessKey: 
+    secret: ""
+    key: ""
+  # s3SecretAccessKey specifie the secret to access the store
+  s3SecretAccessKey: 
+    secret: ""
+    key: ""
+  # specifies the bucket where to store the files 
+  s3Bucket: ""
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
