@@ -22,7 +22,7 @@ Create chart name and version as used by the chart label.
 Create host name used by ingress host.
 */}}
 {{- define "common.names.host" -}}
-{{- printf "%s.%s" .Chart.Name .Values.global.subdomain | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s.%s" ((hasKey .Values "hostOverride") | ternary .Values.hostOverride .Chart.Name) .Values.global.subdomain | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
