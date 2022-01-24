@@ -29,14 +29,14 @@ Create host name used by ingress host.
 Create secret name used by common environement variables
 */}}
 {{- define "common.names.secret" -}}
-{{- default .Values.global.secret .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- default .Release.Name .Values.global.secret | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create rclone secret name used by common environement variables
 */}}
 {{- define "common.names.rcloneSecret" -}}
-{{- default .Values.global.secret .Release.Name | trunc 63 | trimSuffix "-" -}}-rclone-config
+{{- default .Release.Name .Values.global.secret | trunc 63 | trimSuffix "-" -}}-rclone-config
 {{- end -}}
 
 {{/*
