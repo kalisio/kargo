@@ -22,6 +22,6 @@ env:
   # bodyLimit sets the size limit of the request body
   bodyLimit: "100kb"
   # kanoUrl is the Kano url that can be accessed from Kapture
-  kanoUrl: "http://kano:8081"
+  kanoUrl: "http://apps-kano:8081"
   # kanoJwt is the JWT to be authenticated to Kano
   kanoJwt: ""
