@@ -1,0 +1,34 @@
+# weacast-gfs-world-loader default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+image:
+  repository: weacast/weacast-gfs
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# cron specifies the job schedule
+cron: "*/15 * * * *"
+
+env:
+  # dbUrl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # syncDbUrl specifies the mongodb connection string to the sync database
+  syncDbUrl:
+    secret: ""
+    key: ""
+  # workersLimit specifies the maximum number of workers
+  #workersLimit: ""
+  # requestDelay specifies 
+  # requestDelay: ""
+  # ttl specifies the forecasts time to live (3 days)
+  ttl: "259200"
+  # keepPastRun: ""
+  # upperLimit specifies the forecast timespan of data to download (in seconds)
+  upperLimit: "259200"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
