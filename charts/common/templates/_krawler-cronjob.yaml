@@ -1,4 +1,4 @@
-{{- define "common.krawlerjob" -}}
+{{- define "common.krawler-cronjob" -}}
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -26,5 +26,13 @@ spec:
                 - name: CRON
                   value: "" 
               {{- include "common.environment.render" . | indent 16 }}
+              {{- if .Values.volumeMounts }}
+              volumeMounts:
+                {{- include "common.tplvalues.render" ( dict "value" .Values.volumeMounts "context" $ ) | nindent 14 }}
+              {{- end }}
           restartPolicy: Never
+    {{- if .Values.volumes }}
+    volumes:
+      {{- include "common.tplvalues.render" ( dict "value" .Values.volumes "context" $ ) | nindent 8 }}
+    {{- end }}
 {{- end -}}

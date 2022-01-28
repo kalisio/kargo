@@ -1,1 +1,1 @@
-{{- include "common.krawlerjob" . }}
+{{- include "common.krawler-cronjob" . }}
