@@ -36,6 +36,13 @@ spec:
               value: {{ .Values.distribution.basePort | quote }}
             - name: HIGHEST_PORT
               value: {{ .Values.distribution.highestPort | quote }}
+            - name: COTE_DELAY
+              value: {{ .Values.distribution.startDelay | quote }}
+            - name: COTE_DISCOVERY_REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.distribution.redisUrl.secret | default (include "common.names.secret" .) }}
+                  key: {{ .Values.distribution.redisUrl.key | default "redis-url" }}
             {{- end }}
             {{- include "common.environment.render" . | indent 12 }}
           ports:

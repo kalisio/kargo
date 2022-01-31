@@ -33,9 +33,18 @@ ingress:
   className: nginx
 
 distribution:
+  # enabled specifies whether or not to use distribution
   enabled: true
-  basePort: 10000
-  highestPort: 10010
+  # basePort specifies the starting port of the port range
+  basePort: 10010
+  # highestPort specifies the ending port of the port range
+  highestPort: 10019
+  # delay specifies the time to wait before starting service discovery
+  startDelay: "10000"
+  # redisUrl specifies th redis connection string
+  redisUrl:
+    secret: ""
+    key: ""
 
 env:
   # appSecret specifies the application secret
@@ -52,12 +61,8 @@ env:
   dataDbUrl:
     secret: ""
     key: ""
-  # coteDiscoveryRedisUrl specifies the redis connection string
-  coteDiscoveryRedisUrl:
-    secret: ""
-    key: ""
-  # coteDelay specifies the delay to apply before running quote
-  coteDelay: "30000"
+  # apiGatewayUrl specifies whether to enable the API Gateway
+  apiGatewayUrl: "https://api.{{ .Values.global.subdomain }}"    
   # String to define the layers to be integrated into the catalog
   layersFilter: "*"
   # mapillaryToken specifies the Mapillary token
@@ -68,8 +73,6 @@ env:
   cesiumToken:
     secret: ""
     key: ""
-  # apiGatewayUrl specifies whether to enable the API GATEWAY
-  apiGatewayUrl: "https://api.{{ .Values.global.subdomain }}"
   # logLevel specifies the level of frontend log
   logLevel: ""
   # debug specified the list of backend modules for which the output is enabled

@@ -24,11 +24,18 @@ service:
   port: 8081 # port on which we expose service
 
 distribution:
-  # enabled distribution mode by default
+  # enabled specifies whether or not to use distribution
   enabled: true
-  # port used for the distribution
-  basePort: 10000
-  highestPort: 10500
+  # basePort specifies the starting port of the port range
+  basePort: 10010
+  # highestPort specifies the ending port of the port range
+  highestPort: 10019
+ # delay specifies the time to wait before starting service discovery
+  startDelay: "10000"
+  # redisUrl specifies th redis connection string
+  redisUrl:
+    secret: ""
+    key: ""
 
 # livenessEndpoint used when checking liveness
 livenessEndpoint: api/healthcheck
@@ -46,12 +53,6 @@ env:
   dataDbUrl:
     secret: ""
     key: ""
-  # coteDiscoveryRedisUrl specifies the redis connection string
-  coteDiscoveryRedisUrl:
-    secret: ""
-    key: ""
-  # coteDelay specifies the delay to apply before running quote
-  coteDelay: "30000"  
   # String to define the level of frontend log
   logLevel: ""
   # String to define the list of backend modules for which the output is enabled
