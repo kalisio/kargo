@@ -4,7 +4,8 @@ services:
   kano:
     image: ${KANO_IMAGE}:${KANO_TAG}
     environment:
-      - API_GATEWAY=${API_GATEWAY}
+      - API_GATEWAY=${API_GATEWAY} # Backward compatibility, should be replaced by the following starting from Kano v1.5
+      - API_GATEWAY_URL=${API_GATEWAY_URL}
       - APP_ID=${KANO_APP_ID}
       - LOG_LEVEL=${KANO_LOG_LEVEL}
       - DEBUG=${KANO_DEBUG}
