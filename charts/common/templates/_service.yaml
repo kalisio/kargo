@@ -26,6 +26,16 @@ spec:
     {{- if .Values.service.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.service.extraPorts "context" $) | nindent 4 }}
     {{- end }}
+    {{- with .Values.distribution }}
+    {{- if .enabled }}
+    {{- range untilStep (int .basePort) (int .highestPort) 1 }}
+    - name: "distribution-{{ . }}"
+      port: {{ . }}
+      targetPort: {{ . }}
+      protocol: TCP
+    {{- end }}
+    {{- end }}
+    {{- end }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
 {{- end }}
 {{- end -}}

@@ -32,19 +32,30 @@ spec:
             {{- if .Values.distribution.enabled }}
             - name: DISCOVERY_HOSTNAME
               value: {{ include "common.names.fullname" . }}
+            - name: BASE_PORT
+              value: {{ .Values.distribution.basePort | quote }}
+            - name: HIGHEST_PORT
+              value: {{ .Values.distribution.highestPort | quote }}
             {{- end }}
             {{- include "common.environment.render" . | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 8081
             {{- if .Values.distribution.enabled }}
-            - name: distribution
-              containerPort: {{ .Values.distribution.port }}
+            {{- range untilStep (int .Values.distribution.basePort) (int .Values.distribution.highestPort) 1 }}
+            - name: "cote-{{ . }}"
+              containerPort: {{ . }}
             {{- end }}
+            {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "api/capabilities" }}
               port: {{ include "common.names.name" . }}
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 15
 {{- end }}

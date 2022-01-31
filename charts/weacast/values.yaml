@@ -22,17 +22,13 @@ service:
   enabled: true
   type: ClusterIP
   port: 8081 # port on which we expose service
-  extraPorts:
-    - name: quote
-      port: 10000
-      targetPort: 10000
-      protocol: TCP
 
 distribution:
   # enabled distribution mode by default
   enabled: true
   # port used for the distribution
-  port: 10000
+  basePort: 10000
+  highestPort: 10500
 
 # livenessEndpoint used when checking liveness
 livenessEndpoint: api/healthcheck
@@ -55,7 +51,7 @@ env:
     secret: ""
     key: ""
   # coteDelay specifies the delay to apply before running quote
-  coteDelay: "3000"  
+  coteDelay: "30000"  
   # String to define the level of frontend log
   logLevel: ""
   # String to define the list of backend modules for which the output is enabled
