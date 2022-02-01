@@ -5,12 +5,12 @@ global:
   secret: ""
 
 image:
-  repository: weacast/weacast-gfs
+  repository: weacast/weacast-arome
   tag: ""
   pullPolicy: IfNotPresent
 
 # cron specifies the job schedule
-cron: "20 * * * *"
+cron: "0 * * * *"
 
 env:
   # dbUrl specifies the mongodb connection string
@@ -26,9 +26,9 @@ env:
   # requestDelay specifies 
   # requestDelay: ""
   # ttl specifies the forecasts time to live (3 days)
-  ttl: "259200"
+  ttl: "10800"
   # keepPastRun: ""
   # upperLimit specifies the forecast timespan of data to download (in seconds)
-  upperLimit: "259200"
+  upperLimit: "129600"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
