@@ -23,10 +23,10 @@ env:
     key: ""
   # workersLimit specifies the maximum number of workers
   workersLimit: "2"
-  # requestDelay specifies a wait 
-  requestDelay: "3"
-  # ttl specifies the forecasts time to live (3 days)
-  ttl: "259200"
+  # requestDelay specifies a wait delay between 2 requests (3 seconds)
+  requestDelay: "3000"
+  # ttl specifies the forecasts time to live
+  ttl: ""
   # upperLimit specifies the forecast timespan of data to download (in seconds)
   upperLimit: "259200"
   # debug specifies the list of namespaces to enable debug output
