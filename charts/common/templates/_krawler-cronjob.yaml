@@ -35,8 +35,8 @@ spec:
                 {{- include "common.tplvalues.render" ( dict "value" .Values.volumeMounts "context" $ ) | nindent 14 }}
               {{- end }}
           restartPolicy: Never
-    {{- if .Values.volumes }}
-    volumes:
-      {{- include "common.tplvalues.render" ( dict "value" .Values.volumes "context" $ ) | nindent 8 }}
-    {{- end }}
+          {{- if .Values.volumes }}
+          volumes:
+            {{- include "common.tplvalues.render" ( dict "value" .Values.volumes "context" $ ) | nindent 10 }}
+          {{- end }}
 {{- end -}}
