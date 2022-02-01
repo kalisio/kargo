@@ -5,7 +5,7 @@ global:
   secret: ""
 
 image:
-  repository: weacast/weacast-arpege
+  repository: weacast/weacast-arome
   tag: ""
   pullPolicy: IfNotPresent
 
@@ -30,7 +30,7 @@ env:
   # requestDelay specifies a wait delay between 2 requests (3 seconds)
   requestDelay: "3000"
   # ttl specifies the forecasts time to live
-  ttl: ""
+  ttl: null
   # upperLimit specifies the forecast timespan of data to download (in seconds)
   upperLimit: "86400"
   # debug specifies the list of namespaces to enable debug output
