@@ -1,4 +1,4 @@
-# weacast-gfs-world-loader default values
+# weacast-arpege-world-loader default values
 
 global:
   # secret where to share sentitive environment variables
