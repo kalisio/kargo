@@ -5,7 +5,7 @@ global:
   secret: ""
 
 image:
-  repository: kalisio/k-tar
+  repository: kalisio/k-taf
   tag: ""
   pullPolicy: IfNotPresent
 

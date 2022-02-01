@@ -13,6 +13,10 @@ image:
 cron: "15 * * * *"
 
 env:
+  # meteoFranceToken specifies the token to access the Meteo France API
+  meteoFranceToken:
+    secret: ""
+    key: ""
   # dbUrl specifies the mongodb connection string
   dbUrl:
     secret: ""
@@ -25,8 +29,8 @@ env:
   #workersLimit: ""
   # requestDelay specifies 
   # requestDelay: ""
-  # ttl specifies the forecasts time to live (run interval 3 hours)
-  ttl: "10800"
+  # ttl specifies the forecasts time to live
+  ttl: ""
   # keepPastRun: ""
   # upperLimit specifies the forecast timespan of data to download (in seconds)
   upperLimit: "172800"

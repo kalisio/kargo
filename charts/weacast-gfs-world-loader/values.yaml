@@ -22,12 +22,11 @@ env:
     secret: ""
     key: ""
   # workersLimit specifies the maximum number of workers
-  #workersLimit: ""
-  # requestDelay specifies 
-  # requestDelay: ""
+  workersLimit: "2"
+  # requestDelay specifies a wait 
+  requestDelay: "3"
   # ttl specifies the forecasts time to live (3 days)
   ttl: "259200"
-  # keepPastRun: ""
   # upperLimit specifies the forecast timespan of data to download (in seconds)
   upperLimit: "259200"
   # debug specifies the list of namespaces to enable debug output
