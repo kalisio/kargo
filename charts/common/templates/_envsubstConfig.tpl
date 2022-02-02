@@ -1,7 +1,7 @@
 {{/*
 Renders an object that contains a list of key/value properties that can be transformed into environement variables
 Usage:
-{{ include "common.environment.render" . }}
+{{ include "common.envsubstConfig.renderInitContainer" . }}
 */}}
 {{- define "common.envsubstConfig.renderInitContainer" -}}
 - name: envsubst-config
@@ -28,7 +28,7 @@ Usage:
     - '{}'
     - ';'
   env:
-    {{- include "common.environment.renderImpl" (dict "env" .args.env "context" .context) | indent 4 }}
+    {{- include "common.environment.render" (dict "env" .args.env "context" .context) | indent 4 }}
   volumeMounts:
     - mountPath: /templated
       name: envsubst-template-config
@@ -40,7 +40,7 @@ Usage:
 {{/*
 Renders an object that contains a list of key/value properties that can be transformed into environement variables
 Usage:
-{{ include "common.environment.render" . }}
+{{ include "common.envsubstConfig.renderVolume" . }}
 */}}
 {{- define "common.envsubstConfig.renderVolume" -}}
 - name: envsubst-template-config

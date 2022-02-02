@@ -36,7 +36,7 @@ spec:
             - name: HTTP_PROXY
             - name: HTTPS_PROXY
             - name: NO_PROXY
-            {{- include "common.environment.render" . | indent 12 }}
+            {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 8080

@@ -29,7 +29,7 @@ spec:
               env:          
                 - name: CRON
                   value: "" 
-              {{- include "common.environment.render" . | indent 16 }}
+              {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
               {{- if .Values.volumeMounts }}
               volumeMounts:
                 {{- include "common.tplvalues.render" ( dict "value" .Values.volumeMounts "context" $ ) | nindent 14 }}

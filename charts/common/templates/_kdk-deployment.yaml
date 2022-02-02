@@ -48,7 +48,7 @@ spec:
                   name: {{ .Values.distribution.redisUrl.secret | default (include "common.names.secret" .) }}
                   key: {{ .Values.distribution.redisUrl.key | default "redis-url" }}
             {{- end }}
-            {{- include "common.environment.render" . | indent 12 }}
+            {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 8081
