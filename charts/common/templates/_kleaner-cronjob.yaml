@@ -1,0 +1,83 @@
+{{/*
+Builds a cronjob to clean specified filesystem paths.
+@param .root      The caller's root scope
+@param .values    The parameters for the cleaner cronjob. The template expects the following:
+  - name            The name to give to the cronjob
+  - cron            The schedule expression "0 * * * *"
+  - cleanupPaths    A string with all the paths to scan
+  - olderThanDays   A file must be older than this to be deleted
+  - volumeMounts    The list of volumeMounts for the cleanup container
+  - volumes         The list of volumes to back volumeMounts
+*/}}
+{{- define "common.filesystem-kleaner-cronjob" -}}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .root.Release.Name }}-{{ .values.name }}
+  namespace: {{ .root.Release.Namespace | quote }}
+spec:
+  schedule: "{{ .values.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .values.name }}
+              image: busybox
+              command:
+                - sh
+                - -c
+                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do find $CLEANUP_PATH -type f -mtime +{{ .values.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print; done
+              {{- if .values.volumeMounts }}
+              volumeMounts:
+                {{- include "common.tplvalues.render" ( dict "value" .values.volumeMounts "context" .root ) | nindent 14 }}
+              {{- end }}
+          restartPolicy: Never
+          {{- if .values.volumes }}
+          volumes:
+            {{- include "common.tplvalues.render" ( dict "value" .values.volumes "context" .root ) | nindent 10 }}
+          {{- end }}
+{{- end -}}
+
+{{/*
+Builds a cronjob to clean specified object storage paths.
+@param .root      The caller's root scope
+@param .values    The parameters for the cleaner cronjob. The template expects the following:
+  - name                The name to give to the cronjob
+  - cron                The schedule expression "0 * * * *"
+  - rcloneConfigSecret  The name of the secret where rclone.conf can be found
+  - cleanupPaths        A string with all the paths to scan
+  - olderThanDays       A file must be older than this to be deleted
+*/}}
+{{- define "common.rclone-kleaner-cronjob" -}}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .root.Release.Name }}-{{ .values.name }}
+  namespace: {{ .root.Release.Namespace | quote }}
+spec:
+  schedule: "{{ .values.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .values.name }}
+              image: rclone/rclone
+              command:
+                - sh
+                - -c
+                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do rclone --min-age {{ .values.olderThanDays }}d --dry-run delete $CLEANUP_PATH --rmdirs; done
+              volumeMounts:
+                - mountPath: /config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: rclone-config
+              secret:
+                secretName: {{ .values.rcloneConfigSecret }}
+{{- end -}}
