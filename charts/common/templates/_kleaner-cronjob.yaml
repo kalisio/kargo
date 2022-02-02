@@ -1,7 +1,13 @@
 {{/*
-Builds a cronjob to clean specified paths.
+Builds a cronjob to clean specified filesystem paths.
 @param .root      The caller's root scope
-@param .values    The parameters for the cleaner cronjob
+@param .values    The parameters for the cleaner cronjob. The template expects the following:
+  - name            The name to give to the cronjob
+  - cron            The schedule expression "0 * * * *"
+  - cleanupPaths    A string with all the paths to scan
+  - olderThanDays   A file must be older than this to be deleted
+  - volumeMounts    The list of volumeMounts for the cleanup container
+  - volumes         The list of volumes to back volumeMounts
 */}}
 {{- define "common.filesystem-kleaner-cronjob" -}}
 apiVersion: batch/v1beta1
@@ -35,9 +41,14 @@ spec:
 {{- end -}}
 
 {{/*
-Builds a cronjob to clean specified paths.
+Builds a cronjob to clean specified object storage paths.
 @param .root      The caller's root scope
-@param .values    The parameters for the cleaner cronjob
+@param .values    The parameters for the cleaner cronjob. The template expects the following:
+  - name                The name to give to the cronjob
+  - cron                The schedule expression "0 * * * *"
+  - rcloneConfigSecret  The name of the secret where rclone.conf can be found
+  - cleanupPaths        A string with all the paths to scan
+  - olderThanDays       A file must be older than this to be deleted
 */}}
 {{- define "common.rclone-kleaner-cronjob" -}}
 apiVersion: batch/v1beta1
