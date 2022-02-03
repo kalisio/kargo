@@ -60,7 +60,7 @@ spec:
             {{- end }}
           readinessProbe:
             tcpSocket:
-              port: 8081
+              port: {{ include "common.names.name" . }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
