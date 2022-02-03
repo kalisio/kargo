@@ -33,13 +33,6 @@ Create secret name used by common environement variables
 {{- end -}}
 
 {{/*
-Create rclone secret name used by common environement variables
-*/}}
-{{- define "common.names.rcloneSecret" -}}
-{{- default .Release.Name .Values.global.secret | trunc 63 | trimSuffix "-" -}}-rclone-config
-{{- end -}}
-
-{{/*
 Create a default fully qualified app name.
 If release name contains chart name it will be used as a full name.
 */}}
