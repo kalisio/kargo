@@ -1,0 +1,50 @@
+# thredds default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Common annotations to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: unidata/thredds-docker
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080                                                           
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx
+
+env:
+  # meteoFrance FTP credentials
+  threddsXmxSize: 
+  threddsXmsSize: 
+  
+volumeMounts:
+  - mountPath: /data
+    readOnly: false
+    name: nas
+    subPath: "thredds/data/mf-arpege-01"
+
+volumes:
+  - name: nas
+    nfs:
+      server: 10.201.31.124
+      path: /zpool-128564/k8sc3xplanetdev

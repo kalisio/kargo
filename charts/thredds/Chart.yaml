@@ -1,0 +1,21 @@
+apiVersion: v2
+name: thredds
+description: The THREDDS Data Server (TDS) is a web server that provides metadata and data access for scientific datasets.
+type: application
+version: 0.1.0
+appVersion: "4.6.19"
+annotations:
+  category: scientific
+keywords:
+  - unidata
+  - dap
+  - thredds
+home: https://www.unidata.ucar.edu/software/tds/current/
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: '@kalisio'
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com
