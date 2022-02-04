@@ -25,12 +25,15 @@ image:
 service:
   enabled: true
   type: ClusterIP
-  port: 8081 # port on which we expose service
+  port: 8081 
   annotations: {}
   
 ingress:
   enabled: true
   className: nginx
+
+# containerPort is the port used by the the container
+containerPort: 8081
 
 env:
   # redisHosts specifies the redis connection string

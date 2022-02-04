@@ -37,6 +37,11 @@ spec:
               {{- if .Values.dataSubPath }}
               subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ include "common.names.name" . }}
+            initialDelaySeconds: 5
+            periodSeconds: 10              
           livenessProbe:
             httpGet:
               path: /healthcheck

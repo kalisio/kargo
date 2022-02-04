@@ -32,6 +32,9 @@ ingress:
   enabled: true
   className: nginx
 
+# containerPort is the port used by the the container
+containerPort: 8081
+
 env:
   # meConfigMongodbUrl specifies the mongodb connection string
   meConfigMongodbUrl:
