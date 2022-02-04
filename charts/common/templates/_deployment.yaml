@@ -1,4 +1,4 @@
-{{- define "common.node-deployment" -}}
+{{- define "common.deployment" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
