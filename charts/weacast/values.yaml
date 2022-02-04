@@ -4,10 +4,10 @@ global:
   # secret where to share sentitive environment variables
   secret: ""
 
-# Common annotations to add to all resources (sub-charts are not considered). Evaluated as a template
+# commonAnnotations to be added to all resources  (sub-charts are not considered). Evaluated as a template
 commonAnnotations: {}
 
-# Common labels to add to all resources (sub-charts are not considered). Evaluated as a template
+# commonLabels to be added to all resources (sub-charts are not considered). Evaluated as a template
 commonLabel: {}
 
 # Number of replicas

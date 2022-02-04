@@ -18,7 +18,7 @@ for CHART in `ls charts`; do
   if [ $? != 0 ]; then
     exit 1
   fi
-  helm package charts/$CHART -d repo
+  helm package charts/$CHART -d repo --version 0.0.0-dev
   if [ $? != 0 ]; then
     exit 1
   fi
