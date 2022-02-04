@@ -15,8 +15,12 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # Define the chart list
 CHARTS=$ONLY_CHART
-if [ -z "$CHARTS" ]; then
+if [ -z "$ONLY_CHART" ]; then
   CHARTS=`ls charts`
+  OPTIONS="--version 0.0.0-dev"
+elif
+  CHARTS=$ONLY_CHART
+  OPTIONS=""
 fi
 
 # Pack the charts
@@ -27,7 +31,7 @@ for CHART in `ls charts`; do
   if [ $? != 0 ]; then
     exit 1
   fi
-  helm package charts/$CHART -d repo --version 0.0.0-dev
+  helm package charts/$CHART -d repo $OPTIONS
   if [ $? != 0 ]; then
     exit 1
   fi
