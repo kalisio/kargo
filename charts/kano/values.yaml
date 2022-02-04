@@ -8,10 +8,10 @@ global:
   # secret where to share sentitive environment variables
   secret: ""
 
-# commonAnnotations to be added to all resources  (sub-charts are not considered). Evaluated as a template
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
 commonAnnotations: {}
 
-# commonLabels to be added to all resources (sub-charts are not considered). Evaluated as a template
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
 commonLabel: {}
 
 # replicatCount is the number of replicas
