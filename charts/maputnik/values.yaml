@@ -32,4 +32,4 @@ ingress:
   className: nginx
 
 # containerPort is the port used by the the container
-containerPort: 8088
+containerPort: 8888
