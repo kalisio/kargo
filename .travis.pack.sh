@@ -1,4 +1,7 @@
 #!/bin/bash
+set -euxo pipefail
+
+ONLY_CHART=${1:-}
 
 # Configure rclone
 mkdir -p $HOME/.config/rclone
@@ -9,6 +12,12 @@ rclone copy s3-host:/kalisio-charts repo
 
 # Declare the external repos
 helm repo add bitnami https://charts.bitnami.com/bitnami
+
+# Define the chart list
+CHARTS=$ONLY_CHART
+if [ -z "$CHARTS" ]; then
+  CHARTS= `ls charts`
+fi
 
 # Pack the charts
 for CHART in `ls charts`; do

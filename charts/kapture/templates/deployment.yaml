@@ -1,1 +1,1 @@
-  {{- include "common.service" . }}
+  {{- include "common.deployment" . }}
