@@ -14,7 +14,7 @@ commonAnnotations: {}
 # commonLabels to be added to all resources (sub-charts are not considered). Evaluated as a template
 commonLabel: {}
 
-# Number of replicas
+# replicatCount is the number of replicas
 replicaCount: 1
 
 image:
