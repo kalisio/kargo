@@ -35,10 +35,10 @@ spec:
               containerPort: 8080
           volumeMounts:
             - mountPath: /usr/local/tomcat/conf/
-              readOnly: true
+              readOnly: false
               name: tomcat-config          
             - mountPath: /usr/local/tomcat/content/thredds
-              readOnly: true
+              readOnly: false
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
               subPath: {{ .Values.publicDataSubPath }}

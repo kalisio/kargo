@@ -30,13 +30,18 @@ spec:
                 - name: CRON
                   value: "" 
               {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
-              {{- if .Values.volumeMounts }}
+              {{- if .Values.dataVolume }}
               volumeMounts:
-                {{- include "common.tplvalues.render" ( dict "value" .Values.volumeMounts "context" $ ) | nindent 14 }}
+                - mountPath: /data
+                  name: job-data
+                  {{- if .Values.dataSubPath }}
+                  subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
+                  {{- end }}
               {{- end }}
           restartPolicy: Never
-          {{- if .Values.volumes }}
+          {{- if .Values.dataVolume }}
           volumes:
-            {{- include "common.tplvalues.render" ( dict "value" .Values.volumes "context" $ ) | nindent 10 }}
+            - name: job-data
+              {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
           {{- end }}
 {{- end -}}
