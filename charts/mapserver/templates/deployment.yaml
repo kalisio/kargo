@@ -46,8 +46,8 @@ spec:
             - mountPath: /mnt/data
               readOnly: true
               name: mapserver-data
-              {{- if .Values.dataMount }}
-              {{- include "common.tplvalues.render" ( dict "value" .Values.dataMount "context" $ ) | nindent 14 }}
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
       volumes:
         - name: mapserver-config

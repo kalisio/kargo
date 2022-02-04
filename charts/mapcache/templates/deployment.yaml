@@ -45,8 +45,8 @@ spec:
               name: mapcache-config
             - mountPath: /mnt/data
               name: mapcache-data
-              {{- if .Values.dataMount }}
-              {{- include "common.tplvalues.render" ( dict "value" .Values.dataMount "context" $ ) | nindent 14 }}
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
       volumes:
         - name: mapcache-config

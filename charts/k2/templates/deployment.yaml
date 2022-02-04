@@ -34,8 +34,8 @@ spec:
             - mountPath: /mbtiles
               readOnly: true
               name: k2-data
-              {{- if .Values.dataMount }}
-              {{- include "common.tplvalues.render" ( dict "value" .Values.dataMount "context" $ ) | nindent 14 }}
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
           livenessProbe:
             httpGet:
