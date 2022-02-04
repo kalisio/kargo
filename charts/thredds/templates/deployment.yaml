@@ -54,8 +54,9 @@ spec:
             - name: {{ include "common.names.name" . }}
               containerPort: 8080
           volumeMounts:
-            - mountPath: /usr/local/tomcat/conf/
+            - mountPath: /usr/local/tomcat/conf/web.xml
               name: tomcat-config
+              subPath: web.xml
             - mountPath: /usr/local/tomcat/content/thredds
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
