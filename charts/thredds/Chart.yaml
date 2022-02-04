@@ -14,7 +14,7 @@ home: https://www.unidata.ucar.edu/software/tds/current/
 dependencies:
   - name: common
     version: 0.1.0
-    repository: '@kalisio'
+    repository: file://../common
 maintainers:
   - name: KALISIO
     email: contact@kalisio.com

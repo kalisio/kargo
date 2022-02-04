@@ -12,7 +12,7 @@ keywords:
 dependencies:
   - name: common
     version: 0.1.0
-    repository: file://../common    
+    repository: file://../common
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
