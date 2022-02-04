@@ -18,7 +18,7 @@ CHARTS=$ONLY_CHART
 if [ -z "$ONLY_CHART" ]; then
   CHARTS=`ls charts`
   OPTIONS="--version 0.0.0-dev"
-elif
+else
   CHARTS=$ONLY_CHART
   OPTIONS=""
 fi
