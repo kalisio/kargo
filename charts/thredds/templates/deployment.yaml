@@ -25,6 +25,8 @@ spec:
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 8080
@@ -36,10 +38,12 @@ spec:
               readOnly: true
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
+              subPath: {{ .Values.publicDataSubPath }}
               readOnly: false
               name: thredds-data
             - mountPath: /usr/local/tomcat/content/thredds/cache
-              readOnly: false
+              subPath: {{ .Values.cacheDataSubPath }}
+              readOnly: false              
               name: thredds-cache              
       volumes:
         - name: tomcat-config
@@ -57,10 +61,6 @@ spec:
         - name: thredds-data
           {{- if .Values.dataVolume }}
           {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
-          {{- end }}
-        - name: thredds-cache
-          {{- if .Values.cacheVolume }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.cacheVolume "context" $ ) | nindent 10 }}
           {{- end }}
         {{- if .Values.envsubstConfig }}
         {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}

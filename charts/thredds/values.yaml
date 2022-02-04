@@ -33,18 +33,36 @@ ingress:
   className: nginx
 
 env:
-  # meteoFrance FTP credentials
-  threddsXmxSize: 
-  threddsXmsSize: 
-  
-volumeMounts:
-  - mountPath: /data
-    readOnly: false
-    name: nas
-    subPath: "thredds/data/mf-arpege-01"
+  # xmxSize is the maximum memory allocation pool for the Java Virtual Machine
+  xmxSize: 
+  # xmxSize is the initial memory allocation pool for the Java Virtual Machine
+  xmsSize: 
+  # tomcatUserId is the user Id to be used to run this TomCat container
+  tomcatUserId: 
+  # tomcatGroupId is the user Id to be used to run this TomCat container
+  tomcatGroupId:
 
-volumes:
-  - name: nas
-    nfs:
-      server: 10.201.31.124
-      path: /zpool-128564/k8sc3xplanetdev
+# tomcatConfigVolume is the specification for the volume where the TomCat config lies
+tomcatConfigVolume: {}
+#  configMap:
+#    name: '{{ include "common.names.fullname" $ }}-tomcat-config'
+
+# configVolume is the specification for the volume where the config lies
+configVolume: {}
+#  configMap:
+#    name: '{{ include "common.names.fullname" $ }}-config'
+
+# dataVolume is the specification for the volume where the data lies
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+# publicDataSubPath is the sub path to the public data in the data volume
+publicDataSubPath: thredds_data/public
+
+# cacheDataSubPath is the sub path to the public data in the data volume
+cacheDataSubPath: thredds_data/cache
+
+
