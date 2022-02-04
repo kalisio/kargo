@@ -51,7 +51,9 @@ spec:
               {{- end }}
       volumes:
         - name: tileservergl-config
-          {{- if .Values.configVolume }}
+          {{- if .Values.rcloneConfig }}
+          emptyDir: {}
+          {{- else if .Values.configVolume }}
           {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
           {{- end }}
         - name: tileservergl-data
