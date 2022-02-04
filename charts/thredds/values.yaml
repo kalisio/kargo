@@ -42,15 +42,11 @@ env:
   # tomcatGroupId is the user Id to be used to run this TomCat container
   # TODO tomcatGroupId:
 
-# tomcatConfigVolume is the specification for the volume where the TomCat config lies
-tomcatConfigVolume: {}
-#  configMap:
-#    name: '{{ include "common.names.fullname" $ }}-thredds-tomcat-config'
+# tomcatConfigMapName is the name of the config map with all the tomcat config
+tomcatConfigMapName: ""
 
-# configVolume is the specification for the volume where the config lies
-configVolume: {}
-#  configMap:
-#    name: '{{ include "common.names.fullname" $ }}-thredds-config'
+# configMapName is the name of the config map with all the thredds config
+configMapName: ""
 
 # dataVolume is the specification for the volume where the data lies
 dataVolume: {}
