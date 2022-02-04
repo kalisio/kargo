@@ -16,7 +16,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 # Define the chart list
 CHARTS=$ONLY_CHART
 if [ -z "$CHARTS" ]; then
-  CHARTS= `ls charts`
+  CHARTS=`ls charts`
 fi
 
 # Pack the charts
