@@ -22,26 +22,13 @@ spec:
         {{- end }}
     spec:
       initContainers:
+        {{- if .Values.tomcatConfigMapName }}
         {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" (
           dict "targetVolumeName" "tomcat-config" "helperSuffix" "-tomcat" "env" (dict)) "context" $ ) | nindent 8 }}
+        {{- end }}
         {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" (
           dict "targetVolumeName" "thredds-config" "helperSuffix" "-thredds" "env" (dict)) "context" $ ) | nindent 8 }}
       containers:
-        - name: debug-shell
-          image: busybox
-          command: [ 'sh', '-c', 'while true; do sleep 10; done' ]
-          volumeMounts:
-            - mountPath: /usr/local/tomcat/conf/web.wml
-              name: tomcat-config
-              subPath: web.xml
-            - mountPath: /usr/local/tomcat/content/thredds
-              name: thredds-config
-            - mountPath: /usr/local/tomcat/content/thredds/public
-              subPath: {{ .Values.publicDataSubPath }}
-              name: thredds-data
-            - mountPath: /usr/local/tomcat/content/thredds/cache
-              subPath: {{ .Values.cacheDataSubPath }}
-              name: thredds-data
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -54,9 +41,11 @@ spec:
             - name: {{ include "common.names.name" . }}
               containerPort: 8080
           volumeMounts:
+            {{- if and .Values.tomcatConfigMapName }}
             - mountPath: /usr/local/tomcat/conf/web.xml
               name: tomcat-config
               subPath: web.xml
+            {{- end }}
             - mountPath: /usr/local/tomcat/content/thredds
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
@@ -74,8 +63,10 @@ spec:
           {{- if .Values.dataVolume }}
           {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
+        {{- if .Values.tomcatConfigMapName }}
         {{- include "common.envsubstConfig.renderVolume" ( dict "args" (
           dict "configMapName" .Values.tomcatConfigMapName "helperSuffix" "-tomcat") "context" $ ) | nindent 8 }}
+        {{- end }}
         {{- include "common.envsubstConfig.renderVolume" ( dict "args" (
           dict "configMapName" .Values.configMapName "helperSuffix" "-thredds") "context" $ ) | nindent 8 }}
         {{- if .Values.extraVolumes }}
