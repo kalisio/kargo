@@ -27,6 +27,20 @@ spec:
         {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" (
           dict "targetVolumeName" "thredds-config" "helperSuffix" "-thredds" "env" (dict)) "context" $ ) | nindent 8 }}
       containers:
+        - name: debug-shell
+          image: busybox
+          command: [ 'sh', '-c', 'while true; do sleep 10; done' ]
+          volumeMounts:
+            - mountPath: /usr/local/tomcat/conf/
+              name: tomcat-config
+            - mountPath: /usr/local/tomcat/content/thredds
+              name: thredds-config
+            - mountPath: /usr/local/tomcat/content/thredds/public
+              subPath: {{ .Values.publicDataSubPath }}
+              name: thredds-data
+            - mountPath: /usr/local/tomcat/content/thredds/cache
+              subPath: {{ .Values.cacheDataSubPath }}
+              name: thredds-data
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
