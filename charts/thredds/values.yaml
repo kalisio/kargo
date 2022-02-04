@@ -34,13 +34,13 @@ ingress:
 
 env:
   # xmxSize is the maximum memory allocation pool for the Java Virtual Machine
-  xmxSize: 
+  xmxSize: "4G"
   # xmxSize is the initial memory allocation pool for the Java Virtual Machine
-  xmsSize: 
+  xmsSize: "4G"
   # tomcatUserId is the user Id to be used to run this TomCat container
-  tomcatUserId: 
+  # TODO tomcatUserId: 
   # tomcatGroupId is the user Id to be used to run this TomCat container
-  tomcatGroupId:
+  # TODO tomcatGroupId:
 
 # tomcatConfigVolume is the specification for the volume where the TomCat config lies
 tomcatConfigVolume: {}

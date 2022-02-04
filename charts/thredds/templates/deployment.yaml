@@ -26,12 +26,15 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: HTTP_PROXY
+            - name: HTTPS_PROXY
+            - name: NO_PROXY
             {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 8080
           volumeMounts:
-            - mountPath: /usr/local/tomcat/conf
+            - mountPath: /usr/local/tomcat/conf/
               readOnly: true
               name: tomcat-config          
             - mountPath: /usr/local/tomcat/content/thredds
@@ -44,7 +47,7 @@ spec:
             - mountPath: /usr/local/tomcat/content/thredds/cache
               subPath: {{ .Values.cacheDataSubPath }}
               readOnly: false              
-              name: thredds-cache              
+              name: thredds-data
       volumes:
         - name: tomcat-config
           {{- if .Values.envsubstConfig }}
