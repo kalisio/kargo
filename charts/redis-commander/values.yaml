@@ -37,6 +37,4 @@ containerPort: 8081
 
 env:
   # redisHosts specifies the redis connection string
-  redisHosts:
-    secret: ""
-    key: ""
+  redisHosts: ""
