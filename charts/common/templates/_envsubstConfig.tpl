@@ -1,7 +1,8 @@
 {{/*
-Renders an object that contains a list of key/value properties that can be transformed into environement variables
-Usage:
-{{ include "common.envsubstConfig.renderInitContainer" . }}
+Builds an initContainer definition to perform envsubst on a configMap and store the result to some other volume.
+@param .context                 The caller's context
+@param .args.env                An object with key-value pairs to define environment variables
+@param .args.targetVolumeName   The target volume where to copy the configMap content
 */}}
 {{- define "common.envsubstConfig.renderInitContainer" -}}
 - name: envsubst-config
@@ -9,7 +10,7 @@ Usage:
   command:
     - find
     - -L
-    - /templated
+    - /source
     - '('
     - -type
     - f
@@ -19,31 +20,30 @@ Usage:
     - ')'
     - '!'
     - -path
-    - /templated/..*
+    - /source/..*
     - -exec
     - sh
     - -c
-    - OUT_FILE=$(echo "$0" | sed -e "s#^/templated#/rendered#") && OUT_DIR=$(dirname "$OUT_FILE") && mkdir -p "$OUT_DIR" && envsubst < "$0" > "$OUT_FILE"
-#    - OUT_FILE=$(echo "$0" | sed -e "s#^/templated#/rendered#") && OUT_DIR=$(dirname "$OUT_FILE") && echo "$OUT_DIR" && echo "$0" && echo "$OUT_FILE"
+    - OUT_FILE=$(echo "$0" | sed -e "s#^/source#/target#") && OUT_DIR=$(dirname "$OUT_FILE") && mkdir -p "$OUT_DIR" && envsubst < "$0" > "$OUT_FILE"
     - '{}'
     - ';'
   env:
     {{- include "common.environment.render" (dict "env" .args.env "context" .context) | indent 4 }}
   volumeMounts:
-    - mountPath: /templated
-      name: envsubst-template-config
+    - mountPath: /source
+      name: envsubst-config-source-config
       readOnly: true
-    - mountPath: /rendered
-      name: {{ .args.renderedVolumeName }}
+    - mountPath: /target
+      name: {{ .args.targetVolumeName }}
 {{- end -}}
 
 {{/*
-Renders an object that contains a list of key/value properties that can be transformed into environement variables
-Usage:
-{{ include "common.envsubstConfig.renderVolume" . }}
+Builds a volume definition that should be used with common.envsubstConfig.renderInitContainer
+@param .context                 The caller's context
+@param .args.configMapName      The configMap to use as source for the copy
 */}}
 {{- define "common.envsubstConfig.renderVolume" -}}
-- name: envsubst-template-config
+- name: envsubst-config-source-config
   configMap:
     name: {{ include "common.tplvalues.render" ( dict "value" .args.configMapName "context" .context ) }}
 {{- end -}}
