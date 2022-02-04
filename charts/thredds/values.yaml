@@ -45,12 +45,12 @@ env:
 # tomcatConfigVolume is the specification for the volume where the TomCat config lies
 tomcatConfigVolume: {}
 #  configMap:
-#    name: '{{ include "common.names.fullname" $ }}-tomcat-config'
+#    name: '{{ include "common.names.fullname" $ }}-thredds-tomcat-config'
 
 # configVolume is the specification for the volume where the config lies
 configVolume: {}
 #  configMap:
-#    name: '{{ include "common.names.fullname" $ }}-config'
+#    name: '{{ include "common.names.fullname" $ }}-thredds-config'
 
 # dataVolume is the specification for the volume where the data lies
 dataVolume: {}
