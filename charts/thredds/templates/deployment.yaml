@@ -31,8 +31,9 @@ spec:
           image: busybox
           command: [ 'sh', '-c', 'while true; do sleep 10; done' ]
           volumeMounts:
-            - mountPath: /usr/local/tomcat/conf/
+            - mountPath: /usr/local/tomcat/conf/web.wml
               name: tomcat-config
+              subPath: web.xml
             - mountPath: /usr/local/tomcat/content/thredds
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
