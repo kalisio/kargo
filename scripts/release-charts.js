@@ -7,7 +7,7 @@ const simpleGit = require("simple-git")
 const git = simpleGit.default()
 
 
-function processChart (update, chart) {
+async function processChart (update, chart) {
   const chartFile = path.join(chart, 'Chart.yaml')
   const content = yaml.load(fs.readFileSync(chartFile, 'utf8'))
   let versionArray = content.version.split('.')
@@ -28,6 +28,7 @@ function processChart (update, chart) {
   content.version = versionString
   fs.writeFileSync(chartFile, yaml.dump(content))
   console.log(`Bump %s version to %s`, chart, versionString)
+  await git.commit()
 }
 
 async function processChartGlob (update, pattern) {
@@ -39,7 +40,7 @@ async function processChartGlob (update, pattern) {
     const ok = await yesno({
       question: 'Are you sure you want to continue ?'
     })
-    if (ok) charts.forEach(chart => processChart(update, chart))
+    if (ok) for (let i = 0; i < charts.length; i++) await processChart(update, charts[i])
   }
 }
 
