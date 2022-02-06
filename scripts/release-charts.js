@@ -28,7 +28,7 @@ async function processChart (update, chart) {
   content.version = versionString
   fs.writeFileSync(chartFile, yaml.dump(content))
   console.log(`Bump %s version to %s`, chart, versionString)
-  await git.commit()
+  await git.commit(`chore: bump %s version to %s [pack %s]`, chart, versionString, chart)
 }
 
 async function processChartGlob (update, pattern) {
@@ -46,10 +46,10 @@ async function processChartGlob (update, pattern) {
 
 async function execute (update, pattern) {
   const status = await git.status()
-  if (!status.isClean()) {
+ /* if (!status.isClean()) {
     console.error('Git status is not clean ! Please clean it.')
     return
-  }
+  } */
   processChartGlob(update, pattern)
 }
 

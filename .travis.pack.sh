@@ -1,7 +1,12 @@
 #!/bin/bash
 set -euxo pipefail
 
-ONLY_CHART=${1:-}
+COMMIT_MESSAGE=$1
+REGEXP=".*\[pack ([^[:space:]]+)\]"
+
+if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
+  ONLY_CHART=${BASH_REMATCH[1]}
+fi
 
 # Configure rclone
 mkdir -p $HOME/.config/rclone
@@ -14,7 +19,6 @@ rclone copy s3-host:/kalisio-charts repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # Define the chart list
-CHARTS=$ONLY_CHART
 if [ -z "$ONLY_CHART" ]; then
   CHARTS=`ls charts`
   OPTIONS="--version 0.0.0-dev"
