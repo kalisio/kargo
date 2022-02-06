@@ -4,8 +4,13 @@ set -euxo pipefail
 COMMIT_MESSAGE=$1
 REGEXP=".*\[pack ([^[:space:]]+)\]"
 
+# Check whether to pack all charts in dev or pack only one chart with the true version
 if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
-  ONLY_CHART=${BASH_REMATCH[1]}
+  CHARTS=${BASH_REMATCH[1]}
+  OPTIONS=""
+else
+  OCHARTS=`ls charts`
+  OPTIONS="--version 0.0.0-dev"
 fi
 
 # Configure rclone
@@ -17,15 +22,6 @@ rclone copy s3-host:/kalisio-charts repo
 
 # Declare the external repos
 helm repo add bitnami https://charts.bitnami.com/bitnami
-
-# Define the chart list
-if [ -z "$ONLY_CHART" ]; then
-  CHARTS=`ls charts`
-  OPTIONS="--version 0.0.0-dev"
-else
-  CHARTS=$ONLY_CHART
-  OPTIONS=""
-fi
 
 # Pack the charts
 for CHART in `ls charts`; do
