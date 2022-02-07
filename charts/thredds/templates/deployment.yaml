@@ -39,6 +39,8 @@ spec:
             {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
               containerPort: 8080
           volumeMounts:
             {{- if and .Values.tomcatConfigMapName }}

@@ -39,6 +39,8 @@ spec:
           ports:
             - name: {{ include "common.names.name" . }}
               containerPort: 80
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /data
               readOnly: true

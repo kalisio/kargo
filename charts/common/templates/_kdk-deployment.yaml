@@ -69,4 +69,6 @@ spec:
               port: {{ include "common.names.name" . }}
             initialDelaySeconds: 60
             periodSeconds: 15
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
 {{- end }}

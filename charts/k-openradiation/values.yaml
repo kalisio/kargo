@@ -31,3 +31,5 @@ env:
   ttl: "2592000"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
+
+resources: {}

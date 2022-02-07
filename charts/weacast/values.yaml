@@ -57,3 +57,6 @@ env:
   logLevel: ""
   # String to define the list of backend modules for which the output is enabled
   debug: ""
+
+# resources are resource requests and limits to be applied
+resources: {}

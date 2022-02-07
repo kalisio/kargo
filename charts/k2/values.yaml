@@ -27,6 +27,9 @@ service:
 env:
   # debug specifies the list of namespaces to enable debug output
   debug: ""
+  
+# resources are resource requests and limits to be applied
+resources: {}
 
 # dataSubPath is the subpath in the the dataVolume to mount
 dataSubPath: ""
@@ -40,3 +43,4 @@ dataVolume: {}
 
 # extraVolumes are additional volumes to add to the deployment
 extraVolumes: {}
+

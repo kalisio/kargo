@@ -31,3 +31,6 @@ service:
 ingress:
   enabled: true
   className: nginx
+
+# resources are resource requests and limits to be applied
+resources: {}

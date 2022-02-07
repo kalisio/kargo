@@ -46,3 +46,6 @@ extraVolumes: {}
 
 # initContainers are init container  to add to the deployment
 initContainers: {}
+
+# resources are resource requests and limits to be applied
+resources: {}

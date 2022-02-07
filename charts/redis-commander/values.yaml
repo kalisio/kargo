@@ -38,3 +38,6 @@ containerPort: 8081
 env:
   # redisHosts specifies the redis connection string
   redisHosts: ""
+
+# resources are resource requests and limits to be applied
+resources: {}

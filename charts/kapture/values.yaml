@@ -37,3 +37,6 @@ env:
   kanoUrl: "http://apps-kano:8081"
   # kanoJwt is the JWT to be authenticated to Kano
   kanoJwt: ""
+
+# resources are resource requests and limits to be applied
+resources: {}

@@ -47,7 +47,9 @@ spec:
               path: /healthcheck
               port: {{ include "common.names.name" . }}
             initialDelaySeconds: 30
-            periodSeconds: 15              
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: k2-data
           {{- if .Values.dataVolume }}

@@ -33,3 +33,6 @@ ingress:
 
 # containerPort is the port used by the the container
 containerPort: 8888
+
+# resources are resource requests and limits to be applied
+resources: {}

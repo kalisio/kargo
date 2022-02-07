@@ -37,3 +37,6 @@ dataVolume: {}
 #    server: "host or ip"
 #    path: "/zpool-foo/partition"
 #    readOnly: true
+
+# resources are resource requests and limits to be applied
+resources: {}

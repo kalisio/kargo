@@ -38,6 +38,8 @@ spec:
                   subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
                   {{- end }}
               {{- end }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
           restartPolicy: Never
           {{- if .Values.dataVolume }}
           volumes:

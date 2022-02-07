@@ -43,3 +43,5 @@ env:
   # meConfigMongodbEnableAdmin enables administrator access
   meConfigMongodbEnableAdmin: "true"
   
+# resources are resource requests and limits to be applied
+resources: {}

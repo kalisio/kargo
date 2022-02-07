@@ -41,3 +41,6 @@ env:
   upperLimit: "86400"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
+
+# resources are resource requests and limits to be applied
+resources: {}

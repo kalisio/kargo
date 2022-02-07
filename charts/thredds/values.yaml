@@ -61,4 +61,5 @@ publicDataSubPath: thredds_data/public
 # cacheDataSubPath is the sub path to the public data in the data volume
 cacheDataSubPath: thredds_data/cache
 
-
+# resources are resource requests and limits to be applied
+resources: {}
