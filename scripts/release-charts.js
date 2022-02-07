@@ -28,12 +28,14 @@ async function processChart (update, chart) {
   content.version = versionString
   fs.writeFileSync(chartFile, yaml.dump(content))
   console.log(`Bump %s version to %s`, path.basename(chart), versionString)
-  console.log(await git.commit(`chore: bump ${chart} version to ${versionString} [pack ${path.basename(chart)}]`))
-  console.log(await git.push())
+  await git.add(chartFile)
+  await git.commit(`chore: bump ${chart} version to ${versionString} [pack ${path.basename(chart)}]`)
+  await git.push()
 }
 
-async function processChartGlob (update, pattern) {
-  const charts = glob.sync(pattern)
+async function processChartGlob (update, chartDir, charPattern) {
+  const globPattern = path.join(chartDir, charPattern)
+  const charts = glob.sync(globPattern)
   if (charts.length === 0) {
     console.error('No charts found. Have you defined a correct pattern ?')
   } else {
@@ -49,15 +51,4 @@ async function processChartGlob (update, pattern) {
   }
 }
 
-async function execute (update, pattern) {
-  const status = await git.status()
- /* if (!status.isClean()) {
-    console.error('Git status is not clean ! Please clean it.')
-    return
-  } */
-  processChartGlob(update, pattern)
-}
-
-
-execute(process.argv[2], path.join('charts', process.argv[3]))
-//console.log(helmVersion(process.argv[2], process.argv[3]));
+processChartGlob(process.argv[2], process.argv[3], process.argv[4])

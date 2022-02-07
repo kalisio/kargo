@@ -4,12 +4,14 @@ set -euxo pipefail
 COMMIT_MESSAGE=$1
 REGEXP=".*\[pack ([^[:space:]]+)\]"
 
+echo $COMMIT_MESSAGE
+
 # Check whether to pack all charts in dev or pack only one chart with the true version
 if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
   CHARTS=${BASH_REMATCH[1]}
   OPTIONS=""
 else
-  OCHARTS=`ls charts`
+  CHARTS=`ls charts`
   OPTIONS="--version 0.0.0-dev"
 fi
 

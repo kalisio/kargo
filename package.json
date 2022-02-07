@@ -12,9 +12,9 @@
     "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force minor",
     "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force patch",
     "postversion": "git push origin --tags",
-    "release:charts:major": "node scripts/release-charts major",
-    "release:charts:minor": "node scripts/release-charts minor",
-    "release:charts:patch": "node scripts/release-charts patch"
+    "release:charts:major": "node scripts/release-charts major charts",
+    "release:charts:minor": "node scripts/release-charts minor charts",
+    "release:charts:patch": "node scripts/release-charts patch charts"
   },
   "devDependencies": {
     "generate-changelog": "^1.7.1",
