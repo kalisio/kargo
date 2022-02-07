@@ -39,9 +39,22 @@ spec:
             {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
             - name: {{ include "common.names.name" . }}
+              containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: {{ include "common.names.name" . }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: thredds/catalog.html
+              port: {{ include "common.names.name" . }}
+            initialDelaySeconds: 60
+            periodSeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-              containerPort: 8080
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             {{- if and .Values.tomcatConfigMapName }}
             - mountPath: /usr/local/tomcat/conf/web.xml
