@@ -27,8 +27,9 @@ async function processChart (update, chart) {
   const versionString = versionArray.join('.')
   content.version = versionString
   fs.writeFileSync(chartFile, yaml.dump(content))
-  console.log(`Bump %s version to %s`, chart, versionString)
-  await git.commit(`chore: bump %s version to %s [pack %s]`, chart, versionString, chart)
+  console.log(`Bump %s version to %s`, path.basename(chart), versionString)
+  console.log(await git.commit(`chore: bump ${chart} version to ${versionString} [pack ${path.basename(chart)}]`))
+  console.log(await git.push())
 }
 
 async function processChartGlob (update, pattern) {
@@ -36,7 +37,11 @@ async function processChartGlob (update, pattern) {
   if (charts.length === 0) {
     console.error('No charts found. Have you defined a correct pattern ?')
   } else {
-    console.log('Found the following charts:\n', charts.join('\n '))
+    console.log('Found the following charts:')
+    charts.forEach(chart => {
+      chart = path.basename(chart)
+      console.log(' ', chart)
+    })
     const ok = await yesno({
       question: 'Are you sure you want to continue ?'
     })
