@@ -1,8 +1,10 @@
 apiVersion: v2
 name: k-hubeau-observations
-description: A Krawler based service to download observations data from French open portal Hub'Eau
-version: 0.1.0
-appVersion: "observations-1.2.0"
+description: >-
+  A Krawler based service to download observations data from French open portal
+  Hub'Eau
+version: 0.2.0
+appVersion: observations-1.2.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
   category: KrawlerJob
@@ -12,7 +14,7 @@ keywords:
 dependencies:
   - name: common
     version: 0.1.0
-    repository: file://../common  
+    repository: file://../common
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
