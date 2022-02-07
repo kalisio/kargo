@@ -29,8 +29,6 @@ async function processChart (update, chart) {
   fs.writeFileSync(chartFile, yaml.dump(content))
   console.log(`Bump %s version to %s`, path.basename(chart), versionString)
   await git.add(chartFile)
-  await git.commit(`chore: bump ${chart} version to ${versionString} [pack ${path.basename(chart)}]`)
-  await git.push()
 }
 
 async function processChartGlob (update, chartDir, charPattern) {
@@ -47,7 +45,11 @@ async function processChartGlob (update, chartDir, charPattern) {
     const ok = await yesno({
       question: 'Are you sure you want to continue ?'
     })
-    if (ok) for (let i = 0; i < charts.length; i++) await processChart(update, charts[i])
+    if (ok) for (let i = 0; i < charts.length; i++) {
+      await processChart(update, charts[i])
+      await git.commit(`chore: bump charts version to ${versionString} [pack ${path.basename(chart)}]`)
+      await git.push()
+    }
   }
 }
 
