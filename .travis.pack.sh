@@ -24,7 +24,7 @@ rclone copy s3-host:/kalisio-charts repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # Pack the charts
-for CHART in `ls charts`; do
+for CHART in $CHARTS; do
   echo -e "\n[KARGO] processing chart $CHART"
   helm dependencies update charts/$CHART
   helm lint charts/$CHART
