@@ -47,7 +47,7 @@ jobs:
     - cd rclone-*-linux-amd64 && sudo cp rclone /usr/bin/ && cd ..
     - sudo chown root:root /usr/bin/rclone
     - sudo chmod +x /usr/bin/rclone
-    script: bash .travis.pack.sh $TRAVIS_COMMIT_MESSAGE
+    script: bash .travis.pack.sh "$TRAVIS_COMMIT_MESSAGE"
 
   - stage: DOC
     language: node_js
