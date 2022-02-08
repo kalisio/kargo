@@ -12,7 +12,7 @@ Builds an initContainer using rclone to pull an archive of the config from an ob
   command:
     - sh
     - -c
-    - SRC_FILE=$(basename {{ $source }}) && cd /target && rclone copy {{ $source }} . --progress && tar -xf "$SRC_FILE" && rm "$SRC_FILE"
+    - SRC_FILE=$(basename {{ $source }}) && cd /target && echo "Rcloning from {{ $source }} ..." && rclone copy {{ $source }} . --progress && tar -xf "$SRC_FILE" && rm "$SRC_FILE"
   volumeMounts:
     - mountPath: /config/rclone/rclone.conf
       name: rclone-config

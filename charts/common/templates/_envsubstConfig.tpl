@@ -25,7 +25,7 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
     - -exec
     - sh
     - -c
-    - OUT_FILE=$(echo "$0" | sed -e "s#^/source#/target#") && OUT_DIR=$(dirname "$OUT_FILE") && mkdir -p "$OUT_DIR" && envsubst < "$0" > "$OUT_FILE"
+    - OUT_FILE=$(echo "$0" | sed -e "s#^/source#/target#") && OUT_DIR=$(dirname "$OUT_FILE") && mkdir -p "$OUT_DIR" && echo "Running envsubst on $OUT_FILE ..." && envsubst < "$0" > "$OUT_FILE"
     - '{}'
     - ';'
   env:
