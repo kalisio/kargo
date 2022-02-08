@@ -1,6 +1,6 @@
-{{- if not (hasKey .Values "localCache") }}
+{{- if hasKey .Values "localCache" }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "common.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
@@ -13,6 +13,7 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "common.names.fullname" . }}
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
@@ -26,6 +27,45 @@ spec:
         {{- if .Values.envsubstConfig }}
         {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
+        # seed local caches
+        # script runs with root privileges, so we fix permissions after that
+        {{- if .Values.localCache.seedLayers }}
+        - name: seed-local-cache
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - sh
+            - -c
+            - if [ $(hostname | awk -F '-' '{ print $NF }') -eq 0 ]; then for LAYER in {{ .Values.localCache.seedLayers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.localCache.fromZ }},{{ .Values.localCache.toZ }} -n 8; done; fi
+          volumeMounts:
+            - mountPath: /etc/mapcache
+              readOnly: true
+              name: mapcache-config
+            - mountPath: /mnt/data
+              name: local-cache
+        - name: rclone-local-cache
+          image: rclone/rclone
+          command:
+            - sh
+            - -c
+            - if [ $(hostname | awk -F '-' '{ print $NF }') -eq 0 ]; then cd /cache && tar -cf /scratch/{{ .Release.Namespace }}-mapcache-local-cache.tar . && rclone copy /scratch/{{ .Release.Namespace }}-mapcache-local-cache.tar kaptain:helm-volatile --progress; else cd /cache && rclone copy kaptain:helm-volatile/{{ .Release.Namespace }}-mapcache-local-cache.tar /scratch --progress && tar xf /scratch/{{ .Release.Namespace }}-mapcache-local-cache.tar; fi
+          volumeMounts:
+            - mountPath: /cache
+              name: local-cache
+            - mountPath: /scratch
+              name: scratch-space
+            - mountPath: /config/rclone/rclone.conf
+              name: rclone-config
+              subPath: rclone.conf
+              readOnly: true
+        {{- end }}
+        # fix permissions on volume where is located local cache
+        # www-data:www-data as numeric ids is 33:33
+        - name: fix-local-cache-owner
+          image: busybox
+          command: [ 'chown', '-R', '33:33', '/cache' ]
+          volumeMounts:
+            - mountPath: /cache
+              name: local-cache
         {{- if .Values.initContainers }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.initContainers "context" $ ) | nindent 8 }}
         {{- end }}
@@ -47,10 +87,7 @@ spec:
               readOnly: true
               name: mapcache-config
             - mountPath: /mnt/data
-              name: mapcache-data
-              {{- if .Values.dataSubPath }}
-              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
-              {{- end }}
+              name: local-cache
       volumes:
         - name: mapcache-config
           {{- if .Values.envsubstConfig }}
@@ -58,14 +95,25 @@ spec:
           {{- else if .Values.configVolume }}
           {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
           {{- end }}
-        - name: mapcache-data
-          {{- if .Values.dataVolume }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
-          {{- end }}
         {{- if .Values.envsubstConfig }}
         {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
+        {{- end }}
+        {{- if .Values.localCache.seedLayers }}
+        - name: rclone-config
+          secret:
+            secretName: {{ .Release.Namespace }}-rclone-config
+        - name: scratch-space
+          emptyDir: {}
         {{- end }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: local-cache
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.localCache.size }}
 {{- end }}
