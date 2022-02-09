@@ -1,8 +1,8 @@
 apiVersion: v2
 name: k2
 description: 3D terrain tiles server
-version: 0.0.0
-appVersion: "0.2.0"
+version: 0.1.0
+appVersion: 0.2.0
 home: https://github.com/kalisio/k2
 annotations:
   category: Service
@@ -15,7 +15,7 @@ keywords:
 dependencies:
   - name: common
     version: 0.1.0
-    repository: file://../common    
+    repository: file://../common
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
