@@ -1,8 +1,8 @@
 apiVersion: v2
 name: kapp
 description: Kalisio Application template
-version: 0.0.0
-appVersion: "dev"
+version: 0.1.0
+appVersion: dev
 home: https://github.com/kalisio/kApp
 annotations:
   category: application
@@ -13,7 +13,7 @@ keywords:
 dependencies:
   - name: common
     version: 0.1.0
-    repository: file://../common  
+    repository: file://../common
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
