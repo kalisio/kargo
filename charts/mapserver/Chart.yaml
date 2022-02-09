@@ -1,9 +1,11 @@
 apiVersion: v2
 name: mapserver
-description: An Open Source platform for publishing spatial data and interactive mapping applications to the web
+description: >-
+  An Open Source platform for publishing spatial data and interactive mapping
+  applications to the web
 annotations:
   category: ows
-version: 0.1.0
+version: 0.2.0
 keywords:
   - mapserver
 home: https://mapserver.org/
