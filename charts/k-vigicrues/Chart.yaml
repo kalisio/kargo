@@ -1,7 +1,7 @@
 apiVersion: v2
 name: k-vigicrues
 description: A Krawler based service to download data from French flood warning system Vigicrues
-version: 0.1.0
+version: 0.0.0
 appVersion: "1.4.0"
 home: https://github.com/kalisio/k-vigicrues
 annotations:
