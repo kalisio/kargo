@@ -33,7 +33,10 @@ ingress:
   className: nginx
 
 # containerPort is the port used by the the container
-containerPort: 80
+containerPort: 8080
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: /auth/login
 
 env:
   # appFullBaseUrl
