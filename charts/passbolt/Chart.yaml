@@ -1,0 +1,21 @@
+apiVersion: v2
+name: passbolt
+description: An open source password manager build for collaboration
+annotations:
+  category: sys
+version: 0.1.0
+appVersion: 3.5.0
+keywords:
+  - passbolt
+  - password
+sources:
+  - https://github.com/passbolt/passbolt_api
+home: https://www.passbolt.com
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

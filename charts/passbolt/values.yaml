@@ -1,0 +1,46 @@
+# passbolt default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: passbolt/passbolt
+  tag: "3.5.0-ce-non-root"
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 443
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx
+
+env:
+  # appFullBaseUrl
+  appFullBaseUrl: "http://passbolt.{{ .Values.global.subdomain }}"
+  datasourcesDefaultHost: ""
+  datasourcesDefaultDatabase: ""
+  datasourcesDefaultUsername: ""
+  datasourcesDefaultPassword:
+    secret: ""
+    key: ""
+
+# resources are resource requests and limits to be applied
+resources: {}
