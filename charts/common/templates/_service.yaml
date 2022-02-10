@@ -21,7 +21,7 @@ spec:
   ports:
     - name: {{ include "common.names.name" . }}
       port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort | default .Values.service.port }}
+      targetPort: {{ .Values.containerPort | default .Values.service.port }}
       protocol: {{ .Values.service.protocol | default "TCP" }}
     {{- if .Values.service.extraPorts }}
     {{- include "common.tplvalues.render" (dict "value" .Values.service.extraPorts "context" $) | nindent 4 }}
