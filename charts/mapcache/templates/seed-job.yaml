@@ -1,0 +1,66 @@
+{{- if .Values.seedJob.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "common.names.fullname" . }}-seed-job
+  namespace: {{ .Release.Namespace }}
+spec:
+  suspend: true
+  schedule: '0 1 * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          # ttlSecondsAfterFinished: 120
+          restartPolicy: Never
+          initContainers:
+            {{- if .Values.envsubstConfig }}
+            {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
+            {{- end }}
+            - name: seed-local-cache
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              command:
+                - sh
+                - -c
+                - for LAYER in {{ .Values.seedJob.layers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.seedJob.fromZ }},{{ .Values.seedJob.toZ }} -n {{ .Values.seedJob.threadCount }}; done
+              volumeMounts:
+                - mountPath: /etc/mapcache
+                  readOnly: true
+                  name: mapcache-config
+                - mountPath: /mnt/data
+                  name: mapcache-cache
+          containers:
+            - name: rclone-local-cache
+              image: rclone/rclone
+              command:
+                - sh
+                - -c
+                - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && cd /cache && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
+              volumeMounts:
+                - mountPath: /cache
+                  name: mapcache-cache
+                - mountPath: /scratch
+                  name: scratch-space
+                - mountPath: /config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+          volumes:
+            - name: mapcache-config
+              {{- if .Values.envsubstConfig }}
+              emptyDir: {}
+              {{- else if .Values.configVolume }}
+              {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 14 }}
+              {{- end }}
+            {{- if .Values.envsubstConfig }}
+            {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
+            {{- end }}
+            - name: mapcache-cache
+              persistentVolumeClaim:
+                claimName: {{ include "common.names.fullname" . }}-seed-job
+            - name: scratch-space
+              emptyDir: {}
+            - name: rclone-config
+              secret:
+                secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneConfigSecretName "context" $) }}
+{{- end }}

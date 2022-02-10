@@ -1,4 +1,3 @@
-{{- if not (hasKey .Values "localCache") }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,6 +24,21 @@ spec:
       initContainers:
         {{- if .Values.envsubstConfig }}
         {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
+        {{- end }}
+        {{- if .Values.localCacheSource }}
+        - name: rclone-local-cache
+          image: rclone/rclone
+          command:
+            - sh
+            - -c
+            - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && cd /cache && rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE
+          volumeMounts:
+            - mountPath: /cache
+              name: mapcache-data
+            - mountPath: /config/rclone/rclone.conf
+              name: rclone-config
+              subPath: rclone.conf
+              readOnly: true
         {{- end }}
         {{- if .Values.initContainers }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.initContainers "context" $ ) | nindent 8 }}
@@ -59,13 +73,19 @@ spec:
           {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
           {{- end }}
         - name: mapcache-data
-          {{- if .Values.dataVolume }}
+          {{- if .Values.localCacheSource }}
+          emptyDir: {}
+          {{- else if .Values.dataVolume }}
           {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
         {{- if .Values.envsubstConfig }}
         {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
+        {{- if .Values.localCacheSource }}
+        - name: rclone-config
+          secret:
+            secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneConfigSecretName "context" $) }}
+        {{- end }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}
-{{- end }}
