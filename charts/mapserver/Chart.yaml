@@ -5,7 +5,7 @@ description: >-
   applications to the web
 annotations:
   category: ows
-version: 0.2.0
+version: 0.0.0
 keywords:
   - mapserver
 home: https://mapserver.org/
