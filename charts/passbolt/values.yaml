@@ -25,12 +25,15 @@ image:
 service:
   enabled: true
   type: ClusterIP
-  port: 443
+  port: 80
   annotations: {}
 
 ingress:
   enabled: true
   className: nginx
+
+# containerPort is the port used by the the container
+containerPort: 80
 
 env:
   # appFullBaseUrl
