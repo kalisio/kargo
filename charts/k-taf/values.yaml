@@ -16,7 +16,7 @@ image:
   pullPolicy: IfNotPresent
 
 # cron specifies the job schedule (every hour)
-cron: "0 */1 * * *"
+cron: "0 * * * *"
 
 env:
   # footprint specifies wether the job should write the footprint of the different queries as a GeoJSON file (debug feature)
@@ -25,8 +25,8 @@ env:
   dbUrl:
     secret: ""
     key: ""
-  # ttl specifies the data time to live
-  ttl: "604800"
+  # ttl specifies the data time to live (30 days)
+  ttl: "2592000"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
 

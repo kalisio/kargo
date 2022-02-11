@@ -23,8 +23,8 @@ env:
   dbUrl:
     secret: ""
     key: ""
-  # ttl specifies the measurements time to live
-  ttl: "604800"
+  # ttl specifies the measurements time to live (30 days)
+  ttl: "2592000"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
 
