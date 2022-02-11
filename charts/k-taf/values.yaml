@@ -26,7 +26,7 @@ env:
     secret: ""
     key: ""
   # ttl specifies the data time to live
-  ttl: ""
+  ttl: "604800"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
 
