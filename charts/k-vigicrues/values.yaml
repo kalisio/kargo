@@ -16,7 +16,7 @@ image:
   pullPolicy: IfNotPresent
 
 # cron specifies the job schedule
-cron: "*/15 * * * *"
+cron: "0 */3 * * *"
 
 env:
   # dbUrl specifies the mongodb connection string

@@ -15,16 +15,18 @@ image:
   tag: ""
   pullPolicy: IfNotPresent
 
-# cron specifies the job schedule (every hour)
-cron: "0 * * * *"
+# cron specifies the job schedule
+cron: "0 */1 * * *"
 
 env:
+  # footprint specifies wether the job should write the footprint of the different queries as a GeoJSON file (debug feature)
+  # footprint: "false"
   # dburl specifies the mongodb connection string
   dbUrl:
     secret: ""
     key: ""
   # ttl specifies the data time to live (30 days)
-  ttl: "2592000"
+  ttl: "604800"
   # debug specifies the list of namespaces to enable debug output
   debug: ""
 
