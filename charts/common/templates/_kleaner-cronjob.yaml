@@ -8,6 +8,7 @@ Builds a cronjob to clean specified filesystem paths.
   - olderThanDays   A file must be older than this to be deleted
   - volumeMounts    The list of volumeMounts for the cleanup container
   - volumes         The list of volumes to back volumeMounts
+  - dryRun          A bool to enable dryrun cleanup (will only print matching files)
 */}}
 {{- define "common.filesystem-kleaner-cronjob" -}}
 apiVersion: batch/v1beta1
@@ -28,7 +29,7 @@ spec:
               command:
                 - sh
                 - -c
-                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do find $CLEANUP_PATH -type f -mtime +{{ .values.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print; done
+                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do find $CLEANUP_PATH -type f -mtime +{{ .values.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not default false .values.dryRun }}-delete{{ end }} ; done
               {{- if .values.volumeMounts }}
               volumeMounts:
                 {{- include "common.tplvalues.render" ( dict "value" .values.volumeMounts "context" .root ) | nindent 14 }}
@@ -49,6 +50,7 @@ Builds a cronjob to clean specified object storage paths.
   - rcloneConfigSecret  The name of the secret where rclone.conf can be found
   - cleanupPaths        A string with all the paths to scan
   - olderThanDays       A file must be older than this to be deleted
+  - dryRun              A bool to enable dryrun cleanup (will only print matching files)
 */}}
 {{- define "common.rclone-kleaner-cronjob" -}}
 apiVersion: batch/v1beta1
@@ -69,7 +71,7 @@ spec:
               command:
                 - sh
                 - -c
-                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do rclone --min-age {{ .values.olderThanDays }}d --dry-run delete $CLEANUP_PATH --rmdirs; done
+                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do rclone --min-age {{ .values.olderThanDays }}d {{ if default false .values.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs; done
               volumeMounts:
                 - mountPath: /config/rclone/rclone.conf
                   name: rclone-config
