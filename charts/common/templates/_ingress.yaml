@@ -12,7 +12,7 @@ metadata:
   {{- if or .Values.ingress.annotations .Values.commonAnnotations }}
   annotations:
     {{- if .Values.global.certIssuer }}
-    cert-manager.io/issuer: {{ .Values.global.certIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.global.certIssuer }}
     {{- end }}
     {{- if .Values.ingress.annotations }}
     {{- include "common.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $ ) | nindent 4 }}
