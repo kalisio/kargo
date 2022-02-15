@@ -38,6 +38,9 @@ containerPort: 8080
 # livenessEndpoint is the endpoint to use with liveness probe
 livenessEndpoint: /auth/login
 
+# serverKeySecret is the name of a secret containing the server gpg keys (requires serverkey.asc and serverkey_private.asc)
+serverKeySecret: ""
+
 env:
   # appFullBaseUrl
   appFullBaseUrl: "http://passbolt.{{ .Values.global.subdomain }}"
