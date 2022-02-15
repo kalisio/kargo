@@ -71,4 +71,19 @@ spec:
             periodSeconds: 15
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if hasKey .Values "additionalConfig" }}
+          volumeMounts:
+            {{- range $key, $value := .Values.additionalConfig.fileMapping }}
+            - mountPath: {{ $value }}
+              name: {{ include "common.names.name" $ }}-config
+              subPath: {{ $key }}
+              readOnly: true
+            {{- end }}
+          {{- end }}
+      {{- if hasKey .Values "additionalConfig" }}
+      volumes:
+        - name: {{ include "common.names.name" . }}-config
+          configMap:
+            name: {{ include "common.tplvalues.render" ( dict "value" .Values.additionalConfig.configMap "context" $ ) }}
+      {{- end }}
 {{- end }}
