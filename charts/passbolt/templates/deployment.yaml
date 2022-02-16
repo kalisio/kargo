@@ -25,6 +25,17 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      # {{- if .Values.serverKeySecret }}
+      # initContainers:
+      #   - name: fix-serverkey-permissions
+      #     image: busybox
+      #     command:
+      #       - sh
+      #       - -c
+      #       - echo foo
+      #     volumeMounts:
+      #       - mountPath: /
+      # {{- end }}
       containers:
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
