@@ -73,5 +73,5 @@ spec:
       volumes:
         - name: passbolt-server-key
           secret:
-            secretName: {{ include "common.environment.render" (dict "env" .Values.serverKeySecret "context" $) }}
+            secretName: {{ include "common.tplvalues.render" (dict "value" .Values.serverKeySecret "context" $) }}
       {{- end }}
