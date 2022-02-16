@@ -26,7 +26,7 @@ Builds an initContainer using rclone to pull an archive of the config from an ob
 Builds a volume to mount the rclone config.
 @param .context   The caller's context
 @param .args      The parameters for the template, expects the following:
-  - configSecretname   The name of the secret containing the rclone.conf (can be templated)
+  - configSecretName   The name of the secret containing the rclone.conf (can be templated)
 */}}
 {{- define "common.rcloneConfig.renderVolume" -}}
 - name: rclone-config
