@@ -1,38 +1,19 @@
 {{/*
 Builds a config map from all the files in a folder. Files can be templated.
-@parap .root      The caller's root scope
+@parap .context   The caller's context
 @param .name      The name for the created config map
 @param .folder    The folder to scan to create the config map
 */}}
-{{- define "common.configMapFromFolder" -}}
+{{- define "common.configMap.fromFolder" -}}
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  name: {{ .name }}
-  namespace: {{ .root.Release.Namespace }}
-data:
-{{- range $path, $_ := (.root.Files.Glob (printf "%s/*" .folder)) }}
-  {{ trimPrefix (printf "%s/" $.folder) $path }}: |
-    {{- tpl ($.root.Files.Get $path) $.root | nindent 4 }}
-{{- end }}
-{{- end -}}
-
-{{/*
-Builds a secret from all the files in a folder. Files can be templated.
-@parap .context   The caller's context
-@param .name      The name for the created secret
-@param .folder    The folder to scan to create the secret
-*/}}
-{{- define "common.secretFromFolder" -}}
-apiVersion: v1
-kind: Secret
-type: Opaque
 metadata:
   name: {{ .name }}
   namespace: {{ .context.Release.Namespace }}
 data:
 {{- range $path, $_ := (.context.Files.Glob (printf "%s/*" .folder)) }}
   {{ trimPrefix (printf "%s/" $.folder) $path }}: |
-    {{- tpl ($.context.Files.Get $path) $.context | b64enc | nindent 4 }}
+    {{- tpl ($.context.Files.Get $path) $.context | nindent 4 }}
 {{- end }}
 {{- end -}}
+
