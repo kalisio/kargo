@@ -62,5 +62,5 @@ spec:
               emptyDir: {}
             - name: rclone-config
               secret:
-                secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneConfigSecretName "context" $) }}
+                secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneSecret "context" $) }}
 {{- end }}

@@ -1,7 +1,7 @@
 {{/*
 Builds a cronjob to clean specified filesystem paths.
-@param .root      The caller's root scope
-@param .values    The parameters for the cleaner cronjob. The template expects the following:
+@param .context   The caller's context
+@param .args      The parameters for the cleaner cronjob. The template expects the following:
   - name            The name to give to the cronjob
   - cron            The schedule expression "0 * * * *"
   - cleanupPaths    A string with all the paths to scan
@@ -14,37 +14,37 @@ Builds a cronjob to clean specified filesystem paths.
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ .root.Release.Name }}-{{ .values.name }}
-  namespace: {{ .root.Release.Namespace | quote }}
+  name: {{ .context.Release.Name }}-{{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
 spec:
-  schedule: "{{ .values.cron }}"
+  schedule: "{{ .args.cron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-            - name: {{ .values.name }}
+            - name: {{ .args.name }}
               image: busybox
               command:
                 - sh
                 - -c
-                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do find $CLEANUP_PATH -type f -mtime +{{ .values.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not default false .values.dryRun }}-delete{{ end }} ; done
-              {{- if .values.volumeMounts }}
+                - for CLEANUP_PATH in {{ .args.cleanupPaths }}; do find $CLEANUP_PATH -type f -mtime +{{ .args.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not default false .args.dryRun }}-delete{{ end }} ; done
+              {{- if .args.volumeMounts }}
               volumeMounts:
-                {{- include "common.tplvalues.render" ( dict "value" .values.volumeMounts "context" .root ) | nindent 14 }}
+                {{- include "common.tplvalues.render" ( dict "value" .args.volumeMounts "context" .context ) | nindent 14 }}
               {{- end }}
           restartPolicy: Never
-          {{- if .values.volumes }}
+          {{- if .args.volumes }}
           volumes:
-            {{- include "common.tplvalues.render" ( dict "value" .values.volumes "context" .root ) | nindent 10 }}
+            {{- include "common.tplvalues.render" ( dict "value" .args.volumes "context" .context ) | nindent 10 }}
           {{- end }}
 {{- end -}}
 
 {{/*
 Builds a cronjob to clean specified object storage paths.
-@param .root      The caller's root scope
-@param .values    The parameters for the cleaner cronjob. The template expects the following:
+@param .context   The caller's context
+@param .args      The parameters for the cleaner cronjob. The template expects the following:
   - name                The name to give to the cronjob
   - cron                The schedule expression "0 * * * *"
   - rcloneConfigSecret  The name of the secret where rclone.conf can be found
@@ -56,22 +56,22 @@ Builds a cronjob to clean specified object storage paths.
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ .root.Release.Name }}-{{ .values.name }}
-  namespace: {{ .root.Release.Namespace | quote }}
+  name: {{ .context.Release.Name }}-{{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
 spec:
-  schedule: "{{ .values.cron }}"
+  schedule: "{{ .args.cron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-            - name: {{ .values.name }}
+            - name: {{ .args.name }}
               image: rclone/rclone
               command:
                 - sh
                 - -c
-                - for CLEANUP_PATH in {{ .values.cleanupPaths }}; do rclone --min-age {{ .values.olderThanDays }}d {{ if default false .values.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs; done
+                - for CLEANUP_PATH in {{ .args.cleanupPaths }}; do rclone --min-age {{ .args.olderThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs; done
               volumeMounts:
                 - mountPath: /config/rclone/rclone.conf
                   name: rclone-config
@@ -81,5 +81,5 @@ spec:
           volumes:
             - name: rclone-config
               secret:
-                secretName: {{ .values.rcloneConfigSecret }}
+                secretName: {{ include "common.tplvalues.render" ( dict "value" .args.rcloneConfigSecret "context" .context) }}
 {{- end -}}

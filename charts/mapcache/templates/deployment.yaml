@@ -84,7 +84,7 @@ spec:
         {{- if .Values.localCacheSource }}
         - name: rclone-config
           secret:
-            secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneConfigSecretName "context" $) }}
+            secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneSecret "context" $) }}
         {{- end }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
