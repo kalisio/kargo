@@ -47,7 +47,7 @@ Builds a cronjob to clean specified object storage paths.
 @param .args      The parameters for the cleaner cronjob. The template expects the following:
   - name                The name to give to the cronjob
   - cron                The schedule expression "0 * * * *"
-  - rcloneConfigSecret  The name of the secret where rclone.conf can be found
+  - rcloneSecret        The name of the secret where rclone.conf can be found
   - cleanupPaths        A string with all the paths to scan
   - olderThanDays       A file must be older than this to be deleted
   - dryRun              A bool to enable dryrun cleanup (will only print matching files)
@@ -81,5 +81,5 @@ spec:
           volumes:
             - name: rclone-config
               secret:
-                secretName: {{ include "common.tplvalues.render" ( dict "value" .args.rcloneConfigSecret "context" .context) }}
+                secretName: {{ include "common.tplvalues.render" ( dict "value" .args.rcloneSecret "context" .context) }}
 {{- end -}}
