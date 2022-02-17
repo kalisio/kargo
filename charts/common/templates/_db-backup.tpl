@@ -34,7 +34,6 @@ metadata:
   name: backup-{{ .args.host }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
-  suspend: true
   schedule: "{{ .args.backupCron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
@@ -171,7 +170,6 @@ metadata:
   name: backup-{{ .args.host }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
-  suspend: true
   schedule: "{{ .args.backupCron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
