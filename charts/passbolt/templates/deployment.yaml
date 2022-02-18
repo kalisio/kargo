@@ -25,17 +25,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      # {{- if .Values.serverKeySecret }}
-      # initContainers:
-      #   - name: fix-serverkey-permissions
-      #     image: busybox
-      #     command:
-      #       - sh
-      #       - -c
-      #       - echo foo
-      #     volumeMounts:
-      #       - mountPath: /
-      # {{- end }}
       containers:
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -53,8 +42,7 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: {{ .Values.livenessEndpoint | default "/" }}
+            tcpSocket:
               port: {{ include "common.names.name" . }}
             initialDelaySeconds: 60
             periodSeconds: 15
