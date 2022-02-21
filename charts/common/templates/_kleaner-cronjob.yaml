@@ -29,7 +29,7 @@ spec:
               command:
                 - sh
                 - -c
-                - for CLEANUP_PATH in {{ include "common.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do find $CLEANUP_PATH -type f -mtime +{{ .args.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not default false .args.dryRun }}-delete{{ end }} ; done
+                - for CLEANUP_PATH in {{ include "common.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do find $CLEANUP_PATH -type f -mtime +{{ .args.olderThanDays }} -print && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not (default false .args.dryRun) }}-delete{{ end }} ; done
               {{- if .args.volumeMounts }}
               volumeMounts:
                 {{- include "common.tplvalues.render" ( dict "value" .args.volumeMounts "context" .context ) | nindent 14 }}
