@@ -41,6 +41,7 @@ spec:
           {{- end }}
 {{- end -}}
 
+
 {{/*
 Builds a cronjob to clean specified object storage paths.
 @param .context   The caller's context
