@@ -32,7 +32,7 @@ spec:
               {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
               {{- if .Values.dataVolume }}
               volumeMounts:
-                - mountPath: /data
+                - mountPath: {{ .Values.dataMountPath | default "/data" }}
                   name: job-data
                   {{- if .Values.dataSubPath }}
                   subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}

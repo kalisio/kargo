@@ -26,6 +26,10 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        {{- if .Values.rcloneConfig }}
+        {{- include "common.rcloneConfig.renderInitContainer" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
+        {{- end }}
       containers:
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -35,19 +39,35 @@ spec:
             {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           {{- end }}
           ports:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "common.names.name" . | trunc 15 }}
               containerPort: {{ .Values.containerPort }}
           readinessProbe:
             tcpSocket:
-              port: {{ include "common.names.name" . }}
+              port: {{ include "common.names.name" . | trunc 15 }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "/" }}
-              port: {{ include "common.names.name" . }}
+              port: {{ include "common.names.name" . | trunc 15 }}
             initialDelaySeconds: 60
             periodSeconds: 15
+          {{- if .Values.dataVolume }}
+          volumeMounts:
+            - mountPath: {{ .Values.dataMountPath | default "/mnt/data" }}
+              name: data
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
+              {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.dataVolume }}
+      volumes:
+        - name: data
+          {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
+        {{- if .Values.rcloneConfig }}
+        {{- include "common.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
+        {{- end }}
+      {{- end }}
 {{- end }}
