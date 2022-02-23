@@ -5,7 +5,7 @@ description: >-
   access for scientific datasets.
 type: application
 version: 0.1.0
-appVersion: 4.6.19
+appVersion: 4.6.20
 annotations:
   category: scientific
 keywords:
