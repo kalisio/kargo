@@ -64,10 +64,10 @@ spec:
             - mountPath: /usr/local/tomcat/content/thredds
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
-              subPath: {{ .Values.publicDataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.publicDataSubPath "context" $ ) }}
               name: thredds-data
             - mountPath: /usr/local/tomcat/content/thredds/cache
-              subPath: {{ .Values.cacheDataSubPath }}
+              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.cacheDataSubPath "context" $ ) }}
               name: thredds-data
       volumes:
         - name: tomcat-config
