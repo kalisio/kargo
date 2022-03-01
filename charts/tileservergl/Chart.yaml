@@ -3,7 +3,7 @@ name: tileservergl
 description: Vector and raster maps with GL styles
 annotations:
   category: ows
-version: 0.1.0
+version: 0.2.0
 keywords:
   - tileservergl
 sources:
