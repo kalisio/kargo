@@ -12,7 +12,7 @@ sources:
 home: https://www.express-gateway.io
 dependencies:
   - name: common
-    version: 0.1.0
+    version: 0.x.x
     repository: file://../common
 maintainers:
   - name: KALISIO

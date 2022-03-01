@@ -14,7 +14,7 @@ keywords:
   - editor
 dependencies:
   - name: common
-    version: 0.1.0
+    version: 0.x.x
     repository: file://../common
 maintainers:
   - name: KALISIO
