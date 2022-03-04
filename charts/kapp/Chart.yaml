@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kapp
 description: Kalisio Application template
-version: 0.1.0
+version: 0.2.0
 appVersion: dev
 home: https://github.com/kalisio/kApp
 annotations:
