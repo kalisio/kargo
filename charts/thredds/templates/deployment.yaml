@@ -23,11 +23,9 @@ spec:
     spec:
       initContainers:
         {{- if .Values.tomcatConfigMapName }}
-        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" (
-          dict "targetVolumeName" "tomcat-config" "helperSuffix" "-tomcat" "env" (dict)) "context" $ ) | nindent 8 }}
+        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolumeName" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) ) "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" (
-          dict "targetVolumeName" "thredds-config" "helperSuffix" "-thredds" "env" (dict)) "context" $ ) | nindent 8 }}
+        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolumeName" "thredds-config" "helperSuffix" "-thredds" "env" ( dict ) ) "context" $ ) | nindent 8 }}
       containers:
         - name: {{ include "common.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
