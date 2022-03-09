@@ -77,11 +77,9 @@ spec:
           {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
         {{- if .Values.tomcatConfigMapName }}
-        {{- include "common.envsubstConfig.renderVolume" ( dict "args" (
-          dict "configMapName" .Values.tomcatConfigMapName "helperSuffix" "-tomcat") "context" $ ) | nindent 8 }}
+        {{- include "common.envsubstConfig.renderVolume" ( dict "args" ( dict "configMapName" .Values.tomcatConfigMapName "helperSuffix" "-tomcat" ) "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- include "common.envsubstConfig.renderVolume" ( dict "args" (
-          dict "configMapName" .Values.configMapName "helperSuffix" "-thredds") "context" $ ) | nindent 8 }}
+        {{- include "common.envsubstConfig.renderVolume" ( dict "args" ( dict "configMapName" .Values.configMapName "helperSuffix" "-thredds" ) "context" $ ) | nindent 8 }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}
