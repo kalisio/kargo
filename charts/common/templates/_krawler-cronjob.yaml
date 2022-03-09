@@ -5,6 +5,9 @@ metadata:
   name: {{ include "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.forceRestart }}
+    helm.sh/restartedAt: {{ now | unixEpoch |quote }}
+    {{- end }}
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -25,7 +28,7 @@ spec:
           containers:
             - name: {{ include "common.names.name" . }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
               env:          
                 - name: CRON
                   value: "" 

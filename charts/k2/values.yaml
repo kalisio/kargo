@@ -18,6 +18,9 @@ image:
   tag: ""
   pullPolicy: IfNotPresent
 
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
 service:
   enabled: true
   type: ClusterIP
