@@ -64,7 +64,7 @@ db:
       - ReadWriteOnce
     size: 10Mi
 
-# config is the content of the filebrowser.json
+# config is filebrowser config (e.g. filebrowser.json)
 config:
   port: 80
   baseURL: ""
