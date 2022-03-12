@@ -1,0 +1,20 @@
+apiVersion: v2
+name: filebrowser
+description: A file managing interface
+annotations:
+  category: apps
+version: 0.0.0
+appVersion: v2.21.1
+keywords:
+  - filebrower
+sources:
+  - https://github.com/filebrowser/filebrowser
+home: https://filebrowser.org/
+dependencies:
+  - name: common
+    version: 0.x.x
+    repository: file://../common
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com

@@ -1,0 +1,75 @@
+# mongo-express default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: filebrowser/filebrowser
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80 # port on which we expose service
+  annotations: {}
+  
+ingress:
+  enabled: true
+  className: nginx
+
+# containerPort is the port used by the the container
+containerPort: 80
+  
+# resources are resource requests and limits to be applied
+resources: {}
+
+# rootDir is the configuration of the file system to be served
+rootDir:
+  # type of rootDir mount. Valid values are [pvc, hostPath, emptyDir]
+  type: nfs
+  pvc:
+    # existingClaimName is the name assigned to the volume claim
+    existingClaimName: ""
+  hostPath: 
+    # path is the mount path
+    path: ""
+  nfs:
+    # server is the NFS server address
+    server: ""
+    # path is the mount path 
+    path: ""
+  
+# db is the database configuration
+db:
+  pvc:
+    enabled: true
+    existingClaim: ""
+    storageClassName: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 10Mi
+
+# config is the content of the filebrowser.json
+config:
+  port: 80
+  baseURL: ""
+  address: ""
+  log: stdout
+  database: /db/database.db
+  root: /srv
+  noauth: true

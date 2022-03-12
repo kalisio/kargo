@@ -39,7 +39,9 @@ env:
   # kanoUrl is the Kano url that can be accessed from Kapture
   kanoUrl: "http://apps-kano:8081"
   # kanoJwt is the JWT to be authenticated to Kano
-  kanoJwt: ""
+  kanoJwt: 
+    secret: ""
+    key: ""
 
 # resources are resource requests and limits to be applied
 resources: {}
