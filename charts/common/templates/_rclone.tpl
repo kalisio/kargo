@@ -20,6 +20,7 @@ Builds an initContainer using rclone to pull an archive of the config from an ob
       readOnly: true
     - mountPath: /target
       name: {{ .args.targetVolume }}
+      subPath: {{ include "common.tplvalues.render" (dict "value" .args.targetSubPath "context" .context) | default "" }}
 {{- end -}}
 
 {{/*
