@@ -43,7 +43,7 @@ distribution:
   # highestPort specifies the ending port of the port range
   highestPort: 10019
   # delay specifies the time to wait before starting service discovery
-  startDelay: "10000"
+  startDelay: "20000"
   # redisUrl specifies th redis connection string
   redisUrl:
     secret: ""
