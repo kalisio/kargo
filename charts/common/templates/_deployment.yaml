@@ -47,14 +47,14 @@ spec:
           readinessProbe:
             tcpSocket:
               port: {{ include "common.names.name" . | trunc 15 }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: {{ .Values.readinessDelay | default 5 }}
+            periodSeconds: {{ .Values.readinessPeriod | default 10 }}
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "/" }}
               port: {{ include "common.names.name" . | trunc 15 }}
-            initialDelaySeconds: 60
-            periodSeconds: 15
+            initialDelaySeconds: {{ .Values.livenessDelay | default 60 }}
+            periodSeconds: {{ .Values.livenessPeriod | default 60 }}
           {{- if .Values.dataVolume }}
           volumeMounts:
             - mountPath: {{ .Values.dataMountPath | default "/mnt/data" }}
