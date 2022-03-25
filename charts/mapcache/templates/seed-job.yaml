@@ -35,7 +35,7 @@ spec:
               command:
                 - sh
                 - -c
-                - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && cd /cache && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
+                - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && mkdir -p /scratch/caches && cd /scratch/caches {{ if .Values.seedJob.mergeWithCurrentCaches }}&& rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE {{ end }}&& rclone copy /cache . --progress && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
               volumeMounts:
                 - mountPath: /cache
                   name: mapcache-cache

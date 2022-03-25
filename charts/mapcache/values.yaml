@@ -31,6 +31,7 @@ seedJob:
   # fromZ: 0
   # toZ: 8
   # threadCount: 16
+  # mergeWithCurrentCaches: false
 
 # localCacheSource: ""
 
