@@ -21,6 +21,10 @@ spec:
     spec:
       template: 
         spec:
+          # Add a deadline so that if the job never finishes it will be stopped anyway
+          # Could also be done using concurrencyPolicy = Replace but a deadline seems to be more flexible,
+          # allowing a job to be temporarily slower than usual and to at least finish
+          activeDeadlineSeconds: {{ .Values.deadline | default 3600 }}
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
             {{- toYaml . | nindent 12 }}
