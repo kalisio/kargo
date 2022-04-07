@@ -32,7 +32,7 @@ spec:
           command:
             - sh
             - -c
-            - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && cd /cache && rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE && chown -R 33:33 *
+            - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && cd /cache && rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE && chown -R 33:33 .
           volumeMounts:
             - mountPath: /cache
               name: mapcache-data
