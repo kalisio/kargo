@@ -17,10 +17,10 @@ async function processChart (update, chart) {
       versionArray[0] = String(Number(versionArray[0]) + 1)
       versionArray[1] = '0'
       versionArray[2] = '0'
-      // on major updates, if chart depends on common, make sure we bump the dependency too
+      // on major updates, if chart depends on kargo, make sure we bump the dependency too
       if (content.dependencies) {
-        const commonDependency = content.dependencies.find((dep) => dep.name === 'common')
-        if (commonDependency) commonDependency.version = versionArray.join('.')
+        const kargoDependency = content.dependencies.find((dep) => dep.name === 'kargo')
+        if (kargoDependency) kargoDependency.version = versionArray.join('.')
       }
       break;
     case 'minor':
@@ -47,20 +47,20 @@ async function processChartGlob (update, chartDir, charPattern) {
     return
   }
 
-  // When releasing common, we also release every charts
-  const common = path.join(chartDir, "common")
-  if (charts.indexOf(common) !== -1) {
+  // When releasing kargo, we also release every charts
+  const kargo = path.join(chartDir, "kargo")
+  if (charts.indexOf(kargo) !== -1) {
     charts = glob.sync(path.join(chartDir, "*"))
     if (update !== 'major') {
-      console.log("Forcing major release because 'common' chart is part of the updated charts.")
+      console.log("Forcing major release because 'kargo' chart is part of the updated charts.")
       update = 'major'
     }
 
-    console.log("New release of 'common' chart detected, scheduling release of every other chart.")
+    console.log("New release of 'kargo' chart detected, scheduling release of every other chart.")
   } else {
     // update can't be 'major'
     if (update === 'major') {
-      console.log("Major release are reserved to match the major release number of the 'common' chart, stopping now.")
+      console.log("Major release are reserved to match the major release number of the 'kargo' chart, stopping now.")
       return
     }
   }
