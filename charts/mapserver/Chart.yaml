@@ -5,13 +5,13 @@ description: >-
   applications to the web
 annotations:
   category: ows
-version: 1.0.0
+version: 2.0.0
 keywords:
   - mapserver
 home: https://mapserver.org/
 dependencies:
   - name: common
-    version: 0.x.x
+    version: 2.0.0
     repository: file://../common
 maintainers:
   - name: KALISIO
