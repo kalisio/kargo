@@ -8,7 +8,7 @@ echo $COMMIT_MESSAGE
 
 # Check whether to pack all charts in dev or pack only one chart with the true version
 if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
-  CHARTS=${BASH_REMATCH[1]}
+  CHARTS=$(echo ${BASH_REMATCH[1]} | tr ',' ' ')
   OPTIONS=""
 else
   CHARTS=`ls charts`
