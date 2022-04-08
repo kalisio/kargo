@@ -3,7 +3,7 @@ name: express-gateway
 description: A microservices API Gateway built on Express.js
 annotations:
   category: api
-version: 2.0.0
+version: 3.0.0
 appVersion: 1.16.9
 keywords:
   - express-gateway
@@ -13,7 +13,7 @@ sources:
 home: https://www.express-gateway.io
 dependencies:
   - name: common
-    version: 2.0.0
+    version: 3.0.0
     repository: file://../common
 maintainers:
   - name: KALISIO

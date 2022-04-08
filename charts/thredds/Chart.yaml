@@ -4,7 +4,7 @@ description: >-
   The THREDDS Data Server (TDS) is a web server that provides metadata and data
   access for scientific datasets.
 type: application
-version: 2.0.0
+version: 3.0.0
 appVersion: 4.6.20
 annotations:
   category: scientific
@@ -15,7 +15,7 @@ keywords:
 home: https://www.unidata.ucar.edu/software/tds/current/
 dependencies:
   - name: common
-    version: 2.0.0
+    version: 3.0.0
     repository: file://../common
 maintainers:
   - name: KALISIO
