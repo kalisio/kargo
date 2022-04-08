@@ -44,5 +44,4 @@ cd repo
 helm repo index .
 
 # Update the repo
-rclone purge s3-host:/kalisio-charts
 rclone copy . s3-host:/kalisio-charts
