@@ -1,7 +1,7 @@
 apiVersion: v2
 name: weacast-arpege-world-loader
 description: A Krawler based service to download ARPEGE world forecast data
-version: 1.0.0
+version: 2.0.0
 appVersion: world-1.7.0
 home: https://github.com/weacast/weacast-loader
 annotations:
@@ -13,7 +13,7 @@ keywords:
   - krawler
 dependencies:
   - name: common
-    version: 0.x.x
+    version: 2.0.0
     repository: file://../common
 maintainers:
   - name: Kalisio
