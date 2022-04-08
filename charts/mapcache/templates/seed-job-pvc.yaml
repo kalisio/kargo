@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "common.names.fullname" . }}-seed-job
+  name: {{ include "kargo.names.fullname" . }}-seed-job
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes:

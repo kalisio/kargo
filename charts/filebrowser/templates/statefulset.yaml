@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
-  serviceName: {{ include "common.names.fullname" . }}
+  serviceName: {{ include "kargo.names.fullname" . }}
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "common.labels.standard" . | nindent 8 }}
+      labels: {{- include "kargo.labels.standard" . | nindent 8 }}
         {{- if .Values.commonLabels }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -27,21 +27,21 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "common.names.name" . }}
+        - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "kargo.names.name" . }}
               containerPort: 80
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
           readinessProbe:
             httpGet:
               path: /
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -52,7 +52,7 @@ spec:
               mountPath: /db
             - name: rootdir
               mountPath: /srv
-              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.rootDirSubPath "context" $) }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.rootDirSubPath "context" $) }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -68,18 +68,18 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "common.names.fullname" . }}
+            name: {{ include "kargo.names.fullname" . }}
         - name: db
           {{- if .Values.db.pvc.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.db.pvc.existingClaimName | default (printf "%s-%s" (include "common.names.fullname" .) "db" ) }}
+            claimName: {{ .Values.db.pvc.existingClaimName | default (printf "%s-%s" (include "kargo.names.fullname" .) "db" ) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
         - name: rootdir
           {{- if eq .Values.rootDir.type "pvc" }}
           persistentVolumeClaim:
-            claimName: {{ .Values.rootDir.pvc.existingClaimName | default (printf "%s-%s" (include "common.names.fullname" .) "rootdir" ) }}
+            claimName: {{ .Values.rootDir.pvc.existingClaimName | default (printf "%s-%s" (include "kargo.names.fullname" .) "rootdir" ) }}
           {{- else if eq .Values.rootDir.type "hostPath" }}
           hostPath:
             path: {{ .Values.rootDir.hostPath.path }}

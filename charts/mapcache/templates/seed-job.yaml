@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "common.names.fullname" . }}-seed-job
+  name: {{ include "kargo.names.fullname" . }}-seed-job
   namespace: {{ .Release.Namespace }}
 spec:
   suspend: true
@@ -15,7 +15,7 @@ spec:
           restartPolicy: Never
           initContainers:
             {{- if .Values.envsubstConfig }}
-            {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
+            {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
             - name: seed-local-cache
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -35,7 +35,7 @@ spec:
               command:
                 - sh
                 - -c
-                - CACHE_SOURCE={{ include "common.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && mkdir -p /scratch/caches && cd /scratch/caches {{ if .Values.seedJob.mergeWithCurrentCaches }}&& rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE {{ end }}&& rclone copy /cache . --progress && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
+                - CACHE_SOURCE={{ include "kargo.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && mkdir -p /scratch/caches && cd /scratch/caches {{ if .Values.seedJob.mergeWithCurrentCaches }}&& rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE {{ end }}&& rclone copy /cache . --progress && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
               volumeMounts:
                 - mountPath: /cache
                   name: mapcache-cache
@@ -50,17 +50,17 @@ spec:
               {{- if .Values.envsubstConfig }}
               emptyDir: {}
               {{- else if .Values.configVolume }}
-              {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 14 }}
+              {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 14 }}
               {{- end }}
             {{- if .Values.envsubstConfig }}
-            {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
+            {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
             - name: mapcache-cache
               persistentVolumeClaim:
-                claimName: {{ include "common.names.fullname" . }}-seed-job
+                claimName: {{ include "kargo.names.fullname" . }}-seed-job
             - name: scratch-space
               emptyDir: {}
             - name: rclone-config
               secret:
-                secretName: {{ include "common.tplvalues.render" ( dict "value" .Values.rcloneSecret "context" $) }}
+                secretName: {{ include "kargo.tplvalues.render" ( dict "value" .Values.rcloneSecret "context" $) }}
 {{- end }}

@@ -40,7 +40,7 @@ seedJob:
 # configVolume is the specification for the volume where the config lies
 configVolume: {}
 #  configMap:
-#    name: '{{ include "common.names.fullname" $ }}-config'
+#    name: '{{ include "kargo.names.fullname" $ }}-config'
 
 # dataSubPath is the subpath in the the dataVolume to mount
 dataSubPath: ""

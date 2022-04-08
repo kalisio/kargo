@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "common.labels.standard" . | nindent 8 }}
+      labels: {{- include "kargo.labels.standard" . | nindent 8 }}
         {{- if .Values.commonLabels }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
       initContainers:
         {{- if .Values.envsubstConfig }}
-        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.initContainers }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.initContainers "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.initContainers "context" $ ) | nindent 8 }}
         {{- end }}
       containers:
-        - name: {{ include "common.names.name" . }}
+        - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -37,7 +37,7 @@ spec:
             - name: HTTPS_PROXY
             - name: NO_PROXY
           ports:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "kargo.names.name" . }}
               containerPort: 80
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -49,22 +49,22 @@ spec:
               readOnly: true
               name: mapserver-data
               {{- if .Values.dataSubPath }}
-              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
       volumes:
         - name: mapserver-config
           {{- if .Values.envsubstConfig }}
           emptyDir: {}
           {{- else if .Values.configVolume }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
+          {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
           {{- end }}
         - name: mapserver-data
           {{- if .Values.dataVolume }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
+          {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
         {{- if .Values.envsubstConfig }}
-        {{- include "common.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}

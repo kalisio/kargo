@@ -1,52 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "common.labels.standard" . | nindent 8 }}
+      labels: {{- include "kargo.labels.standard" . | nindent 8 }}
         {{- if .Values.commonLabels }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
       initContainers:
         {{- if .Values.tomcatConfigMapName }}
-        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) ) "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- include "common.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "thredds-config" "helperSuffix" "-thredds" "env" ( dict ) ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "thredds-config" "helperSuffix" "-thredds" "env" ( dict ) ) "context" $ ) | nindent 8 }}
       containers:
-        - name: {{ include "common.names.name" . }}
+        - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: HTTP_PROXY
             - name: HTTPS_PROXY
             - name: NO_PROXY
-            {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "kargo.names.name" . }}
               containerPort: 8080
           readinessProbe:
             tcpSocket:
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
             initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: thredds/catalog.html
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
             initialDelaySeconds: 60
             periodSeconds: 30
           resources:
@@ -62,10 +62,10 @@ spec:
             - mountPath: /usr/local/tomcat/content/thredds
               name: thredds-config
             - mountPath: /usr/local/tomcat/content/thredds/public
-              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.publicDataSubPath "context" $ ) }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.publicDataSubPath "context" $ ) }}
               name: thredds-data
             - mountPath: /usr/local/tomcat/content/thredds/cache
-              subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.cacheDataSubPath "context" $ ) }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.cacheDataSubPath "context" $ ) }}
               name: thredds-data
       volumes:
         - name: tomcat-config
@@ -74,13 +74,13 @@ spec:
           emptyDir: {}
         - name: thredds-data
           {{- if .Values.dataVolume }}
-          {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
+          {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
         {{- if .Values.tomcatConfigMapName }}
-        {{- include "common.envsubstConfig.renderVolume" ( dict "args" ( dict "sourceConfigMap" .Values.tomcatConfigMapName "helperSuffix" "-tomcat" ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" ( dict "sourceConfigMap" .Values.tomcatConfigMapName "helperSuffix" "-tomcat" ) "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- include "common.envsubstConfig.renderVolume" ( dict "args" ( dict "sourceConfigMap" .Values.configMapName "helperSuffix" "-thredds" ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" ( dict "sourceConfigMap" .Values.configMapName "helperSuffix" "-thredds" ) "context" $ ) | nindent 8 }}
         {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
         {{- end }}
 

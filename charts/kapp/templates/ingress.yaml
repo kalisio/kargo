@@ -1,1 +1,1 @@
-{{- include "common.ingress" . }}
+{{- include "kargo.ingress" . }}

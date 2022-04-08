@@ -1,1 +1,1 @@
-{{- include "common.kdk-deployment" . }}
+{{- include "kargo.kdk-deployment" . }}
