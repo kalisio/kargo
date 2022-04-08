@@ -14,9 +14,9 @@ keywords:
   - thredds
 home: https://www.unidata.ucar.edu/software/tds/current/
 dependencies:
-  - name: common
+  - name: kargo
     version: 4.0.0
-    repository: file://../common
+    repository: file://../kargo
 maintainers:
   - name: KALISIO
     email: contact@kalisio.com

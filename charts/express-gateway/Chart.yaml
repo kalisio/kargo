@@ -12,9 +12,9 @@ sources:
   - https://github.com/ExpressGateway/express-gateway
 home: https://www.express-gateway.io
 dependencies:
-  - name: common
+  - name: kargo
     version: 4.0.0
-    repository: file://../common
+    repository: file://../kargo
 maintainers:
   - name: KALISIO
     email: contact@kalisio.com

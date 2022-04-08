@@ -11,9 +11,9 @@ keywords:
   - Weacast
   - krawler
 dependencies:
-  - name: common
+  - name: kargo
     version: 4.0.0
-    repository: file://../common
+    repository: file://../kargo
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
