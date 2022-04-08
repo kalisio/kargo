@@ -3,7 +3,7 @@ name: redis-commander
 description: A Redis web management tool
 annotations:
   category: database
-version: 4.0.0
+version: 5.0.0
 appVersion: latest
 home: https://github.com/joeferner/redis-commander
 keywords:
