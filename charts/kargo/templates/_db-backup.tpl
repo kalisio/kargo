@@ -12,9 +12,9 @@ The restore cronjob is suspended to be started manually.
   - restoreTimestamp    The timestamp to use as restore archive
   - remotePath          The folder where the backup will be transfered (the filename is generated).
 */}}
-{{- define "common.mariadb-backup-restore-cronjobs" -}}
-{{- $remotePath := include "common.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
-{{- $rcloneSecret := include "common.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
+{{- define "kargo.mariadb-backup-restore-cronjobs" -}}
+{{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
+{{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
 {{- $dbSecret := print "backup-restore-" .args.host }}
 {{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
@@ -150,9 +150,9 @@ The restore cronjob is suspended to be started manually.
   - backupPath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
 */}}
-{{- define "common.postgresql-backup-restore-cronjobs" -}}
-{{- $remotePath := include "common.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
-{{- $rcloneSecret := include "common.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
+{{- define "kargo.postgresql-backup-restore-cronjobs" -}}
+{{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
+{{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
 {{- $dbSecret := print "backup-restore-" .args.host }}
 {{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
@@ -286,9 +286,9 @@ The restore cronjob is suspended to be started manually.
   - backupPath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
 */}}
-{{- define "common.mongodb-backup-restore-cronjobs" -}}
-{{- $remotePath := include "common.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
-{{- $rcloneSecret := include "common.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
+{{- define "kargo.mongodb-backup-restore-cronjobs" -}}
+{{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
+{{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
 {{- $dbSecret := print "backup-restore-" .args.host }}
 {{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".gz" }}
 apiVersion: v1

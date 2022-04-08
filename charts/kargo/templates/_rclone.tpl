@@ -5,8 +5,8 @@ Builds an initContainer using rclone to pull an archive of the config from an ob
   - sourceArchive The source file to copy from the object storage (can be templated)
   - targetVolume  The name of the volume on which the config will be extracted
 */}}
-{{- define "common.rcloneConfig.renderInitContainer" -}}
-{{- $source := include "common.tplvalues.render" (dict "value" .args.sourceArchive "context" .context) }}
+{{- define "kargo.rcloneConfig.renderInitContainer" -}}
+{{- $source := include "kargo.tplvalues.render" (dict "value" .args.sourceArchive "context" .context) }}
 - name: rclone-config
   image: rclone/rclone
   command:
@@ -20,7 +20,7 @@ Builds an initContainer using rclone to pull an archive of the config from an ob
       readOnly: true
     - mountPath: /target
       name: {{ .args.targetVolume }}
-      subPath: {{ include "common.tplvalues.render" (dict "value" .args.targetSubPath "context" .context) | default "" }}
+      subPath: {{ include "kargo.tplvalues.render" (dict "value" .args.targetSubPath "context" .context) | default "" }}
 {{- end -}}
 
 {{/*
@@ -29,8 +29,8 @@ Builds a volume to mount the rclone config.
 @param .args      The parameters for the template, expects the following:
   - rcloneSecret   The name of the secret containing the rclone.conf (can be templated)
 */}}
-{{- define "common.rcloneConfig.renderVolume" -}}
+{{- define "kargo.rcloneConfig.renderVolume" -}}
 - name: rclone-config
   secret:
-    secretName: {{ include "common.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
+    secretName: {{ include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
 {{- end -}}

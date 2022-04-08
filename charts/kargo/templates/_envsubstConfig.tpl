@@ -5,7 +5,7 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
 @param .args.targetVolume The target volume where to copy the configMap content
 @param .args.helperSuffix A suffix to use when when requiring more than one invocation of the helper
 */}}
-{{- define "common.envsubstConfig.renderInitContainer" -}}
+{{- define "kargo.envsubstConfig.renderInitContainer" -}}
 - name: envsubst-config{{ default "" .args.helperSuffix }}
   image: bhgedigital/envsubst
   command:
@@ -29,7 +29,7 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
     - '{}'
     - ';'
   env:
-    {{- include "common.environment.render" (dict "env" .args.env "context" .context) | indent 4 }}
+    {{- include "kargo.environment.render" (dict "env" .args.env "context" .context) | indent 4 }}
   volumeMounts:
     - mountPath: /source
       name: envsubst-config-source-config{{ default "" .args.helperSuffix }}
@@ -39,13 +39,13 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
 {{- end -}}
 
 {{/*
-Builds a volume definition that should be used with common.envsubstConfig.renderInitContainer
+Builds a volume definition that should be used with kargo.envsubstConfig.renderInitContainer
 @param .context              The caller's context
 @param .args.sourceConfigMap The configMap to use as source for the copy
 @param .args.helperSuffix    A suffix to use when when requiring more than one invocation of the helper
 */}}
-{{- define "common.envsubstConfig.renderVolume" -}}
+{{- define "kargo.envsubstConfig.renderVolume" -}}
 - name: envsubst-config-source-config{{ default "" .args.helperSuffix }}
   configMap:
-    name: {{ include "common.tplvalues.render" ( dict "value" .args.sourceConfigMap "context" .context ) }}
+    name: {{ include "kargo.tplvalues.render" ( dict "value" .args.sourceConfigMap "context" .context ) }}
 {{- end -}}

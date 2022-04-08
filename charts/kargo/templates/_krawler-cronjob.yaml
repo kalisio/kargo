@@ -1,18 +1,18 @@
-{{- define "common.krawler-cronjob" -}}
+{{- define "kargo.krawler-cronjob" -}}
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.forceRestart }}
     helm.sh/restartedAt: {{ now | unixEpoch |quote }}
     {{- end }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   schedule: "{{ .Values.cron }}"
@@ -30,19 +30,19 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           containers:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "kargo.names.name" . }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
               env:          
                 - name: CRON
                   value: "" 
-              {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
+              {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
               {{- if .Values.dataVolume }}
               volumeMounts:
                 - mountPath: {{ .Values.dataMountPath | default "/data" }}
                   name: job-data
                   {{- if .Values.dataSubPath }}
-                  subPath: {{ include "common.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
+                  subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
                   {{- end }}
               {{- end }}
               resources:
@@ -51,6 +51,6 @@ spec:
           {{- if .Values.dataVolume }}
           volumes:
             - name: job-data
-              {{- include "common.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
+              {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
           {{- end }}
 {{- end -}}

@@ -1,40 +1,40 @@
-{{- define "common.ingress" -}}
+{{- define "kargo.ingress" -}}
 {{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" (dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   annotations:
     {{- if .Values.global.certIssuer }}
     cert-manager.io/cluster-issuer: {{ .Values.global.certIssuer }}
     {{- end }}
     {{- if .Values.ingress.annotations }}
-    {{- include "common.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $ ) | nindent 4 }}
     {{- end }}
     {{- if .Values.commonAnnotations }}
-    {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    - host: {{ include "common.names.host" . }}
+    - host: {{ include "kargo.names.host" . }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ include "common.names.fullname" . }}
+                name: {{ include "kargo.names.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
   tls:
     - hosts:
-        - {{ include "common.names.host" . }}
-      secretName: {{ include "common.names.name" . }}-tls
+        - {{ include "kargo.names.host" . }}
+      secretName: {{ include "kargo.names.name" . }}-tls
 {{- end }}
 {{- end -}}

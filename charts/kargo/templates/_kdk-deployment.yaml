@@ -1,28 +1,28 @@
-{{- define "common.kdk-deployment" -}}
+{{- define "kargo.kdk-deployment" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "kargo.names.fullname" . }}
   namespace: {{ .Release.Namespace }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
-      labels: {{- include "common.labels.standard" . | nindent 8 }}
+      labels: {{- include "kargo.labels.standard" . | nindent 8 }}
         {{- if .Values.forceRestart }}
         helm.sh/restartedAt: {{ now | unixEpoch |quote }}
         {{- end }}
         {{- if .Values.commonLabels }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -30,7 +30,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "common.names.name" . }}
+        - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
           env:
@@ -38,7 +38,7 @@ spec:
               value: {{ .Values.global.subdomain }}
             {{- if .Values.distribution.enabled }}
             - name: DISCOVERY_HOSTNAME
-              value: {{ include "common.names.fullname" . }}
+              value: {{ include "kargo.names.fullname" . }}
             - name: BASE_PORT
               value: {{ .Values.distribution.basePort | quote }}
             - name: HIGHEST_PORT
@@ -48,12 +48,12 @@ spec:
             - name: COTE_DISCOVERY_REDIS_URL
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.distribution.redisUrl.secret | default (include "common.names.secret" .) }}
+                  name: {{ .Values.distribution.redisUrl.secret | default (include "kargo.names.secret" .) }}
                   key: {{ .Values.distribution.redisUrl.key | default "redis-url" }}
             {{- end }}
-            {{- include "common.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
-            - name: {{ include "common.names.name" . }}
+            - name: {{ include "kargo.names.name" . }}
               containerPort: 8081
             {{- if .Values.distribution.enabled }}
             {{- range untilStep (int .Values.distribution.basePort) (int .Values.distribution.highestPort) 1 }}
@@ -63,13 +63,13 @@ spec:
             {{- end }}
           readinessProbe:
             tcpSocket:
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "api/capabilities" }}
-              port: {{ include "common.names.name" . }}
+              port: {{ include "kargo.names.name" . }}
             initialDelaySeconds: 60
             periodSeconds: 15
           resources:
@@ -78,15 +78,15 @@ spec:
           volumeMounts:
             {{- range $key, $value := .Values.additionalConfig.fileMapping }}
             - mountPath: {{ $value }}
-              name: {{ include "common.names.name" $ }}-config
+              name: {{ include "kargo.names.name" $ }}-config
               subPath: {{ $key }}
               readOnly: true
             {{- end }}
           {{- end }}
       {{- if hasKey .Values "additionalConfig" }}
       volumes:
-        - name: {{ include "common.names.name" . }}-config
+        - name: {{ include "kargo.names.name" . }}-config
           configMap:
-            name: {{ include "common.tplvalues.render" ( dict "value" .Values.additionalConfig.configMap "context" $ ) }}
+            name: {{ include "kargo.tplvalues.render" ( dict "value" .Values.additionalConfig.configMap "context" $ ) }}
       {{- end }}
 {{- end }}
