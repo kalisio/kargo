@@ -3,7 +3,7 @@ name: k-hubeau-stations
 description: >-
   A Krawler based service to download stations data from French open portal
   Hub'Eau
-version: 3.0.0
+version: 4.0.0
 appVersion: stations-1.2.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
@@ -13,7 +13,7 @@ keywords:
   - krawler
 dependencies:
   - name: common
-    version: 3.0.0
+    version: 4.0.0
     repository: file://../common
 maintainers:
   - name: Kalisio
