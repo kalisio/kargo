@@ -3,7 +3,7 @@ name: tileservergl
 description: Vector and raster maps with GL styles
 annotations:
   category: ows
-version: 5.0.0
+version: 6.0.0
 keywords:
   - tileservergl
 sources:
@@ -11,7 +11,7 @@ sources:
 home: http://tileserver.org
 dependencies:
   - name: kargo
-    version: 4.0.0
+    version: 6.0.0
     repository: file://../kargo
 maintainers:
   - name: KALISIO

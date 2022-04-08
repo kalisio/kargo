@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kapp
 description: Kalisio Application template
-version: 5.0.0
+version: 6.0.0
 appVersion: dev
 home: https://github.com/kalisio/kApp
 annotations:
@@ -12,7 +12,7 @@ keywords:
   - kalisio
 dependencies:
   - name: kargo
-    version: 4.0.0
+    version: 6.0.0
     repository: file://../kargo
 maintainers:
   - name: Kalisio

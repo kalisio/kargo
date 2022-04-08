@@ -3,7 +3,7 @@ name: filebrowser
 description: A file managing interface
 annotations:
   category: apps
-version: 5.0.0
+version: 6.0.0
 appVersion: v2.21.1
 keywords:
   - filebrower
@@ -12,7 +12,7 @@ sources:
 home: https://filebrowser.org/
 dependencies:
   - name: kargo
-    version: 4.0.0
+    version: 6.0.0
     repository: file://../kargo
 maintainers:
   - name: KALISIO
