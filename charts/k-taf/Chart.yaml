@@ -1,7 +1,7 @@
 apiVersion: v2
 name: k-taf
 description: A Krawler based service to download TAF data from the Aviation Weather Center.
-version: 1.0.0
+version: 2.0.0
 appVersion: latest
 home: https://github.com/kalisio/k-metar-taf
 annotations:
@@ -13,7 +13,7 @@ keywords:
   - krawler
 dependencies:
   - name: common
-    version: 0.x.x
+    version: 2.0.0
     repository: file://../common
 maintainers:
   - name: Kalisio
