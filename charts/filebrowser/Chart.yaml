@@ -3,7 +3,7 @@ name: filebrowser
 description: A file managing interface
 annotations:
   category: apps
-version: 1.0.0
+version: 2.0.0
 appVersion: v2.21.1
 keywords:
   - filebrower
@@ -12,7 +12,7 @@ sources:
 home: https://filebrowser.org/
 dependencies:
   - name: common
-    version: 0.x.x
+    version: 2.0.0
     repository: file://../common
 maintainers:
   - name: KALISIO
