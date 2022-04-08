@@ -1,7 +1,7 @@
 apiVersion: v2
 name: maputnik
 description: An open source visual editor for the 'Mapbox Style Specification'
-version: 0.3.0
+version: 1.0.0
 appVersion: 1.6.1
 home: https://github.com/maputnik/editor
 annotations:
