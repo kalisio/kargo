@@ -5,13 +5,13 @@ description: >-
   applications to the web
 annotations:
   category: ows
-version: 6.0.0
+version: 0.3.0
 keywords:
   - mapserver
 home: https://mapserver.org/
 dependencies:
   - name: kargo
-    version: 6.0.0
+    version: 0.x.x
     repository: file://../kargo
 maintainers:
   - name: KALISIO
