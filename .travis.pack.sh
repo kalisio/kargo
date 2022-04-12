@@ -21,7 +21,7 @@ envsubst < rclone.conf.tpl > $HOME/.config/rclone/rclone.conf
 
 # Retrieve the repo index
 mkdir repo
-rclone copy s3-host:/kalisio-charts/index.yaml repo
+rclone copy charts:index.yaml repo
 
 # Declare the external repos
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -45,4 +45,4 @@ cd repo
 helm repo index . --merge index.yaml
 
 # Update the repo
-rclone copy . s3-host:/kalisio-charts
+rclone copy . charts

@@ -1,4 +1,4 @@
-[s3-host]
+[ovh]
 type = swift
 env_auth = false
 auth_version = 3
@@ -10,3 +10,7 @@ domain = default
 user = ${SWIFT_USER}
 key = ${SWIFT_KEY}
 region = GRA
+
+[charts]
+type = alias
+remote = ovh:charts
