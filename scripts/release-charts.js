@@ -17,11 +17,6 @@ async function processChart (update, chart) {
       versionArray[0] = String(Number(versionArray[0]) + 1)
       versionArray[1] = '0'
       versionArray[2] = '0'
-      // on major updates, if chart depends on kargo, make sure we bump the dependency too
-      if (content.dependencies) {
-        const kargoDependency = content.dependencies.find((dep) => dep.name === 'kargo')
-        if (kargoDependency) kargoDependency.version = versionArray.join('.')
-      }
       break;
     case 'minor':
       versionArray[1] = String(Number(versionArray[1]) + 1)
@@ -41,28 +36,10 @@ async function processChart (update, chart) {
 
 async function processChartGlob (update, chartDir, charPattern) {
   const globPattern = path.join(chartDir, charPattern)
-  let charts = glob.sync(globPattern)
+  const charts = glob.sync(globPattern)
   if (charts.length === 0) {
     console.error('No charts found. Have you defined a correct pattern ?')
     return
-  }
-
-  // When releasing kargo, we also release every charts
-  const kargo = path.join(chartDir, "kargo")
-  if (charts.indexOf(kargo) !== -1) {
-    charts = glob.sync(path.join(chartDir, "*"))
-    if (update !== 'major') {
-      console.log("Forcing major release because 'kargo' chart is part of the updated charts.")
-      update = 'major'
-    }
-
-    console.log("New release of 'kargo' chart detected, scheduling release of every other chart.")
-  } else {
-    // update can't be 'major'
-    if (update === 'major') {
-      console.log("Major release are reserved to match the major release number of the 'kargo' chart, stopping now.")
-      return
-    }
   }
 
   console.log(`About to perform a new ${update} release for the following charts:`)
