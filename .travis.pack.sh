@@ -45,4 +45,4 @@ cd repo
 helm repo index . --merge index.yaml
 
 # Update the repo
-rclone copy . charts
+rclone copy . charts:
