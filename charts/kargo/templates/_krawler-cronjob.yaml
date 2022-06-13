@@ -16,9 +16,12 @@ metadata:
   {{- end }}
 spec:
   schedule: "{{ .Values.cron }}"
+  # It will run 1 at a time, but not more
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      # Number of times it will retry before it is considered failed
+      backoffLimit: 0
       template: 
         spec:
           # Add a deadline so that if the job never finishes it will be stopped anyway
@@ -47,6 +50,7 @@ spec:
               {{- end }}
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
+          # It won't restart on failure, next chance will be on next CRON
           restartPolicy: Never
           {{- if .Values.dataVolume }}
           volumes:
