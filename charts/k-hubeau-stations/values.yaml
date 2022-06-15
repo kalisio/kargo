@@ -28,6 +28,8 @@ env:
     key: ""
   # debug specifies the list of namespaces to enable debug output
   debug: ""
+  # ratio of successful tasks to be considered as successful
+  successRate: "0.5"
 
 # resources are resource requests and limits to be applied
 resources: {}

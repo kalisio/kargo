@@ -37,8 +37,12 @@ spec:
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
               env:          
+                - name: SUBDOMAIN
+                  value: {{ .Values.global.subdomain }}
                 - name: CRON
-                  value: "" 
+                  value: ""
+                - name: MESSAGE_TEMPLATE
+                  value: "*<%= SUBDOMAIN %>*\nKrawler job *<%= jobId %>*: <%= error.message %>"
               {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
               {{- if .Values.dataVolume }}
               volumeMounts:
