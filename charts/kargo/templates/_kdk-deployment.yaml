@@ -68,7 +68,7 @@ spec:
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: {{ .Values.livenessEndpoint | default "api/capabilities" }}
+              path: {{ .Values.livenessEndpoint | default "/healthcheck" }}
               port: {{ include "kargo.names.name" . }}
             initialDelaySeconds: 60
             periodSeconds: 15
