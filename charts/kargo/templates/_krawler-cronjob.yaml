@@ -17,7 +17,7 @@ metadata:
 spec:
   schedule: "{{ .Values.cron }}"
   # It will run 1 at a time, but not more
-  concurrencyPolicy: Forbid
+  concurrencyPolicy: {{ .Values.concurrency | default "Forbid" }}
   jobTemplate:
     spec:
       # Number of times it will retry before it is considered failed
