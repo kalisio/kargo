@@ -119,7 +119,7 @@ module.exports = {
     pluginContext.eventBus.on('admin-ready', async function ({ adminServer }) {
       const oldScopes = await adminClient.scopes.list({});
       await processScopes(oldScopes.scopes || [], consumers.scopes);
-      const oldUsers = await adminClient.users.list({});
+      const oldUsers = await adminClient.users.list({ all: true });
       await processUsers(oldUsers.users || {}, consumers.users);
     })
   },
