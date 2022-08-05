@@ -62,7 +62,7 @@ async function createUser(newUserName, newApps) {
 
 async function processApps(userId, newApps) {
   logger.info('process apps: ' + Object.keys(newApps));
-  let result = await adminClient.apps.list();
+  let result = await adminClient.apps.list({ all: true });
   let definedApps = result.apps || [];
   let newAppsNames = Object.keys(newApps)
   // delete undefined old apps
@@ -117,7 +117,7 @@ module.exports = {
   policies: [],
   init: function (pluginContext) {
     pluginContext.eventBus.on('admin-ready', async function ({ adminServer }) {
-      const oldScopes = await adminClient.scopes.list({});
+      const oldScopes = await adminClient.scopes.list({ all: true });
       await processScopes(oldScopes.scopes || [], consumers.scopes);
       const oldUsers = await adminClient.users.list({ all: true });
       await processUsers(oldUsers.users || {}, consumers.users);
