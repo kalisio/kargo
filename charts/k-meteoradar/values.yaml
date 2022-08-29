@@ -22,18 +22,8 @@ forceRestart: false
 cron: "*/15 * * * *"
 
 env:
-  # s3Endpoint specifies the store endpoint
-  s3Endpoint: ""
-  # s3AccessKey specifie the key to access the store
-  s3AccessKey: 
-    secret: ""
-    key: ""
-  # s3SecretAccessKey specifie the secret to access the store
-  s3SecretAccessKey: 
-    secret: ""
-    key: ""
-  # specifies the bucket where to store the files 
-  s3Bucket: ""
+  # storePathh specified the path where to store the file
+  storePath: ""
   # debug specifies the list of namespaces to enable debug output
   debug: ""
 
