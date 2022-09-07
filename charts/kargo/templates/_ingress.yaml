@@ -35,6 +35,6 @@ spec:
   tls:
     - hosts:
         - {{ include "kargo.names.host" . }}
-      secretName: {{ include "kargo.names.name" . }}-tls
+      secretName: {{ include "kargo.names.host" . }}-tls
 {{- end }}
 {{- end -}}

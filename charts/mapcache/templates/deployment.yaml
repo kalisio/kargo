@@ -36,6 +36,9 @@ spec:
           volumeMounts:
             - mountPath: /cache
               name: mapcache-data
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
+              {{- end }}
             - mountPath: /config/rclone/rclone.conf
               name: rclone-config
               subPath: rclone.conf
@@ -74,10 +77,10 @@ spec:
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
           {{- end }}
         - name: mapcache-data
-          {{- if .Values.localCacheSource }}
-          emptyDir: {}
-          {{- else if .Values.dataVolume }}
+          {{- if .Values.dataVolume }}
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
+          {{- else if .Values.localCacheSource }}
+          emptyDir: {}
           {{- end }}
         {{- if .Values.envsubstConfig }}
         {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
