@@ -14,7 +14,7 @@ Builds a cronjob to clean specified filesystem paths.
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ .context.Release.Name }}-{{ .args.name }}
+  name: {{ .args.name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.cron }}"
@@ -57,7 +57,7 @@ Builds a cronjob to clean specified object storage paths.
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ .context.Release.Name }}-{{ .args.name }}
+  name: {{ .args.name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.cron }}"
