@@ -21,6 +21,11 @@ spec:
         {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
+      serviceAccountName: {{ include "kargo.names.serviceAccount" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         {{- if .Values.tomcatConfigMapName }}
         {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) ) "context" $ ) | nindent 8 }}
@@ -67,6 +72,9 @@ spec:
             - mountPath: /usr/local/tomcat/content/thredds/cache
               subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.cacheDataSubPath "context" $ ) }}
               name: thredds-data
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "kargo.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
+            {{- end }}
       volumes:
         - name: tomcat-config
           emptyDir: {}
