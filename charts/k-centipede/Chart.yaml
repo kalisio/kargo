@@ -1,7 +1,7 @@
 apiVersion: v2
 name: k-centipede
 description: A Krawler based job to get the antennas status of the RTK Centipede Network
-version: 0.2.0
+version: 0.3.0
 appVersion: 1.0.0
 home: https://github.com/kalisio/k-centipede
 annotations:

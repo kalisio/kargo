@@ -1,7 +1,7 @@
 apiVersion: v2
 name: weacast-arome-france-high-loader
 description: A Krawler based service to download AROME france highres forecast data
-version: 0.4.0
+version: 0.5.0
 appVersion: france-high-1.7.0
 home: https://github.com/weacast/weacast-loader
 annotations:
