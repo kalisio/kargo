@@ -48,3 +48,18 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "kargo.names.serviceAccount" -}}
+{{- if .Values.serviceAccount }}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "kargo.names.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- else }}
+{{- "default" }}
+{{- end }}
+{{- end }}
