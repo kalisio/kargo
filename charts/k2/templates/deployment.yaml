@@ -37,6 +37,9 @@ spec:
               {{- if .Values.dataSubPath }}
               subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
               {{- end }}
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "kargo.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $ ) | nindent 12 }}
+            {{- end }}
           readinessProbe:
             tcpSocket:
               port: {{ include "kargo.names.name" . }}
