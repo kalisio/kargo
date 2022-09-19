@@ -30,6 +30,20 @@ service:
 ingress:
   enabled: false
 
+distribution:
+  # enabled specifies whether or not to use distribution
+  enabled: true
+  # basePort specifies the starting port of the port range
+  basePort: 10030
+  # highestPort specifies the ending port of the port range
+  highestPort: 10039
+  # delay specifies the time to wait before starting service discovery
+  startDelay: "20000"
+  # redisUrl specifies the redis connection string
+  redisUrl:
+    secret: ""
+    key: ""
+
 # containerPort is the port used by the the container
 containerPort: 8081
 
