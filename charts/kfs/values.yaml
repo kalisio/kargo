@@ -1,0 +1,41 @@
+# kfs default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/kfs
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 3000
+  annotations: {}
+
+# containerPort is the port used by the the container
+containerPort: 3000
+
+# livenessEndpoint is the endpoint to check the pod liveness
+livenessEndpoint: /api/healthcheck
+
+env:
+  # baseUrl is the base url of the server to be accessed
+  baseUrl: "http://planet-kfs:8081"
+
+# resources are resource requests and limits to be applied
+resources: {}
