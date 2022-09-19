@@ -48,7 +48,7 @@ distribution:
 containerPort: 8081
 
 # livenessEndpoint is the endpoint to check the pod liveness
-livenessEndpoint: /healthcheck
+livenessEndpoint: /api/healthcheck
 
 env:
   # baseUrl is the base url of the server to be accessed
