@@ -27,6 +27,9 @@ service:
   port: 8081
   annotations: {}
 
+ingress:
+  enabled: false
+
 # containerPort is the port used by the the container
 containerPort: 8081
 
