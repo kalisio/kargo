@@ -3,7 +3,7 @@ name: k-metar
 description: >-
   A Krawler based service to download METAR data from the Aviation Weather
   Center.
-version: 0.3.0
+version: 0.4.0
 appVersion: latest
 home: https://github.com/kalisio/k-metar-taf
 annotations:
