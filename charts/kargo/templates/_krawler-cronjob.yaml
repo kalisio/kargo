@@ -22,7 +22,9 @@ spec:
     spec:
       # Number of times it will retry before it is considered failed
       backoffLimit: 0
-      template: 
+      # Autoremove the job after that many seconds (failed or succeed), default 7days
+      ttlSecondsAfterFinished: {{ .Values.autoRemoveJobAfter | default 604800 }}
+      template:
         spec:
           # Add a deadline so that if the job never finishes it will be stopped anyway
           # Could also be done using concurrencyPolicy = Replace but a deadline seems to be more flexible,
