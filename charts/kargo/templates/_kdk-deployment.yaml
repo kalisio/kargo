@@ -58,8 +58,8 @@ spec:
             {{- end }}
             {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
           ports:
-            - name: {{ include "kargo.names.name" . }}
-              containerPort: 8081
+            - name: {{ include "kargo.names.name" . | trunc 15 }}
+              containerPort: {{ .Values.containerPort | default 8081 }}
             {{- if .Values.distribution.enabled }}
             {{- range untilStep (int .Values.distribution.basePort) (int .Values.distribution.highestPort) 1 }}
             - name: "cote-{{ . }}"
@@ -68,15 +68,15 @@ spec:
             {{- end }}
           readinessProbe:
             tcpSocket:
-              port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              port: {{ include "kargo.names.name" . | trunc 15 }}
+            initialDelaySeconds: {{ .Values.readinessDelay | default 5 }}
+            periodSeconds: {{ .Values.readinessPeriod | default 10 }}
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "/healthcheck" }}
-              port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 60
-            periodSeconds: 15
+              port: {{ include "kargo.names.name" . | trunc 15 }}
+            initialDelaySeconds: {{ .Values.livenessDelay | default 60 }}
+            periodSeconds: {{ .Values.livenessPeriod | default 60 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if hasKey .Values "additionalConfig" }}
