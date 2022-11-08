@@ -27,9 +27,10 @@ spec:
             - name: {{ .args.name }}
               image: busybox
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - for CLEANUP_PATH in {{ include "kargo.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do find $CLEANUP_PATH -type f -mtime +{{ .args.olderThanDays }} -print {{ if not (default false .args.dryRun) }}-delete{{ end }} && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not (default false .args.dryRun) }}-delete{{ end }} ; done
+                - for CLEANUP_PATH in {{ include "kargo.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do if [ -d $CLEANUP_PATH ]; then find $CLEANUP_PATH -type f -mtime +{{ .args.olderThanDays }} -print {{ if not (default false .args.dryRun) }}-delete{{ end }} && find $CLEANUP_PATH -type d -mtime +2 -empty -print {{ if not (default false .args.dryRun) }}-delete{{ end }} ; fi ; done
               {{- if .args.volumeMounts }}
               volumeMounts:
                 {{- include "kargo.tplvalues.render" ( dict "value" .args.volumeMounts "context" .context ) | nindent 14 }}
@@ -70,7 +71,8 @@ spec:
             - name: {{ .args.name }}
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - for CLEANUP_PATH in {{ include "kargo.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do rclone --min-age {{ .args.olderThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs; done
               volumeMounts:
