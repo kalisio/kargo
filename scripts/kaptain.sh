@@ -164,7 +164,7 @@ export KAPTAIN_WORKING_DIRECTORY=$WORK_PATH
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
     source "$INFRA_PATH/hooks.sh" "pre-$ACTION"
 
-    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" ]; then
+    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" -o "$ACTION" = "diff" ]; then
         source "$INFRA_PATH/hooks.sh" "make-config"
         if [ -f "$INFRA_PATH/rclone.conf" ]; then
             rclone copy "$INFRA_PATH/rclone.conf" "$INFRA_PATH/provision-configs/.kaptain"
@@ -190,10 +190,7 @@ fi
 # exec hooks
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
     source "$INFRA_PATH/hooks.sh" "post-$ACTION"
-
-    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" ]; then
-        rm -fR "$INFRA_PATH/provision-configs/.kaptain"
-    fi
 fi
 
+rm -fR "$INFRA_PATH/provision-configs/.kaptain"
 rm -fR $TMP_PATH
