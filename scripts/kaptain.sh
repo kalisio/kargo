@@ -3,10 +3,11 @@ set -euo pipefail
 # set -x
 
 # the script expects KUBECONFIG to be set
+# the script uses the current working directory
 
 # helm plugin install https://github.com/databus23/helm-diff
 
-# the action to perform install|uninstall|template|diff
+# the action to perform (see check_args)
 ACTION=${1}
 # the namespace we're working with
 # if namespaces/${NAMESPACE} folder does not exists, it'll search
@@ -22,14 +23,12 @@ if [ ${HELMFILE_CONCURRENCY_VALUE} -ne 0 ]; then
     HELMFILE_CONCURRENCY_OPT="--concurrency ${HELMFILE_CONCURRENCY_VALUE}"
 fi
 
-THIS_FILE=$(readlink -f "$BASH_SOURCE")
-THIS_PATH=$(dirname "$THIS_FILE")
-ROOT_PATH=$(dirname "$THIS_PATH")
+WORK_PATH=$(pwd)
 TMP_PATH=${XDG_RUNTIME_DIR:-$(dirname $(mktemp -u))}/kaptain
-if [ -d "$ROOT_PATH/namespaces/$NAMESPACE" ]; then
-    INFRA_PATH=$ROOT_PATH/namespaces/$NAMESPACE
+if [ -d "$WORK_PATH/namespaces/$NAMESPACE" ]; then
+    INFRA_PATH=$WORK_PATH/namespaces/$NAMESPACE
 else
-    INFRA_PATH=$ROOT_PATH
+    INFRA_PATH=$WORK_PATH
 fi
 
 # utility functions available in hooks
@@ -56,7 +55,7 @@ embed_config() {
     local CONF_PATH=$INFRA_PATH/provision-configs/.kaptain/$APP
 
     echo "kaptain: embedding $APP config ..."
-    merge_config "$ROOT_PATH/configs/$APP" "$INFRA_PATH/configs/$APP" "$CONF_PATH"
+    merge_config "$WORK_PATH/configs/$APP" "$INFRA_PATH/configs/$APP" "$CONF_PATH"
 }
 
 embed_subconfig() {
@@ -65,7 +64,7 @@ embed_subconfig() {
     local CONF_PATH=$INFRA_PATH/provision-configs/.kaptain/$APP.$SUB
 
     echo "kaptain: embedding $APP.$SUB config ..."
-    merge_config "$ROOT_PATH/configs/$APP/$SUB" "$INFRA_PATH/configs/$APP/$SUB" "$CONF_PATH"
+    merge_config "$WORK_PATH/configs/$APP/$SUB" "$INFRA_PATH/configs/$APP/$SUB" "$CONF_PATH"
 }
 
 rclone_config() {
@@ -75,7 +74,7 @@ rclone_config() {
     local REMOTE_CONF="kaptain:$NAMESPACE/$APP-config.tar.gz"
 
     echo "kaptain: pushing $APP config to $REMOTE_CONF ..."
-    merge_config "$ROOT_PATH/configs/$APP" "$INFRA_PATH/configs/$APP" "$CONF_PATH"
+    merge_config "$WORK_PATH/configs/$APP" "$INFRA_PATH/configs/$APP" "$CONF_PATH"
 
     cd "$CONF_PATH"
     # cf. https://reproducible-builds.org/docs/archives/
@@ -156,13 +155,8 @@ check_args() {
 check_prerequisites
 check_args
 
-# Common environment variables used in helmfile
-export KAPTAIN_ROOT_PATH=$ROOT_PATH
-export KAPTAIN_REVISION=$(git -C $KAPTAIN_ROOT_PATH describe --tags --always --dirty=+)
-export KAPTAIN_BRANCH=$(git -C $KAPTAIN_ROOT_PATH rev-parse --abbrev-ref HEAD)
-export KARGO_ROOT_PATH="$ROOT_PATH/../kargo"
-export KARGO_REVISION=$(git -C $KARGO_ROOT_PATH describe --tags --always --dirty=+)
-export KARGO_BRANCH=$(git -C $KARGO_ROOT_PATH rev-parse --abbrev-ref HEAD)
+# Make this avaiable to hooks
+KAPTAIN_WORK_PATH=$WORK_PATH
 
 cd $INFRA_PATH
 
