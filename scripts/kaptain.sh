@@ -155,7 +155,10 @@ check_args
 
 cd $INFRA_PATH
 
+# These are exported for use in helmfiles or hooks ...
 export KAPTAIN_NAMESPACE=$NAMESPACE
+export KAPTAIN_NAMESPACE_DIRECTORY=$INFRA_PATH
+export KAPTAIN_WORKING_DIRECTORY=$WORK_PATH
 
 # exec hooks
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
