@@ -24,7 +24,7 @@ if [ ${HELMFILE_CONCURRENCY_VALUE} -ne 0 ]; then
 fi
 
 WORK_PATH=$(pwd)
-TMP_PATH=${XDG_RUNTIME_DIR:-$(dirname $(mktemp -u))}/kaptain
+TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" kaptain.XXXXXX)
 if [ -d "$WORK_PATH/namespaces/$NAMESPACE" ]; then
     INFRA_PATH=$WORK_PATH/namespaces/$NAMESPACE
 else
@@ -108,29 +108,27 @@ check_prerequisites() {
     # Make sure we have all the tools we need
     # sed, tar, rclone, helmfile, git
 
-    echo "kaptain: checking prerequisites ..."
-    set +e
+    set +eu
 
     OUTPUT=$(sed --version)
-    printf "kaptain: checking sed ... "
-    if [ $? -ne 0 ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    RETCODE=$?
+    if [ $RETCODE -ne 0 ]; then printf "kaptain: missing sed\n"; exit 1; fi
     OUTPUT=$(tar --version)
-    printf "kaptain: checking tar ... "
-    if [ $? -ne 0 ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    RETCODE=$?
+    if [ $RETCODE -ne 0 ]; then printf "kaptain: missing tar\n"; exit 1; fi
     OUTPUT=$(git --version)
-    printf "kaptain: checking git ... "
-    if [ $? -ne 0 ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    RETCODE=$?
+    if [ $RETCODE -ne 0 ]; then printf "kaptain: missing git\n"; exit 1; fi
     OUTPUT=$(rclone --version)
-    printf "kaptain: checking rclone ... "
-    if [ $? -ne 0 ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    RETCODE=$?
+    if [ $RETCODE -ne 0 ]; then printf "kaptain: missing rclone\n"; exit 1; fi
     OUTPUT=$(helmfile --version)
-    printf "kaptain: checking helmfile ... "
-    if [ $? -ne 0 ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    RETCODE=$?
+    if [ $RETCODE -ne 0 ]; then printf "kaptain: missing helmfile\n"; exit 1; fi
 
-    printf "kaptain: checking KUBECONFIG ..."
-    if [ -z "$KUBECONFIG" ]; then printf "nok\n"; exit 1; else printf "ok\n"; fi
+    if [ -z "$KUBECONFIG" ]; then printf "kaptain: KUBECONFIG is not defined\n"; exit 1; fi
 
-    set -e
+    set -eu
 }
 
 check_args() {
@@ -155,42 +153,44 @@ check_args() {
 check_prerequisites
 check_args
 
-# Make this avaiable to hooks
-KAPTAIN_WORK_PATH=$WORK_PATH
-
 cd $INFRA_PATH
+
+export KAPTAIN_NAMESPACE=$NAMESPACE
 
 # exec hooks
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
     source "$INFRA_PATH/hooks.sh" "pre-$ACTION"
-fi
 
-if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" ]; then
-    # provision configs in both cases
-    source "$INFRA_PATH/hooks.sh" "make-config"
-    if [ -f "$INFRA_PATH/rclone.conf" ]; then
-        rclone copy "$INFRA_PATH/rclone.conf" "$INFRA_PATH/provision-configs/.kaptain"
+    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" ]; then
+        source "$INFRA_PATH/hooks.sh" "make-config"
+        if [ -f "$INFRA_PATH/rclone.conf" ]; then
+            rclone copy "$INFRA_PATH/rclone.conf" "$INFRA_PATH/provision-configs/.kaptain"
+        fi
     fi
-    echo "kaptain: installing provision-configs ..."
-    helmfile --selector chart=provision-configs sync
-    rm -fR "$INFRA_PATH/provision-configs/.kaptain"
 fi
 
 echo "kaptain: executing $ACTION action ..."
 if [ "$ACTION" = install ]; then
-    helmfile --selector action=install $HELMFILE_CONCURRENCY_OPT sync
+    helmfile --selector action=config --selector action=install $HELMFILE_CONCURRENCY_OPT sync
 elif [ "$ACTION" = uninstall ]; then
     helmfile --selector action=install destroy
 elif [ "$ACTION" = provision ]; then
-    helmfile --selector action=provision sync
+    helmfile --selector action=config --selector action=provision $HELMFILE_CONCURRENCY_OPT sync
 elif [ "$ACTION" = unprovision ]; then
     helmfile --selector action=provision destroy
+elif [ "$ACTION" = config ]; then
+    helmfile --selector action=config $HELMFILE_CONCURRENCY_OPT sync
 elif [ "$ACTION" = diff ]; then
-    helmfile --selector chart=provision-configs diff
-    helmfile --selector action=install diff
+    helmfile --selector action=config --selector action=install diff
 fi
 
 # exec hooks
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
     source "$INFRA_PATH/hooks.sh" "post-$ACTION"
+
+    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" ]; then
+        rm -fR "$INFRA_PATH/provision-configs/.kaptain"
+    fi
 fi
+
+rm -fR $TMP_PATH
