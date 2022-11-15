@@ -1,0 +1,18 @@
+FROM debian:bullseye-slim
+LABEL maintainer "contact@kalisio.com"
+
+# gettext-base contains envsubst
+# coreutils contains sha256sum, sort and a bunch of GNU tools
+# curl, rclone to download stuff
+# unzip, tar to process archives
+# msmtp allows to send mails using an external smtp server
+RUN DEBIAN_FRONTEND=noninteractive && \
+  apt-get update && \
+  apt-get --no-install-recommends --yes install \
+    bash \
+    coreutils gettext-base \
+    curl ca-certificates rclone \
+    tar unzip \
+    msmtp && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*

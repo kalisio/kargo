@@ -65,3 +65,7 @@ fi
 if [ $1 == "kaptain" ]; then
   build_and_push kaptain latest
 fi
+
+if [ $1 == "k8s-toolbox" ]; then
+  build_and_push k8s-toolbox latest
+fi

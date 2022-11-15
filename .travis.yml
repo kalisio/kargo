@@ -40,6 +40,8 @@ jobs:
     script: bash .travis.build.sh mongodb-exporter
   - # added to BUILD stage
     script: bash .travis.build.sh kaptain
+  - # added to BUILD stage
+    script: bash .travis.build.sh k8s-toolbox
 
   - stage: PACK
     before_install:
