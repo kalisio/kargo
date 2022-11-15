@@ -61,3 +61,7 @@ fi
 if [ $1 == "mongodb-exporter" ]; then
   build_and_push mongodb-exporter v0.11.2 https://github.com/percona/mongodb_exporter.git#v0.11.2
 fi
+
+if [ $1 == "kaptain" ]; then
+  build_and_push kaptain latest
+fi

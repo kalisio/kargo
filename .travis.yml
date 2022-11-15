@@ -38,6 +38,8 @@ jobs:
     script: bash .travis.build.sh gdal
   - # added to BUILD stage
     script: bash .travis.build.sh mongodb-exporter
+  - # added to BUILD stage
+    script: bash .travis.build.sh kaptain
 
   - stage: PACK
     before_install:

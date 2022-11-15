@@ -1,0 +1,80 @@
+FROM debian:bullseye-slim
+LABEL maintainer "contact@kalisio.com"
+
+ARG KUBECTL_VERSION=1.21.14
+ARG HELM_VERSION=3.10.2
+ARG HELMFILE_VERSION=0.148.1
+ARG RCLONE_VERSION=1.60.0
+
+# coreutils contains sha256sum, sort and a bunch of GNU tools
+# curl to download stuff
+# unzip, tar to process archives
+# git because helm install plugin requires git
+RUN DEBIAN_FRONTEND=noninteractive && \
+  apt-get update && \
+  apt-get --no-install-recommends --yes install \
+    bash coreutils curl ca-certificates tar unzip git && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
+# Exec runs from /tmp
+WORKDIR /tmp
+
+# Fetch kubectl
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+RUN \
+  curl -L \
+    -O https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
+    -O https://dl.k8s.io/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256 && \
+  echo " kubectl" >> kubectl.sha256 && \
+  sha256sum --check kubectl.sha256 && \
+  mv kubectl /usr/local/bin
+
+# Fetch helm
+# https://helm.sh/docs/intro/install/#from-the-binary-releases
+RUN \
+  curl -L \
+   -O https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+   -O https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz.sha256sum && \
+  sha256sum --check helm-v${HELM_VERSION}-linux-amd64.tar.gz.sha256sum && \
+  tar xf helm-v${HELM_VERSION}-linux-amd64.tar.gz && \
+  mv linux-amd64/helm /usr/local/bin
+
+# Fetch helmfile
+# https://helmfile.readthedocs.io/en/latest/#installation
+RUN \
+  curl -L \
+   -O https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
+   -O https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_checksums.txt && \
+  sha256sum --ignore-missing --check helmfile_${HELMFILE_VERSION}_checksums.txt && \
+  tar xf helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz && \
+  mv helmfile /usr/local/bin
+
+# Fetch rclone
+# https://rclone.org/install/
+RUN \
+  curl -L \
+   -O https://downloads.rclone.org/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-amd64.zip \
+   -O https://github.com/rclone/rclone/releases/download/v${RCLONE_VERSION}/SHA256SUMS && \
+  sha256sum --ignore-missing --check SHA256SUMS && \
+  unzip rclone-v${RCLONE_VERSION}-linux-amd64.zip && \
+  mv rclone-v${RCLONE_VERSION}-linux-amd64/rclone /usr/local/bin
+
+# Give proper permissions, cleanup mess and create a folder to use as HOME
+# for docker user
+RUN \
+  chown root:root /usr/local/bin/* && \
+  chmod a+rx /usr/local/bin/* && \
+  rm -fR /tmp/* && \
+  mkdir /tmp/user
+
+# Install useful helm diff plugin and make it available in /tmp/user home
+# https://github.com/databus23/helm-diff
+RUN helm plugin install https://github.com/databus23/helm-diff && \
+  mv /root/.cache /tmp/user && \
+  mv /root/.local /tmp/user && \
+  find /tmp/user -type f -exec chmod a+rw {} \; && \
+  find /tmp/user -type d -exec chmod a+rwx {} \;
+
+WORKDIR /tmp/user
+ENV HOME=/tmp/user
