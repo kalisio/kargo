@@ -19,7 +19,6 @@ replicaCount: 1
 
 image:
   repository: kanboard/kanboard
-  tag: "1.2.25"
   pullPolicy: IfNotPresent
 
 service:
@@ -34,9 +33,6 @@ ingress:
 
 # containerPort is the port used by the the container
 containerPort: 80
-
-# livenessEndpoint is the endpoint to use with liveness probe
-livenessEndpoint: /auth/login
 
 env:
   # see https://docs.kanboard.org/v1/admin/config/
