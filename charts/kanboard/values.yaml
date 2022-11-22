@@ -1,0 +1,57 @@
+# kanboard default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: kanboard/kanboard
+  tag: "1.2.25"
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx
+
+# containerPort is the port used by the the container
+containerPort: 80
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: /auth/login
+
+env:
+  # see https://docs.kanboard.org/v1/admin/config/
+  dbDriver: "postgres"
+  dbUsername: ""
+  dbPassword: ""
+  dbHostname: ""
+  dbName: ""
+  mailFrom: ""
+  mailSmtpHostname: ""
+  mailSmtpPort: ""
+  mailSmtpUsername: ""
+  mailSmtpPassword: ""
+  mailSmtpEncryption: ""
+  pluginInstaller: false
+
+# resources are resource requests and limits to be applied
+resources: {}

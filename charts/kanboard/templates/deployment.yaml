@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kargo.names.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "kargo.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "kargo.labels.standard" . | nindent 8 }}
+        {{- if .Values.commonLabels }}
+        {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kargo.names.serviceAccount" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "kargo.names.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default print v .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.env }}
+          env:
+            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+          {{- end }}
+          ports:
+            - name: {{ include "kargo.names.name" . }}
+              containerPort: {{ .Values.containerPort }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ include "kargo.names.name" . }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: {{ include "kargo.names.name" . }}
+            initialDelaySeconds: 60
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

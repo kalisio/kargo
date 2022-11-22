@@ -1,0 +1,21 @@
+apiVersion: v2
+name: kanboard
+description: Kanboard is a free and open source Kanban project management software.
+annotations:
+  category: sys
+version: 0.3.0
+appVersion: 1.2.25
+keywords:
+  - kanboard
+  - kanban
+sources:
+  - https://github.com/kanboard/kanboard
+home: https://kanboard.org
+dependencies:
+  - name: kargo
+    version: 0.x.x
+    repository: file://../kargo
+maintainers:
+  - name: KALISIO
+    email: contact@kalisio.com
+    url: https://kalisio.com
