@@ -184,7 +184,7 @@ elif [ "$ACTION" = unprovision ]; then
 elif [ "$ACTION" = config ]; then
     helmfile --selector action=config $HELMFILE_CONCURRENCY_OPT sync
 elif [ "$ACTION" = diff ]; then
-    helmfile --color --selector action=config --selector action=install diff
+    helmfile --color --selector action=config --selector action=install diff --args='--strip-trailing-cr'
 fi
 
 # exec hooks
