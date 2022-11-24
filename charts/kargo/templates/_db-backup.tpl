@@ -484,7 +484,7 @@ stringData:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: backup-{{ .args.database }}
+  name: backup-{{ .args.database }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -543,7 +543,7 @@ spec:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: restore-{{ .args.database }}
+  name: restore-{{ .args.database }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -632,7 +632,7 @@ stringData:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: backup-{{ .args.database }}
+  name: backup-{{ .args.database }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -695,7 +695,7 @@ spec:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: restore-{{ .args.database }}
+  name: restore-{{ .args.database }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
