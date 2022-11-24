@@ -2,7 +2,7 @@
 Builds a cronjob to backup and another to restore the specified mariadb database.
 The restore cronjob is suspended to be started manually.
 @param .context         The caller's root scope
-@param .args            The parameters for the cleaner cronjob. The template expects the following:
+@param .args            The parameters for the backup cronjob. The template expects the following:
   - image               The image to use to pull mariadb-dump
   - host                The host where the dabatabase is running
   - username            The database username to use to perform the dump
@@ -46,9 +46,14 @@ spec:
             - name: db-dump
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - TIMESTAMP=$(date +%Y%m%d-%H%M) && BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz && echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." && mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} --lock-tables --all-databases | gzip > /backup/$BACKUP_FILE
+                - >-
+                  TIMESTAMP=$(date +%Y%m%d-%H%M) &&
+                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz &&
+                  echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
+                  mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} --lock-tables --all-databases | gzip > /backup/$BACKUP_FILE
               volumeMounts:
                 - mountPath: /kalisio/my.cnf
                   name: db-secret
@@ -60,7 +65,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.sql.gz"
               volumeMounts:
@@ -100,7 +106,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy {{ $remotePath }}/{{ $restoreFile }} /restore --progress
               volumeMounts:
@@ -114,9 +121,12 @@ spec:
             - name: db-restore
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - echo "Restoring from {{ $restoreFile }} ..." && gunzip < /restore/{{ $restoreFile }} | mariadb --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }}
+                - >-
+                  echo "Restoring from {{ $restoreFile }} ..." &&
+                  gunzip < /restore/{{ $restoreFile }} | mariadb --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }}
               volumeMounts:
                 - mountPath: /kalisio/my.cnf
                   name: db-secret
@@ -140,14 +150,14 @@ spec:
 Builds a cronjob to backup and another to restore the specified postgresql database.
 The restore cronjob is suspended to be started manually.
 @param .context         The caller's root scope
-@param .args            The parameters for the cleaner cronjob. The template expects the following:
+@param .args            The parameters for the backup cronjob. The template expects the following:
   - image               The image to use to pull mariadb-dump
   - host                The host where the dabatabase is running
   - username            The database username to use to perform the dump
   - password            The username password
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
-  - backupPath          The folder where the backup will be transfered (the filename is generated).
+  - remotePath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
 */}}
 {{- define "kargo.postgresql-backup-restore-cronjobs" -}}
@@ -182,9 +192,18 @@ spec:
             - name: db-dump
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - TIMESTAMP=$(date +%Y%m%d-%H%M) && BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz && PGPASSFILE=/tmp/pgpass && cp /pgpass $PGPASSFILE && chown 1001 $PGPASSFILE && chmod 0600 $PGPASSFILE && echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." && pg_dumpall --dbname="postgresql://{{ .args.username }}@{{ .args.host }}:5432?passfile=$PGPASSFILE" --no-password --clean | gzip > /backup/$BACKUP_FILE
+                - >-
+                  TIMESTAMP=$(date +%Y%m%d-%H%M) &&
+                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz &&
+                  PGPASSFILE=/tmp/pgpass &&
+                  cp /pgpass $PGPASSFILE &&
+                  chown 1001 $PGPASSFILE &&
+                  chmod 0600 $PGPASSFILE &&
+                  echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
+                  pg_dumpall --dbname="postgresql://{{ .args.username }}@{{ .args.host }}:5432?passfile=$PGPASSFILE" --no-password --clean | gzip > /backup/$BACKUP_FILE
               volumeMounts:
                 - mountPath: /pgpass
                   name: db-secret
@@ -196,7 +215,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.sql.gz"
               volumeMounts:
@@ -236,7 +256,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy {{ $remotePath }}/{{ $restoreFile }} /restore --progress
               volumeMounts:
@@ -250,9 +271,16 @@ spec:
             - name: db-restore
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - PGPASSFILE=/tmp/pgpass && cp /pgpass $PGPASSFILE && chown 1001 $PGPASSFILE && chmod 0600 $PGPASSFILE && echo "Restoring from {{ $restoreFile }} ..." && gunzip < /restore/{{ $restoreFile }} | psql --dbname="postgresql://{{ .args.username }}@{{ .args.host }}:5432?passfile=$PGPASSFILE" --file=- --no-password
+                - >-
+                  PGPASSFILE=/tmp/pgpass &&
+                  cp /pgpass $PGPASSFILE &&
+                  chown 1001 $PGPASSFILE &&
+                  chmod 0600 $PGPASSFILE &&
+                  echo "Restoring from {{ $restoreFile }} ..." &&
+                  gunzip < /restore/{{ $restoreFile }} | psql --dbname="postgresql://{{ .args.username }}@{{ .args.host }}:5432?passfile=$PGPASSFILE" --file=- --no-password
               volumeMounts:
                 - mountPath: /pgpass
                   name: db-secret
@@ -276,14 +304,14 @@ spec:
 Builds a cronjob to backup and another to restore the specified mongodb database.
 The restore cronjob is suspended to be started manually.
 @param .context         The caller's root scope
-@param .args            The parameters for the cleaner cronjob. The template expects the following:
+@param .args            The parameters for the backup cronjob. The template expects the following:
   - image               The image to use to pull mongodump & mongorestore
   - host                The host where the dabatabase is running
   - username            The database username to use to perform the dump
   - password            The username password
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
-  - backupPath          The folder where the backup will be transfered (the filename is generated).
+  - remotePath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
 */}}
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
@@ -320,9 +348,14 @@ spec:
             - name: db-dump
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - TIMESTAMP=$(date +%Y%m%d-%H%M) && BACKUP_FILE={{ .args.host }}-$TIMESTAMP.gz && echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." && mongodump --config=/mongo-config.yml --gzip --archive=/backup/$BACKUP_FILE
+                - >-
+                  TIMESTAMP=$(date +%Y%m%d-%H%M) &&
+                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.gz &&
+                  echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
+                  mongodump --config=/mongo-config.yml --gzip --archive=/backup/$BACKUP_FILE
               volumeMounts:
                 - mountPath: /mongo-config.yml
                   name: db-secret
@@ -334,7 +367,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.gz"
               volumeMounts:
@@ -374,7 +408,8 @@ spec:
             - name: rclone-dump
               image: rclone/rclone
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
                 - rclone copy {{ $remotePath }}/{{ $restoreFile }} /restore --progress
               volumeMounts:
@@ -388,9 +423,12 @@ spec:
             - name: db-restore
               image: {{ .args.image }}
               command:
-                - sh
+                - /bin/sh
+              args:
                 - -c
-                - echo "Restoring from {{ $restoreFile }} ..." && mongorestore --config=/mongo-config.yml --gzip --archive=/restore/{{ $restoreFile }}
+                - >-
+                  echo "Restoring from {{ $restoreFile }} ..." &&
+                  mongorestore --config=/mongo-config.yml --gzip --archive=/restore/{{ $restoreFile }}
               volumeMounts:
                 - mountPath: /mongo-config.yml
                   name: db-secret
