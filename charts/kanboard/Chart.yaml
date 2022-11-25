@@ -3,8 +3,8 @@ name: kanboard
 description: Kanboard is a free and open source Kanban project management software.
 annotations:
   category: sys
-version: 0.1.0
-appVersion: v1.2.25
+version: 0.2.0
+appVersion: v1.2.18
 keywords:
   - kanboard
   - kanban
