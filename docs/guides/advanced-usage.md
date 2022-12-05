@@ -155,7 +155,48 @@ Once the gateway is implemented and started, it is necessary to define the consu
 1. create a `consumers.config.js` file in the `configs\express-gateway` directory of your workspace
 2. edit the file and define your consumers using the following formalism:
 
-<<< @/../configs/express-gateway/consumers.config.js
+```javascript
+module.exports = {
+  scopes: ['mapcache', 'mapserver', 'k2'],
+  users: {
+    cutomer1: {
+      qgis: {
+        scopes: ['mapcache', 'mapserver'],
+        credential: {
+          type: 'basic-auth',
+          password: '<PASSWORD>', 
+        }
+      },
+      leafet: {
+        scopes: ['mapcache', 'mapserver'],
+        credential: {
+          type: 'jwt',
+          keyId: '<KEY_ID>', 
+          keySecret: '<KEY_SECRET>'
+        }
+      },
+      kano: {
+        scopes: ['mapcache', 'k2', 'mapserver'],
+        credential: {
+          type: 'jwt',
+          keyId: '<KEY_ID>', 
+          keySecret: '<APP_SECRET>'
+        }
+      }
+    },
+    customer2: {
+      kano: {
+        scopes: ['mapcache', 'k2'],
+        credential: {
+          type: 'jwt',
+          keyId: '<KEY_ID>', 
+          keySecret: '<APP_SECRET>'
+        }
+      }
+    }
+  }
+}
+```
 
 ::: tip
 Refer to the [consumer-management](https://www.express-gateway.io/docs/consumer-management/) section to learn mode about `keyId` and `keySecret`.
