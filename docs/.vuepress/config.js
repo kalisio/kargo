@@ -39,7 +39,8 @@ function getGuidesSidebar () {
   return [
     'understanding-kargo',
     'getting-started',
-    'advanced-usage'
+    'advanced-usage',
+    'infrastructure-management'
   ]
 }
 
