@@ -19,7 +19,6 @@ replicaCount: 1
 
 image:
   repository: passbolt/passbolt
-  tag: "3.5.0-ce-non-root"
   pullPolicy: IfNotPresent
 
 service:
