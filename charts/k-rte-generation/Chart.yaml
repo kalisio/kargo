@@ -1,0 +1,20 @@
+apiVersion: v2
+name: k-rte-generation
+description: >-
+  A Krawler based service to download generation data from the electrical French network operated by RTE
+version: 0.1.0
+appVersion: generation-1.0.0
+home: https://github.com/kalisio/k-rte
+annotations:
+  category: KrawlerJob
+keywords:
+  - rte
+  - krawler
+dependencies:
+  - name: kargo
+    version: 0.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

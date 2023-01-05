@@ -1,0 +1,41 @@
+# k-rte-generation default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-rte
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every hour)
+cron: "0 0 0 * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the measurements time to live (30 days)
+  ttl: "2592000"
+  # The history specifies the data history the job has to be downloaded (1 day expressed in seconds)
+  history: "86400"
+  # timeout specifies the maximum duration of job (30 minutes expressed in milliseconds)
+  timeout: "1800000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+  # ratio of successful tasks to be considered as successful
+  successRate: "1"
+
+# resources are resource requests and limits to be applied
+resources: {}
