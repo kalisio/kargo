@@ -1,0 +1,20 @@
+apiVersion: v2
+name: k-icos-stations
+description: >-
+  A Krawler based service to download atmospheric data from the ICOS Carbon Portal's Data Service
+version: 0.1.0
+appVersion: stations-1.0.0
+home: https://github.com/kalisio/k-icos
+annotations:
+  category: KrawlerJob
+keywords:
+  - icos
+  - krawler
+dependencies:
+  - name: kargo
+    version: 0.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

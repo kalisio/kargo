@@ -1,0 +1,37 @@
+# k-icos-stations default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-icos
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every day)
+cron: "0 0 * * *"
+
+env:
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # The history specifies the data history the job has to be downloaded (1 day expressed in seconds)
+  history: "86400"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+  # ratio of successful tasks to be considered as successful
+  successRate: "0.75"
+
+# resources are resource requests and limits to be applied
+resources: {}
