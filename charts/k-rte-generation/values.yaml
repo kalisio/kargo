@@ -22,7 +22,15 @@ forceRestart: false
 cron: "0 0 0 * *"
 
 env:
-  # dburl specifies the mongodb connection string
+  # clientId specifies the account email to access the ICOS API
+  clientId:
+    secret: ""
+    key: ""
+  # clientSecret specifies the account password to access the ICOS API
+  clientSecret:
+    secret: ""
+    key: ""
+  # dbUrl specifies the mongodb connection string
   dbUrl:
     secret: ""
     key: ""
