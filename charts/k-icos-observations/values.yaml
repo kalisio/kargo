@@ -19,7 +19,7 @@ image:
 forceRestart: false
 
 # cron specifies the job schedule (every hour)
-cron: "0 0 0 * *"
+cron: "0 * * * *"
 
 env:
   # userEmail specifies the account email to access the ICOS API
