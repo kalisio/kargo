@@ -1,7 +1,7 @@
 apiVersion: v2
 name: k-rte-generation
 description: >-
-  A Krawler based service to download generation data from the electrical French network operated by RTE
+  A Krawler based service to download generation data from the electrical French network operated by RTE.
 version: 0.1.0
 appVersion: generation-1.0.0
 home: https://github.com/kalisio/k-rte
