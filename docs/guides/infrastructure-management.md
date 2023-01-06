@@ -214,3 +214,60 @@ fi
 `embed_config`, `rclone_config` are helper functions defined in the **kaptain** script.
 
 Those hooks could probably be replaced by [helmfile hooks](https://helmfile.readthedocs.io/en/latest/#hooks) but this is still work in progress ...
+
+## Embedding the kaptain script
+
+Kaptain is often embedded in infrastructure projects using a git submodule, here's a quick HOWTO cheatsheet:
+
+Consider the following project's structure :
+
+```
++ infrastructure-xyz
+  - global.yaml
+  - secret.yaml
+  - helmfile.yaml
+  + scripts
+    - install.sh      # convenience script calling kaptain
+    - diff.sh         # convenience script calling kaptain
+    - ...
+  + kargo             # git submodule
+    + scripts
+      - kaptain.sh
+```
+
+### Cloning the infrastructure-xyz project
+
+Just clone like you're used to adding the `--recurse-submodules` flag.
+
+```shell
+git clone --recurse-submodules
+```
+
+If you cloned the project and forgot the `--recurse-submodules` flag, read the next section.
+
+### Pulling changes in the infrastructure-xyz project
+
+Since the kargo folder is a git submodule, pull using `--recurse-submodules` flag. This will ensure you also pull the kargo's version that's associated with the infrastructure-xyz project.
+
+```shell
+git pull --recurse-submodules
+```
+
+You can make this the default by defining the `submodule.recurse`option to true in your repository.
+
+```shell
+git config submodule.recurse  true
+```
+
+### Updating the kargo submodule
+
+If you want to change the version the kargo submodule points to then `cd` into the kargo folder and pull the desired commit, or tag, or branch. Once done, `cd` back to the root of your project and `commit` the kargo folder. This will record the kargo version your project depends on.
+
+```shell
+cd kargo
+git pull v1.9
+cd ..
+git add kargo
+git commit -m "Bumped kargo submodule to v1.9"
+git push
+```
