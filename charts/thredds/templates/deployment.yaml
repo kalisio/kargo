@@ -46,14 +46,14 @@ spec:
           readinessProbe:
             tcpSocket:
               port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 60
+            periodSeconds: 30
           livenessProbe:
             httpGet:
               path: thredds/catalog.html
               port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 60
-            periodSeconds: 30
+            initialDelaySeconds: 120
+            periodSeconds: 60
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           resources:
