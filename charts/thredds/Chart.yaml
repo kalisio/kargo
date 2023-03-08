@@ -4,7 +4,7 @@ description: >-
   The THREDDS Data Server (TDS) is a web server that provides metadata and data
   access for scientific datasets.
 type: application
-version: 0.6.0
+version: 0.7.0
 appVersion: 4.6.20
 annotations:
   category: scientific
