@@ -2,7 +2,7 @@ apiVersion: v2
 name: k-openradiation
 description: A Krawler based service to download data from the OpenRadiation project.
 version: 0.7.0
-appVersion: 1.1.0
+appVersion: 1.2.0
 home: https://github.com/kalisio/k-openradiation
 annotations:
   category: KrawlerJob
