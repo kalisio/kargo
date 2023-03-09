@@ -3,7 +3,7 @@ name: k-teleray
 description: >-
   A Krawler based service to download data from the French gamma dose rate alert
   Teleray network
-version: 0.7.0
+version: 0.8.0
 appVersion: 1.4.0
 home: https://github.com/kalisio/k-teleray
 annotations:

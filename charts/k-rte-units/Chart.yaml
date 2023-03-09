@@ -3,7 +3,7 @@ name: k-rte-units
 description: >-
   A Krawler based service to download production units data from the electrical
   French network operated by RTE.
-version: 0.2.0
+version: 0.3.0
 appVersion: units-1.2.0
 home: https://github.com/kalisio/k-rte
 annotations:

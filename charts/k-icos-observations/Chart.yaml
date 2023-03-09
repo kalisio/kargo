@@ -3,7 +3,7 @@ name: k-icos-observations
 description: >-
   A Krawler based service to download atmospheric data from the ICOS Carbon
   Portal's Data Service.
-version: 0.3.0
+version: 0.4.0
 appVersion: observations-1.2.0
 home: https://github.com/kalisio/k-icos
 annotations:
