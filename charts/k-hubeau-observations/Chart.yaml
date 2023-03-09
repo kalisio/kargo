@@ -3,7 +3,7 @@ name: k-hubeau-observations
 description: >-
   A Krawler based service to download observations data from French open portal
   Hub'Eau
-version: 0.7.0
+version: 0.8.0
 appVersion: observations-1.3.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
