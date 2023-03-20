@@ -56,6 +56,6 @@ dataVolume: {}
 resources: {}
 
 # default security context, run as non root uid 33 (www-data)
-# podSecurityContext:
-#   runAsNonRoot: true
-#   runAsUser: 33
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 33
