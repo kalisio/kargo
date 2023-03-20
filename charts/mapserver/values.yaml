@@ -23,6 +23,10 @@ service:
   port: 80 # port on which we expose service
   annotations: {}
 
+# mapcache listens on 80 when running as root, 8080 with non root user
+# we intend to run it as non root !
+containerPort: 8080
+
 # configVolume is the specification for the volume where the config lies
 configVolume: {}
 #  configMap:

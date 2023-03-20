@@ -47,9 +47,7 @@ spec:
             - name: NO_PROXY
           ports:
             - name: {{ include "kargo.names.name" . }}
-              # mapserver listens on 80 when running as root, 8080 with non root user
-              # we intend to run it as non root !
-              containerPort: 8080
+              containerPort: {{ .Values.containerPort }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
