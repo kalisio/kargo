@@ -21,6 +21,10 @@ spec:
         {{- include "kargo.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
         {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ include "kargo.names.serviceAccount" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:
