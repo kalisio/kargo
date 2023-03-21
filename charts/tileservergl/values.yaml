@@ -23,6 +23,9 @@ service:
   port: 80 # port on which we expose service
   annotations: {}
 
+# the port the container listens to
+containerPort: 8080
+
 # uvThreadPoolSize is the number of thread to allocate for libuv's thread pool
 uvThreadPoolSize: ""
 
