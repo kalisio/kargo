@@ -1,14 +1,26 @@
 #!/bin/bash
-set -euxo pipefail
 
 COMMIT_MESSAGE=$1
-APP=`echo ^$COMMIT_MESSAGE | cut -d' ' -f2`
+REGEXP=".*\[build[[:space:]]+([^[:space:]]+)[[:space:]]*(tag)?\]"
+
+APP=
+TAG=
+# Check whether to build 
+if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
+  APP=${BASH_REMATCH[1]}
+  TAG=${BASH_REMATCH[2]}
+else
+  echo Invalid message pattern
+  exit 1
+fi
+
+echo $APP:$TAG
 
 VERSION=
 CONTEXT="build/$APP"
 DOCKERFILE_OPT="-f build/$APP/dockerfile"
 
-case $APP in
+case "$APP" in
   express-gateway)
     VERSION=1.16.9
     ;;
@@ -35,7 +47,7 @@ case $APP in
   kaptain)
     VERSION=latest
     ;;
-  k8s-toolbox
+  k8s-toolbox)
     VERSION=latest
     ;;  
   *)
@@ -43,8 +55,7 @@ case $APP in
     ;;
 esac
 
-TAG=`echo ^$COMMIT_MESSAGE | cut -d' ' -f3`
-if [ -z $TAG ]; then 
+if [ -z $TAG ]; then
   TAG=latest
 else
   TAG=$VERSION
