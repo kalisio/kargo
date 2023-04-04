@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Usage: build <app> [tag]
+# app - the name of the app to be built
+# tag - if defined, it uses the app version otherwise it uses latest
+
 COMMIT_MESSAGE=$1
 REGEXP=".*\[build[[:space:]]+([^[:space:]]+)[[:space:]]*(tag)?\]"
 
@@ -61,7 +65,7 @@ fi
 
 if [ -n $VERSION ]; then
   docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
-  echo "Building $APP:$VERSION from $CONTEXT"
+  echo "Building $APP:$TAG from $CONTEXT" ($VERSION)
   docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$APP:$TAG $CONTEXT
   RESULT_CODE=$?
   if [ $RESULT_CODE -ne 0 ]; then
