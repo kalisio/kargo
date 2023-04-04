@@ -14,8 +14,6 @@ else
   exit 1
 fi
 
-echo $APP:$TAG
-
 VERSION=
 CONTEXT="build/$APP"
 DOCKERFILE_OPT="-f build/$APP/dockerfile"
@@ -61,7 +59,7 @@ else
   TAG=$VERSION
 fi
 
-if [ ! z $VERSION ]; then
+if [ -n $VERSION ]; then
   docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   echo "Building $APP:$VERSION from $CONTEXT"
   docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$APP:$TAG $CONTEXT
