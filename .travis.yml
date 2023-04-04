@@ -8,7 +8,7 @@ notifications:
 
 stages:
 - name: BUILD
-  if: commit_message =~ /\[build\]/ 
+  if: commit_message =~ /\[build \S+(?:\s+tag)?\]/ 
 - name: PACK
   if: commit_message =~ /\[pack\]/ or commit_message =~ /\[pack \S+\]/
 - name: DOC
@@ -23,25 +23,7 @@ jobs:
     - '12'
     services:
     - docker
-    script: bash .travis.build.sh express-gateway
-  - # added to BUILD stage
-    script: bash .travis.build.sh maputnik
-  - # added to BUILD stage
-    script: bash .travis.build.sh mapcache
-  - # added to BUILD stage
-    script: bash .travis.build.sh mapserver        
-  - # added to BUILD stage
-    script: bash .travis.build.sh tileserver-gl
-  - # added to BUILD stage
-    script: bash .travis.build.sh artillery
-  - # added to BUILD stage
-    script: bash .travis.build.sh gdal
-  - # added to BUILD stage
-    script: bash .travis.build.sh mongodb-exporter
-  - # added to BUILD stage
-    script: bash .travis.build.sh kaptain
-  - # added to BUILD stage
-    script: bash .travis.build.sh k8s-toolbox
+    script: bash .travis.build.sh "$TRAVIS_COMMIT_MESSAGE"
 
   - stage: PACK
     before_install:
