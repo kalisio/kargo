@@ -65,7 +65,7 @@ fi
 
 if [ -n $VERSION ]; then
   docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
-  echo "Building $APP:$TAG from $CONTEXT" ($VERSION)
+  echo "Building $APP:$TAG from $CONTEXT ($VERSION)"
   docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$APP:$TAG $CONTEXT
   RESULT_CODE=$?
   if [ $RESULT_CODE -ne 0 ]; then
