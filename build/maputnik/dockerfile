@@ -24,9 +24,10 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Copy Maputnik
-COPY --from=build /maputnik/build/build /maputnik
+COPY --from=build --chown=node:node /maputnik/build/build /maputnik
 
 # Expose Maputnik
 EXPOSE 8888
 WORKDIR /maputnik
+USER node
 CMD python -m SimpleHTTPServer 8888
