@@ -3,7 +3,7 @@ name: express-gateway
 description: A microservices API Gateway built on Express.js
 annotations:
   category: api
-version: 0.5.0
+version: 1.0.0
 appVersion: 1.16.9
 keywords:
   - express-gateway
