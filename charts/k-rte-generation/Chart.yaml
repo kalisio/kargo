@@ -3,7 +3,7 @@ name: k-rte-generation
 description: >-
   A Krawler based service to download generation data from the electrical French
   network operated by RTE.
-version: 0.3.0
+version: 1.0.0
 appVersion: generation-1.3.0
 home: https://github.com/kalisio/k-rte
 annotations:
