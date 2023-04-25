@@ -35,3 +35,8 @@ env:
 
 # resources are resource requests and limits to be applied
 resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
