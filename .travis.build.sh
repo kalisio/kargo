@@ -7,9 +7,11 @@
 COMMIT_MESSAGE=$1
 REGEXP=".*\[build[[:space:]]+([^[:space:]]+)[[:space:]]*(tag)?\]"
 
+echo "Commit message is: $COMMIT_MESSAGE"
+
 APP=
 TAG=
-# Check whether to build 
+# Check whether to build
 if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
   APP=${BASH_REMATCH[1]}
   TAG=${BASH_REMATCH[2]}
