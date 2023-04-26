@@ -7,17 +7,15 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "changelog": "changelog -x build,ci,chore,docs,other,perf,refactor,revert,style,test",
-    "release:major": "npm run changelog -- -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md [skip ci]\" && git push && npm version --force major",
-    "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force minor",
-    "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force patch",
-    "postversion": "git push origin --tags",
+    "release:major": "npm version --force major",
+    "release:minor": "npm version --force minor",
+    "release:patch": "npm version --force patch",
+    "postversion": "git push origin HEAD --tags",
     "release:charts:major": "node scripts/release-charts major charts",
     "release:charts:minor": "node scripts/release-charts minor charts",
     "release:charts:patch": "node scripts/release-charts patch charts"
   },
   "devDependencies": {
-    "generate-changelog": "^1.7.1",
     "glob": "^7.2.0",
     "js-yaml": "^4.1.0",
     "simple-git": "^3.1.1",
