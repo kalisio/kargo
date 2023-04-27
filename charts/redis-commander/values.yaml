@@ -18,7 +18,7 @@ commonLabel: {}
 replicaCount: 1
 
 image:
-  repository: rediscommander/redis-commander
+  repository: ghcr.io/joeferner/redis-commander
   tag: ""
   pullPolicy: IfNotPresent
 

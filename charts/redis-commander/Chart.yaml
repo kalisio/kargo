@@ -4,7 +4,7 @@ description: A Redis web management tool
 annotations:
   category: database
 version: 1.0.0
-appVersion: latest
+appVersion: 0.8.1
 home: https://github.com/joeferner/redis-commander
 keywords:
   - redis
