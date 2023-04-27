@@ -15,7 +15,7 @@ replicaCount: 1
 
 image:
   repository: kalisio/tileserver-gl
-  tag: v3.1.1
+  tag: ""
 
 service:
   enabled: true
