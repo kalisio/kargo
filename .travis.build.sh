@@ -50,7 +50,7 @@ case "$APP" in
     SRC_VERSION=4.6.20
     CONTAINER_NAME=kalisio/thredds-docker
     CONTAINER_TAG=$SRC_VERSION
-    DOCKER_CONTEXT=https://github.com/Unidata/thredds-docker.git#$SRC_VERSION
+    DOCKER_CONTEXT=https://github.com/kalisio/thredds-docker.git#$SRC_VERSION
     DOCKERFILE_OPT=
     ;;
   express-gateway)
