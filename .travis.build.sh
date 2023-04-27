@@ -1,78 +1,110 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+# set -x
 
-# Usage: build <app> [tag]
-# app - the name of the app to be built
-# tag - if defined, it uses the app version otherwise it uses latest
+# Usage: commit message should look like 'blah blah [build <app> [append_tag]]
+# where
+#   + <app> (required) should be replaced by the app you want to build (mapcache, tileserver-gl, ...)
+#   + [append_tag] (optionnal) should be replaced by a string that'll be appended to the container image tag
+#     the script will create. If not provided, defaults to 'latest', for the container images that care.
+
+# Script will exit as soon as a command return an error code (set -e)
+# This function will then be called to provide info on which command failed
+function __handle_cmd_err() {
+    exit_code=$?
+    echo "--------------"
+    echo "$0: ERR: '$BASH_COMMAND' command was terminated with error code $exit_code, stopping now."
+}
+
+# Install the handler
+trap __handle_cmd_err ERR
 
 COMMIT_MESSAGE=$1
-REGEXP=".*\[build[[:space:]]+([^[:space:]]+)[[:space:]]*(tag)?\]"
+REGEXP=".*\[build[[:space:]]+([^[:space:]]+)[[:space:]]*([a-zA-Z0-9_-]*)\]"
 
-echo "Commit message is: $COMMIT_MESSAGE"
-
-APP=
-TAG=
 # Check whether to build
-if [[ $COMMIT_MESSAGE =~ $REGEXP ]]; then
-  APP=${BASH_REMATCH[1]}
-  TAG=${BASH_REMATCH[2]}
-else
-  echo Invalid message pattern
+if [[ ! $COMMIT_MESSAGE =~ $REGEXP ]]; then
+  echo "$0: Commit message '$COMMIT_MESSAGE' did not trigger container build script, stopping now."
   exit 1
 fi
 
-VERSION=
-CONTEXT="build/$APP"
+# The container to build
+APP=${BASH_REMATCH[1]}
+# Something to append to the tag we'll build
+APPEND_TAG=${BASH_REMATCH[2]}
+# APPEND_TAG defaults to 'latest' if not provided
+if [[ -z "$APPEND_TAG" ]]; then APPEND_TAG=latest; fi
+
+# Image name
+CONTAINER_NAME=kalisio/$APP
+CONTAINER_TAG=
+DOCKER_BUILD_OPTS=
+DOCKER_CONTEXT=build/$APP
 DOCKERFILE_OPT="-f build/$APP/dockerfile"
 
 case "$APP" in
   express-gateway)
-    VERSION=1.16.9
+    SRC_VERSION=1.16.9
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
   mapcache)
-    VERSION=1.10
+    SRC_VERSION=1.10
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
   mapserver)
-    VERSION=7.4
+    SRC_VERSION=7.4
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
   maputnik)
-    VERSION=1.6.1
+    SRC_VERSION=1.6.1
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
   tileserver-gl)
-    VERSION=v3.1.1
+    SRC_VERSION=v3.1.1
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
   gdal)
-    VERSION=3.4.0
+    SRC_VERSION=3.4.0
+    DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
+    CONTAINER_TAG=$SRC_VERSION-$APPEND_TAG
     ;;
-  monggodb-exporter)
-    VERSION=v0.11.2
-    CONTEXT=https://github.com/percona/mongodb_exporter.git#v0.11.2
-    DOCKERFILE_OPT=""
+  mongodb-exporter)
+    # We build this one straight from github
+    SRC_VERSION=v0.11.2
+    DOCKER_CONTEXT=https://github.com/percona/mongodb_exporter.git#$SRC_VERSION
+    DOCKERFILE_OPT=
+    CONTAINER_TAG=$SRC_VERSION
     ;;
   kaptain)
-    VERSION=latest
+    CONTAINER_TAG=latest
     ;;
   k8s-toolbox)
-    VERSION=latest
-    ;;  
+    CONTAINER_TAG=latest
+    ;;
   *)
-    echo -n "unknown APP"
+    echo "$0: '$APP' is an unknown container name, stopping now."
+    exit 1
     ;;
 esac
 
-if [ -z $TAG ]; then
-  TAG=latest
-else
-  TAG=$VERSION
+if [[ -z "$CONTAINER_NAME" ]]; then
+  echo "$0: Container name is empty, stopping now."
+  exit 1
+fi
+if [[ -z "$CONTAINER_TAG" ]]; then
+  echo "$0: Container tag is empty, stopping now."
+  exit 1
 fi
 
-if [ -n $VERSION ]; then
-  docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
-  echo "Building $APP:$TAG from $CONTEXT ($VERSION)"
-  docker build --force-rm --build-arg VERSION=$VERSION $DOCKERFILE_OPT -t kalisio/$APP:$TAG $CONTEXT
-  RESULT_CODE=$?
-  if [ $RESULT_CODE -ne 0 ]; then
-    echo "$APP generation failed [error: $RESULT_CODE]"
-    exit 1
-  fi
-  docker push kalisio/$APP:$TAG
-fi
+CONTAINER_FULL_TAG=$CONTAINER_NAME:$CONTAINER_TAG
+echo "$0: Building container $CONTAINER_FULL_TAG"
+echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
+docker build $DOCKER_BUILD_OPTS --force-rm $DOCKERFILE_OPT -t $CONTAINER_FULL_TAG $DOCKER_CONTEXT
+# docker push $CONTAINER_FULL_TAG
+
+echo "$0: All good."
