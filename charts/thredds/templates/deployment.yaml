@@ -39,6 +39,10 @@ spec:
         - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: HTTP_PROXY
             - name: HTTPS_PROXY

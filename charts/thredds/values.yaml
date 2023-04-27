@@ -64,7 +64,12 @@ cacheDataSubPath: thredds_data/cache
 # resources are resource requests and limits to be applied
 resources: {}
 
-# default security context, run as non root uid 1000
+# default pod security context, run as non root uid 1000
 # podSecurityContext:
 #   runAsNonRoot: true
 #   runAsUser: 1000
+
+# main container security context can override podSecurityContext
+containerSecurityContext:
+  # thredds needs to be run as root
+  runAsNonRoot: false
