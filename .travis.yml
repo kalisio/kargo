@@ -8,7 +8,7 @@ notifications:
 
 stages:
 - name: BUILD
-  if: commit_message =~ /\[build \S+(?:\s+tag)?\]/ 
+  if: commit_message =~ /\[build \S+(?:\s+\S+)?\]/
 - name: PACK
   if: commit_message =~ /\[pack\]/ or commit_message =~ /\[pack \S+\]/
 - name: DOC
