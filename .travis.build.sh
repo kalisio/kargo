@@ -43,6 +43,16 @@ DOCKER_CONTEXT=build/$APP
 DOCKERFILE_OPT="-f build/$APP/dockerfile"
 
 case "$APP" in
+  thredds)
+    # Host our own since older versions seem to have vanished from dockerhub
+    # We're building from the git repo with no modifications whatsoever so
+    # no need to use APPEND_TAG
+    SRC_VERSION=4.6.20
+    CONTAINER_NAME=kalisio/thredds-docker
+    CONTAINER_TAG=$SRC_VERSION
+    DOCKER_CONTEXT=https://github.com/Unidata/thredds-docker.git#$SRC_VERSION
+    DOCKERFILE_OPT=
+    ;;
   express-gateway)
     SRC_VERSION=1.16.9
     DOCKER_BUILD_OPTS="--build-arg VERSION=$SRC_VERSION"
