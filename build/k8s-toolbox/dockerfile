@@ -16,3 +16,8 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     msmtp && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
+
+# create a user that can be used to run stuff
+RUN useradd --uid 1000 --create-home --shell /bin/bash kalisio
+
+ENV XDG_CONFIG_HOME=/config
