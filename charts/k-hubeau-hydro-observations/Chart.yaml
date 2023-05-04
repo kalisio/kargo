@@ -1,10 +1,10 @@
 apiVersion: v2
-name: k-hubeau-observations
+name: k-hubeau-hydro-observations
 description: >-
-  A Krawler based service to download observations data from French open portal
+  A Krawler based service to download hydrometric observations data from French open portal
   Hub'Eau
 version: 2.0.0
-appVersion: observations-1.5.0
+appVersion: hydro-observations-1.5.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
   category: KrawlerJob
