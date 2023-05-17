@@ -9,9 +9,10 @@ Builds a cronjob to clean specified filesystem paths.
   - volumeMounts    The list of volumeMounts for the cleanup container
   - volumes         The list of volumes to back volumeMounts
   - dryRun          A bool to enable dryrun cleanup (will only print matching files)
+  - image           An object defining the image to pull, cf. kargo.images.image template
 */}}
 {{- define "kargo.filesystem-kleaner-cronjob" -}}
-apiVersion: batch/v1beta1
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: {{ .args.name }}
@@ -24,9 +25,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "global" .context) | nindent 10 -}}
           containers:
             - name: {{ .args.name }}
-              image: busybox
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
               command:
                 - /bin/sh
               args:
@@ -54,9 +56,10 @@ Builds a cronjob to clean specified object storage paths.
   - cleanupPaths        A string with all the paths to scan (can be template)
   - olderThanDays       A file must be older than this to be deleted
   - dryRun              A bool to enable dryrun cleanup (will only print matching files)
+  - image           An object defining the image to pull, cf. kargo.images.image template
 */}}
 {{- define "kargo.rclone-kleaner-cronjob" -}}
-apiVersion: batch/v1beta1
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: {{ .args.name }}
@@ -69,9 +72,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "global" .context) | nindent 10 -}}
           containers:
             - name: {{ .args.name }}
-              image: rclone/rclone
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
               command:
                 - /bin/sh
               args:
