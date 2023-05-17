@@ -32,9 +32,9 @@ spec:
       {{- end }}
       initContainers:
         {{- if .Values.tomcatConfigMapName }}
-        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "tomcat-config" "helperSuffix" "-tomcat" "env" ( dict ) "image" .Values.envsubstConfigImage) "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "thredds-config" "helperSuffix" "-thredds" "env" ( dict ) ) "context" $ ) | nindent 8 }}
+        {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" ( dict "targetVolume" "thredds-config" "helperSuffix" "-thredds" "env" ( dict ) "image" .Values.envsubstConfigImage) "context" $ ) | nindent 8 }}
       containers:
         - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
