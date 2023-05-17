@@ -39,7 +39,7 @@ rcloneConfig:
   image:
     registry: docker.io
     repository: kalisio/k8s-toolbox
-    tag: latest
+    tag: 1.0.0
   # sourceArchive: ovh:/tileservergl-config.tar
   # targetVolume: tileservergl-config
 
