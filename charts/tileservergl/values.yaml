@@ -34,6 +34,15 @@ configVolume: {}
 #  configMap:
 #    name: '{{ include "kargo.names.fullname" $ }}-config'
 
+rcloneConfig:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: kalisio/k8s-toolbox
+    tag: latest
+  # sourceArchive: ovh:/tileservergl-config.tar
+  # targetVolume: tileservergl-config
+
 # dataSubPath is the subpath in the the dataVolume to mount
 dataSubPath: ""
 

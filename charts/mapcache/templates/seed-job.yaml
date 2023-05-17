@@ -14,7 +14,7 @@ spec:
           # ttlSecondsAfterFinished: 120
           restartPolicy: Never
           initContainers:
-            {{- if .Values.envsubstConfig }}
+            {{- if .Values.envsubstConfig.enabled }}
             {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
             - name: seed-local-cache
@@ -47,12 +47,12 @@ spec:
                   readOnly: true
           volumes:
             - name: mapcache-config
-              {{- if .Values.envsubstConfig }}
+              {{- if .Values.envsubstConfig.enabled }}
               emptyDir: {}
               {{- else if .Values.configVolume }}
               {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 14 }}
               {{- end }}
-            {{- if .Values.envsubstConfig }}
+            {{- if .Values.envsubstConfig.enabled }}
             {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
             - name: mapcache-cache

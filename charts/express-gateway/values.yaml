@@ -32,6 +32,17 @@ ingress:
   enabled: true
   className: nginx
 
+envsubstConfig:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: kalisio/k8s-toolbox
+    tag: latest
+  # sourceConfigMap: express-gateway-template-config
+  # targetVolume: express-gateway-config
+  # env: {}
+  # helperSuffix: ""
+
 # resources are resource requests and limits to be applied
 resources: {}
 

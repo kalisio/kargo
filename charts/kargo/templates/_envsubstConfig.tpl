@@ -4,12 +4,14 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
 @param .args.env          An object with key-value pairs to define environment variables
 @param .args.targetVolume The target volume where to copy the configMap content
 @param .args.helperSuffix A suffix to use when when requiring more than one invocation of the helper
+@param .args.image        An object defining the image to pull, cf. kargo.images.image template
 */}}
 {{- define "kargo.envsubstConfig.renderInitContainer" -}}
 - name: envsubst-config{{ default "" .args.helperSuffix }}
-  image: bhgedigital/envsubst
+  image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
   command:
-    - find
+    - /usr/bin/find
+  args:
     - -L
     - /source
     - '('

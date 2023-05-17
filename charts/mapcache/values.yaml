@@ -46,8 +46,23 @@ configVolume: {}
 #  configMap:
 #    name: '{{ include "kargo.names.fullname" $ }}-config'
 
-# dataSubPath is the subpath in the the dataVolume to mount
-dataSubPath: ""
+envsubstConfig:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: kalisio/k8s-toolbox
+    tag: latest
+  # sourceConfigMap: mapcache-template-config
+  # targetVolume: mapcache-config
+  # env: {}
+  # helperSuffix: ""
+
+rcloneLocalCache:
+  enabled: false
+  image:
+    registry: docker.io
+    repository: kalisio/k8s-toolbox
+    tag: latest
 
 # dataVolume is the specification for the volume where the data lies
 dataVolume: {}
@@ -55,6 +70,9 @@ dataVolume: {}
 #    server: "host or ip"
 #    path: "/zpool-foo/partition"
 #    readOnly: true
+
+# dataSubPath is the subpath in the the dataVolume to mount
+dataSubPath: ""
 
 # resources are resource requests and limits to be applied
 resources: {}

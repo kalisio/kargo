@@ -31,7 +31,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        {{- if .Values.rcloneConfig }}
+        {{- if .Values.rcloneConfig.enabled }}
         {{- include "kargo.rcloneConfig.renderInitContainer" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.initContainers }}
@@ -62,7 +62,7 @@ spec:
               {{- end }}
       volumes:
         - name: tileservergl-config
-          {{- if .Values.rcloneConfig }}
+          {{- if .Values.rcloneConfig.enabled }}
           emptyDir: {}
           {{- else if .Values.configVolume }}
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
@@ -71,7 +71,7 @@ spec:
           {{- if .Values.dataVolume }}
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
           {{- end }}
-        {{- if .Values.rcloneConfig }}
+        {{- if .Values.rcloneConfig.enabled }}
         {{- include "kargo.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.extraVolumes }}

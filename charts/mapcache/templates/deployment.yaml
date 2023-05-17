@@ -31,19 +31,19 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        {{- if .Values.envsubstConfig }}
+        {{- if .Values.envsubstConfig.enabled }}
         {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
-        {{- if .Values.localCacheSource }}
+        {{- if .Values.rcloneLocalCache.enabled }}
         - name: rclone-local-cache
-          image: rclone/rclone
+          image: {{ include "kargo.images.image" ( dict "imageRoot" .Values.rcloneLocalCache.image "global" .Values.global ) }}
           # copy from object storage, extract caches & change owner to www-data (33 in mapcache's docker image)
           command:
             - /bin/sh
           args:
             - -c
             - >-
-              CACHE_SOURCE={{ include "kargo.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} &&
+              CACHE_SOURCE={{ include "kargo.tplvalues.render" ( dict "value" .Values.rcloneLocalCache.source "context" $) }} &&
               CACHE_FILE=$(basename $CACHE_SOURCE) &&
               cd /cache &&
               rclone copy $CACHE_SOURCE . --progress &&
@@ -88,7 +88,7 @@ spec:
               {{- end }}
       volumes:
         - name: mapcache-config
-          {{- if .Values.envsubstConfig }}
+          {{- if .Values.envsubstConfig.enabled }}
           emptyDir: {}
           {{- else if .Values.configVolume }}
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.configVolume "context" $ ) | nindent 10 }}
@@ -99,7 +99,7 @@ spec:
           {{- else if .Values.localCacheSource }}
           emptyDir: {}
           {{- end }}
-        {{- if .Values.envsubstConfig }}
+        {{- if .Values.envsubstConfig.enabled }}
         {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.localCacheSource }}

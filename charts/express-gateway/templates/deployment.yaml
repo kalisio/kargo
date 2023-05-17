@@ -31,7 +31,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        {{- if .Values.envsubstConfig }}
+        {{- if .Values.envsubstConfig.enabled }}
         {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
         {{- if .Values.initContainers }}
@@ -65,12 +65,12 @@ spec:
               subPath: system.config.yml
       volumes:
         - name: express-gateway-config
-          {{- if .Values.envsubstConfig }}
+          {{- if .Values.envsubstConfig.enabled }}
           emptyDir: {}
           {{- else }}
           configMap:
             name: {{ include "kargo.names.fullname" . }}-config
           {{- end }}
-        {{- if .Values.envsubstConfig }}
+        {{- if .Values.envsubstConfig.enabled }}
         {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 8 }}
         {{- end }}
