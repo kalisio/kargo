@@ -1,5 +1,5 @@
 {{- if .Values.seedJob.enabled }}
-apiVersion: batch/v1beta1
+apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: {{ include "kargo.names.fullname" . }}-seed-job
