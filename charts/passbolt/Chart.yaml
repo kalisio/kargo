@@ -13,7 +13,7 @@ sources:
 home: https://www.passbolt.com
 dependencies:
   - name: kargo
-    version: 0.x.x
+    version: x.x.x
     repository: file://../kargo
 maintainers:
   - name: KALISIO

@@ -15,7 +15,7 @@ keywords:
 home: https://www.unidata.ucar.edu/software/tds/current/
 dependencies:
   - name: kargo
-    version: 0.x.x
+    version: x.x.x
     repository: file://../kargo
 maintainers:
   - name: KALISIO
