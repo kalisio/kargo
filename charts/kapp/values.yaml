@@ -47,6 +47,12 @@ env:
   dbUrl:
     secret: ""
     key: ""
+  # keycloakClientId specifies the keycloak authentication client id
+  keycloakClientId: ""
+  # keycloakSecret specifies the keycloak authentication client secret
+  keycloakSecret:
+    secret: ""
+    key: ""
   # s3Endpoint specfies the S3 compatible endpoint
   s3Endpoint: ""
   # s3Region specfies the S3 region
@@ -61,13 +67,15 @@ env:
   s3SecretAccessKey:
     secret: ""
     key: ""
-  # vapid settings
+  # vapidPublicKey specifies the VAPID public key as a base64 encoded string
   vapidPublicKey: 
     secret: ""
     key: ""
+   # vapidPrivateKey specifies the VAPID private key as a base64 encoded string
   vapidPrivateKey: 
     secret: ""
     key: ""
+  # vapidSubject specifies an URL or a 'mailto:' email address
   vapidSubject: ""
   # logLevel specifies the level of frontend log
   logLevel: ""
