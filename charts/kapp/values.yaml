@@ -47,6 +47,20 @@ env:
   dbUrl:
     secret: ""
     key: ""
+  # s3Endpoint specfies the S3 compatible endpoint
+  s3Endpoint: ""
+  # s3Region specfies the S3 region
+  s3Region: ""
+  # s3Bucket specfies the S3 bucket where to store the files
+  s3Bucket: ""
+  # s3AccessKey specifies the S3 secret access key
+  s3AccessKey:
+    secret: ""
+    key: ""
+  # s3SecretAccessKey specifies the S3 secret access key
+  s3SecretAccessKey:
+    secret: ""
+    key: ""
   # vapid settings
   vapidPublicKey: 
     secret: ""
