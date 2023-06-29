@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kano
 description: A powerful real-time Geovisualizer
-version: 0.5.0
+version: 1.0.0
 appVersion: 2.0.0-prod
 home: https://kalisio.github.io/kano/
 annotations:
