@@ -1,0 +1,66 @@
+# weacast-gfs-world-loader default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: weacast/weacast-gfs
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule
+cron: "50 * * * *"
+
+env:
+  # dbUrl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # syncDbUrl specifies the mongodb connection string to the sync database
+  syncDbUrl:
+    secret: ""
+    key: ""
+  # workersLimit specifies the maximum number of workers
+  workersLimit: ""
+  # requestDelay specifies a wait delay between 2 requests (3 seconds)
+  requestDelay: ""
+  # ttl specifies the forecasts time to live
+  ttl: ""
+  # upperLimit specifies the forecast timespan of data to download (in seconds)
+  upperLimit: "432000"
+  # s3Endpoint specfies the S3 compatible endpoint
+  s3Endpoint: ""
+  # s3Bucket specfies the S3 bucket where to store the files
+  s3Bucket: ""
+  # s3AccessKey specifies the S3 secret access key
+  s3AccessKey:
+    secret: ""
+    key: ""
+  # s3SecretAccessKey specifies the S3 secret access key
+  s3SecretAccessKey:
+    secret: ""
+    key: ""
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+  # slackWebhookUrl is the url to use to report failure
+  slackWebhookUrl:
+    secret: ""
+    key: ""
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
