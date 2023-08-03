@@ -1,7 +1,7 @@
 apiVersion: v2
 name: k-openaq
 description: A Krawler based service to download data from OpenAQ (Air Quality)
-version: 0.7.0
+version: 1.0.0
 appVersion: 1.2.0
 home: https://github.com/kalisio/k-openaq
 annotations:
