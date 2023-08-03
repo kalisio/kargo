@@ -7,7 +7,7 @@ home: https://github.com/kalisio/k-openaq
 annotations:
   category: KrawlerJob
 keywords:
-  - oprnaq
+  - openaq
   - krawler
 dependencies:
   - name: kargo
