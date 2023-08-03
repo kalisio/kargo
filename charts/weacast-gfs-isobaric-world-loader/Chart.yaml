@@ -1,7 +1,7 @@
 apiVersion: v2
 name: weacast-gfs-isobaric-world-loader
 description: A Krawler based service to download GFS world forecast data
-version: 0.1.0
+version: 0.2.0
 appVersion: isobaric-world-1.9.0
 home: https://github.com/weacast/weacast-loader
 annotations:
