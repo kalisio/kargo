@@ -19,7 +19,7 @@ image:
 forceRestart: false
 
 # cron specifies the job schedule (every hour)
-cron: "40 * * * *"
+cron: "20 * * * *"
 
 env:
   # token is the token to use on the meteo france website
