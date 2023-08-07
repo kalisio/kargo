@@ -1,0 +1,39 @@
+# k-meteo-france-arpege-world-loader default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-meteo-france-loader
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every hour)
+cron: "40 * * * *"
+
+env:
+  # token is the token to use on the meteo france website
+  token: ""
+  # s3Endpoint is the S3 endpoint where to store the data
+  s3Endpoint: ""
+  # s3Bucket is the S3 bucket where to store the data
+  s3Bucket: ""
+  # s3AccessKey is the S3 access key where to store the data
+  s3AccessKey: { "secret": "", "key": "" }
+  # s3SecretAccessKey is the S3 secret access key where to store the data
+  s3SecretAccessKey: { "secret": "", "key": "" }
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+
+# resources are resource requests and limits to be applied
+resources: {}

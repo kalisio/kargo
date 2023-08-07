@@ -1,0 +1,22 @@
+apiVersion: v2
+name: k-meteo-france-arpege-world-loader
+description: >-
+  Weather forecast raw data downloader for Météo-France ARPEGE/AROME models
+version: 0.1.0
+appVersion: arpege-world-0.1.0
+home: https://github.com/kalisio/k-meteo-france-loader
+annotations:
+  category: KrawlerJob
+keywords:
+  - france
+  - meteo
+  - arpege
+  - krawler
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
