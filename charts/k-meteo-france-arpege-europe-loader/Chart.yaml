@@ -1,8 +1,7 @@
 apiVersion: v2
 name: k-meteo-france-arpege-europe-loader
-description: >-
-  Weather forecast raw data downloader for Météo-France ARPEGE/AROME models
-version: 0.1.0
+description: Weather forecast raw data downloader for Météo-France ARPEGE/AROME models
+version: 0.2.0
 appVersion: arpege-europe-0.1.0
 home: https://github.com/kalisio/k-meteo-france-loader
 annotations:
