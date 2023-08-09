@@ -24,6 +24,9 @@ forceRestart: false
 # the port the container listens to
 containerPort: 8080
 
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: "/healthcheck"
+
 service:
   enabled: true
   type: ClusterIP
