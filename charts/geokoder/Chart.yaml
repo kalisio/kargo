@@ -1,0 +1,19 @@
+apiVersion: v2
+name: geokoder
+description: 3D terrain tiles server
+version: 0.1.0
+appVersion: 0.1.0
+home: https://github.com/kalisio/geokoder
+annotations:
+  category: Service
+keywords:
+  - geocoding
+  - kano
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
