@@ -21,6 +21,9 @@ image:
 # forceRestart forces the pod to be restarted when upgrading the chart
 forceRestart: false
 
+# the port the container listens to
+containerPort: 8080
+
 service:
   enabled: true
   type: ClusterIP
