@@ -79,19 +79,37 @@ spec:
             periodSeconds: {{ .Values.livenessPeriod | default 60 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if hasKey .Values "additionalConfig" }}
+          {{- if or .Values.additionalConfig .Values.dataVolume }}
           volumeMounts:
+            {{- if .Values.additionalConfig }}
             {{- range $key, $value := .Values.additionalConfig.fileMapping }}
             - mountPath: {{ $value }}
               name: {{ include "kargo.names.name" $ }}-config
               subPath: {{ $key }}
               readOnly: true
             {{- end }}
+            {{- end }}
+            {{- if .Values.dataVolume }}
+            - mountPath: {{ .Values.dataMountPath | default "/mnt/data" }}
+              name: data
+              {{- if .Values.dataSubPath }}
+              subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
+              {{- end }}
+            {{- end }}
           {{- end }}
-      {{- if hasKey .Values "additionalConfig" }}
+      {{- if or .Values.additionalConfig .Values.dataVolume }}
       volumes:
+        {{- if .Values.additionalConfig }}
         - name: {{ include "kargo.names.name" . }}-config
           configMap:
             name: {{ include "kargo.tplvalues.render" ( dict "value" .Values.additionalConfig.configMap "context" $ ) }}
+        {{- end }}
+        {{- if .Values.dataVolume }}
+        - name: data
+          {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
+          {{- if .Values.rcloneConfig }}
+          {{- include "kargo.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 10 }}
+          {{- end }}
+        {{- end }}
       {{- end }}
 {{- end }}

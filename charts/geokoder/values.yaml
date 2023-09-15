@@ -27,6 +27,16 @@ containerPort: 8080
 # livenessEndpoint is the endpoint to use with liveness probe
 livenessEndpoint: "/healthcheck"
 
+# dataSubPath is the subpath in the the dataVolume to mount
+dataSubPath: ""
+
+# dataVolume is the specification for the volume where the data lies
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
 distribution:
   # enabled specifies whether or not to use distribution
   enabled: true
