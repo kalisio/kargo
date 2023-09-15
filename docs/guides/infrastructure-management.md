@@ -243,7 +243,7 @@ Just clone like you're used to adding the `--recurse-submodules` flag.
 git clone --recurse-submodules
 ```
 
-If you cloned the project and forgot the `--recurse-submodules` flag, read the next section.
+If you cloned the project and forgot the `--recurse-submodules` flag, you can use `git submodule update --init` to fetch submodules.
 
 ### Pulling changes in the infrastructure-xyz project
 
