@@ -32,9 +32,26 @@ spec:
                 name: {{ include "kargo.names.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
+    {{- range .Values.ingress.additionalHosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "kargo.names.fullname" $ }}
+                port:
+                  number: {{ $.Values.service.port }}
+    {{- end }}
   tls:
     - hosts:
         - {{ include "kargo.names.host" . }}
       secretName: {{ include "kargo.names.host" . }}-tls
+    {{- range .Values.ingress.additionalHosts }}
+    - hosts:
+        - {{ . }}
+      secretName: {{ . }}-tls
+    {{- end }}
 {{- end }}
 {{- end -}}
