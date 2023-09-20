@@ -23,9 +23,6 @@ service:
   port: 80 # port on which we expose service
   annotations: {}
 
-ingress:
-  enabled: false
-
 # the port the container listens to
 containerPort: 8080
 
