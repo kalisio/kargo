@@ -3,7 +3,7 @@ name: passbolt
 description: An open source password manager build for collaboration
 annotations:
   category: sys
-version: 0.4.0
+version: 1.0.0
 appVersion: 4.3.0-1-ce-non-root
 keywords:
   - passbolt
