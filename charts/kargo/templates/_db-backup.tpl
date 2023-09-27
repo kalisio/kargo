@@ -28,7 +28,7 @@ stringData:
     [client]
     password={{ .args.password }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: backup-{{ .args.host }}
@@ -87,7 +87,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: restore-{{ .args.host }}
@@ -174,7 +174,7 @@ type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: backup-{{ .args.host }}
@@ -237,7 +237,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: restore-{{ .args.host }}
@@ -330,7 +330,7 @@ stringData:
     password: {{ .args.password | default "" }}
     uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: backup-{{ .args.host }}
@@ -389,7 +389,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: restore-{{ .args.host }}
@@ -481,7 +481,7 @@ stringData:
     [client]
     password={{ .args.password }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: backup-{{ .args.database }}-db
@@ -540,7 +540,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: restore-{{ .args.database }}-db
@@ -629,7 +629,7 @@ type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: backup-{{ .args.database }}-db
@@ -692,7 +692,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 ---
-apiVersion: {{ .Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
   name: restore-{{ .args.database }}-db
