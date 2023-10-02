@@ -1,0 +1,22 @@
+apiVersion: v2
+name: crisis
+description: Kalisio Crisis
+version: 1.0.0
+appVersion: 2.0.1-prod
+home: https://kalisio.github.io/crisis/
+annotations:
+  category: application
+keywords:
+  - crisis
+  - kano
+  - weacast
+  - kdk
+  - kalisio
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

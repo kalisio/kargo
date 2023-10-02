@@ -1,0 +1,116 @@
+# Crisis default values
+
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  # certIssuer to assign to the ingress cert-manager annotation
+  certIssuer: ""
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# Common annotations to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# Common labels to add to all Kong resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# Number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/crisis 
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8081 # port on which we expose service
+  annotations: {}
+      
+ingress:
+  enabled: true
+  className: nginx
+
+distribution:
+  # enabled specifies whether or not to use distribution
+  enabled: true
+  # basePort specifies the starting port of the port range
+  basePort: 10020
+  # highestPort specifies the ending port of the port range
+  highestPort: 10029
+ # delay specifies the time to wait before starting service discovery
+  startDelay: "10000"
+  # redisUrl specifies th redis connection string
+  redisUrl:
+    secret: ""
+    key: ""  
+
+env:
+  # appSecret specifies the application secret
+  appSecret:
+    secret: ""
+    key: ""
+  # appId specifies the application id
+  appId: ""
+  # dbUrl specifies the application database connection string 
+  dbUrl:
+    secret: ""
+    key: ""
+  # dataDbUrl specifies the data database connection string 
+  dataDbUrl:
+    secret: ""
+    key: ""
+  # apiGatewayUrl specifies whether to enable the API Gateway
+  apiGatewayUrl: "https://api.{{ .Values.global.subdomain }}"
+  # s3Endpoint specfies the S3 compatible endpoint
+  s3Endpoint: https://s3.gra.cloud.ovh.net
+  # s3Region specfies the S3 region
+  s3Region: gra
+  # s3Bucket specfies the S3 bucket where to store the files
+  s3Bucket: crisis-prod
+  # s3AccessKey specifies the S3 secret access key
+  s3AccessKey:
+    secret: ""
+    key: ""
+  # s3SecretAccessKey specifies the S3 secret access key
+  s3SecretAccessKey:
+    secret: ""
+    key: ""
+  # vapidPublicKey specifies the VAPID public key as a base64 encoded string
+  vapidPublicKey: 
+    secret: ""
+    key: ""
+   # vapidPrivateKey specifies the VAPID private key as a base64 encoded string
+  vapidPrivateKey: 
+    secret: ""
+    key: ""
+  # vapidSubject specifies an URL or a 'mailto:' email address
+  vapidSubject: ""    
+  # googleMailUser specifies the Google mail user
+  googleMailUser: 
+    secret: ""
+    key: ""
+  # googleMailPassword specifies the Google mail password
+  googleMailPassword: 
+    secret: ""
+    key: ""
+  # googleMailClientId specifies the Google client id
+  googleMailClientId: 
+    secret: ""
+    key: ""
+  # googleMailClientId specifies the Google private key
+  googleMailPrivateKey: 
+    secret: ""
+    key: ""
+  # mapillaryToken specifies the Mapillary token
+  mapillaryToken: 
+    secret: ""
+    key: ""
+  # logLevel specifies the level of frontend log
+  logLevel: ""
+  # debug specified the list of backend modules for which the output is enabled
+  debug: ""
