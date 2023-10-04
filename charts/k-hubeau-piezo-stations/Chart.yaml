@@ -1,9 +1,9 @@
 apiVersion: v2
 name: k-hubeau-piezo-stations
 description: >-
-  A Krawler based service to download piezometric stations data from French open portal
-  Hub'Eau
-version: 0.1.0
+  A Krawler based service to download piezometric stations data from French open
+  portal Hub'Eau
+version: 0.2.0
 appVersion: piezo-stations-1.5.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
