@@ -40,8 +40,7 @@ function getGuidesSidebar () {
     'understanding-kargo',
     'getting-started',
     'advanced-usage',
-    'infrastructure-management',
-    'docker-images-helm-charts'
+    'infrastructure-management'
   ]
 }
 

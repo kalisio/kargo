@@ -2,9 +2,11 @@
 sidebarDepth: 3
 ---
 
-We run docker images through kubernetes, which mean we have some helm chart
+# Containers, charts and kubernetes best practices
 
-# Docker image best practices
+We run docker images through kubernetes, which mean we have some helm chart.
+
+## Docker image best practices
 
 * Prefer -slim images as base and use multi stage builds to reduce image sizes
 * Make your docker image run as unpriviliged user
@@ -14,6 +16,8 @@ We run docker images through kubernetes, which mean we have some helm chart
   * If there's no preinstalled user, create one and use it
 * Since it'll run as unpriviliged user, if you need to open ports, make sure they're >= 1024
 
+* Snippet to install stuff with apt and clean afterwards
+```
 RUN \
   DEBIAN_FRONTEND=noninteractive && \
   apt-get update && \
@@ -23,39 +27,43 @@ RUN \
     gdal-bin && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
+```
 
+* Snippet to install stuff with yarn and clean afterwards
+```
 RUN \
   yarn global add @weacast/grib2json@${GRIB2JSON_TAG} && \
   chmod a+x /usr/local/share/.config/yarn/global/node_modules/@weacast/grib2json/bin/grib2json && \
   yarn cache clean
+```
 
-# Helm charts best practices
+## Helm charts best practices
 
 * Define appVersion to the docker image tag it's supposed to pull (no latest in defined charts, latest can be specified using values.yaml in infra definition)
 * Include configurable resource requests & limits
 * Include configurable security context and put sensible defaults in chart's values.yaml
 * If it's being deployed on some preprod infra, then chart version should be at least 1.0.0
 
-# Infrastructure management best practices
+## Infrastructure management best practices
 
 * Local charts must not depend on 0.0.0-dev charts when infra is != from staging/dev
 
-# Howto version docker images
+## Howto version docker images
 
 * kargo specific container images (tileservergl & friends ...)
   * [build app-name tag]
 * kapture yarn release:[major,minor,patch]
 * k-hubeau-* yarn release:[major,minor,patch]
 
-# Howto version helm charts
+## Howto version helm charts
 
  * [pack] in commit message => will regenerate all 0.0.0-dev charts
  * yarn release:charts:[major,minor,patch] => will make a new tagged release
    * if given a glob patten, will only release matching charts
 
-# Known issues
+## Known issues
 
-# Open issues
+## Open issues
 
 * would be nice to forbid pushing over a tag that already exists (container, chart), except latest
   * if needed, remove tag from dockerhub, harbor, whatever and then push
