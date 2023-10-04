@@ -27,27 +27,27 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "55cc98310dfd5a931d7364a08d663a5f"
+    "revision": "c345df02c8f81905b682aa36c14f8491"
   },
   {
     "url": "about/contact.html",
-    "revision": "5da594fdba3aa9485e1b14ae07d29a02"
+    "revision": "1e2270e3db4e98242e053c712f374224"
   },
   {
     "url": "about/contributing.html",
-    "revision": "d788cdb5ba837f28392a68f8023a2cca"
+    "revision": "10e9a9b143ca73f552c0485fb9c743eb"
   },
   {
     "url": "about/introduction.html",
-    "revision": "6609bfeb2ccfd917f226235c5ff7881a"
+    "revision": "242aab78490445393b253a8e58a4329b"
   },
   {
     "url": "about/license.html",
-    "revision": "bb8b766962c738f5122b8889e2e39b01"
+    "revision": "36e7c76fd6185e90ceff635ebe02cdb1"
   },
   {
     "url": "about/roadmap.html",
-    "revision": "84b3707faf9027ccc205f637566efb3f"
+    "revision": "6833a8da47b2577975bfe596b87dfa6e"
   },
   {
     "url": "assets/css/0.styles.21f892e9.css",
@@ -214,76 +214,76 @@ self.__precacheManifest = [
     "revision": "3fdb34f849126c7bc98cb050d7aaf2fd"
   },
   {
-    "url": "assets/js/app.c8f80d3a.js",
-    "revision": "b65679b026faf2db9df90b74260d4bec"
+    "url": "assets/js/app.ae0a8ea4.js",
+    "revision": "9436d54534a4eccde11c813550a577dd"
   },
   {
     "url": "guides/advanced-usage.html",
-    "revision": "7af2cd0a81eca26c87dfc222619a30c3"
+    "revision": "74cbb1b8e5ec57f935feb1fcf50e47ad"
   },
   {
     "url": "guides/docker-images-helm-charts.html",
-    "revision": "39eaf5014fc2bbc7c6ee03b50c978c50"
+    "revision": "2785238e9727389064cc9b4e3d1bf7e4"
   },
   {
     "url": "guides/getting-started.html",
-    "revision": "0acef19b4759f1227c8edfa555f94f07"
+    "revision": "b47230e862c172933e75519baf6f98c9"
   },
   {
     "url": "guides/infrastructure-management.html",
-    "revision": "90b2124969b7726d348ae383590dbe71"
+    "revision": "9180a517ecdb8c81c105ee00927cf03e"
   },
   {
     "url": "guides/understanding-kargo.html",
-    "revision": "4b749aaa19585e15fb43f64f3cafee75"
+    "revision": "abc222d8dcf374aeb40bb3ebc8cdec30"
   },
   {
     "url": "index.html",
-    "revision": "c9ba6343f327bb4caad58e7a31b4e836"
+    "revision": "4132aa5cb403a6cfed8e33106a65bc4e"
   },
   {
     "url": "reference/cli.html",
-    "revision": "0eaf2bc966f5a36ef3d08a3f58e4eb7b"
+    "revision": "7ea07bdd348a8deea58d0b8f717f6197"
   },
   {
     "url": "reference/environment.html",
-    "revision": "81ccb70af47779055ce9c7f19615f996"
+    "revision": "6cbc8bd3fe66120ddfbd3a71efbfb96a"
   },
   {
     "url": "reference/helper-scripts.html",
-    "revision": "46ef6c23543937a697aacbefa2e8e43b"
+    "revision": "4236ac9dc85d375524c10e6e4a1b2fe8"
   },
   {
     "url": "reference/scripts-library.html",
-    "revision": "15ff12710b084354eae213a2bc63c26e"
+    "revision": "dafffe6ca7a898f11f0a36ef2252669f"
   },
   {
     "url": "tips/extracting-osm-data.html",
-    "revision": "c1142211b30d448cbf4a0df2fedcf63a"
+    "revision": "e95808e11687180aad8a7e649d215821"
   },
   {
     "url": "tips/handling-long-running-process.html",
-    "revision": "bf9567ea22dd1f92739df21b887fcdd8"
+    "revision": "8f16a4c7637053ccf48046ceb6268af6"
   },
   {
     "url": "tips/running-express-gateway.html",
-    "revision": "ab919715a70e81e4edd004f091ff8478"
+    "revision": "87d1acd96f3f766035d5fd012b5dcd97"
   },
   {
     "url": "tips/using-artillery.html",
-    "revision": "ba376aa2eb77704f9b477219fe2d9df9"
+    "revision": "06a2f4fbada7d7be682f40093d59c6d0"
   },
   {
     "url": "tips/using-gdal.html",
-    "revision": "e6e8f8f95ef50a6c5e0ea73a7e58075a"
+    "revision": "31cda11e84ef6ed1738e54564f79af8f"
   },
   {
     "url": "tips/using-mongodb-atlas.html",
-    "revision": "7f38a36337d1c1bfbcd5b42ee26a9c01"
+    "revision": "210f4ff54dbf00b1ad1b351b86dea0cc"
   },
   {
     "url": "tips/using-private-registry.html",
-    "revision": "09bd2cfd0b579772fb1751accfb97fc6"
+    "revision": "a8ffc3223cffe04253704bb23d02bfb0"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
