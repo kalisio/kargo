@@ -3,7 +3,7 @@ name: passbolt
 description: An open source password manager build for collaboration
 annotations:
   category: sys
-version: 1.0.0
+version: 1.0.1
 appVersion: 4.3.0-1-ce-non-root
 keywords:
   - passbolt
@@ -13,8 +13,8 @@ sources:
 home: https://www.passbolt.com
 dependencies:
   - name: kargo
-    version: x.x.x
-    repository: file://../kargo
+    version: 1.x.x
+    repository: oci://harbor.portal.kalisio.com/kalisio/helm
 maintainers:
   - name: KALISIO
     email: contact@kalisio.com
