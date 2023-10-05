@@ -13,8 +13,8 @@ sources:
 home: https://kanboard.org
 dependencies:
   - name: kargo
-    version: x.x.x
-    repository: file://../kargo
+    version: 1.x.x
+    repository: oci://harbor.portal.kalisio.com/kalisio/helm
 maintainers:
   - name: KALISIO
     email: contact@kalisio.com
