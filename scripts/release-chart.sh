@@ -33,13 +33,11 @@ if [ -n "$STATUS" ]; then
     exit 1
 fi
 
-# fetch changes from upstream, this is to make sure latest commit on
-# local branch also exists upstream
-# git fetch
-
 # make sure our latest commit also exists upstream
-LOCAL_COMMIT=$(git rev-parse HEAD)
-BRANCHES=$(git branch --remotes --contains $LOCAL_COMMIT | grep origin)
+LOCAL_COMMIT=$(git rev-parse HEAD) # get current commit sha
+# list branches containing our commit sha, must include origin/master
+# command is allowed to fail (|| true) because grep fails if it doesn't find the string
+BRANCHES=$(git branch --remotes --contains $LOCAL_COMMIT | grep origin/master) || true
 if [ -z "$BRANCHES" ]; then
     echo "$0: refusing to proceed since your work has not been published upstream"
     exit 1
