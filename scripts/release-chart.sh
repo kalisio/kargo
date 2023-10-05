@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-set -x
+# set -x
 
 CHART=${1}
 KALISIO_REGISTRY="oci://harbor.portal.kalisio.com"
