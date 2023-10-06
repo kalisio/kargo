@@ -1,7 +1,7 @@
 apiVersion: v2
 name: kapture
 description: Capture Kano Snapshots as a Service
-version: 1.1.0
+version: 1.1.1
 appVersion: 1.2.0
 home: https://github.com/kalisio/kapture
 annotations:
