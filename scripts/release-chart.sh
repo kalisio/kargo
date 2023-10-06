@@ -3,29 +3,22 @@ set -euo pipefail
 # set -x
 
 CHART=${1}
-KALISIO_REGISTRY="oci://harbor.portal.kalisio.com"
+REMOTE="oci://harbor.portal.kalisio.com/kalisio/helm"
 
 THIS_FILE=$(readlink -f "$BASH_SOURCE")
 THIS_PATH=$(dirname "$THIS_FILE")
 KARGO_PATH=$(dirname "$THIS_PATH")
 
-# Package the given chart ($1) and push it on success to the given remote ($2)
-package_chart() {
-    local CHART=$1
-    local REMOTE=$2
-    local TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" $CHART.XXXXXX)
-
-    # https://helm.sh/docs/helm/helm/
-    helm dependencies update
-    helm lint .
-    helm package . -d $TMP_PATH
-    helm push $TMP_PATH/$CHART* $REMOTE
-    rm -fR $TMP_PATH
-}
-
+# get in root kargo folder
 cd $KARGO_PATH
 
-# make sure working tree is clean in the chart we're about to package
+# make sure chart exists
+if [ ! -d "charts/$CHART" ]; then
+    echo "$0: chart $CHART does not exist"
+    exit 1
+fi
+
+# make sure working tree is clean
 STATUS=$(git status --porcelain)
 if [ -n "$STATUS" ]; then
     echo "$0: refusing to proceed since working tree is not clean in charts/$CHART"
@@ -52,10 +45,23 @@ if git show-ref --tags "$TAG_NAME" --quiet; then
     exit 1
 fi
 
-# package and push chart
-pushd charts/$CHART
-package_chart $CHART $KALISIO_REGISTRY/kalisio/helm
-popd
+TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" $CHART.XXXXXX)
+
+# package chart
+helm dependencies update charts/$CHART
+helm lint charts/$CHART
+helm package charts/$CHART --destination $TMP_PATH
+
+# push on oci registry
+helm push $TMP_PATH/$CHART* $REMOTE
+
+# and on s3 backup storage (merge index.yaml before pushing)
+rclone copy kalisio_charts:index.yaml $TMP_PATH
+helm repo index $TMP_PATH --merge $TMP_PATH/index.yaml
+rclone copy $TMP_PATH kalisio_charts:
+
+# cleanup
+rm -fR $TMP_PATH
 
 # if all ok, make a tag and publish it
 git tag $TAG_NAME $LOCAL_COMMIT

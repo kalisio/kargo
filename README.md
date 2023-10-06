@@ -26,6 +26,27 @@ This project is sponsored by
 
 This project is licensed under the MIT License - see the [license file](./docs/LICENSE.md) for details
 
+## Helm charts management
+
+The chart management scripts (`release-dev-charts.sh` and `release-chart.sh`) both require :
+
+ * a valid `rclone` configuration, ie. containing a remote named `kalisio_charts` pointing on the object storage bucket where we backup our charts.
+ * an `helm` command able to push on our OCI-based registry, ie. you need to use `helm registry login harbor.portal.kalisio.com/kalisio` and enter the required credentials.
+
+### HOWTO generate chart dev versions
+
+Use the `./scripts/release-dev-charts.sh`.
+
+The script will package every chart and push on our OCI registry and on a backup s3 storage.
+
+### HOWTO make a chart release
+
+ 1. Prepare the new chart version, update chart version in $CHART/Chart.yaml
+ 2. Push your changes to the central repository
+ 3. Use `./scripts/release-chart.sh $CHART` where $CHART is the name of the chart to release (mapserver, kano, ...)
+
+ The script will package the chart, push on our oci registry and on a backup s3 storage. If everything is ok, it'll make a git tag named `$CHART-$VERSION`
+
 ## Howto version docker images
 
 * kargo specific container images (tileservergl & friends ...)
