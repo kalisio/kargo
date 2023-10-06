@@ -3,8 +3,8 @@ name: mongo-express
 description: A Web-based MongoDB admin interface
 annotations:
   category: database
-version: 1.1.0
-appVersion: 1.0.1
+version: 1.1.1
+appVersion: 1.0.0
 home: https://github.com/mongo-express/mongo-express
 keywords:
   - mongodb
