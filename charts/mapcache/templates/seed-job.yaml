@@ -17,34 +17,29 @@ spec:
             {{- if .Values.envsubstConfig.enabled }}
             {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
+          containers:
             - name: seed-local-cache
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              env:
+                - name: MAPCACHE_SEED_OPTIONS
+                {{- if .Values.seedJob.forceSeed }}
+                  value: '-f'
+                {{- else }}
+                  value: ''
+                {{- end }}
               command:
                 - sh
                 - -c
-                - for LAYER in {{ .Values.seedJob.layers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.seedJob.fromZ }},{{ .Values.seedJob.toZ }} -n {{ .Values.seedJob.threadCount }}; done
+                - for LAYER in {{ .Values.seedJob.layers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed $MAPCACHE_SEED_OPTIONS -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.seedJob.fromZ }},{{ .Values.seedJob.toZ }} -n {{ .Values.seedJob.threadCount }}; done
               volumeMounts:
                 - mountPath: /etc/mapcache
                   readOnly: true
                   name: mapcache-config
                 - mountPath: /mnt/data
                   name: mapcache-cache
-          containers:
-            - name: rclone-local-cache
-              image: rclone/rclone
-              command:
-                - sh
-                - -c
-                - CACHE_SOURCE={{ include "kargo.tplvalues.render" ( dict "value" .Values.localCacheSource "context" $) }} && CACHE_FILE=$(basename $CACHE_SOURCE) && mkdir -p /scratch/caches && cd /scratch/caches {{ if .Values.seedJob.mergeWithCurrentCaches }}&& rclone copy $CACHE_SOURCE . --progress && tar xf $CACHE_FILE && rm -f $CACHE_FILE {{ end }}&& rclone copy /cache . --progress && tar -cf /scratch/$CACHE_FILE . && rclone copyto /scratch/$CACHE_FILE $CACHE_SOURCE --progress
-              volumeMounts:
-                - mountPath: /cache
-                  name: mapcache-cache
-                - mountPath: /scratch
-                  name: scratch-space
-                - mountPath: /config/rclone/rclone.conf
-                  name: rclone-config
-                  subPath: rclone.conf
-                  readOnly: true
+                  {{- if .Values.dataSubPath }}
+                  subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
+                  {{- end }}
           volumes:
             - name: mapcache-config
               {{- if .Values.envsubstConfig.enabled }}
@@ -56,11 +51,5 @@ spec:
             {{- include "kargo.envsubstConfig.renderVolume" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
             - name: mapcache-cache
-              persistentVolumeClaim:
-                claimName: {{ include "kargo.names.fullname" . }}-seed-job
-            - name: scratch-space
-              emptyDir: {}
-            - name: rclone-config
-              secret:
-                secretName: {{ include "kargo.tplvalues.render" ( dict "value" .Values.rcloneSecret "context" $) }}
+              {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
 {{- end }}
