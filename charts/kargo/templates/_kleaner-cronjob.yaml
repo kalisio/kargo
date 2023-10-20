@@ -84,7 +84,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - for CLEANUP_PATH in {{ include "kargo.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do rclone --min-age {{ .args.olderThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs; done
+                - for CLEANUP_PATH in {{ include "kargo.tplvalues.render" ( dict "value" .args.cleanupPaths "context" .context) }}; do rclone --min-age {{ .args.olderThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} delete $CLEANUP_PATH --rmdirs --verbose; done
               volumeMounts:
                 - mountPath: /config/rclone/rclone.conf
                   name: rclone-config
