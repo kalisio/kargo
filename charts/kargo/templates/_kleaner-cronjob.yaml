@@ -4,6 +4,7 @@ Builds a cronjob to clean specified filesystem paths.
 @param .args      The parameters for the cleaner cronjob. The template expects the following:
   - name            The name to give to the cronjob
   - cron            The schedule expression "0 * * * *"
+  - suspend         True to make a suspended by default cronjob (false if not provided)
   - cleanupPaths    A string with all the paths to scan (can be template)
   - olderThanDays   A file must be older than this to be deleted
   - volumeMounts    The list of volumeMounts for the cleanup container
@@ -18,6 +19,7 @@ metadata:
   name: {{ .args.name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
+  suspend: {{ .args.suspend | default false }}
   schedule: "{{ .args.cron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
@@ -52,6 +54,7 @@ Builds a cronjob to clean specified object storage paths.
 @param .args      The parameters for the cleaner cronjob. The template expects the following:
   - name                The name to give to the cronjob
   - cron                The schedule expression "0 * * * *"
+  - suspend             True to make a suspended by default cronjob (false if not provided)
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - cleanupPaths        A string with all the paths to scan (can be template)
   - olderThanDays       A file must be older than this to be deleted
@@ -65,6 +68,7 @@ metadata:
   name: {{ .args.name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
+  suspend: {{ .args.suspend | default false }}
   schedule: "{{ .args.cron }}"
   concurrencyPolicy: Forbid
   jobTemplate:
