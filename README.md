@@ -39,6 +39,8 @@ Use the `./scripts/release-dev-charts.sh`.
 
 The script will package every chart and push on our OCI registry and on a backup s3 storage.
 
+You can also use the `./scripts/release-dev-chart.sh $CHART` to speed up the release of a single chart.
+
 ### HOWTO make a chart release
 
  1. Prepare the new chart version, update chart version in $CHART/Chart.yaml
