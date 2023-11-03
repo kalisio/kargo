@@ -31,6 +31,8 @@ spec:
                 - sh
                 - -c
                 - for LAYER in {{ .Values.seedJob.layers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed $MAPCACHE_SEED_OPTIONS -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.seedJob.fromZ }},{{ .Values.seedJob.toZ }} -n {{ .Values.seedJob.threadCount }}; done
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
               volumeMounts:
                 - mountPath: /etc/mapcache
                   readOnly: true
