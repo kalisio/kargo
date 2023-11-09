@@ -28,18 +28,16 @@ This project is licensed under the MIT License - see the [license file](./docs/L
 
 ## Helm charts management
 
-The chart management scripts (`release-dev-charts.sh` and `release-chart.sh`) both require :
+The chart management scripts (`release-dev-chart.sh` and `release-chart.sh`) both require :
 
  * a valid `rclone` configuration, ie. containing a remote named `kalisio_charts` pointing on the object storage bucket where we backup our charts.
  * an `helm` command able to push on our OCI-based registry, ie. you need to use `helm registry login harbor.portal.kalisio.com/kalisio` and enter the required credentials.
 
 ### HOWTO generate chart dev versions
 
-Use the `./scripts/release-dev-charts.sh`.
+Use the `./scripts/release-dev-chart.sh`. It takes a single parameter, the chart to release. If no parameter is given, it'll release _all_ charts.
 
-The script will package every chart and push on our OCI registry and on a backup s3 storage.
-
-You can also use the `./scripts/release-dev-chart.sh $CHART` to speed up the release of a single chart.
+The script will package the requested chart(s) then push on our OCI registry and on a backup s3 storage.
 
 ### HOWTO make a chart release
 
