@@ -52,12 +52,6 @@ The script will package the requested chart(s) then push on our OCI registry and
 * kargo specific container images (tileservergl & friends ...)
   * use a commit message including `[build app-name tag]`
 
-## Howto version helm charts
-
- * [pack] in commit message => will regenerate all 0.0.0-dev charts
- * `yarn release:charts:[major,minor,patch]` => will make a new tagged release
-   * if given a glob patten, will only release matching charts
-
 ## Best practices
 
 ### Docker containers
