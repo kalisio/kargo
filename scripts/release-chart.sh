@@ -5,12 +5,12 @@ set -euo pipefail
 CHART=${1}
 REMOTE="oci://harbor.portal.kalisio.com/kalisio/helm"
 
-THIS_FILE=$(readlink -f "$BASH_SOURCE")
+THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_PATH=$(dirname "$THIS_FILE")
 KARGO_PATH=$(dirname "$THIS_PATH")
 
 # get in root kargo folder
-cd $KARGO_PATH
+cd "$KARGO_PATH"
 
 # make sure chart exists
 if [ ! -d "charts/$CHART" ]; then
@@ -30,13 +30,13 @@ fi
 LOCAL_COMMIT=$(git rev-parse HEAD) # get current commit sha
 # list branches containing our commit sha, must include origin/master
 # command is allowed to fail (|| true) because grep fails if it doesn't find the string
-BRANCHES=$(git branch --remotes --contains $LOCAL_COMMIT | grep origin/master) || true
+BRANCHES=$(git branch --remotes --contains "$LOCAL_COMMIT" | grep origin/master) || true
 if [ -z "$BRANCHES" ]; then
     echo "$0: refusing to proceed since your work has not been published upstream"
     exit 1
 fi
 
-VERSION=$(sed -En 's/^version: (.*)$/\1/p' charts/${CHART}/Chart.yaml)
+VERSION=$(sed -En 's/^version: (.*)$/\1/p' charts/"$CHART"/Chart.yaml)
 TAG_NAME="$CHART-$VERSION"
 
 # make sure tag does not already exist
@@ -45,24 +45,24 @@ if git show-ref --tags "$TAG_NAME" --quiet; then
     exit 1
 fi
 
-TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" $CHART.XXXXXX)
+TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" "$CHART".XXXXXX)
 
 # package chart
-helm dependencies update charts/$CHART
-helm lint charts/$CHART
-helm package charts/$CHART --destination $TMP_PATH
+helm dependencies update charts/"$CHART"
+helm lint charts/"$CHART"
+helm package charts/"$CHART" --destination "$TMP_PATH"
 
 # push on oci registry
-helm push $TMP_PATH/$CHART* $REMOTE
+helm push "$TMP_PATH"/"$CHART"*.tgz $REMOTE
 
 # and on s3 backup storage (merge index.yaml before pushing)
-rclone copy kalisio_charts:index.yaml $TMP_PATH
-helm repo index $TMP_PATH --merge $TMP_PATH/index.yaml
-rclone copy $TMP_PATH kalisio_charts:
+rclone copy kalisio_charts:index.yaml "$TMP_PATH"
+helm repo index "$TMP_PATH" --merge "$TMP_PATH"/index.yaml
+rclone copy "$TMP_PATH" kalisio_charts:
 
 # cleanup
-rm -fR $TMP_PATH
+rm -fR "$TMP_PATH"
 
 # if all ok, make a tag and publish it
-git tag $TAG_NAME $LOCAL_COMMIT
-git push origin $TAG_NAME
+git tag "$TAG_NAME" "$LOCAL_COMMIT"
+git push origin "$TAG_NAME"
