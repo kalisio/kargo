@@ -27,19 +27,25 @@ spec:
             {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}
             {{- end }}
           containers:
-            - name: seed-local-cache
+            - name: seed-cache
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               env:
-                - name: MAPCACHE_SEED_OPTIONS
-                {{- if .Values.seedJob.forceSeed }}
-                  value: '-f'
-                {{- else }}
-                  value: ''
+                - name: SEED_LAYERS
+                  value: {{ .Values.seedJob.layers }}
+                - name: MIN_ZOOM
+                  value: {{ .Values.seedJob.minZoom | quote }}
+                - name: MAX_ZOOM
+                  value: {{ .Values.seedJob.maxZoom | quote }}
+                - name: NUM_THREADS
+                  value: {{ .Values.seedJob.numThreads | quote }}
+                {{- with .Values.seedJob.forceSeed }}
+                - name: FORCE_SEED
+                  value: '1'
                 {{- end }}
               command:
-                - sh
-                - -c
-                - for LAYER in {{ .Values.seedJob.layers }}; do echo "Seeding layer $LAYER ..." && mapcache_seed $MAPCACHE_SEED_OPTIONS -c /etc/mapcache/mapcache.xml -t $LAYER -z {{ .Values.seedJob.fromZ }},{{ .Values.seedJob.toZ }} -n {{ .Values.seedJob.threadCount }}; done
+                - /bin/sh
+              args:
+                - /scripts/mapcache-seed.sh
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
               volumeMounts:
@@ -51,6 +57,8 @@ spec:
                   {{- if .Values.dataSubPath }}
                   subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $ ) }}
                   {{- end }}
+                - mountPath: /scripts
+                  name: scripts
           volumes:
             - name: mapcache-config
               {{- if .Values.envsubstConfig.enabled }}
@@ -63,4 +71,7 @@ spec:
             {{- end }}
             - name: mapcache-cache
               {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
+            - name: scripts
+              configMap:
+                name: {{ include "kargo.names.fullname" . }}-seed-job-scripts
 {{- end }}

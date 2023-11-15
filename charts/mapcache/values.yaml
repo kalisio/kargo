@@ -29,13 +29,11 @@ containerPort: 8080
 
 seedJob:
   enabled: false
-  # pvcSize: 10Gi
-  # pvcStorageClassName: ""
   # layers: imagery hybrid
-  # fromZ: 0
-  # toZ: 8
-  # threadCount: 16
-  # mergeWithCurrentCaches: false
+  # minZoom: 0
+  # maxZoom: 8
+  # numThreads: 16
+  # forceSeed: false
 
 # localCacheSource: ""
 

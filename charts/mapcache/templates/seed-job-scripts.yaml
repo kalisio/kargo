@@ -1,0 +1,9 @@
+{{- if .Values.seedJob.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kargo.names.fullname" . }}-seed-job-scripts
+  namespace: {{ .Release.Namespace }}
+data:
+{{ (.Files.Glob "scripts/*").AsConfig | indent 2 }}
+{{- end }}
