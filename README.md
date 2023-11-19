@@ -30,7 +30,7 @@ This project is licensed under the MIT License - see the [license file](./docs/L
 
 The chart management scripts (`release-dev-chart.sh` and `release-chart.sh`) both require :
 
- * a valid `rclone` configuration, ie. containing a remote named `kalisio_charts` pointing on the object storage bucket where we backup our charts.
+ * a valid `rclone` configuration, ie. containing a remote/alias named `kalisio_charts` pointing on the object storage bucket path where we backup our charts.
  * an `helm` command able to push on our OCI-based registry, ie. you need to use `helm registry login harbor.portal.kalisio.com/kalisio` and enter the required credentials.
 
 ### HOWTO generate chart dev versions
