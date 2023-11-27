@@ -22,7 +22,7 @@ spec:
     spec:
       # Number of times it will retry before it is considered failed
       backoffLimit: 0
-      # Autoremove the job after that many seconds (failed or succeed), default 7days
+      # Autoremove the job after that many seconds (failed or succeed), default 2days
       ttlSecondsAfterFinished: {{ .Values.autoRemoveJobAfter | default 172800 }}
       template:
         spec:
