@@ -1,8 +1,8 @@
 apiVersion: v2
 name: crisis
 description: Kalisio Crisis
-version: 1.0.2
-appVersion: 2.0.3-prod
+version: 1.0.3
+appVersion: 2.0.4-prod
 home: https://kalisio.github.io/crisis/
 annotations:
   category: application
