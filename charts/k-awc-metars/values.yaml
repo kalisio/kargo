@@ -18,8 +18,8 @@ image:
 # forceRestart forces the pod to be restarted when upgrading the chart
 forceRestart: false
 
-# cron specifies the job schedule (every 2 minutes)
-cron: "0/2 * * * *"
+# cron specifies the job schedule (every 5 minutes)
+cron: "0/5 * * * *"
 
 env:
   # footprint specifies wether the job should write the footprint of the different queries as a GeoJSON file (debug feature)
