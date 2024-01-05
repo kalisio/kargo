@@ -4,27 +4,7 @@
 [![Build Status](https://app.travis-ci.com/kalisio/kargo.svg?branch=master)](https://app.travis-ci.com/kalisio/kargo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-_A Docker based solution to build and operate Geospatial Platforms_
-
-## Documentation
-
-The full documentation is available [here](https://kalisio.github.io/kargo/)
-
-> The documentation website is generated using [VuePress](https://vuepress.vuejs.org/)
-
-## Contributing
-
-Found a bug ? Missing a Feature ? Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kargo/about/contributing.html) for details
-
-## Authors
-
-This project is sponsored by 
-
-[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
-
-## License
-
-This project is licensed under the MIT License - see the [license file](./docs/LICENSE.md) for details
+_A Docker/Helm based solution to build and operate Geospatial Platforms_
 
 ## Helm charts management
 
@@ -47,16 +27,16 @@ The script will package the requested chart(s) then push on our OCI registry and
 
  The script will package the chart, push on our oci registry and on a backup s3 storage. If everything is ok, it'll make a git tag named `$CHART-$VERSION`
 
-## Howto version docker images
+## Docker images management
 
 * kargo specific container images (tileservergl & friends ...)
   * use a commit message including `[build app-name tag]`
 
 ## Best practices
 
-### Docker containers
+### Docker images
 
-* Prefer -slim images as base and use multi stage builds to reduce image sizes
+* Prefer `-slim` images as base and use multi stage builds to reduce image sizes
 * Make your docker image run as unpriviliged user
   * If it's node based, and using a node image as base, there's a 'node' user (uid 1000) already available
     * Copy app's files using COPY --chown node
@@ -89,3 +69,13 @@ RUN \
 * Include configurable resource requests & limits
 * Include configurable security context and put sensible defaults in chart's values.yaml
 * If it's being deployed on some preprod infra, then chart version should be at least 1.0.0
+
+## License
+
+This project is licensed under the MIT License - see the [license file](./docs/LICENSE.md) for details
+
+## Authors
+
+This project is sponsored by 
+
+[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
