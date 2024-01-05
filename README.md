@@ -7,7 +7,8 @@
 _A K8S based solution to build and operate Geospatial Platforms_
 
 > [!CAUTION]
-> [Dowker swarm](https://docs.docker.com/engine/swarm/) version is no more supported. 
+> The [Dowker swarm](https://docs.docker.com/engine/swarm/) version is no more supported. 
+The latest available version supporting **Docker Swarm** is the [v0.18.0](https://github.com/kalisio/kargo/releases/tag/v0.18.0).
 
 ## Helm charts management
 
