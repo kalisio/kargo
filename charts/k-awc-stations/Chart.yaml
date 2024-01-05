@@ -1,5 +1,5 @@
 apiVersion: v2
-name: k-metar
+name: k-awc-stations
 description: >-
   A Krawler based service to download stationsfrom the Aviation Weather 
   Center.
