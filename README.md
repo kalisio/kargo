@@ -4,7 +4,10 @@
 [![Build Status](https://app.travis-ci.com/kalisio/kargo.svg?branch=master)](https://app.travis-ci.com/kalisio/kargo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-_A Docker/Helm based solution to build and operate Geospatial Platforms_
+_A K8S based solution to build and operate Geospatial Platforms_
+
+> [!CAUTION]
+> [Dowker swarm](https://docs.docker.com/engine/swarm/) version is no more supported. 
 
 ## Helm charts management
 
