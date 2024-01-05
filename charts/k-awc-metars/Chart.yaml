@@ -1,0 +1,23 @@
+apiVersion: v2
+name: k-metar
+description: >-
+  A Krawler based service to download METAR data from the Aviation Weather
+  Center.
+version: 1.0.1
+appVersion: metars-latest
+home: https://github.com/kalisio/k-metar-taf
+annotations:
+  category: KrawlerJob
+keywords:
+  - awc
+  - taf
+  - metar
+  - krawler
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
