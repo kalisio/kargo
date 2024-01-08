@@ -3,8 +3,8 @@ name: k-awc-metars
 description: >-
   A Krawler based service to download METAR data from the Aviation Weather
   Center.
-version: 1.0.0
-appVersion: metars-0.5.0
+version: 1.0.1
+appVersion: metars-0.5.1
 home: https://github.com/kalisio/k-metar-taf
 annotations:
   category: KrawlerJob
