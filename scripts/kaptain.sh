@@ -19,7 +19,7 @@ NAMESPACE=${2}
 # default helmfile concurrency is 4, may be overriden with KAPTAIN_HELMFILE_CONCURRENCY
 HELMFILE_CONCURRENCY_VALUE=${KAPTAIN_HELMFILE_CONCURRENCY:-4}
 HELMFILE_CONCURRENCY_OPT=""
-if [ ${HELMFILE_CONCURRENCY_VALUE} -ne 0 ]; then
+if [ "${HELMFILE_CONCURRENCY_VALUE}" -ne 0 ]; then
     HELMFILE_CONCURRENCY_OPT="--concurrency ${HELMFILE_CONCURRENCY_VALUE}"
 fi
 
@@ -72,6 +72,7 @@ rclone_config() {
     local CONF_PATH=$TMP_PATH/$NAMESPACE/$APP
     local LOCAL_CONF=$CONF_PATH-config.tar.gz
     local REMOTE_CONF="kaptain:$NAMESPACE/$APP-config.tar.gz"
+    local RCLONE_CONF=$2
 
     echo "kaptain: pushing $APP config to $REMOTE_CONF ..."
     merge_config "$WORK_PATH/configs/$APP" "$INFRA_PATH/configs/$APP" "$CONF_PATH"
@@ -83,7 +84,7 @@ rclone_config() {
         --owner=0 --group=0 --numeric-owner \
         --pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime \
         -czf "$LOCAL_CONF" .
-    rclone copyto "$LOCAL_CONF" "$REMOTE_CONF"  --progress --config "$INFRA_PATH/rclone.conf"
+    rclone copyto "$LOCAL_CONF" "$REMOTE_CONF"  --progress --config "$RCLONE_CONF"
     cd ~-
 }
 
@@ -92,16 +93,16 @@ split_multi_yml() {
     local WORK_PATH=$2
 
     local IFS=''
-    while read LINE; do
+    while read -r LINE; do
         if [ "$LINE" == "---" ]; then
-            read LINE
-            OUT_FILE=$(echo $LINE | sed -r 's/^# Source: (.*)$/\1/')
-            mkdir -p $(dirname $WORK_PATH/$OUT_FILE)
-            echo -n > $WORK_PATH/$OUT_FILE
+            read -r LINE
+            OUT_FILE=$(echo "$LINE" | sed -r 's/^# Source: (.*)$/\1/')
+            mkdir -p "$(dirname "$WORK_PATH/$OUT_FILE")"
+            echo -n > "$WORK_PATH/$OUT_FILE"
         else
-            echo "$LINE" >> $WORK_PATH/$OUT_FILE
+            echo "$LINE" >> "$WORK_PATH/$OUT_FILE"
         fi
-    done < $YML_FILE
+    done < "$YML_FILE"
 }
 
 check_prerequisites() {
@@ -153,7 +154,7 @@ check_args() {
 check_prerequisites
 check_args
 
-cd $INFRA_PATH
+cd "$INFRA_PATH"
 
 # These are exported for use in helmfiles or hooks ...
 export KAPTAIN_NAMESPACE=$NAMESPACE
@@ -164,7 +165,7 @@ export KAPTAIN_WORKING_DIRECTORY=$WORK_PATH
 if [ -f "$INFRA_PATH/hooks.sh" ]; then
     source "$INFRA_PATH/hooks.sh" "pre-$ACTION"
 
-    if [ "$ACTION" = "install" -o "$ACTION" = "provision" -o "$ACTION" = "config" -o "$ACTION" = "diff" ]; then
+    if [ "$ACTION" = "install" ] || [ "$ACTION" = "provision" ] || [ "$ACTION" = "config" ] || [ "$ACTION" = "diff" ]; then
         source "$INFRA_PATH/hooks.sh" "make-config"
         if [ -f "$INFRA_PATH/rclone.conf" ]; then
             rclone copy "$INFRA_PATH/rclone.conf" "$INFRA_PATH/provision-configs/.kaptain"
@@ -193,4 +194,4 @@ if [ -f "$INFRA_PATH/hooks.sh" ]; then
 fi
 
 rm -fR "$INFRA_PATH/provision-configs/.kaptain"
-rm -fR $TMP_PATH
+rm -fR "$TMP_PATH"
