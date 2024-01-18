@@ -45,6 +45,8 @@ env:
     key: ""
   # meConfigMongodbEnableAdmin enables administrator access
   meConfigMongodbEnableAdmin: "true"
+  # meConfigBasicauth enables basi auth
+  meConfigBasicauth: "false"
   
 # resources are resource requests and limits to be applied
 resources: {}
