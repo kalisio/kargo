@@ -14,8 +14,8 @@ commonLabel: {}
 replicaCount: 1
 
 image:
-  repository: kalisio/mapserver
-  tag: 7.4
+  repository: camptocamp/mapserver
+  tag: 7.6
 
 service:
   enabled: true
