@@ -15,7 +15,7 @@ replicaCount: 1
 
 image:
   repository: camptocamp/mapcache
-  tag: 1.10
+  tag: "1.10"
 
 service:
   enabled: true
