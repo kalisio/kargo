@@ -21,10 +21,19 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 ## Github actions don't work with nonroot container for now
 ## see https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#user
 
+# That's a workaround to be able to use some git commands in ci scripts when
+# running under github action.
+# Without this, we get fatal: detected dubious ownership in repository at '/__w/blabla/blablabla'
+# This is related to the mix of users running in various docker containers (github runner, our user ...)
+# This only makes senses as long as the user of this container is root.
+# Remember that we have issues running github actions with non root containers ...
+RUN git config --system --add safe.directory '*'
+
 # This allows Github to use our nonroot container in github actions
 # see https://github.com/actions/checkout/issues/1014#issuecomment-1670098922
 # RUN mkdir -m 1777 /__w
 
+# Ideally we'd have a dedicated user ...
 # create a user that can be used to run stuff
 # RUN \
 #   useradd --uid 1000 --create-home --shell /bin/bash kalisio && \
