@@ -5,7 +5,7 @@ ARG KUBECTL_VERSION=1.25.16
 ARG SOPS_VERSION=3.8.1
 ARG YQ_VERSION=4.40.5
 
-# age & sops to decrypt files
+# age to decrypt files
 # docker to build containers
 RUN DEBIAN_FRONTEND=noninteractive && \
   apt-get update && \
@@ -17,30 +17,6 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     docker.io && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
-
-## Github actions don't work with nonroot container for now
-## see https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#user
-
-# That's a workaround to be able to use some git commands in ci scripts when
-# running under github action.
-# Without this, we get fatal: detected dubious ownership in repository at '/__w/blabla/blablabla'
-# This is related to the mix of users running in various docker containers (github runner, our user ...)
-# This only makes senses as long as the user of this container is root.
-# Remember that we have issues running github actions with non root containers ...
-RUN git config --system --add safe.directory '*'
-
-# This allows Github to use our nonroot container in github actions
-# see https://github.com/actions/checkout/issues/1014#issuecomment-1670098922
-# RUN mkdir -m 1777 /__w
-
-# Ideally we'd have a dedicated user ...
-# create a user that can be used to run stuff
-# RUN \
-#   useradd --uid 1000 --create-home --shell /bin/bash kalisio && \
-#   mkdir -p /home/kalisio/.local/bin && chown -R kalisio:kalisio /home/kalisio/.local
-
-# USER kalisio
-# WORKDIR /home/kalisio
 
 # yq
 RUN \
@@ -75,3 +51,19 @@ RUN \
     cp kubectl /usr/local/bin/kubectl && \
     chmod a+x /usr/local/bin/kubectl && \
     cd /tmp && rm -fR kubectl
+
+# Github Actions specific user
+#  - uses uid 1001 as github runner user, see. https://github.com/actions/runner/blob/main/images/Dockerfile
+#    if not using 1001, we get errors during the checkout phase, i'm not exactly sure why
+#    > Error: EACCES: permission denied, open '/__w/_temp/_runner_file_commands/save_state_899f9c24-3a0c-41ce-8a21-a24ccd4afac5'
+#  - belong to group 127 to be able to use docker
+#    Github Actions seem to mount docker.sock in user container and has the following permissions:
+#    > srw-rw---- 1 root 127 0 Jan 24 16:04 /var/run/docker.sock
+RUN \
+  groupadd gha-docker --gid 127 && \
+  adduser --disabled-password --gecos "" --uid 1001 gha-user && \
+  usermod -aG gha-docker gha-user
+
+# Use github action user by default for now ...
+USER gha-user
+WORKDIR /home/gha-user
