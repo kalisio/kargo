@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     bash \
     coreutils gettext-base \
     curl ca-certificates rclone \
-    tar age git \
+    tar age git xz-utils \
     docker.io && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
@@ -65,5 +65,5 @@ RUN \
   usermod -aG gha-docker gha-user
 
 # Use github action user by default for now ...
-USER gha-user
-WORKDIR /home/gha-user
+# USER gha-user
+# WORKDIR /home/gha-user
