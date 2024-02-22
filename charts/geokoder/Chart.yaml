@@ -1,8 +1,8 @@
 apiVersion: v2
 name: geokoder
-description: 3D terrain tiles server
-version: 0.1.0
-appVersion: 0.1.0
+description: geocoding and reverse geocoding service
+version: 0.2.0
+appVersion: 1.0.0
 home: https://github.com/kalisio/geokoder
 annotations:
   category: Service
