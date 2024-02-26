@@ -3,8 +3,8 @@ name: k-awc-stations
 description: >-
   A Krawler based service to download stationsfrom the Aviation Weather 
   Center.
-version: 1.0.1
-appVersion: stations-0.5.1
+version: 1.1.0
+appVersion: stations-0.6.0
 home: https://github.com/kalisio/k-metar-taf
 annotations:
   category: KrawlerJob
