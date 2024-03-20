@@ -47,7 +47,7 @@ spec:
               value: {{ .Values.uvThreadPoolSize }}
           ports:
             - name: {{ include "kargo.names.name" . }}
-              containerPort: 80
+              containerPort: {{ .Values.containerPort }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
