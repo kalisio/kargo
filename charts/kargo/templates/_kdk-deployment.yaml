@@ -43,7 +43,10 @@ spec:
               value: {{ .Values.global.subdomain }}
             {{- if .Values.distribution.enabled }}
             - name: DISCOVERY_HOSTNAME
-              value: {{ include "kargo.names.fullname" . }}
+              # Make DISCOVERY_HOSTNAME point on pod's IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             - name: BASE_PORT
               value: {{ .Values.distribution.basePort | quote }}
             - name: HIGHEST_PORT
