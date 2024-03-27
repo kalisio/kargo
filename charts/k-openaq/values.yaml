@@ -22,6 +22,10 @@ forceRestart: false
 cron: "0 * * * *"
 
 env:
+  # apiKey specified the OpenAQ API Key
+  apiKey:
+    secret: ""
+    key: ""
   # dburl specifies the mongodb connection string
   dbUrl:
     secret: ""
