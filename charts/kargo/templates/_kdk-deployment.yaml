@@ -53,6 +53,8 @@ spec:
               value: {{ .Values.distribution.highestPort | quote }}
             - name: COTE_DELAY
               value: {{ .Values.distribution.startDelay | quote }}
+            - name: HEARTBEAT_INTERVAL
+              value: {{ .Values.distribution.heartbeatInterval | quote }}
             - name: COTE_DISCOVERY_REDIS_URL
               valueFrom:
                 secretKeyRef:
