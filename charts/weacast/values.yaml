@@ -33,8 +33,10 @@ distribution:
   basePort: 10000
   # highestPort specifies the ending port of the port range
   highestPort: 10009
- # delay specifies the time to wait before starting service discovery
+  # delay specifies the time to wait before starting service discovery
   startDelay: "30000"
+  # heartbeat specifies the interval api services are published
+  heartbeatInterval: "60000"
   # redisUrl specifies th redis connection string
   redisUrl:
     secret: ""
