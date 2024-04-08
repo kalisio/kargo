@@ -1,0 +1,52 @@
+{{/*
+Builds a cronjob to run e2e tests.
+@param .context   The caller's context
+@param .args      The parameters for the cleaner cronjob. The template expects the following:
+  - name                The name to give to the cronjob
+  - cron                The schedule expression "0 * * * *"
+  - suspend             True to make a suspended by default cronjob (false if not provided)
+  - rcloneSecret        The name of the secret where rclone.conf can be found
+  - image               An object defining the image to pull, cf. kargo.images.image template              
+*/}}
+{{- define "kargo.e2e-tests-cronjob" -}}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: {{ .args.suspend | default false }}
+  schedule: "{{ .args.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 43200
+      template:
+        spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
+          containers:
+            - name: {{ .args.name }}
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
+              volumeMounts:
+                - mountPath: /home/node/.config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+              imagePullPolicy: Always
+              env:
+                - name: SLACK_WEBHOOK
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev
+                      key: slack-webhook-apps
+              securityContext:
+                capabilities:
+                  add:
+                    - SYS_ADMIN
+          restartPolicy: Never
+          volumes:
+            - name: rclone-config
+              secret:
+                secretName: {{ include "kargo.tplvalues.render" ( dict "value" .args.rcloneSecret "context" .context) }}
+{{- end -}}
