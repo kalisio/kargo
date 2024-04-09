@@ -35,11 +35,7 @@ spec:
                   readOnly: true
               imagePullPolicy: Always
               env:
-                - name: SLACK_WEBHOOK
-                  valueFrom:
-                    secretKeyRef:
-                      name: dev
-                      key: slack-webhook-apps
+                {{- include "kargo.environment.render" (dict "env" .args.env "context" .context) | indent 16 }}
               securityContext:
                 capabilities:
                   add:
