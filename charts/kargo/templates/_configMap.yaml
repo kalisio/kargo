@@ -17,3 +17,21 @@ data:
 {{- end }}
 {{- end -}}
 
+{{/*
+Builds a config map from all the _binary_ files in a folder.
+@parap .context   The caller's context
+@param .name      The name for the created config map
+@param .folder    The folder to scan to create the config map
+*/}}
+{{- define "kargo.configMap.fromBinaryFolder" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  namespace: {{ .context.Release.Namespace }}
+binaryData:
+{{- range $path, $_ := (.context.Files.Glob (printf "%s/*" .folder)) }}
+  {{ trimPrefix (printf "%s/" $.folder) $path }}: |
+    {{- $.context.Files.Get $path | b64enc | nindent 4 }}
+{{- end }}
+{{- end -}}

@@ -60,22 +60,28 @@ spec:
               port: {{ include "kargo.names.name" . | trunc 15 }}
             initialDelaySeconds: {{ .Values.livenessDelay | default 60 }}
             periodSeconds: {{ .Values.livenessPeriod | default 60 }}
-          {{- if .Values.dataVolume }}
           volumeMounts:
+            {{- if .Values.dataVolume }}
             - mountPath: {{ .Values.dataMountPath | default "/mnt/data" }}
               name: data
               {{- if .Values.dataSubPath }}
               subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
               {{- end }}
-          {{- end }}
+            {{- end }}
+            {{- if .Values.extraVolumeMounts }}
+              {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- if .Values.dataVolume }}
       volumes:
+        {{- if .Values.dataVolume }}
         - name: data
           {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 10 }}
-        {{- if .Values.rcloneConfig }}
-        {{- include "kargo.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
         {{- end }}
-      {{- end }}
+        {{- if .Values.rcloneConfig }}
+          {{- include "kargo.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}
+        {{- end }}
+        {{- if .Values.extraVolumes }}
+          {{- toYaml .Values.extraVolumes | nindent 8 }}
+        {{- end }}
 {{- end }}

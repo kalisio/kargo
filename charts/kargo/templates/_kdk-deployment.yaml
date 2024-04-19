@@ -84,7 +84,6 @@ spec:
             periodSeconds: {{ .Values.livenessPeriod | default 60 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if or .Values.additionalConfig .Values.dataVolume }}
           volumeMounts:
             {{- if .Values.additionalConfig }}
             {{- range $key, $value := .Values.additionalConfig.fileMapping }}
@@ -101,8 +100,9 @@ spec:
               subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
               {{- end }}
             {{- end }}
-          {{- end }}
-      {{- if or .Values.additionalConfig .Values.dataVolume }}
+            {{- if .Values.extraVolumeMounts }}
+              {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+            {{- end }}
       volumes:
         {{- if .Values.additionalConfig }}
         - name: {{ include "kargo.names.name" . }}-config
@@ -116,5 +116,7 @@ spec:
           {{- include "kargo.rcloneConfig.renderVolume" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 10 }}
           {{- end }}
         {{- end }}
-      {{- end }}
+        {{- if .Values.extraVolumes }}
+          {{- toYaml .Values.extraVolumes | nindent 8 }}
+        {{- end }}
 {{- end }}
