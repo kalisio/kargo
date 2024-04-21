@@ -41,6 +41,7 @@ spec:
                   add:
                     - SYS_ADMIN
           restartPolicy: Never
+          activeDeadlineSeconds: 7200
           volumes:
             - name: rclone-config
               secret:
