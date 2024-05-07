@@ -1,0 +1,54 @@
+# k-rte-generation default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-weatherlink
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every hour)
+cron: "0 * * * *"
+
+env:
+  # dbUrl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl defines the observations data time to live. It must be expressed in seconds and the default value is 604 800 (7 days)
+  ttl: "604800"
+  # apiKey defines the WeatherLink API key for authentication.
+  apiKey:
+    secret: ""
+    key: ""
+  # apiSecret defines the WeatherLink API secret to sign requests.
+  apiSecret:
+    secret: ""
+    key: ""
+  # dataType defines he data types to retrieve (e.g 1,11,13,4,15). The default value is everything (1 to 27). Cf. https://weatherlink.github.io/v2-api/data-structure-types
+  dataType: ""
+  # timeout defines the maximum duration of the job. It must be in milliseconds and the default value is 1 800 000 (30 minutes).
+  timeout: "1800000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+  # ratio of successful tasks to be considered as successful
+  successRate: "1"
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000

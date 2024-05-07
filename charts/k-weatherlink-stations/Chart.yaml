@@ -1,0 +1,20 @@
+apiVersion: v2
+name: k-weatherlink-stations
+description: >-
+  A Krawler based service to download stations from WeatherLink service.
+version: 1.0.0
+appVersion: stations-1.0.0
+home: https://github.com/kalisio/k-weatherlink
+annotations:
+  category: KrawlerJob
+keywords:
+  - weatherlink
+  - krawler
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

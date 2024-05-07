@@ -1,0 +1,48 @@
+# k-rte-generation default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-weatherlink
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every hour)
+cron: "0 * * * *"
+
+env:
+  # dbUrl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # apiKey defines the WeatherLink API key for authentication.
+  apiKey:
+    secret: ""
+    key: ""
+  # apiSecret defines the WeatherLink API secret to sign requests.
+  apiSecret:
+    secret: ""
+    key: ""
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+  # ratio of successful tasks to be considered as successful
+  successRate: "1"
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
