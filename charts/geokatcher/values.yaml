@@ -1,0 +1,70 @@
+# geokoder default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/geokatcher
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# the port the container listens to
+containerPort: 8080
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: "/healthcheck"
+
+# dataSubPath is the subpath in the the dataVolume to mount
+dataSubPath: ""
+
+# dataVolume is the specification for the volume where the data lies
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+distribution:
+  # enabled specifies whether or not to use distribution
+  enabled: true
+  # basePort specifies the starting port of the port range
+  basePort: 10030
+  # highestPort specifies the ending port of the port range
+  highestPort: 10039
+  # delay specifies the time to wait before starting service discovery
+  startDelay: "20000"
+  # redisUrl specifies the redis connection string
+  redisUrl:
+    secret: ""
+    key: ""
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+env:
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
