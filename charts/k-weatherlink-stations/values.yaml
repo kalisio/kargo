@@ -34,6 +34,8 @@ env:
   apiSecret:
     secret: ""
     key: ""
+  # stnCollection defines the collection where to store the stations
+  stnCollection: ""
   # debug specifies the list of namespaces to enable debug output
   debug: ""
   # ratio of successful tasks to be considered as successful

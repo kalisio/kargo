@@ -40,6 +40,10 @@ env:
   dataType: ""
   # timeout defines the maximum duration of the job. It must be in milliseconds and the default value is 1 800 000 (30 minutes).
   timeout: "1800000"
+  # stnCollection defines the collection where to store the stations
+  stnCollection: ""
+  # obsCollection defines the collection where to store the observations
+  obsCollection: ""
   # debug specifies the list of namespaces to enable debug output
   debug: ""
   # ratio of successful tasks to be considered as successful
