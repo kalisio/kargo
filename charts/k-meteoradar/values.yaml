@@ -22,7 +22,19 @@ forceRestart: false
 cron: "*/15 * * * *"
 
 env:
-  # storePathh specified the path where to store the file
+  # rcloneConfigStoreType is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreType: ''
+  # rcloneConfigStoreProvider is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreProvider: ''
+  # rcloneConfigStoreRegion is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreRegion: ''
+  # rcloneConfigStoreEndpoint is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreEndpoint: ''
+  # rcloneConfigStoreAccessKeyId is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreAccessKeyId: ''
+  # rcloneConfigStoreSecretAccessKey is a config env var to setup the 'store:' remote the job uses (cf. https://rclone.org/docs/#environment-variables)
+  rcloneConfigStoreSecretAccessKey: ''
+  # storePath specified the path where to store the file
   storePath: ""
   # debug specifies the list of namespaces to enable debug output
   debug: ""
