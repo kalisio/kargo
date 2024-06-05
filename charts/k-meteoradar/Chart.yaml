@@ -3,7 +3,7 @@ name: k-meteoradar
 description: >-
   A Krawler based service to download public Rainfall Radar data from
   MeteoFrance.
-version: 1.0.0
+version: 1.0.1
 appVersion: 1.2.0
 home: https://github.com/kalisio/k-meteoradar
 annotations:
