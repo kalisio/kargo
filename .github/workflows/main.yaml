@@ -16,11 +16,15 @@ jobs:
         run: bash scripts/build_container.sh "${{ github.event.head_commit.message }}"
 
   build_docs:
+    name: Build docs
     if: ${{ contains(github.event.head_commit.message, 'doc') }}
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16
       - name: Build docs
         run: bash scripts/build_docs.sh
       - name: Upload artifact
