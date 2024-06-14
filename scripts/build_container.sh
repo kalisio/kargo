@@ -113,8 +113,8 @@ fi
 
 CONTAINER_FULL_TAG=$CONTAINER_NAME:$CONTAINER_TAG
 echo "$0: Building container $CONTAINER_FULL_TAG"
-# echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
 docker build $DOCKER_BUILD_OPTS --force-rm $DOCKERFILE_OPT -t $CONTAINER_FULL_TAG $DOCKER_CONTEXT
-# docker push $CONTAINER_FULL_TAG
+docker push $CONTAINER_FULL_TAG
 
 echo "$0: All good."
