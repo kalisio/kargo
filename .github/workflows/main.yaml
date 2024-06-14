@@ -1,0 +1,22 @@
+name: ci
+on: [ push, workflow_dispatch ]
+
+jobs:
+  build_containers:
+    if: ${{ contains(github.event.head_commit.message, 'build') }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Build container
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: bash scripts/build_container.sh "${{ github.event.head_commit.message }}"
+
+  # build_doc:
+  #   if: ${{ contains(github.event.head_commit.message, 'doc') }}
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
