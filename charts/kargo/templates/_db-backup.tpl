@@ -53,7 +53,7 @@ spec:
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
                   BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz &&
                   echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
-                  mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} --lock-tables --all-databases | gzip > /backup/$BACKUP_FILE
+                  mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} --lock-tables --all-databases --add-drop-database | gzip > /backup/$BACKUP_FILE
               volumeMounts:
                 - mountPath: /kalisio/my.cnf
                   name: db-secret
@@ -428,7 +428,7 @@ spec:
                 - -c
                 - >-
                   echo "Restoring from {{ $restoreFile }} ..." &&
-                  mongorestore --config=/mongo-config.yml --gzip --archive=/restore/{{ $restoreFile }}
+                  mongorestore --drop --config=/mongo-config.yml --gzip --archive=/restore/{{ $restoreFile }}
               volumeMounts:
                 - mountPath: /mongo-config.yml
                   name: db-secret
