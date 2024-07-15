@@ -1,0 +1,19 @@
+apiVersion: v2
+name: trakkar
+description: Traccar to Kalisio Maps integration
+version: 1.0.0
+appVersion: 1.0.0
+home: https://github.com/kalisio/trakkar
+annotations:
+  category: Service
+keywords:
+  - geofencing
+  - kano
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
