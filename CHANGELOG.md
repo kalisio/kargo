@@ -1,6 +1,26 @@
-### 0.18.0 (2022-11-14)
+# Changelog
 
-##### New Features
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+### Changed
+### Removed
+
+## kargo-1.0.6 (2024-07-15)
+
+### Changed
+
+ - Now using [`--drop` option](https://www.mongodb.com/docs/database-tools/mongorestore/#std-option-mongorestore.--drop) to `mongorestore` in `kargo.mongodb-backup-restore-cronjobs` helper (in the restore cronjob).
+ - Now using [`--add-drop-database` option](https://mariadb.com/kb/en/mariadb-dump/#options) to `mariadb-dump` in `kargo.mariadb-backup-restore-cronjobs` helper (in the backup cronjob).
+
+## 0.18.0 (2022-11-14)
+
+### New Features
 
 *  port and probes are now configurable in KDK deployment just like in Kargo deployment [pack] ([237be32f](https://github.com/kalisio/kargo/commit/237be32fc84fb9dc8a8d5bf25afa6f13c59c10a7))
 *  port and probes are now configurable in KDK deployment just like in Kargo deployment ([0e513834](https://github.com/kalisio/kargo/commit/0e513834fc0d3538d0ee2a636a8fcd29149143ee))
@@ -23,7 +43,7 @@
   *  bumped to 1.0.0 feat(thredds): bumped to 4.6.20 ([2fe942e9](https://github.com/kalisio/kargo/commit/2fe942e92f69cc78802ed888bea1cfdf68fec8b7))
 * **charts:**  allow specific configuration files with kdk apps [pack] ([bf1f3b71](https://github.com/kalisio/kargo/commit/bf1f3b716c416c7d530ce8c0f0b184aafea019ed))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  kleaner job should not fail if one of the path doesn't exists. ([f68565a7](https://github.com/kalisio/kargo/commit/f68565a7b66f26797104a9a7a621027df564f057))
 *  chart packing script [pack]. ([551c0af1](https://github.com/kalisio/kargo/commit/551c0af1ef409d87fe66fc6756fbf83a75940f03))
@@ -43,7 +63,7 @@
   *  removed conditionnal for ingress annotations [pack] ([056af6c7](https://github.com/kalisio/kargo/commit/056af6c711b3de6f7f5548f63d0fb15d31752e42))
   *  we use a cluster issuer on our clusters [pack] ([51158bd9](https://github.com/kalisio/kargo/commit/51158bd97cafb2a7d78187d44f5bb979ffebbf77))
 
-##### Other Changes
+### Other Changes
 
 *  branch to use with kaptain's using-helmfile branch. ([25dddd5a](https://github.com/kalisio/kargo/commit/25dddd5aad523cea54252310570530a9b3b091ed))
 *  Handle new k-meteoradar spec [#301](https://github.com/kalisio/kargo/pull/301) [pack] ([604e782a](https://github.com/kalisio/kargo/commit/604e782a3146edfdb54d06e752758b2d65bfd111))
@@ -143,42 +163,42 @@
   *  added a common deployement.yaml [#281](https://github.com/kalisio/kargo/pull/281) [pack] ([c0308dc9](https://github.com/kalisio/kargo/commit/c0308dc9bc8251d0d13c2210238340598d573495))
   *  add a common deployment.yaml [#281](https://github.com/kalisio/kargo/pull/281) [pack] ([927eb7c0](https://github.com/kalisio/kargo/commit/927eb7c0e331609ce4b85a44fe1fa4642bb7cdec))
 
-### 0.17.0 (2022-01-03)
+## 0.17.0 (2022-01-03)
 
-##### New Features
+### New Features
 
 *  Bump to Thredds 4.6.19 (close [#278](https://github.com/kalisio/kargo/pull/278)) ([53338b55](https://github.com/kalisio/kargo/commit/53338b55c09d6e572642d945d06f8a1a6276f32f))
 *  Allow to overwrite the body limit within Kapture (close [#277](https://github.com/kalisio/kargo/pull/277)) ([b543fe33](https://github.com/kalisio/kargo/commit/b543fe335a7c0b2c013cb460cc0e1eb5b36e4248))
 
-### 0.16.0 (2021-12-13)
+## 0.16.0 (2021-12-13)
 
-##### Bug Fixes
+### Bug Fixes
 
 *  Upgrade Thredds to 4.6.18 (close [#276](https://github.com/kalisio/kargo/pull/276)) ([18c7d87a](https://github.com/kalisio/kargo/commit/18c7d87aebcc4bb4e092c14f4771ef3a1ce26599))
 *  MapServer/Mapserver healthchecks should not rely on GetCapabilities request [#275](https://github.com/kalisio/kargo/pull/275) ([dc8fff91](https://github.com/kalisio/kargo/commit/dc8fff917fc8427235603a512dddfbaca6286db9))
 
-### 0.15.0 (2021-12-03)
+## 0.15.0 (2021-12-03)
 
-##### New Features
+### New Features
 
 *  Upgrade Weacast loaders to use the new Météo France API (completed [#266](https://github.com/kalisio/kargo/pull/266)) ([b761c96b](https://github.com/kalisio/kargo/commit/b761c96b26f4cdb4fd02cd443188b025b47d6b0a))
 *  Add support for Centipede job (close [#271](https://github.com/kalisio/kargo/pull/271)) ([fb154d7e](https://github.com/kalisio/kargo/commit/fb154d7eb3fabc6ca43970ee39083743e38b7d77))
 *  Provide environment variables for strategy to avoid rate limiting on weacast loaders (closes [#270](https://github.com/kalisio/kargo/pull/270)) ([b46bbbe9](https://github.com/kalisio/kargo/commit/b46bbbe93e603a9feb10aaad198eac7361abfe13))
 *  Allow to define a different token for each weacast loader (closes [#269](https://github.com/kalisio/kargo/pull/269)) ([8469693b](https://github.com/kalisio/kargo/commit/8469693bd3a79021899d7fa784c39ab2c6e1a76e))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  gdal container is no more building [#273](https://github.com/kalisio/kargo/pull/273) feat: bumped gdal container to 3.4.0 ([52d12a2f](https://github.com/kalisio/kargo/commit/52d12a2fdd041090e61f98ad9e8a61f2031d29cc))
 *  test whether the storage proxy exists in storage.js ([90a41c1d](https://github.com/kalisio/kargo/commit/90a41c1d9e7ef53247665ea949c79253b185d50f))
 
-##### Other Changes
+### Other Changes
 
 *  gdal container is no more building [#273](https://github.com/kalisio/kargo/pull/273) ([b3cfbf95](https://github.com/kalisio/kargo/commit/b3cfbf95e2fc08b40f5da77501c30fedd23cf282))
 *  Add support for Centipede job [#271](https://github.com/kalisio/kargo/pull/271) ([de780b7d](https://github.com/kalisio/kargo/commit/de780b7d503052f1e91b24e76d8529c133374730))
 
-### 0.14.0 (2021-10-24)
+## 0.14.0 (2021-10-24)
 
-##### New Features
+### New Features
 
 *  Allow to define additionnal S3 information in order to use alternative S3 providers than AWS (close [#261](https://github.com/kalisio/kargo/pull/261)) ([d5350588](https://github.com/kalisio/kargo/commit/d5350588d1425c449b2e7b891bb77e0f8a312435))
 *  Remove Atlas support (close [#268](https://github.com/kalisio/kargo/pull/268)) ([a0b25b73](https://github.com/kalisio/kargo/commit/a0b25b73280d0face1cce0379716b5cd020a37c4))
@@ -207,7 +227,7 @@
 *  added REDIS_VOLUME_PATH ([045ab6fb](https://github.com/kalisio/kargo/commit/045ab6fb7ac87e9681686b051115eda8fdc8d575))
 *  Upgrade default version of Mongo to 4.2 (close [#228](https://github.com/kalisio/kargo/pull/228)) ([121b4053](https://github.com/kalisio/kargo/commit/121b405375c784381a51f4b7a93b7be91627e7b2))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  missing policy in default pipeline [skip ci] ([1ad32bc1](https://github.com/kalisio/kargo/commit/1ad32bc163a4bd58357ea792acd9976edc5b28f4))
 *  change mountpoint instea of promtail config. ([1ba1343f](https://github.com/kalisio/kargo/commit/1ba1343f934b79f7cf7c2877d281e80b5b095c96))
@@ -227,9 +247,9 @@
 *  force the creation with -p option in create_directory_if_not_exist [skip ci] ([8abe5889](https://github.com/kalisio/kargo/commit/8abe5889ff470a9391cb011f9ff51bc2ae029892))
 *  Registry healthcheck cannot handle authorization (close [#233](https://github.com/kalisio/kargo/pull/233)) [skip ci] ([d5762aa6](https://github.com/kalisio/kargo/commit/d5762aa6ae614971956e6cfeeb803a06a6748f4a))
 
-### 0.13.0 (2021-03-08)
+## 0.13.0 (2021-03-08)
 
-##### New Features
+### New Features
 
 *  Remove setup-worker script (close [#206](https://github.com/kalisio/kargo/pull/206)) ([a72f1c0c](https://github.com/kalisio/kargo/commit/a72f1c0cbd3a52a11011a8c1bfc3b4c3a942dbbc))
 *  Add a way to specify deploy constraints from the .env file [close [#226](https://github.com/kalisio/kargo/pull/226)] ([33d8a5e3](https://github.com/kalisio/kargo/commit/33d8a5e32e4362f7d6e3d581073ec62f9262b3b3))
@@ -240,7 +260,7 @@
 *  Add max/avg load & cpu usage to cluster dashboard. ([aa4e59dc](https://github.com/kalisio/kargo/commit/aa4e59dca51e007a822b8aaf5e2f8eeacd988fc6))
 *  Drop image archives support (close [#219](https://github.com/kalisio/kargo/pull/219) ) ([b5044d27](https://github.com/kalisio/kargo/commit/b5044d27fbe9bc41faee1fe01a3e4cc56bcd97b4))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  Fixed deploy constraint yaml extension generation. ([96238f3b](https://github.com/kalisio/kargo/commit/96238f3b2b4f7e930be874dad1e9eaedee32665d))
 *  properly normalize deploy constraint env var name generation. ([19c5d90d](https://github.com/kalisio/kargo/commit/19c5d90dac6e4fbff6b1f9065377788566a8c0ff))
@@ -248,9 +268,9 @@
 *  Upgraded Vigicrues job to v1.4 (closes [#224](https://github.com/kalisio/kargo/pull/224)) ([454dad1a](https://github.com/kalisio/kargo/commit/454dad1a3303e5231cc29a825ac7cdce5ca2c0b6))
 *  Grafana must be able to reach prometheus on kargo-back-network. ([b093edb3](https://github.com/kalisio/kargo/commit/b093edb35d4e4423d44165ad5369bd1acac4f5b9))
 
-### 0.12.0 (2020-12-14)
+## 0.12.0 (2020-12-14)
 
-##### New Features
+### New Features
 
 *  Do not expose anymore prometheus and alertmanager (close [#214](https://github.com/kalisio/kargo/pull/214)) ([8604e6c6](https://github.com/kalisio/kargo/commit/8604e6c631e96a886419ddc162cad746b3e73e75))
 *  Ports should be exposed using long syntax (close [#216](https://github.com/kalisio/kargo/pull/216)) ([3a542682](https://github.com/kalisio/kargo/commit/3a542682bcda88a843198b8e8e7caf74598dd588))
@@ -273,7 +293,7 @@
 *  Integrate the OpenRadiation job (close [#196](https://github.com/kalisio/kargo/pull/196)) ([5737ccd6](https://github.com/kalisio/kargo/commit/5737ccd61db1b715507ce20a3e60145a6c4b6f88))
 *  Integrate the OpenRadiation job [#196](https://github.com/kalisio/kargo/pull/196) ([1d17c36f](https://github.com/kalisio/kargo/commit/1d17c36f5e4e440b0b2b57f6abe26005e0d8a545))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  MAPCACHE_REPLICAS is missing in .env.default (close [#218](https://github.com/kalisio/kargo/pull/218)) ([5f37efa2](https://github.com/kalisio/kargo/commit/5f37efa2c0ef5b7318880950ddf2c680a60510d4))
 *  Registry is no more working (close [#215](https://github.com/kalisio/kargo/pull/215)) ([bfa729c0](https://github.com/kalisio/kargo/commit/bfa729c0b67481b2f2c30ca05c19e981b2a1542f))
@@ -282,7 +302,7 @@
 *  Traefik does not startup (close [#203](https://github.com/kalisio/kargo/pull/203)) ([52b7e5ab](https://github.com/kalisio/kargo/commit/52b7e5ab4e5c7f0caf6c23a978a360f3b5ef08e4))
 *  prevent alertmanager from adding a link to alertmanager. in slack messages. ([bdd0a147](https://github.com/kalisio/kargo/commit/bdd0a1477c301646e54f28bc53812db855b0fbf9))
 
-##### Other Changes
+### Other Changes
 
 *  Do not expose anymore prometheus and alertmanager [#214](https://github.com/kalisio/kargo/pull/214) ([194f3978](https://github.com/kalisio/kargo/commit/194f39786ae1a2381ba5ac6ca4eaec8e2e556550))
 *  Add support for MariaDB [#202](https://github.com/kalisio/kargo/pull/202) [skip ci] ([a3cc7bd7](https://github.com/kalisio/kargo/commit/a3cc7bd7e957b4b84064b86ed24e07167026f442))
@@ -332,9 +352,9 @@
 *  debugging build of mongodb-exporter docker image. ([cce6f3ac](https://github.com/kalisio/kargo/commit/cce6f3ac3234a95cb57b589e683c393117ec1320))
 *  adding build of mongodb-exporter docker image. ([c9fa7f62](https://github.com/kalisio/kargo/commit/c9fa7f62c023a26c98a4796cc588bc65ff441816))
 
-### 0.11.0 (2020-11-13)
+## 0.11.0 (2020-11-13)
 
-##### New Features
+### New Features
 
 *  Provide a Mongors service that helps setting up a MongoDB Replica Set [#178](https://github.com/kalisio/kargo/pull/178) ([f9e67387](https://github.com/kalisio/kargo/commit/f9e6738776fbd19d3623eaf3caac358724270023))
 *  Provide a gui to administrate Postgis (close [#195](https://github.com/kalisio/kargo/pull/195)) ([e75c9a7a](https://github.com/kalisio/kargo/commit/e75c9a7afff5ab8e5ad0984b3e2f30864a44224c))
@@ -363,7 +383,7 @@
 *  Allow to configure cron expression of openAQ (close [#163](https://github.com/kalisio/kargo/pull/163)) [skip ci] ([c268c065](https://github.com/kalisio/kargo/commit/c268c065ac0e6bb29d27e00d186ace6616a9a587))
 *  Allow to configure cron expression of teleray (close [#162](https://github.com/kalisio/kargo/pull/162)) [skip ci] ([de584037](https://github.com/kalisio/kargo/commit/de58403733924f9c8db02bf1467699684583e147))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  API Gateway does not correctly manage multiple users (close [#194](https://github.com/kalisio/kargo/pull/194)) ([723e45ac](https://github.com/kalisio/kargo/commit/723e45ac6a9285e0225f40c931fbb6909e346f42))
 *  no local cache for mapcache wmts sources (fixes [#193](https://github.com/kalisio/kargo/pull/193)). ([001bb089](https://github.com/kalisio/kargo/commit/001bb0896b95856a034db75749e798bb9e18a030))
@@ -375,16 +395,16 @@
 *  Cannot pull images from private registry (close [#172](https://github.com/kalisio/kargo/pull/172)) [skip ci] ([b4931370](https://github.com/kalisio/kargo/commit/b4931370a37262305ff55e773ee128177d8f7ec5))
 *  Traefik does not handle failover (close [#167](https://github.com/kalisio/kargo/pull/167)) ([3e3a60cf](https://github.com/kalisio/kargo/commit/3e3a60cffcf20ccedc56be0af047aaf125939b4c))
 
-### 0.10.0 (2020-06-09)
+## 0.10.0 (2020-06-09)
 
-##### New Features
+### New Features
 
 *  Bumped Kano to version =1.0.0-prod
 *  Disable Weacast loaders build (close [#158](https://github.com/kalisio/kargo/pull/158)) ([5c4376b5](https://github.com/kalisio/kargo/commit/5c4376b5c1c11e82d2efad2bdf6f3fe3ad131998))
 
-### 0.9.0 (2020-05-09)
+## 0.9.0 (2020-05-09)
 
-##### New Features
+### New Features
 
 *  Allow to configure the TTL of the Teleray measurements (closed [#152](https://github.com/kalisio/kargo/pull/152)) ([31fefb29](https://github.com/kalisio/kargo/commit/31fefb299a10ecdc3557670b2b866b8bcdb1f338))
 *  Add a benchmark tool and/or command (close [#98](https://github.com/kalisio/kargo/pull/98)) [skip ci] ([ddb8800a](https://github.com/kalisio/kargo/commit/ddb8800a8f29984244c33fab293eb07f965ef902))
@@ -394,32 +414,32 @@
 *  Enhance Kano deploy file to take into account Mapillary client ID (close [#151](https://github.com/kalisio/kargo/pull/151)) ([dcf0c623](https://github.com/kalisio/kargo/commit/dcf0c623056212f6b72a92c6ae77790b4e367bc5))
 *  Decrease default rare success of the hubeau-observations job (decreased to 75%) (close [#150](https://github.com/kalisio/kargo/pull/150)) ([d1d60a4f](https://github.com/kalisio/kargo/commit/d1d60a4ff0aa6b15de8025f30d59be64c340a344))
 
-### 0.8.0 (2020-03-04)
+## 0.8.0 (2020-03-04)
 
-##### New Features
+### New Features
 
 *  Allow to handle labels on the nodes (close [#148](https://github.com/kalisio/kargo/pull/148)) ([312a945c](https://github.com/kalisio/kargo/commit/312a945cbbbde62e32bf626dfdb72f784bc082b2))
 *  Provide a redeploy command (close [#147](https://github.com/kalisio/kargo/pull/147)) ([d348ea16](https://github.com/kalisio/kargo/commit/d348ea16d8d1a67fbaf7330ab88271dd453f2318))
 *  Allow to save the image of a given service (close [#142](https://github.com/kalisio/kargo/pull/142)) ([d32dfd03](https://github.com/kalisio/kargo/commit/d32dfd031132ac2f6efe55a11c5801d84e41dc5b))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  hubeau-stations env variable error ([f1bb42f1](https://github.com/kalisio/kargo/commit/f1bb42f1155cb57d1923a36239cfe33723c62c07))
 *  Healthcheck of Krawler jobs fails behind a proxy (close [#143](https://github.com/kalisio/kargo/pull/143)) ([451cd1f5](https://github.com/kalisio/kargo/commit/451cd1f5bcc284840df1823c95c18cfd2cd428bc))
 *  Weacast loaders do not require the constraint weacast == true anymore (close [#146](https://github.com/kalisio/kargo/pull/146)) [skip ci] ([eec9f311](https://github.com/kalisio/kargo/commit/eec9f311fa42d4ee647bbba5015ec939a33941ea))
 *  Spelling error of YML files that expose HTTPS_PROXY (close [#144](https://github.com/kalisio/kargo/pull/144)) ([e6253908](https://github.com/kalisio/kargo/commit/e6253908e6a53d6d527d35a5f998eaf46b2125bf))
 
-### 0.7.0 (2020-02-24)
+## 0.7.0 (2020-02-24)
 
-##### New Features
+### New Features
 
 *  Allow to execute a test script on a given service (close [#141](https://github.com/kalisio/kargo/pull/141)) ([6412cd3c](https://github.com/kalisio/kargo/commit/6412cd3c7c40e721e66ab8398f87677c32574b3b))
 *  [Hub'Eau] Upgrade the default version to 1.0.1 (close [#140](https://github.com/kalisio/kargo/pull/140)) ([6d734d87](https://github.com/kalisio/kargo/commit/6d734d8786dbd91c6190ab5e367c09e4fc5eba67))
 
 
-### 0.6.0 (2020-01-22)
+## 0.6.0 (2020-01-22)
 
-##### New Features
+### New Features
 
 *  [Grafana] Repeat the API graph for each consumers (closed [#139](https://github.com/kalisio/kargo/pull/139)) ([12bc3998](https://github.com/kalisio/kargo/commit/12bc3998e3b828d108fb9e3869b475f131641d11))
 *  [Traefik] Traefik should support gzip compression (close [#137](https://github.com/kalisio/kargo/pull/137)) ([b4d59306](https://github.com/kalisio/kargo/commit/b4d593069187c07f7d267d383ef03b5e30167c45))
@@ -427,30 +447,30 @@
 *  [MapProxy] Upgrade default version to 1.12.0 (close [#132](https://github.com/kalisio/kargo/pull/132)) ([69404ead](https://github.com/kalisio/kargo/commit/69404ead2096d9561e677af6bf3a5d09d55d24f4))
 *  [Prometheus] Increase duration condition of the cluster-high-load alert rule (close [#133](https://github.com/kalisio/kargo/pull/133)) ([fa80b1ad](https://github.com/kalisio/kargo/commit/fa80b1ad417e64383f94917bdea9cdbcddc702ea))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  [express-gateway] S3 requests return a '502 bad gateway error' (close [#138](https://github.com/kalisio/kargo/pull/138)) ([a1bcb661](https://github.com/kalisio/kargo/commit/a1bcb66129a38a3d220f29d80f64d03c801adca6))
 *  [Grafana] API dashboard has incorrect labels (close [#134](https://github.com/kalisio/kargo/pull/134)) ([dc7bdb3c](https://github.com/kalisio/kargo/commit/dc7bdb3c3fb6cc535547a8569471300622ed33fb))
 *  [MapProxy] MapProxy build is not working anymore (close [#68](https://github.com/kalisio/kargo/pull/68)) ([2a21ff99](https://github.com/kalisio/kargo/commit/2a21ff998eb454ad02ac173c6ebb67aec6b22ab7))
 
-### 0.5.0 (2020-01-15)
+## 0.5.0 (2020-01-15)
 
-##### New Features
+### New Features
 
 *  Define automatically service image and tag from when loading an archive (close [#131](https://github.com/kalisio/kargo/pull/131)) ([19723cc3](https://github.com/kalisio/kargo/commit/19723cc3b2e442b8c869de68cdca84bba6a1a76f))
 *  Upgrade default version of weacast loaders (close [#130](https://github.com/kalisio/kargo/pull/130)) ([2f0d91d9](https://github.com/kalisio/kargo/commit/2f0d91d9d9f03118d5917d3ffe773b7181fc491a))
 *  Upgrade default version of weacast (close [#129](https://github.com/kalisio/kargo/pull/129)) ([1b412224](https://github.com/kalisio/kargo/commit/1b4122240ad8654cad28a1c38fb08f5f13740d2d))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  Maputnik healthcheck is no more working (close [#128](https://github.com/kalisio/kargo/pull/128)) ([1abc8640](https://github.com/kalisio/kargo/commit/1abc8640d3fa34df6001c5157fc7a04317c40850))
 *  kano local build is no more working (close [#127](https://github.com/kalisio/kargo/pull/127)) ([3a3a91e3](https://github.com/kalisio/kargo/commit/3a3a91e36676f58954f59347fbc9450670f41d07))
 *  Info subcommand should display the stack names not the corresponding environment variables (close [#126](https://github.com/kalisio/kargo/pull/126)) ([523afaeb](https://github.com/kalisio/kargo/commit/523afaebc0a4281cc163a710a6ab467c132ec5f9))
 *  Range request headers not correctly forwarded to S3 (close [#125](https://github.com/kalisio/kargo/pull/125)) ([7878a7a7](https://github.com/kalisio/kargo/commit/7878a7a77a89bfd51c01555ec53eed102bacd0c5))
 
-### 0.4.0 (2020-01-08)
+## 0.4.0 (2020-01-08)
 
-##### New Features
+### New Features
 
 *  Add API Gateway monitoring capabilities (close [#118](https://github.com/kalisio/kargo/pull/118)) ([715750c3](https://github.com/kalisio/kargo/commit/715750c39f9c2bab09a3983daceacf53cc399da7))
 *  Add the services provided by Kaabah (close [#114](https://github.com/kalisio/kargo/pull/114)) [skip ci] ([940809d0](https://github.com/kalisio/kargo/commit/940809d077c9045ed3b6eb6e49453426b9a07afb))
@@ -479,7 +499,7 @@
 *  Add healthcheck on REDIS (closed [#85](https://github.com/kalisio/kargo/pull/85)) ([af643a28](https://github.com/kalisio/kargo/commit/af643a285ed44418aa72fb7ee544495d9bd49f44))
 *  MapServer should use kalisio/mapserver as the default image, version 7.4 (closed [#82](https://github.com/kalisio/kargo/pull/82)) ([07283830](https://github.com/kalisio/kargo/commit/0728383095207ec1c5de4176dfa3b3c83320109a))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  Deploy all may not work (close [#67](https://github.com/kalisio/kargo/pull/67)) ([7c813f1c](https://github.com/kalisio/kargo/commit/7c813f1cd9e6637d39ffc17d2db963873ef79d32))
 *  install-awscli.sh is not working anymore (close [#117](https://github.com/kalisio/kargo/pull/117)) ([72f31b5a](https://github.com/kalisio/kargo/commit/72f31b5a071301c72160fea6a7627221c666e2f4))
@@ -489,9 +509,9 @@
 *  Label vigicrues is missing in the vigicrues services (closed [#88](https://github.com/kalisio/kargo/pull/88)) ([b885b83b](https://github.com/kalisio/kargo/commit/b885b83b7dc2de798c7adf1fff7023bd4e4dcd83))
 *  Default MapServer image name is invalid (closed [#83](https://github.com/kalisio/kargo/pull/83)) ([8338dea9](https://github.com/kalisio/kargo/commit/8338dea9173b3a8cdcfd7be1b6180579a52da36b))
 
-### 0.3.0 (2019-09-26)
+## 0.3.0 (2019-09-26)
 
-##### New Features
+### New Features
 
 *  Automate archive importation while deploying (closed [#81](https://github.com/kalisio/kargo/pull/81)) ([e353b1d0](https://github.com/kalisio/kargo/commit/e353b1d01825ca80fc4f2794dcfec3730d87c14d))
 *  Allow to import an image from an archive (closed [#80](https://github.com/kalisio/kargo/pull/80)) ([5aa097ca](https://github.com/kalisio/kargo/commit/5aa097ca79f898b983208f16ba19f977681b54b2))
@@ -512,7 +532,7 @@
 *  Provide MapServer deployement capabilities (fixed [#50](https://github.com/kalisio/kargo/pull/50)) ([9c108bcb](https://github.com/kalisio/kargo/commit/9c108bcb3ec2f727e1679637b4884ec5895f6e9b))
 *  Enhance the CLI (close [#53](https://github.com/kalisio/kargo/pull/53)) ([b18eb35a](https://github.com/kalisio/kargo/commit/b18eb35ac56d029c3d3ea6e4be2e2a0ecaa436ee))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  S3 configuration is not set in Kano (fixed [#76](https://github.com/kalisio/kargo/pull/76)) ([2eb945cc](https://github.com/kalisio/kargo/commit/2eb945ccc7d9721ffad87bc5478c2e552bdbf6dd))
 *  tried to make install-awscli independant from user ([ba719367](https://github.com/kalisio/kargo/commit/ba71936778536241fe39e7c8429984e24bf44d80))
@@ -522,9 +542,9 @@
 *  K2 healthcheck must use the healthcheck entrypoint (fixed [#57](https://github.com/kalisio/kargo/pull/57)) ([64ede7d2](https://github.com/kalisio/kargo/commit/64ede7d25b2199e4a1ec93cdc822c5069fde7945))
 *  Incorrect deployment files typo: updated_config (close [#54](https://github.com/kalisio/kargo/pull/54)) ([80f36710](https://github.com/kalisio/kargo/commit/80f3671016f629b823744af39ec74733e8eee3a5))
 
-### 0.2.0 (2019-04-21)
+## 0.2.0 (2019-04-21)
 
-##### New Features
+### New Features
 
 *  Add rolling update capabilities (close [#51](https://github.com/kalisio/kargo/pull/51)) ([ba5d63d3](https://github.com/kalisio/kargo/commit/ba5d63d31773f53f70020b63bc777a0154aaff00))
 *  Add Healthcheck (close [#2](https://github.com/kalisio/kargo/pull/2)) ([bcaec290](https://github.com/kalisio/kargo/commit/bcaec29061e770014125eed1cdb655e3391356b9))
@@ -535,11 +555,11 @@
 *  the command make should copy the build directory of a workspace too (close [#40](https://github.com/kalisio/kargo/pull/40)) ([8b09d22d](https://github.com/kalisio/kargo/commit/8b09d22d580d9bc416c36213c8da7ba4b6a30346))
 *  the command make should copy the build directory of a workspace too (close [#40](https://github.com/kalisio/kargo/pull/40)) ([c424fb4d](https://github.com/kalisio/kargo/commit/c424fb4d406877692563eac6cdda6718212a8034))
 
-##### Bug Fixes
+### Bug Fixes
 
 *  Mapproxy build does not work any more (close [#47](https://github.com/kalisio/kargo/pull/47)) ([65a07fcf](https://github.com/kalisio/kargo/commit/65a07fcf60fd0d649913633587ed569259cecf63))
 
-### 0.1.0 (2019-02-08)
+## 0.1.0 (2019-02-08)
 
 First release
 
