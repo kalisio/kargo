@@ -35,7 +35,7 @@ spec:
                   readOnly: true
               imagePullPolicy: Always
               env:
-                {{- include "kargo.environment.render" (dict "env" .args.env "context" .context) | indent 16 }}
+                {{- include "kargo.environment.render" (dict "env" .args.env "rawEnv" .args.rawEnv "context" .context) | indent 16 }}
               securityContext:
                 capabilities:
                   add:

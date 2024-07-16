@@ -45,7 +45,7 @@ spec:
             - name: HTTP_PROXY
             - name: HTTPS_PROXY
             - name: NO_PROXY
-            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 12 }}
           ports:
             - name: {{ include "kargo.names.name" . }}
               containerPort: 8080

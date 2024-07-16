@@ -61,7 +61,7 @@ spec:
                   name: {{ .Values.distribution.redisUrl.secret | default (include "kargo.names.secret" .) }}
                   key: {{ .Values.distribution.redisUrl.key | default "redis-url" }}
             {{- end }}
-            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 12 }}
           ports:
             - name: {{ include "kargo.names.name" . | trunc 15 }}
               containerPort: {{ .Values.containerPort | default 8081 }}

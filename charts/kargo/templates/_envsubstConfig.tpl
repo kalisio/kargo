@@ -31,7 +31,7 @@ Builds an initContainer definition to perform envsubst on a configMap and store 
     - '{}'
     - ';'
   env:
-    {{- include "kargo.environment.render" (dict "env" .args.env "context" .context) | indent 4 }}
+    {{- include "kargo.environment.render" (dict "env" .args.env "rawEnv" .args.rawEnv "context" .context) | indent 4 }}
   volumeMounts:
     - mountPath: /source
       name: envsubst-config-source-config{{ default "" .args.helperSuffix }}

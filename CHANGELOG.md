@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+ - Added new `trakkar` chart to deploy [traccar](https://www.traccar.org/) <-> kano gateway.
+
 ### Changed
+
+ - `kargo.environment.render` now takes an additional `rawEnv` parameter that can be used to define environment variables without transforming their names.
+ - Updated `kargo` chart helpers to use the new `rawEnv` (`kargo.deployment`, `kargo.e2e-tests-cronjob`, `kargo.envsubstConfig.renderInitContainer`, `kargo.kdk-deployment`, `kargo.krawler-cronjob`).
+ - Updated `express-gateway`, `k2`, `kanboard`, `passbolt` and `thredds` chart to use the new `rawEnv`.
+
 ### Removed
 
 ## kargo-1.0.6 (2024-07-15)

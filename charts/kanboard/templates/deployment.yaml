@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.env }}
           env:
-            {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 12 }}
           {{- end }}
           ports:
             - name: {{ include "kargo.names.name" . }}

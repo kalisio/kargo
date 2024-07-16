@@ -52,7 +52,7 @@ spec:
                   value: ""
                 - name: MESSAGE_TEMPLATE
                   value: "*<%= SUBDOMAIN %>*\nKrawler job *<%= jobId %>*: <%= error.message %>"
-              {{- include "kargo.environment.render" (dict "env" .Values.env "context" $) | indent 16 }}
+              {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 16 }}
               {{- if .Values.dataVolume }}
               volumeMounts:
                 - mountPath: {{ .Values.dataMountPath | default "/data" }}
