@@ -34,10 +34,8 @@ spec:
         - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.env }}
           env:
             {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 12 }}
-          {{- end }}
           ports:
             - name: {{ include "kargo.names.name" . }}
               containerPort: {{ .Values.containerPort }}
