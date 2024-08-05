@@ -1,13 +1,13 @@
 # helm chart for chirpstack
 
 This is a helm package for [chirpstack](https://www.chirpstack.io/), an open-source network server for LoraWAN Networks.
-The chart include: 
+The chart include:
   * all components of the [chirpstack](https://www.chirpstack.io/) project: the gateway bridge, the network server, an **optionnally** the rest API
   * [mosquitto](https://mosquitto.org/), a MQTT broker used by Chirpstack
-  * the micro service to transform UpLink events to geojson, aka chirstack mongodb integration (cf [doc](https://github.com/romainjacquet/chirpstack-mongodb-integration))
-  * has no dependency  
+  * the micro service to transform UpLink events to geojson, aka chirstack mongodb integration (cf [doc](https://github.com/kalisio/chirpstack-mongodb-integration))
+  * has no dependency
   * provide a default configuration in the config folder, for two regions eu868 and in865.
-  
+
 As there is no dependencies it means that you need to install them or re-use existing ones.
 The dependencies can be found as helm charts:
 
@@ -44,7 +44,7 @@ helm package charts/chirpstack
 
   * it is currently mandatory to install the micro service to write in MongoDB. This micro-service may be moved to its own chart
   * the gateway bridge of chirpstack is exposing UDP service. It's not managed by the ingress, because configuration
-  depends on your cloud provider. 
+  depends on your cloud provider.
 
 ## context
 

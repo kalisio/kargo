@@ -23,3 +23,6 @@
 .vscode/
 # schemas
 schemas
+# specific
+/README.md
+/pictures/

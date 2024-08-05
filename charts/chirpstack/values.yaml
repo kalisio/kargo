@@ -16,19 +16,19 @@ global:
 auth:
   redis_password: ""
   postgres_password: "pasword"
-  mongodb_password: ""  
+  mongodb_password: ""
   grpc_token: ""
   ## NOTE: the three parameters below required keycloak enabled
   ## @param auth.keycloak_client_secret secret for keycloak
-  keycloak_client_secret: ""   
-  ## @param auth.registration_enabled allow login of users declared in keycloak 
+  keycloak_client_secret: ""
+  ## @param auth.registration_enabled allow login of users declared in keycloak
   registration_enabled: false
   ## @param auth.registration_callback_url URL to manage the account creation in keycloak
   registration_callback_url: ""
   ## @param auth.existingSecret Existing secret with Redis, postgres, mongo and GRPC parameters
   ## NOTE: When it's set the previous parameters are ignored.
   ##
-  existingSecret: "" 
+  existingSecret: ""
   existingSecretRedisPasswordKey: ""
   existingSecretPostgresPasswordKey: ""
   existingSecretMongoPasswordKey: ""
@@ -42,8 +42,8 @@ env:
 
   redis_host: "redis-master"
   redis_port: 6379
-  
-  
+
+
   postgres:
     host: postgres
     user: chirpstack
@@ -52,19 +52,25 @@ env:
   ## @param env.mongodb.clean delete data from mongodb collections
   mongodb:
     host: mongodb
-    user: chirpstack    
+    user: chirpstack
     db: kano
-    clean: false    
+    clean: false
 
   # for development purpose
   mosquitto_node_port:
   networkserver_node_port:
 
+  # mongodb integration
   mongodb_integration:
-    ## @param env.mongodb_integration.enable: wether to deploy the mongo integration
+    ## @param env.mongodb_integration.enabled: wether to deploy the mongo integration
     enabled: yes
-    ## @param env.mongodb_integration.grpc_host that serve gRPC content, ex 'myhost:1111'
-    grpc_host: "chirpstack:8080"     
+    ## @param env.mongodb_integration.microserviceConfig : a config map containing the key config.json
+    ## a secret could be used instead of the configmap
+    microserviceConfig:
+    ## @param env.mongodb_integration.microserviceSecret : a secret containing the key config.json
+    ## it replace the configMap
+    microserviceSecret:
+
 
   keycloak:
     ## @param env.keycloak.enabled toggle keycloak authentication
@@ -74,7 +80,7 @@ env:
     # related to OpenID urls
     # ex: /realms/chirpstack
     provider_url_path: ""
-    # ex: /auth/oidc/callback 
+    # ex: /auth/oidc/callback
     redirect_url_path: ""
     # ex: /realms/chirpstack/protocol/openid-connect/logout
     logout_url_path: ""
@@ -100,37 +106,36 @@ images:
 resources:
   mosquitto:
     requests:
-      cpu: "100m" 
-      memory: "128Mi"         
+      cpu: "100m"
+      memory: "128Mi"
     limits:
-      cpu: "150m" 
+      cpu: "150m"
       memory: "192Mi"
   rest_api:
     requests:
-      cpu: "100m" 
-      memory: "128Mi"         
+      cpu: "100m"
+      memory: "128Mi"
     limits:
-      cpu: "150m" 
+      cpu: "150m"
       memory: "192Mi"
   gateway_bridge:
     requests:
-      cpu: "100m" 
-      memory: "128Mi"         
+      cpu: "100m"
+      memory: "128Mi"
     limits:
-      cpu: "150m" 
+      cpu: "150m"
       memory: "192Mi"
   networkserver:
     requests:
-      cpu: "100m" 
-      memory: "128Mi"         
+      cpu: "100m"
+      memory: "128Mi"
     limits:
-      cpu: "300m" 
+      cpu: "300m"
       memory: "398Mi"
   mongodb_integration:
     requests:
-      cpu: "100m" 
-      memory: "128Mi"         
+      cpu: "100m"
+      memory: "128Mi"
     limits:
-      cpu: "300m" 
-      memory: "398Mi" 
-  
+      cpu: "300m"
+      memory: "398Mi"
