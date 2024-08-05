@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  labels:    
+    app.kubernetes.io/component: networkserver    
+  name: chirpstack-networkserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: networkServer
+  strategy:
+    type: Recreate
+  template:
+    metadata:      
+      labels:        
+        app.kubernetes.io/component: networkServer
+        app.kubernetes.io/part-of: chirstack
+        app.kubernetes.io/version: {{ .Chart.AppVersion }}        
+    spec:
+      containers:
+        - args:
+            - -c
+            - /etc/chirpstack
+          env:
+            - name: MQTT_BROKER_HOST
+              value: mosquitto
+            - name: POSTGRESQL_HOST
+              value: {{ .Values.env.postgres.host }}
+            - name: REDIS_HOST
+              value: {{ .Values.env.redis_host }}
+            - name: REDIS_PASSWORD
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret }}
+                secretKeyRef:                  
+                  name: chirp-secret
+                  key: redis_password
+                {{- else }}
+                secretKeyRef:                  
+                  name: {{ .Values.auth.existingSecret }}
+                  key: {{ .Values.auth.existingSecretRedisPasswordKey }}
+                {{- end }}
+            - name: POSTGRESQL_PASSWORD
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret }}              
+                secretKeyRef:
+                  name: chirp-secret
+                  key: postgresql_password
+                {{- else }}
+                secretKeyRef:                  
+                  name:  {{  .Values.auth.existingSecret }} 
+                  key: {{  .Values.auth.existingSecretPostgresPasswordKey }}
+                {{- end }}
+            - name: CLIENT_ID              
+              value: {{ .Values.env.keycloak.client_id }}
+            - name: CLIENT_SECRET             
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret }}              
+                secretKeyRef:
+                  name: chirp-secret
+                  key: keycloak_client_secret
+                {{- else }}
+                secretKeyRef:                  
+                  name:  {{  .Values.auth.existingSecret }} 
+                  key: {{  .Values.auth.existingSecretKeycloakClientSecretPasswordKey }}
+                {{- end }}
+          image: chirpstack/chirpstack:4
+          name: chirpstack
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/chirpstack
+              name: vchirpstack-config            
+          resources:
+            limits:
+              cpu: {{ .Values.resources.networkserver.limits.cpu }}
+              memory: {{ .Values.resources.networkserver.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.networkserver.requests.cpu }}
+              memory: {{ .Values.resources.networkserver.requests.memory }}
+      restartPolicy: Always      
+      volumes:
+        - name: vchirpstack-config
+          configMap:
+            name: chirpstack-config
+        - name: chirpstack-claim1
+          persistentVolumeClaim:
+            claimName: chirpstack-claim1      
+      initContainers:
+        {{- if .Values.env.fetch_lorawan_device }}
+        # init container is used to fetch lorawan devices and import them into the postgreSQL
+        - name: fetch-lorawan-devices
+          image: chirpstack/chirpstack:4
+          command: ['sh', '-c', 'apk add --no-cache git && git clone https://github.com/brocaar/lorawan-devices /opt/lorawan-devices && chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices; sleep 60']          
+          env:            
+            - name: POSTGRESQL_HOST
+              value: {{ .Values.env.postgres.host }}
+            - name: REDIS_HOST
+              value: {{ .Values.env.redis_host }}
+            - name: REDIS_PASSWORD
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret }}
+                secretKeyRef:                  
+                  name: chirp-secret
+                  key: redis_password
+                {{- else }}
+                secretKeyRef:                  
+                  name:  {{  .Values.auth.existingSecret  }} 
+                  key: {{  .Values.auth.existingSecretRedisPasswordKey }}
+                {{- end }}
+            - name: POSTGRESQL_PASSWORD
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret }}              
+                secretKeyRef:
+                  name: chirp-secret
+                  key: postgresql_password
+                {{- else }}
+                secretKeyRef:                  
+                  name:  {{  .Values.auth.existingSecret  }} 
+                  key: {{  .Values.auth.existingSecretPostgresPasswordKey }}
+                {{- end }}            
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /etc/chirpstack
+              name: vchirpstack-config
+            - mountPath: /opt/lorawan-devices
+              name: chirpstack-claim1
+        {{- end }}
+

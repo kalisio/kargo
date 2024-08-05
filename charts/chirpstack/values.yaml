@@ -1,0 +1,136 @@
+# Copyright Kalisio
+# chirpstack default values
+
+## @section Global parameters
+## @param global.subdomain all the part of the FQDN except host
+## @param global.certIssuer to generate automatic certificate
+##
+global:
+  # subdomain to be used when computing the ingress host
+  subdomain: ""
+  certIssuer: ""
+
+## @section Authentication parameters
+## only passwords are managed, not user
+
+auth:
+  redis_password: ""
+  postgres_password: "pasword"
+  mongodb_password: ""  
+  grpc_token: ""
+  ## NOTE: the three parameters below required keycloak enabled
+  ## @param auth.keycloak_client_secret secret for keycloak
+  keycloak_client_secret: ""   
+  ## @param auth.registration_enabled allow login of users declared in keycloak 
+  registration_enabled: false
+  ## @param auth.registration_callback_url URL to manage the account creation in keycloak
+  registration_callback_url: ""
+  ## @param auth.existingSecret Existing secret with Redis, postgres, mongo and GRPC parameters
+  ## NOTE: When it's set the previous parameters are ignored.
+  ##
+  existingSecret: "" 
+  existingSecretRedisPasswordKey: ""
+  existingSecretPostgresPasswordKey: ""
+  existingSecretMongoPasswordKey: ""
+  existingSecretGRPCTokenKey: ""
+  existingSecretKeycloakClientSecretPasswordKey: ""
+
+## @section application parameters
+env:
+  ## @param env.fetch_lorawan_device download Lorawan devices from the internet, needed for installation from scratch
+  fetch_lorawan_device: yes
+
+  redis_host: "redis-master"
+  redis_port: 6379
+  
+  
+  postgres:
+    host: postgres
+    user: chirpstack
+
+  # mongodDB
+  ## @param env.mongodb.clean delete data from mongodb collections
+  mongodb:
+    host: mongodb
+    user: chirpstack    
+    db: kano
+    clean: false    
+
+  # for development purpose
+  mosquitto_node_port:
+  networkserver_node_port:
+
+  mongodb_integration:
+    ## @param env.mongodb_integration.enable: wether to deploy the mongo integration
+    enabled: yes
+    ## @param env.mongodb_integration.grpc_host that serve gRPC content, ex 'myhost:1111'
+    grpc_host: "chirpstack:8080"     
+
+  keycloak:
+    ## @param env.keycloak.enabled toggle keycloak authentication
+    enabled: no
+    client_id: ""
+    client_secret: ""
+    # related to OpenID urls
+    # ex: /realms/chirpstack
+    provider_url_path: ""
+    # ex: /auth/oidc/callback 
+    redirect_url_path: ""
+    # ex: /realms/chirpstack/protocol/openid-connect/logout
+    logout_url_path: ""
+
+  rest_api:
+    ## @param env.rest_api.enabled toggle rest API, create a dedicate pod
+    # set yes to enable the legacy REST API
+    enabled: no
+# ingress
+## @param ingress.enabled enable the ingress creation
+ingress:
+  enabled: true
+  className: nginx
+
+images:
+  mongodb_integration:
+    registry: "harbor.portal.kalisio.com"
+    repository: "kalisio/chirpstack-mongodb-integration"
+    tag: "latest"
+  pullSecret: ""
+
+# resources for the different containers
+resources:
+  mosquitto:
+    requests:
+      cpu: "100m" 
+      memory: "128Mi"         
+    limits:
+      cpu: "150m" 
+      memory: "192Mi"
+  rest_api:
+    requests:
+      cpu: "100m" 
+      memory: "128Mi"         
+    limits:
+      cpu: "150m" 
+      memory: "192Mi"
+  gateway_bridge:
+    requests:
+      cpu: "100m" 
+      memory: "128Mi"         
+    limits:
+      cpu: "150m" 
+      memory: "192Mi"
+  networkserver:
+    requests:
+      cpu: "100m" 
+      memory: "128Mi"         
+    limits:
+      cpu: "300m" 
+      memory: "398Mi"
+  mongodb_integration:
+    requests:
+      cpu: "100m" 
+      memory: "128Mi"         
+    limits:
+      cpu: "300m" 
+      memory: "398Mi" 
+  

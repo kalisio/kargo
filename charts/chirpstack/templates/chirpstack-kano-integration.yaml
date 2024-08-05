@@ -1,0 +1,86 @@
+{{ if .Values.env.mongodb_integration.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kano-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: kano-integration
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:        
+        app.kubernetes.io/component: kano-integration
+    spec:
+      containers:
+        - image: {{ .Values.images.mongodb_integration.registry }}/{{ .Values.images.mongodb_integration.repository }}:{{ .Values.images.mongodb_integration.tag }}
+          name: kano-integration
+          args:
+            - chirpstack-stream-consumer.mjs  
+          env:                        
+            - name: REDIS_HOST
+              value: {{ .Values.env.redis_host }}
+            - name: REDIS_PASSWORD
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret  }}
+                secretKeyRef:
+                  name: chirp-secret
+                  key: redis_password
+                {{- else}}
+                secretKeyRef:
+                  name: {{ .Values.auth.existingSecret }}
+                  key: {{ .Values.auth.existingSecretRedisPasswordKey }}
+                {{- end -}}
+            {{- if .Values.env.mongodb.clean }}
+            - name: MONGO_CLEAN
+              value: "1"  
+            {{- end}}          
+            - name: MONGO_DB_NAME
+              value: {{ .Values.env.mongodb.db }}
+            - name: MONGO_USER
+              value: {{ .Values.env.mongodb.user }}
+            - name: MONGO_HOST
+              value: {{ .Values.env.mongodb.host }}
+            - name: MONGO_PASSWORD  
+              valueFrom: 
+                {{- if not .Values.auth.existingSecret  }}
+                secretKeyRef:
+                  name: chirp-secret
+                  key: mongo_password   
+                {{- else }}
+                secretKeyRef:
+                  name: {{ .Values.auth.existingSecret }}
+                  key: {{ .Values.auth.existingSecretMongoPasswordKey }}
+                {{- end }}
+            - name: GRPC_SERVER  
+              value: {{ .Values.env.mongodb_integration.grpc_host }}
+            - name: GRPC_TOKEN
+              valueFrom:
+                {{- if not .Values.auth.existingSecret }}
+                secretKeyRef:
+                  name: chirp-secret
+                  key: grpc_token
+                {{- else }}
+                secretKeyRef:
+                  name: {{ .Values.auth.existingSecret }}
+                  key: {{ .Values.auth.existingSecretGRPCTokenKey }}
+                {{- end}}              
+          resources:
+            limits:
+              cpu: {{ .Values.resources.mongodb_integration.limits.cpu }}
+              memory: {{ .Values.resources.mongodb_integration.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.mongodb_integration.requests.cpu }}
+              memory: {{ .Values.resources.mongodb_integration.requests.memory }}       
+          ports:            
+          volumeMounts:     
+      imagePullSecrets:
+      - name: {{ .Values.images.pullSecret }}     
+      restartPolicy: Always
+      volumes:
+{{ end }}
+        
+            

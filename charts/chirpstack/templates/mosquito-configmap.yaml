@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquittoconfig
+data:  
+  mosquitto.conf: |
+    listener 1883
+    allow_anonymous true
+    log_type debug
+
+
+  

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chirpstack-gateway-bridge-conf
+data:  
+  chirpstack-gateway-bridge.toml: |
+    [general]
+    # debug=5, info=4, warning=3, error=2, fatal=1, panic=0
+    log_level=4
+    # Log in JSON format.
+    log_json=false
+    [integration.mqtt.auth.generic]
+    servers=["tcp://mosquitto:1883"]
+    username=""
+    password=""
+    [integration]
+    marshaler="protobuf"    
+    [integration.mqtt]        
+    state_retained=true
+    keep_alive="30s"
+    max_reconnect_interval="1m0s"
+    terminate_on_connect_error=false
+

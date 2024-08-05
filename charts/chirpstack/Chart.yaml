@@ -1,0 +1,13 @@
+name: chirpstack
+description: A generated Helm Chart for the from Chirpstack
+version: 0.0.21
+apiVersion: v2
+keywords:
+  - chirpstack
+sources:
+home:
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com/
+icon: https://www.chirpstack.io/img/logo.png

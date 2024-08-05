@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mosquitto
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:        
+        app.kubernetes.io/component: mosquitto
+    spec:
+      containers:
+        - image: eclipse-mosquitto:2
+          name: mosquitto
+          ports:
+            - containerPort: 1883
+              hostPort: 1883
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /mosquitto/config
+              name: vmosquitto-config
+          resources:
+            limits:
+              cpu: {{ .Values.resources.mosquitto.limits.cpu }}
+              memory: {{ .Values.resources.mosquitto.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.mosquitto.requests.cpu }}
+              memory: {{ .Values.resources.mosquitto.requests.memory }}
+      restartPolicy: Always
+      volumes:
+        - name: vmosquitto-config
+          configMap:
+            name: mosquittoconfig
+      
+            
