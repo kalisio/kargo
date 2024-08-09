@@ -84,7 +84,7 @@ module.exports = [
         Legend: {
           LORAWAN_GATEWAY_LABEL: 'LoRaData - Gateways',
           LORAWAN_GATEWAY: 'Gateways'
-        }        
+        }
       },
       en: {
         Layers: {
@@ -106,8 +106,8 @@ module.exports = [
       minZoom: 8,
       content: {
         gateways: [{
-          symbol: { 'media/KShape': { options: { shape: 'circle', color: 'white', radius: 10, icon: { classes: 'fa fa-wifi', color: 'black',  size: 10}, stroke: { color: 'black', size: 2 } } } }, 
-          label: 'Legend.LORAWAN_GATEWAY' 
+          symbol: { 'media/KShape': { options: { shape: 'circle', color: 'white', radius: 10, icon: { classes: 'fa fa-wifi', color: 'black',  size: 10}, stroke: { color: 'black', size: 2 } } } },
+          label: 'Legend.LORAWAN_GATEWAY'
         }]
       }
     }],
@@ -121,9 +121,9 @@ module.exports = [
       realtime: true,
       tiled: true,
       minZoom: 6,
-      cluster: { 
+      cluster: {
         maxClusterRadius: 28,
-        disableClusteringAtZoom: 18 
+        disableClusteringAtZoom: 18
       },
       source: '/api/chirpstack-stations',
       style: {
@@ -141,13 +141,13 @@ module.exports = [
             classes: 'fa fa-wifi',
           }
         }
-      },       
+      },
       template: ['style.point.color', 'style.point.stroke.color', 'style.point.icon.color'],
       tooltip: {
         template: `<%= properties.name %>`
       }
     }
-  }, 
+  },
   {
   name: 'Layers.LORAWAN',
   description: 'Layers.LORAWAN_DESCRIPTION',
@@ -165,15 +165,17 @@ module.exports = [
         LORAWAN_MEASUREMENT: 'Dernières mesures',
         LORAWAN_SENSOR: 'Capteurs'
       },
-      Variables: {         
+      Variables: {
         LORAWAN_SENSORS_LABEL:'Capteurs de mesures LoRaWAN',
         TEMPERATURE_LABEL: 'Température',
         HUMIDITY_LABEL: `Taux d'humidité`,
         BATTERY_LEVEL_LABEL: 'Taux de charge batterie',
         LAEQ: 'Niveau de pression acoustique continue',
         LAF: 'Niveau sonore avec Pondération Fréquentielle',
-        LAFMAX: 'Niveau Sonore Maximal avec Pondération Fréquentielle ' 
-      }        
+        LAFMAX: 'Niveau Sonore Maximal avec Pondération Fréquentielle ',
+        CO2_LABEL : "Taux de CO2",
+        AIRPRESSURE_LABEL: "Pression atmosphérique"
+      }
     },
     en: {
       Layers: {
@@ -187,7 +189,7 @@ module.exports = [
         LORAWAN_SENSORS_LABEL: 'LoRaData - Sensors',
         LORAWAN_MEASUREMENT: 'Last measurements',
         LORAWAN_SENSOR: 'Sensors'
-      },    
+      },
       Variables: {
         LORAWAN_SENSORS_LABEL:'LoRaWAN sensors values',
         TEMPERATURE_LABEL: 'Temperature',
@@ -195,8 +197,10 @@ module.exports = [
         BATTERY_LEVEL_LABEL: 'Battery level',
         LAEQ: 'Sound level A-weighted equivalent',
         LAF: 'Sound level A-weighted',
-        LAFMAX: 'Sound level A-weighted fast maximum'
-      }    
+        LAFMAX: 'Sound level A-weighted fast maximum',
+        CO2_LABEL: "CO2 level",
+        AIRPRESSURE_LABEL: "Air pressure"
+      }
     }
   },
   legend: [{
@@ -208,11 +212,11 @@ module.exports = [
     minZoom: 8,
     content: {
       measurements: [
-        { symbol: { 'media/KShape': { options: { shape: 'circle', color: '#00a9ce', radius: 10, icon: { classes: 'fa fa-wifi', color: 'white',  size: 10} } } }, 
-        label: 'Legend.LORAWAN_MEASUREMENT' 
+        { symbol: { 'media/KShape': { options: { shape: 'circle', color: '#00a9ce', radius: 10, icon: { classes: 'fa fa-wifi', color: 'white',  size: 10} } } },
+        label: 'Legend.LORAWAN_MEASUREMENT'
       },
-        /*{ symbol: { 'media/KShape': { options: { shape: 'circle', color: 'black', radius: 10, icon: { classes: 'fa fa-wifi', color: 'white', size: 10 } } } }, 
-          label: 'Legend.LORAWAN_OLD_MEASUREMENT' 
+        /*{ symbol: { 'media/KShape': { options: { shape: 'circle', color: 'black', radius: 10, icon: { classes: 'fa fa-wifi', color: 'white', size: 10 } } } },
+          label: 'Legend.LORAWAN_OLD_MEASUREMENT'
         }*/
       ]
     }
@@ -296,8 +300,32 @@ module.exports = [
       range: [0, 160],
       step: 1,
       chartjs: {
-        backgroundColor: 'rgba(79, 0, 35, 128)',
-        borderColor: 'rgb(79, 0, 35)',
+        backgroundColor: 'rgba(79, 132, 35, 128)',
+        borderColor: 'rgb(79, 132, 35)',
+        fill: false
+      }
+    },
+    {
+      name: 'co2',
+      label: 'Variables.CO2_LABEL',
+      unit: ['ppm'],
+      range: [0, 1000],
+      step: 1,
+      chartjs: {
+        backgroundColor: 'rgba(52, 124, 41, 128)',
+        borderColor: 'rgb(52, 124, 41)',
+        fill: false
+      }
+    },
+    {
+      name: 'air_pressure',
+      label: 'Variables.AIRPRESSURE_LABEL',
+      unit: ['hPa'],
+      range: [500, 2000],
+      step: 1,
+      chartjs: {
+        backgroundColor: 'rgba(67, 65, 62, 128)',
+        borderColor: 'rgb(67, 65, 62)',
         fill: false
       }
     }
@@ -318,9 +346,9 @@ module.exports = [
     realtime: true,
     tiled: true,
     minZoom: 8,
-    cluster: { 
+    cluster: {
       maxClusterRadius: 28,
-      disableClusteringAtZoom: 18 
+      disableClusteringAtZoom: 18
     },
     source: '/api/chirpstack-observations',
     style: {
@@ -344,7 +372,7 @@ module.exports = [
           classes: 'fa fa-wifi',
         }
       }
-    },       
+    },
     template: ['style.point.color', 'style.point.stroke.color', 'style.point.icon.color'],
     tooltip: {
       template: `<%= properties.name %>`
@@ -352,6 +380,3 @@ module.exports = [
   }
 }
 ]
-
-
-
