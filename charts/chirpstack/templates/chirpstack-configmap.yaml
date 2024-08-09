@@ -1,0 +1,5 @@
+
+{{- include "configMap.fromFolder" ( dict "context" . "name" "chirpstack-config" "folder" "config"  ) -}}
+
+
+   

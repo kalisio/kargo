@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled }}
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: network-server-ingress
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    {{- if .Values.global.certIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.global.certIssuer }}
+    {{- end }}
+spec:
+  ingressClassName:  {{ .Values.ingress.className | quote }}
+  tls:
+    - hosts:
+        - {{ .Release.Name }}.{{ .Values.global.subdomain }}
+      secretName: {{ .Release.Name }}.test-tls
+  rules:
+    - host: {{ .Release.Name }}.{{ .Values.global.subdomain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: chirpstack
+                port:
+                  number: 8080
+{{- end }}
