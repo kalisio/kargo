@@ -1,0 +1,43 @@
+{{/*
+Builds a suspended cronjob to inspect k8s volumes.
+@param .context   The caller's context
+@param .args      The parameters for the inspector. The template expects the following:
+  - name            The name to give to the cronjob
+  - volumeMounts    The list of volumeMounts for the container
+  - volumes         The list of volumes to back volumeMounts
+  - image           An object defining the image to pull, cf. kargo.images.image template
+*/}}
+{{- define "kargo.volume-inspector-cronjob" -}}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: true
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
+          containers:
+            - name: {{ .args.name }}
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - while true; do sleep 30; done
+              {{- if .args.volumeMounts }}
+              volumeMounts:
+                {{- include "kargo.tplvalues.render" ( dict "value" .args.volumeMounts "context" .context ) | nindent 14 }}
+              {{- end }}
+          restartPolicy: Never
+          {{- if .args.volumes }}
+          volumes:
+            {{- include "kargo.tplvalues.render" ( dict "value" .args.volumes "context" .context ) | nindent 10 }}
+          {{- end }}
+{{- end -}}

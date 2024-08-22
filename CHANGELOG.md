@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+ - Added a new template in the `kargo` chart to generate a suspended cronjob allowing to inspect volumes: `kargo.volume-inspector-cronjob`.
  - Added new `trakkar` chart to deploy [traccar](https://www.traccar.org/) <-> kano gateway.
 
 ### Changed
