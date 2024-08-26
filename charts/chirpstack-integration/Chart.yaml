@@ -1,9 +1,11 @@
-name: chirpstack
-description: A generated Helm Chart for the from Chirpstack
-version: 0.0.36
+name: chirpstack-integration
+description: A  Helm Chart for to deploy a Chirpstack integration with mongodb
 apiVersion: v2
 keywords:
   - chirpstack
+  - mongodb
+
+version: 0.1.0
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com

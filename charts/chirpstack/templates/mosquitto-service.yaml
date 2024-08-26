@@ -10,8 +10,8 @@ spec:
     - name: "1883"
       port: 1883
       targetPort: 1883
-      {{- if .Values.env.mosquitto_node_port }}
-      nodePort: {{ .Values.env.mosquitto_node_port }}
+      {{- if .Values.mosquitto.node_port }}
+      nodePort: {{ .Values.mosquitto.node_port }}
       {{- end }}
   selector:
     app.kubernetes.io/component: mosquitto

@@ -25,45 +25,14 @@ spec:
           env:
             - name: MQTT_BROKER_HOST
               value: mosquitto
-            - name: POSTGRESQL_HOST
-              value: {{ .Values.env.postgres.host }}
-            - name: REDIS_HOST
-              value: {{ .Values.env.redis_host }}
-            - name: REDIS_PASSWORD
-              valueFrom: 
-                {{- if not .Values.auth.existingSecret }}
-                secretKeyRef:                  
-                  name: chirp-secret
-                  key: redis_password
-                {{- else }}
-                secretKeyRef:                  
-                  name: {{ .Values.auth.existingSecret }}
-                  key: {{ .Values.auth.existingSecretRedisPasswordKey }}
-                {{- end }}
-            - name: POSTGRESQL_PASSWORD
-              valueFrom: 
-                {{- if not .Values.auth.existingSecret }}              
-                secretKeyRef:
-                  name: chirp-secret
-                  key: postgresql_password
-                {{- else }}
-                secretKeyRef:                  
-                  name:  {{  .Values.auth.existingSecret }} 
-                  key: {{  .Values.auth.existingSecretPostgresPasswordKey }}
-                {{- end }}
-            - name: CLIENT_ID              
-              value: {{ .Values.env.keycloak.client_id }}
-            - name: CLIENT_SECRET             
-              valueFrom: 
-                {{- if not .Values.auth.existingSecret }}              
-                secretKeyRef:
-                  name: chirp-secret
-                  key: keycloak_client_secret
-                {{- else }}
-                secretKeyRef:                  
-                  name:  {{  .Values.auth.existingSecret }} 
-                  key: {{  .Values.auth.existingSecretKeycloakClientSecretPasswordKey }}
-                {{- end }}
+            {{ if .Values.keycloak.enabled }}
+              {{- include "kargo.environment.render" (dict "env" $.Values.keycloak.auth  "context" $) | indent 12 }}
+            {{ end }}
+            
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.redis.auth  "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres  "context" $) | indent 12 }}
+            
+
           image: chirpstack/chirpstack:4
           name: chirpstack
           ports:
@@ -73,13 +42,11 @@ spec:
           volumeMounts:
             - mountPath: /etc/chirpstack
               name: vchirpstack-config            
+          {{ if .Values.resources.networkserver }}
           resources:
-            limits:
-              cpu: {{ .Values.resources.networkserver.limits.cpu }}
-              memory: {{ .Values.resources.networkserver.limits.memory }}
-            requests:
-              cpu: {{ .Values.resources.networkserver.requests.cpu }}
-              memory: {{ .Values.resources.networkserver.requests.memory }}
+{{ toYaml .Values.resources.networkserver | indent 12 }}
+          {{ end }}
+
       restartPolicy: Always      
       volumes:
         - name: vchirpstack-config
@@ -88,39 +55,15 @@ spec:
         - name: chirpstack-claim1
           persistentVolumeClaim:
             claimName: chirpstack-claim1      
+      {{- if .Values.chirpstack.fetch_lorawan_device }}
       initContainers:
-        {{- if .Values.env.fetch_lorawan_device }}
         # init container is used to fetch lorawan devices and import them into the postgreSQL
         - name: fetch-lorawan-devices
           image: chirpstack/chirpstack:4
-          command: ['sh', '-c', 'apk add --no-cache git && git clone https://github.com/brocaar/lorawan-devices /opt/lorawan-devices && chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices; sleep 60']          
+          command: ['sh', '-c', 'apk add --no-cache git && git clone https://github.com/brocaar/lorawan-devices /opt/lorawan-devices/repo && chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices/repo; sleep 60']
           env:            
-            - name: POSTGRESQL_HOST
-              value: {{ .Values.env.postgres.host }}
-            - name: REDIS_HOST
-              value: {{ .Values.env.redis_host }}
-            - name: REDIS_PASSWORD
-              valueFrom: 
-                {{- if not .Values.auth.existingSecret }}
-                secretKeyRef:                  
-                  name: chirp-secret
-                  key: redis_password
-                {{- else }}
-                secretKeyRef:                  
-                  name:  {{  .Values.auth.existingSecret  }} 
-                  key: {{  .Values.auth.existingSecretRedisPasswordKey }}
-                {{- end }}
-            - name: POSTGRESQL_PASSWORD
-              valueFrom: 
-                {{- if not .Values.auth.existingSecret }}              
-                secretKeyRef:
-                  name: chirp-secret
-                  key: postgresql_password
-                {{- else }}
-                secretKeyRef:                  
-                  name:  {{  .Values.auth.existingSecret  }} 
-                  key: {{  .Values.auth.existingSecretPostgresPasswordKey }}
-                {{- end }}            
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.redis.auth "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres  "context" $) | indent 12 }}
           securityContext:
             runAsUser: 0
           volumeMounts:

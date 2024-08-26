@@ -1,4 +1,4 @@
-{{- if .Values.ingress.enabled }}
+{{- if .Values.chirpstack.ingress.enabled }}
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -9,7 +9,7 @@ metadata:
     cert-manager.io/cluster-issuer: {{ .Values.global.certIssuer }}
     {{- end }}
 spec:
-  ingressClassName:  {{ .Values.ingress.className | quote }}
+  ingressClassName:  {{ .Values.chirpstack.ingress.className | quote }}
   tls:
     - hosts:
         - {{ .Release.Name }}.{{ .Values.global.subdomain }}

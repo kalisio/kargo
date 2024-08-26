@@ -2,13 +2,17 @@
     level="debug"
 
 [postgresql]
-    dsn="postgres://chirpstack:$POSTGRESQL_PASSWORD@$POSTGRESQL_HOST/chirpstack?sslmode=disable"
+    dsn="postgres://$PG_USER:$PG_PASSWORD@$PG_HOST:$PG_PORT/$PG_DATABASE?sslmode=disable"
     max_open_connections=10
     min_idle_connections=0
 
 [redis]
     servers=[
-        "redis://:$REDIS_PASSWORD@$REDIS_HOST/",
+        {{ if .Values.chirpstack.redis.auth.redis_password }}
+        "redis://:$REDIS_PASSWORD@{{ .Values.chirpstack.redis.auth.redis_host }}",
+        {{ else }}
+        "redis://{{ .Values.chirpstack.redis.auth.redis_host }}",
+        {{ end }}
     ]
     tls_enabled=false
     cluster=false
@@ -45,20 +49,21 @@
   per_device_frame_log_ttl="1month 13h 26m 24s"
   per_device_event_log_max_history=10
   per_device_event_log_ttl="1month 13h 26m 24s"
-{{- if .Values.env.keycloak.enabled }}
+{{- if .Values.keycloak.enabled }}
 # User authentication configuration with Open ID (keycloak)
 [user_authentication]
   enabled="openid_connect"
   [user_authentication.openid_connect]
 
     # Registration is enabled, it avoids having to also create the user in chirpstack (double creation)
-    registration_enabled={{ .Values.auth.registration_enabled }}
-    registration_callback_url={{ .Values.auth.registration_callback_url | quote }}
-    provider_url="https://keycloak.{{ .Values.global.subdomain }}{{ .Values.env.keycloak.provider_url_path }}"
+    registration_enabled={{ .Values.keycloak.registration_enabled }}
+    registration_callback_url={{ .Values.keycloak.registration_callback_url | quote }}
+    provider_url= "{{ .Values.keycloak.oidcIssuerUrl }}{{ .Values.keycloak.provider_url_path}}"
     client_id="$CLIENT_ID"
     client_secret="$CLIENT_SECRET"    
-    redirect_url="https://{{ .Release.Name }}.{{ .Values.global.subdomain }}{{ .Values.env.keycloak.redirect_url_path }}"    
-    logout_url="https://keycloak.{{ .Values.global.subdomain }}{{ .Values.env.keycloak.logout_url_path }}"
+    
+    redirect_url="https://{{ .Release.Name }}.{{ .Values.global.subdomain }}{{ .Values.keycloak.redirect_url_path }}"    
+    logout_url="{{ .Values.keycloak.oidcIssuerUrl }}{{.Values.keycloak.provider_url_path}}{{ .Values.keycloak.logout_url_path }}"
     login_redirect=false
     login_label="keycloak"
     assume_email_verified=false

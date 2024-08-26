@@ -11,8 +11,8 @@ spec:
       port: 1700
       protocol: UDP
       targetPort: 1700
-      {{- if .Values.env.bridge_station_node_port }}
-      nodePort: {{ .Values.env.bridge_station_node_port | default 1700 }}
+      {{- if .Values.gateway_bridge.bridge_station_node_port }}
+      nodePort: {{ .Values.gateway_bridge.bridge_station_node_port }}
       {{- end }}
   selector:
     app.kubernetes.io/component: gateway-bridge

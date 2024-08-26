@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chirpstack-integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: chirpstack-integration
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: chirpstack-integration
+    spec:
+      containers:
+        - image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
+          name: kano-integration
+          args:
+            - main.mjs
+            - -c
+            - /app/config/config.json
+          {{- if .Values.resources }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          {{- end }}
+          ports: []
+          volumeMounts:
+            - name: configfile
+              mountPath: /app/config/
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret }}
+      restartPolicy: Always
+      volumes:
+        - name: configfile
+          secret:
+            secretName: {{ .Release.Name }}-config

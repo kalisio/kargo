@@ -10,8 +10,8 @@ spec:
     - name: "8080"
       port: 8080
       targetPort: 8080
-      {{- if .Values.env.networkserver_node_port }}
-      nodePort: 31710
+      {{- if .Values.chirpstack.networkserver_node_port }}
+      nodePort: {{ .Values.chirpstack.networkserver_node_port | default 31710 }}
       {{- end }}
   selector:
     app.kubernetes.io/component: networkServer

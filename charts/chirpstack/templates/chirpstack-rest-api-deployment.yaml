@@ -1,4 +1,4 @@
-{{- if .Values.env.rest_api.enable }}
+{{- if .Values.chirpstack.est_api_enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:  
@@ -26,12 +26,9 @@ spec:
             - containerPort: 8090
               hostPort: 8090
               protocol: TCP
+          {{ if .Values.resources.rest_api }}
           resources:
-            limits:
-              cpu: {{ .Values.resources.rest_api.limits.cpu }}
-              memory: {{ .Values.resources.rest_api.limits.memory }}
-            requests:
-              cpu: {{ .Values.resources.rest_api.requests.cpu }}
-              memory: {{ .Values.resources.rest_api.requests.memory }}
+            {{ toYaml .Values.resources.rest_api | indent 12 }}
+          {{ end }}
       restartPolicy: Always
 {{- end }}

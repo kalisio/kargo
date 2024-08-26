@@ -1,0 +1,21 @@
+config : 
+  redisHost : ""
+  redisPassword : ""
+  mongoUrl : ""
+  gRPCServer : ""
+  apiToken : ""
+
+
+image:
+  registry: "harbor.portal.kalisio.com"
+  repository: "kalisio/chirpstack-mongodb-integration"
+  tag: "latest"
+  pullSecret: ""
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "300m"
+    memory: "398Mi"
