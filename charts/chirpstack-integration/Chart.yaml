@@ -1,0 +1,17 @@
+name: chirpstack-integration
+description: A  Helm Chart for to deploy a Chirpstack integration with mongodb
+apiVersion: v2
+keywords:
+  - chirpstack
+  - mongodb
+
+version: 0.1.0
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com/
+icon: https://www.chirpstack.io/img/logo.png
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo

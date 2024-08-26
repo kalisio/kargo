@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  labels:
+    app.kubernetes.io/component: gateway-bridge
+  name: chirpstack-gateway-bridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: gateway-bridge
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:        
+        app.kubernetes.io/component: gateway-bridge
+    spec:
+      containers:
+        - env:
+            - name: INTEGRATION__MQTT__COMMAND_TOPIC_TEMPLATE
+              value: eu868/gateway/{{ "{{"  }} .GatewayID {{ "}}"  }}/command/#
+            - name: INTEGRATION__MQTT__EVENT_TOPIC_TEMPLATE
+              value: eu868/gateway/{{ "{{" }} .GatewayID {{ "}}"  }}/event/{{ "{{"  }} .EventType {{ "}}"  }}
+            - name: INTEGRATION__MQTT__STATE_TOPIC_TEMPLATE
+              value: eu868/gateway/{{ "{{"  }} .GatewayID {{ "}}"  }}/state/{{ "{{"  }} .StateType {{ "}}"  }}
+          image: chirpstack/chirpstack-gateway-bridge:4
+          name: chirpstack-gateway-bridge
+          ports:
+            - containerPort: 1700
+              hostPort: 1700
+              protocol: UDP
+          volumeMounts:
+            - mountPath: /etc/chirpstack-gateway-bridge
+              name: vchirpstack-gateway-bridge-conf
+          {{ if .Values.resources.gateway_bridge }}
+          resources:
+{{ toYaml .Values.resources.gateway_bridge | indent 12 }}
+          {{ end }}
+      restartPolicy: Always
+      volumes:
+        - name: vchirpstack-gateway-bridge-conf
+          configMap:
+            name: chirpstack-gateway-bridge-conf

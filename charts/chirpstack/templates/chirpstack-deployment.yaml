@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  labels:    
+    app.kubernetes.io/component: networkserver    
+  name: chirpstack-networkserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: networkServer
+  strategy:
+    type: Recreate
+  template:
+    metadata:      
+      labels:        
+        app.kubernetes.io/component: networkServer
+        app.kubernetes.io/part-of: chirstack
+        app.kubernetes.io/version: {{ .Chart.AppVersion }}        
+    spec:
+      containers:
+        - args:
+            - -c
+            - /etc/chirpstack
+          env:
+            - name: MQTT_BROKER_HOST
+              value: mosquitto
+            {{ if .Values.keycloak.enabled }}
+              {{- include "kargo.environment.render" (dict "env" $.Values.keycloak.auth  "context" $) | indent 12 }}
+            {{ end }}
+            
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.redis.auth  "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres  "context" $) | indent 12 }}
+            
+
+          image: chirpstack/chirpstack:4
+          name: chirpstack
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/chirpstack
+              name: vchirpstack-config            
+          {{ if .Values.resources.networkserver }}
+          resources:
+{{ toYaml .Values.resources.networkserver | indent 12 }}
+          {{ end }}
+
+      restartPolicy: Always      
+      volumes:
+        - name: vchirpstack-config
+          configMap:
+            name: chirpstack-config
+        - name: chirpstack-claim1
+          persistentVolumeClaim:
+            claimName: chirpstack-claim1      
+      {{- if .Values.chirpstack.fetch_lorawan_device }}
+      initContainers:
+        # init container is used to fetch lorawan devices and import them into the postgreSQL
+        - name: fetch-lorawan-devices
+          image: chirpstack/chirpstack:4
+          command: ['sh', '-c', 'apk add --no-cache git && git clone https://github.com/brocaar/lorawan-devices /opt/lorawan-devices/repo && chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices/repo; sleep 60']
+          env:            
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.redis.auth "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres  "context" $) | indent 12 }}
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /etc/chirpstack
+              name: vchirpstack-config
+            - mountPath: /opt/lorawan-devices
+              name: chirpstack-claim1
+        {{- end }}
+

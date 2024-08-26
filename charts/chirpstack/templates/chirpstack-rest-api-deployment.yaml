@@ -1,0 +1,34 @@
+{{- if .Values.chirpstack.est_api_enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  name: chirpstack-rest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: rest-api
+  template:
+    metadata:
+      labels:        
+        app.kubernetes.io/component: rest-api
+    spec:
+      containers:
+        - args:
+            - --server
+            - chirpstack:8080
+            - --bind
+            - 0.0.0.0:8090
+            - --insecure
+          image: chirpstack/chirpstack-rest-api:4
+          name: chirpstack-rest-api
+          ports:
+            - containerPort: 8090
+              hostPort: 8090
+              protocol: TCP
+          {{ if .Values.resources.rest_api }}
+          resources:
+            {{ toYaml .Values.resources.rest_api | indent 12 }}
+          {{ end }}
+      restartPolicy: Always
+{{- end }}

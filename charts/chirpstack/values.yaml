@@ -1,0 +1,75 @@
+keycloak :
+  auth :
+    client_id : "chirpstack"
+    client_secret : ""
+  registration_callback_url : ""
+  registration_enabled : true
+  enabled : false
+  oidcIssuerUrl : ""
+  logout_url_path : "/protocol/openid-connect/logout"
+  provider_url_path : "/realms/chirpstack"
+  redirect_url_path : "/auth/oidc/callback"
+
+
+global :
+  certIssuer : ""
+  subdomain : ""
+  secret : ""
+
+
+chirpstack :
+  rest_api_enabled : true
+  fetch_lorawan_device : false
+  networkserver_node_port : false
+  postgres :
+    pg_host : "postgres"
+    pg_user : "chirpstack"
+    pg_database : "chirpstack"
+    pg_password : 
+      key : "chirpstack"
+    pg_port : 5432
+  redis :
+    auth: 
+      redis_host : ""
+      reddis_password : ""
+     
+  ingress : 
+    enabled : true
+    className : "nginx"
+
+gateway_bridge : 
+  bridge_station_node_port : 
+
+mosquitto : 
+  node_port : 
+
+
+resources:
+  mosquitto:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "150m"
+      memory: "192Mi"
+  rest_api:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "150m"
+      memory: "192Mi"
+  gateway_bridge:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "150m"
+      memory: "192Mi"
+  networkserver:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "300m"
+      memory: "398Mi"
