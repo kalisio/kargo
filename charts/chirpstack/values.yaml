@@ -7,7 +7,6 @@ keycloak :
   enabled : false
   oidcIssuerUrl : ""
   logout_url_path : "/protocol/openid-connect/logout"
-  provider_url_path : "/realms/chirpstack"
   redirect_url_path : "/auth/oidc/callback"
 
 

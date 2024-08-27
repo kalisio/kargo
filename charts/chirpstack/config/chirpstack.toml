@@ -58,12 +58,12 @@
     # Registration is enabled, it avoids having to also create the user in chirpstack (double creation)
     registration_enabled={{ .Values.keycloak.registration_enabled }}
     registration_callback_url={{ .Values.keycloak.registration_callback_url | quote }}
-    provider_url= "{{ .Values.keycloak.oidcIssuerUrl }}{{ .Values.keycloak.provider_url_path}}"
+    provider_url= "{{ .Values.keycloak.oidcIssuerUrl }}"
     client_id="$CLIENT_ID"
     client_secret="$CLIENT_SECRET"    
     
     redirect_url="https://{{ .Release.Name }}.{{ .Values.global.subdomain }}{{ .Values.keycloak.redirect_url_path }}"    
-    logout_url="{{ .Values.keycloak.oidcIssuerUrl }}{{.Values.keycloak.provider_url_path}}{{ .Values.keycloak.logout_url_path }}"
+    logout_url="{{ .Values.keycloak.oidcIssuerUrl }}{{ .Values.keycloak.logout_url_path }}"
     login_redirect=false
     login_label="keycloak"
     assume_email_verified=false
