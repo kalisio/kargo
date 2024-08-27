@@ -29,8 +29,10 @@ spec:
           volumeMounts:
             - name: configfile
               mountPath: /app/config/
+      {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
+      {{- end }}
       restartPolicy: Always
       volumes:
         - name: configfile
