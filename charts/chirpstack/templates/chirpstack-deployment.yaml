@@ -51,25 +51,27 @@ spec:
       volumes:
         - name: vchirpstack-config
           configMap:
-            name: chirpstack-config
-        - name: chirpstack-claim1
-          persistentVolumeClaim:
-            claimName: chirpstack-claim1      
+            name: chirpstack-config 
       {{- if .Values.chirpstack.fetch_lorawan_device }}
       initContainers:
-        # init container is used to fetch lorawan devices and import them into the postgreSQL
+        # init container is used to fetch LoRaWAN devices and import them into PostgreSQL
         - name: fetch-lorawan-devices
           image: chirpstack/chirpstack:4
-          command: ['sh', '-c', 'apk add --no-cache git && git clone https://github.com/brocaar/lorawan-devices /opt/lorawan-devices/repo && chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /opt/lorawan-devices/repo; sleep 60']
+          command: 
+            - sh
+            - -c
+            - |
+              apk add --no-cache git && \
+              git clone https://github.com/brocaar/lorawan-devices /tmp/lorawan-devices && \
+              chirpstack -c /etc/chirpstack import-legacy-lorawan-devices-repository -d /tmp/lorawan-devices; \
+              echo "LoRaWAN devices imported"
           env:            
             {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.redis.auth "context" $) | indent 12 }}
-            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres  "context" $) | indent 12 }}
+            {{- include "kargo.environment.render" (dict "env" $.Values.chirpstack.postgres "context" $) | indent 12 }}
           securityContext:
             runAsUser: 0
           volumeMounts:
             - mountPath: /etc/chirpstack
               name: vchirpstack-config
-            - mountPath: /opt/lorawan-devices
-              name: chirpstack-claim1
-        {{- end }}
+      {{- end }}
 
