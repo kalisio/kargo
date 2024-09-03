@@ -1,8 +1,8 @@
 apiVersion: v2
 name: weacast
 description: Weacast API
-version: 1.0.2
-appVersion: 2.1.6
+version: 1.0.3
+appVersion: 2.2.0
 home: https://github.com/weacast/weacast
 annotations:
   category: application
