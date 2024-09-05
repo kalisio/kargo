@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 LABEL maintainer "contact@kalisio.com"
 
 # gettext-base contains envsubst
