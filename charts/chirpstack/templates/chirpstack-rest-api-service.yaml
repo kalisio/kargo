@@ -1,4 +1,4 @@
-{{- if .Values.chirpstack.est_api_enabled }}
+{{- if .Values.chirpstack.rest_api_enabled }}
 apiVersion: v1
 kind: Service
 metadata:

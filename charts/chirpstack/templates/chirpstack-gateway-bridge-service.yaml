@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/component: gateway-bridge
   name: chirpstack-gateway-bridge
 spec:  
-  type: NodePort  
+  type:    {{ .Values.gateway_bridge.service_type }}
   ports:
     - name: "1700"
       port: 1700

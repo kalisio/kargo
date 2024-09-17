@@ -1,4 +1,4 @@
-{{- if .Values.chirpstack.est_api_enabled }}
+{{- if .Values.chirpstack.rest_api_enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:  
@@ -28,7 +28,7 @@ spec:
               protocol: TCP
           {{ if .Values.resources.rest_api }}
           resources:
-            {{ toYaml .Values.resources.rest_api | indent 12 }}
+{{ toYaml .Values.resources.rest_api | indent 12 }}
           {{ end }}
       restartPolicy: Always
 {{- end }}

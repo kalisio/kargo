@@ -37,9 +37,11 @@ chirpstack :
     className : "nginx"
 
 gateway_bridge : 
+  service_type : "ClusterIP"
   bridge_station_node_port : 
 
 mosquitto : 
+  service_type : "ClusterIP"
   node_port : 
 
 
