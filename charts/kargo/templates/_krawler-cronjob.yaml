@@ -18,6 +18,8 @@ spec:
   schedule: "{{ .Values.cron }}"
   # It will run 1 at a time, but not more
   concurrencyPolicy: {{ .Values.concurrency | default "Forbid" }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 1 }} # Only keep one successful job
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit | default 1 }} # Only keep one failed job
   jobTemplate:
     spec:
       # Number of times it will retry before it is considered failed
