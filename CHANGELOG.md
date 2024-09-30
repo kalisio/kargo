@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+ - Added `successfulJobsHistoryLimit` value to configure the number of successful Krawler jobs to keep (default 1).
+ - Added `failedJobsHistoryLimit` value to configure the number of failed Krawler jobs to keep (default 1).
+
 ### Changed
 ### Deprecated
 ### Fixed
