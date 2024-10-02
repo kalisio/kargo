@@ -16,6 +16,7 @@ metadata:
   {{- end }}
 spec:
   schedule: "{{ .Values.cron }}"
+  suspend: {{ hasKey .Values "suspend" | ternary .Values.suspend false }}
   # It will run 1 at a time, but not more
   concurrencyPolicy: {{ .Values.concurrency | default "Forbid" }}
   successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit | default 1 }} # Only keep one successful job
