@@ -56,21 +56,27 @@ spec:
                 - name: MESSAGE_TEMPLATE
                   value: "*<%= SUBDOMAIN %>*\nKrawler job *<%= jobId %>*: <%= error.message %>"
               {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 16 }}
-              {{- if .Values.dataVolume }}
               volumeMounts:
+                {{- if .Values.dataVolume }}
                 - mountPath: {{ .Values.dataMountPath | default "/data" }}
                   name: job-data
                   {{- if .Values.dataSubPath }}
                   subPath: {{ include "kargo.tplvalues.render" ( dict "value" .Values.dataSubPath "context" $) }}
                   {{- end }}
-              {{- end }}
+                {{- end }}
+                {{- if .Values.extraVolumeMounts }}
+                  {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+                {{- end }}
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
           # It won't restart on failure, next chance will be on next CRON
           restartPolicy: Never
-          {{- if .Values.dataVolume }}
           volumes:
+            {{- if .Values.dataVolume }}
             - name: job-data
               {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
-          {{- end }}
+            {{- end }}
+            {{- if .Values.extraVolumes }}
+              {{- toYaml .Values.extraVolumes | nindent 8 }}
+            {{- end }}
 {{- end -}}
