@@ -65,7 +65,7 @@ spec:
                   {{- end }}
                 {{- end }}
                 {{- if .Values.extraVolumeMounts }}
-                  {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+                  {{- toYaml .Values.extraVolumeMounts | nindent 16 }}
                 {{- end }}
               resources:
                 {{- toYaml .Values.resources | nindent 16 }}
@@ -77,6 +77,6 @@ spec:
               {{- include "kargo.tplvalues.render" ( dict "value" .Values.dataVolume "context" $ ) | nindent 14 }}
             {{- end }}
             {{- if .Values.extraVolumes }}
-              {{- toYaml .Values.extraVolumes | nindent 8 }}
+              {{- toYaml .Values.extraVolumes | nindent 12 }}
             {{- end }}
 {{- end -}}
