@@ -38,6 +38,13 @@ spec:
         - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
+          {{- with .Values.command }}
+          command: {{ toYaml . }}
+          {{- end }}
+          {{- with .Values.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: SUBDOMAIN
               value: {{ .Values.global.subdomain }}

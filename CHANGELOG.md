@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added `successfulJobsHistoryLimit` value to configure the number of successful Krawler jobs to keep (default 1).
  - Added `failedJobsHistoryLimit` value to configure the number of failed Krawler jobs to keep (default 1).
  - Added `suspend` value to define Krawler cronjobs suspended state (default false).
+ - Added `command` and `args` values to override container command and args in (kdk-)deployments.
 
 ### Changed
 ### Deprecated

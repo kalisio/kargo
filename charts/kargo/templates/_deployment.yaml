@@ -42,6 +42,13 @@ spec:
         - name: {{ include "kargo.names.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ ternary "Always" .Values.image.pullPolicy .Values.forceRestart }}
+          {{- with .Values.command }}
+          command: {{ toYaml . }}
+          {{- end }}
+          {{- with .Values.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             {{- include "kargo.environment.render" (dict "env" .Values.env "rawEnv" .Values.rawEnv "context" $) | indent 12 }}
           ports:
