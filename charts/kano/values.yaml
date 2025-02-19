@@ -78,8 +78,6 @@ env:
   cesiumToken:
     secret: ""
     key: ""
-  # logLevel specifies the level of frontend log
-  logLevel: ""
   # debug specified the list of backend modules for which the output is enabled
   debug: ""
 
