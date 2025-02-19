@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 ### Fixed
 ### Removed
+
+ - `logLevel` environment variable from `kapp`, `kano` and `crisis` charts. It's not used anymore.
+
 ### Security
 
 ## kargo-1.0.7 (2024-08-22)
