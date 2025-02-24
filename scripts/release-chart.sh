@@ -8,6 +8,7 @@ REMOTE="oci://harbor.portal.kalisio.com/kalisio/helm"
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_PATH=$(dirname "$THIS_FILE")
 KARGO_PATH=$(dirname "$THIS_PATH")
+RCLONE_CONFIG=$KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf
 
 # get in root kargo folder
 cd "$KARGO_PATH"
@@ -52,13 +53,20 @@ helm dependencies update charts/"$CHART"
 helm lint charts/"$CHART"
 helm package charts/"$CHART" --destination "$TMP_PATH"
 
+# check if the rclone config file exists
+if [ ! -f "$RCLONE_CONFIG" ]; then
+    echo "$0: rclone config file $RCLONE_CONFIG does not exist"
+    exit 1
+fi
+
 # push on oci registry
 helm push "$TMP_PATH"/"$CHART"*.tgz $REMOTE
 
 # and on s3 backup storage (merge index.yaml before pushing)
-rclone copy kalisio_charts:index.yaml "$TMP_PATH"
+rclone copy --config $KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf kalisio_charts:index.yaml "$TMP_PATH"
+
 helm repo index "$TMP_PATH" --merge "$TMP_PATH"/index.yaml
-rclone copy "$TMP_PATH" kalisio_charts:
+rclone copy --config $KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf "$TMP_PATH" kalisio_charts:
 
 # cleanup
 rm -fR "$TMP_PATH"
