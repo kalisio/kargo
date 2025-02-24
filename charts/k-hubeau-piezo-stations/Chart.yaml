@@ -3,7 +3,7 @@ name: k-hubeau-piezo-stations
 description: >-
   A Krawler based service to download piezometric stations data from French open
   portal Hub'Eau
-version: 2.4.0
+version: 2.5.0
 appVersion: piezo-stations-1.9.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
