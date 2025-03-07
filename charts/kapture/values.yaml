@@ -36,10 +36,11 @@ livenessEndpoint: /healthcheck
 env:
   # bodyLimit sets the size limit of the request body
   bodyLimit: "100kb"
+  appName: "kano"
   # kanoUrl is the Kano url that can be accessed from Kapture
-  kanoUrl: "http://apps-kano:8081"
+  appUrl: "http://apps-kano:8081"
   # kanoJwt is the JWT to be authenticated to Kano
-  kanoJwt: 
+  appJwt: 
     secret: ""
     key: ""
 
