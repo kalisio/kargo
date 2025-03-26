@@ -1,8 +1,8 @@
 apiVersion: v2
 name: geokoder
 description: geocoding and reverse geocoding service
-version: 1.0.5
-appVersion: 1.2.0
+version: 1.0.6
+appVersion: 1.2.1
 home: https://github.com/kalisio/geokoder
 annotations:
   category: Service
