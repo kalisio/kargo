@@ -25,7 +25,7 @@ forceRestart: false
 containerPort: 8080
 
 # livenessEndpoint is the endpoint to use with liveness probe
-livenessEndpoint: "/healthcheck"
+livenessEndpoint: "/api/healthcheck"
 
 # dataSubPath is the subpath in the the dataVolume to mount
 dataSubPath: ""
