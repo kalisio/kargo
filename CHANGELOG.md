@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Added `command` and `args` values to override container command and args in (kdk-)deployments.
 
 ### Changed
+
+ - `kanoUrl` and `kanoJwt` environment variables are now `appUrl` and `appJwt` in the `kapture` chart.
+
 ### Deprecated
 ### Fixed
 ### Removed
