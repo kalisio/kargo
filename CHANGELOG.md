@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
+## kargo-1.0.8 (2025-04-16)
+
+### Added
 
  - Added `successfulJobsHistoryLimit` value to configure the number of successful Krawler jobs to keep (default 1).
  - Added `failedJobsHistoryLimit` value to configure the number of failed Krawler jobs to keep (default 1).
