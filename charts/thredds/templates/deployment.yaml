@@ -51,16 +51,16 @@ spec:
           ports:
             - name: {{ include "kargo.names.name" . }}
               containerPort: 8080
-          readinessProbe:
-            tcpSocket:
+          startupProbe:
+            httpGet:
+              path: thredds/catalog.html
               port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 60
-            periodSeconds: 30
+            failureThreshold: 30
+            periodSeconds: 20
           livenessProbe:
             httpGet:
               path: thredds/catalog.html
               port: {{ include "kargo.names.name" . }}
-            initialDelaySeconds: 120
             periodSeconds: 60
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
