@@ -1,0 +1,15 @@
+apiVersion: v2
+name: print
+description: print
+version: 0.0.1
+appVersion: 0.0.1
+annotations:
+  category: application
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
