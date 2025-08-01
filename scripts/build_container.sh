@@ -95,7 +95,7 @@ case "$APP" in
     SRC_VERSION=v1.1.0-rc-3
     DOCKER_CONTEXT=https://github.com/mongo-express/mongo-express.git#$SRC_VERSION
     DOCKERFILE_OPT=
-    CONTAINER_TAG=$SRC_VERSION 
+    CONTAINER_TAG=$SRC_VERSION
     ;;
   kaptain)
     CONTAINER_TAG=latest
