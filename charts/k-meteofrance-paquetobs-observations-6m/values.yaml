@@ -19,7 +19,7 @@ image:
 forceRestart: false
 
 # cron specifies the job schedule
-cron: "*/6 * * * *"
+cron: "2-59/6 * * * *"
 
 env:
   # dburl specifies the mongodb connection string
