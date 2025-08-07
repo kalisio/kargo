@@ -26,6 +26,10 @@ env:
   dbUrl:
     secret: ""
     key: ""
+  # paquetobsToken specifies the token to access the observation package API
+  paquetobsToken: 
+    secret: ""
+    key: ""    
   # latency specifies the latency of the observations to collect
   latency: "6"    
   # departments specifies the department list used filter the stations
