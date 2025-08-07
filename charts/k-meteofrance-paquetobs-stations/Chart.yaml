@@ -2,7 +2,7 @@ apiVersion: v2
 name: k-meteofrance-paquetobs-stations
 description: A Krawler job designed to scrape observation package stations from the Météo-France public API
 version: 1.0.0
-appVersion: 1.0.0
+appVersion: paquetobs-stations-1.0.0
 home: https://github.com/kalisio/k-meteofrance
 annotations:
   category: KrawlerJob
