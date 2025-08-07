@@ -31,7 +31,7 @@ env:
     secret: ""
     key: ""    
   # latency specifies the latency of the observations to collect
-  latency: "6"    
+  latency: "6"
   # departments specifies the department list used filter the stations
   departments: ""
   # debug specifies the list of namespaces to enable debug output
