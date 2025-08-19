@@ -1,0 +1,19 @@
+apiVersion: v2
+name: k-openaq-locations
+description: A Krawler based service to download locations from OpenAQ (Air Quality)
+version: 1.0.0
+appVersion: locations-1.0.0
+home: https://github.com/kalisio/k-openaq
+annotations:
+  category: KrawlerJob
+keywords:
+  - openaq
+  - krawler
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
