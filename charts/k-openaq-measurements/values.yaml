@@ -32,6 +32,8 @@ env:
     key: ""
   # lookbackPeriod specifies the period, starting from now, that determines when a measurement has to be ignored
   lookbackPeriod: "PT3H"
+  # delay specifies the delay in milliseconds to wait before executing the next request to the API
+  delay: 1200
   # ttl specifies the measurements time to live (30 days)
   ttl: 2592000
   # timeout specifies the job timeout in milliseconds (1 hour)
