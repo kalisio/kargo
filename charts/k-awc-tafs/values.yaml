@@ -1,0 +1,42 @@
+# k-metar default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-awc
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every 5 minutes)
+cron: "0/5 * * * *"
+
+env:
+  # footprint specifies wether the job should write the footprint of the different queries as a GeoJSON file (debug feature)
+  # footprint: "false"
+  # dburl specifies the mongodb connection string
+  dbUrl:
+    secret: ""
+    key: ""
+  # ttl specifies the data time to live (30 days)
+  ttl: "2592000"
+  # debug specifies the list of namespaces to enable debug output
+  debug: ""
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
