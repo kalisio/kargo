@@ -1,8 +1,8 @@
 apiVersion: v2
 name: weacast-arpege-europe-loader
 description: A Krawler based service to download ARPEGE europe forecast data
-version: 1.0.1
-appVersion: europe-1.10.0
+version: 1.0.2
+appVersion: europe-1.11.0
 home: https://github.com/weacast/weacast-loader
 annotations:
   category: WeacastLoader
