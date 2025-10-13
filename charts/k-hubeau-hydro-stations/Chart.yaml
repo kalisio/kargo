@@ -3,8 +3,8 @@ name: k-hubeau-hydro-stations
 description: >-
   A Krawler based service to download hydrometric stations data from French open
   portal Hub'Eau
-version: 2.6.0
-appVersion: hydro-stations-1.10.0
+version: 2.7.0
+appVersion: hydro-stations-1.11.0
 home: https://github.com/kalisio/k-hubeau
 annotations:
   category: KrawlerJob
