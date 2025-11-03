@@ -36,6 +36,7 @@ livenessEndpoint: /healthcheck
 env:
   # bodyLimit sets the size limit of the request body
   bodyLimit: "100kb"
+  delay: "10000"
   appName: "kano"
   # kanoUrl is the Kano url that can be accessed from Kapture
   appUrl: "http://apps-kano:8081"
