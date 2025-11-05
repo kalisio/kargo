@@ -95,4 +95,5 @@ spec:
             - name: scripts
               configMap:
                 name: cm-{{ $resourceName }}
-{{- end -}}
+---
+{{- end }}
