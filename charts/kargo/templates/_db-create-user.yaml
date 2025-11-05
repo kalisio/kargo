@@ -13,7 +13,7 @@ This cronjob is suspended because it's intended to be started manually.
     objects role, db
 */}}
 {{- define "kargo.mongodb-create-user" -}}
-{{- $dbSecret := print "mongodb-user-" .args.username }}
+{{- $dbSecret := print "mongodb-user-" .context.Release.Name }}
 apiVersion: v1
 kind: Secret
 metadata:
