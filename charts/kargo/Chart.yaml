@@ -3,7 +3,7 @@ name: kargo
 description: >-
   A Library Helm Chart for grouping common logic between Kargo charts. This
   chart is not deployable by itself.
-version: 1.0.8
+version: 1.0.9
 type: library
 keywords:
   - common

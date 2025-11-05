@@ -1,0 +1,91 @@
+{{/*
+Builds a cronjob to create mongodb user.
+This cronjob is suspended because it's intended to be started manually.
+@param .context         The caller's root scope
+@param .args            The parameters for the cronjob. The template expects the following:
+  - image               The image of mongodb to use
+  - rootPassword        The root password that will be used to create the new user
+  - hostname            The hostname of the mongodb instance
+  - username            The username to create
+  - password            The password of the user to create
+  - database            The authentication database of the user
+  - roles               The list of the new user roles. The list is a list of
+    objects role, db
+*/}}
+{{- define "kargo.mongodb-create-user" -}}
+{{- $dbSecret := print "mongodb-user-" .args.username }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $dbSecret }}
+  namespace: {{ .context.Release.Namespace }}
+type: Opaque
+stringData:
+  user-password: {{ .args.password }}
+  root-password: {{ .args.rootPassword }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-{{ $dbSecret }}
+  namespace: {{ .context.Release.Namespace }}
+data:
+  initdbScript.js: |-
+    print('Create {{ .args.username }} user/db and set permissions on {{ .args.database }}');
+    const taxoradDb = db.getSiblingDB('{{ .args.database }}');
+    taxoradDb.runCommand(
+        {
+          createUser: "{{ .args.username }}",
+          pwd: process.env.USER_PASSWORD,
+          roles: {{ .args.roles | toJson }},
+        }
+    );
+
+---
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: mongodb-create-user-{{ .args.username }}
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: true
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 60
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: user-create
+              image: {{ .args.image }}
+              env:
+                - name: USER_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: user-password
+                      name: {{ $dbSecret }}
+                - name: ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: root-password
+                      name: {{ $dbSecret }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - mongosh mongodb://root:$ROOT_PASSWORD@{{ .args.hostname }}:27017/ /scripts/initdbScript.js
+              volumeMounts:
+                - mountPath: /scripts/
+                  name: scripts
+                  readOnly: true
+          volumes:
+            - name: db-secret
+              secret:
+                secretName: {{ $dbSecret }}
+            - name: scripts
+              configMap:
+                name: cm-{{ $dbSecret }}
+{{- end -}}
