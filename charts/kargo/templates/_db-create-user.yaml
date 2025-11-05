@@ -6,18 +6,25 @@ This cronjob is suspended because it's intended to be started manually.
   - image               The image of mongodb to use
   - rootPassword        The root password that will be used to create the new user
   - hostname            The hostname of the mongodb instance
-  - username            The username to create
+  - username            The username to create (must respect RFC 1123 naming)
   - password            The password of the user to create
   - database            The authentication database of the user
   - roles               The list of the new user roles. The list is a list of
     objects role, db
 */}}
 {{- define "kargo.mongodb-create-user" -}}
-{{- $dbSecret := print "mongodb-user-" .context.Release.Name }}
+{{- $resourceName := print "mongodb-user-" .args.username | lower  -}}
+{{- $valid := regexMatch "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" $resourceName -}}
+{{- if not $valid -}}
+    {{- fail (printf "Username '%s' doesn't respect the naming convention in RFC1123." .args.username) -}}
+{{- else -}}
+
+{{- end -}}
+
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ $dbSecret }}
+  name: {{ $resourceName }}
   namespace: {{ .context.Release.Namespace }}
 type: Opaque
 stringData:
@@ -28,7 +35,7 @@ stringData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cm-{{ $dbSecret }}
+  name: cm-{{ $resourceName }}
   namespace: {{ .context.Release.Namespace }}
 data:
   initdbScript.js: |-
@@ -66,12 +73,12 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       key: user-password
-                      name: {{ $dbSecret }}
+                      name: {{ $resourceName }}
                 - name: ROOT_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: root-password
-                      name: {{ $dbSecret }}
+                      name: {{ $resourceName }}
               command:
                 - /bin/sh
               args:
@@ -84,8 +91,8 @@ spec:
           volumes:
             - name: db-secret
               secret:
-                secretName: {{ $dbSecret }}
+                secretName: {{ $resourceName }}
             - name: scripts
               configMap:
-                name: cm-{{ $dbSecret }}
+                name: cm-{{ $resourceName }}
 {{- end -}}
