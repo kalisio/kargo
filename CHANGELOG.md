@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.9 (2025-11-18)
+
+### Added
+
+ - Added new template to generate mongodb database backup restore cronjobs
+
 ## kargo-1.0.8 (2025-04-16)
 
 ### Added
