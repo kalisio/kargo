@@ -754,3 +754,152 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+
+{{/*
+Builds a cronjob to backup and another to restore the specified mongodb database.
+The restore cronjob is suspended to be started manually.
+@param .context         The caller's root scope
+@param .args            The parameters for the backup cronjob. The template expects the following:
+  - image               The image to use to pull mongodump & mongorestore
+  - host                The host where the dabatabase is running
+  - username            The database username to use to perform the dump
+  - password            The username password
+  - database            The database to dump
+  - remotePath          The folder where the backup will be transfered (the filename is generated).
+  - rcloneSecret        The name of the secret where rclone.conf can be found
+  - backupCron          The schedule expression "0 * * * *"
+  - restoreTimestamp    The timestamp to use as restore archive
+*/}}
+{{- define "kargo.mongodb-backup-restore-db-cronjobs" -}}
+{{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
+{{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
+{{- $dbSecret := print "backup-restore-" .args.database }}
+{{- $restoreFile := print .args.database "-" .args.restoreTimestamp ".gz" }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $dbSecret }}
+  namespace: {{ .context.Release.Namespace }}
+type: Opaque
+stringData:
+  mongo-config.yml: |-
+    password: {{ .args.password | default "" }}
+    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ .args.database }}
+---
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: backup-{{ .args.database }}-db
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  schedule: "{{ .args.backupCron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: db-dump
+              image: {{ .args.image }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - >-
+                  TIMESTAMP=$(date +%Y%m%d-%H%M) &&
+                  BACKUP_FILE={{ .args.database }}-$TIMESTAMP.gz &&
+                  echo "Dumping {{ .args.database }} to $BACKUP_FILE ..." &&
+                  mongodump --config=/mongo-config.yml --gzip --archive=/backup/$BACKUP_FILE
+              volumeMounts:
+                - mountPath: /mongo-config.yml
+                  name: db-secret
+                  subPath: mongo-config.yml
+                  readOnly: true
+                - mountPath: /backup
+                  name: db-dump-temp
+          containers:
+            - name: rclone-dump
+              image: rclone/rclone
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.database }}-*.gz"
+              volumeMounts:
+                - mountPath: /backup
+                  name: db-dump-temp
+                  readOnly: true
+                - mountPath: /config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+          volumes:
+            - name: db-dump-temp
+              emptyDir: {}
+            - name: db-secret
+              secret:
+                secretName: {{ $dbSecret }}
+            - name: rclone-config
+              secret:
+                secretName: {{ $rcloneSecret }}
+---
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: restore-{{ .args.database }}-db
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: true
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: rclone-dump
+              image: rclone/rclone
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - rclone copy {{ $remotePath }}/{{ $restoreFile }} /restore --progress
+              volumeMounts:
+                - mountPath: /restore
+                  name: db-dump-temp
+                - mountPath: /config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+          containers:
+            - name: db-restore
+              image: {{ .args.image }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - >-
+                  echo "Restoring from {{ $restoreFile }} ..." &&
+                  mongorestore --drop --config=/mongo-config.yml --nsInclude="*" --gzip --archive=/restore/{{ $restoreFile }}
+              volumeMounts:
+                - mountPath: /mongo-config.yml
+                  name: db-secret
+                  subPath: mongo-config.yml
+                  readOnly: true
+                - mountPath: /restore
+                  name: db-dump-temp
+                  readOnly: true
+          volumes:
+            - name: db-dump-temp
+              emptyDir: {}
+            - name: db-secret
+              secret:
+                secretName: {{ $dbSecret }}
+            - name: rclone-config
+              secret:
+                secretName: {{ $rcloneSecret }}
+{{- end -}}
