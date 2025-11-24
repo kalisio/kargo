@@ -1,0 +1,40 @@
+replicaCount: 1
+
+image:
+  repository: wiktorn/overpass-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+
+ingress:
+  enabled: true
+  className: nginx
+
+# containerPort is the port used by the the container
+containerPort: 80
+
+persistence:
+  enabled: true
+  size: 60Gi
+  storageClass: ""
+
+env:
+  OVERPASS_MODE: init
+  OVERPASS_PLANET_URL: ""
+  OVERPASS_DIFF_URL: ""
+  OVERPASS_UPDATE_SLEEP: "3600"
+  OVERPASS_ALLOW_DUPLICATE_QUERIES: "yes"
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000

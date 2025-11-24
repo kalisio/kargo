@@ -1,0 +1,16 @@
+apiVersion: v2
+name: overpass-api
+description: Helm chart for Overpass API
+type: application
+version: 0.1.0
+appVersion: latest
+
+
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
