@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.10 (2025-11-27)
+
+### Added
+  - Added `ignoreBackup` parameter to `kargo.*-backup-restore-cronjobs` functions to skip the creation of the backup cronjob (default false).
+  - Added `ignoreRestore` parameter to `kargo.*-backup-restore-cronjobs` functions to skip the creation of the restore cronjob (default false).
+
 ## kargo-1.0.9 (2025-11-18)
 
 ### Added
