@@ -28,6 +28,7 @@ stringData:
     [client]
     password={{ .args.password }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -86,7 +87,9 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -145,6 +148,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+{{- end -}}
 
 {{/*
 Builds a cronjob to backup and another to restore the specified postgresql instance.
@@ -174,6 +178,7 @@ type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -236,7 +241,9 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -299,6 +306,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+{{- end -}}
 
 {{/*
 Builds a cronjob to backup and another to restore the specified mongodb instance.
@@ -330,6 +338,7 @@ stringData:
     password: {{ .args.password | default "" }}
     uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -388,7 +397,9 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -447,6 +458,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+{{- end -}}
 
 
 {{/*
@@ -481,6 +493,7 @@ stringData:
     [client]
     password={{ .args.password }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -539,7 +552,9 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -598,6 +613,8 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+{{- end -}}
+
 
 {{/*
 Builds a cronjob to backup and another to restore the specified postgresql database.
@@ -629,6 +646,7 @@ type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -691,7 +709,9 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -754,6 +774,7 @@ spec:
               secret:
                 secretName: {{ $rcloneSecret }}
 {{- end -}}
+{{- end -}}
 
 {{/*
 Builds a cronjob to backup and another to restore the specified mongodb database.
@@ -769,6 +790,8 @@ The restore cronjob is suspended to be started manually.
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
   - restoreTimestamp    The timestamp to use as restore archive
+  - ignoreBackup        If true the backup cronjob is not created
+  - ignoreRestore       If true the restore cronjob is not created
 */}}
 {{- define "kargo.mongodb-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -786,6 +809,7 @@ stringData:
     password: {{ .args.password | default "" }}
     uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ .args.database }}
 ---
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -844,7 +868,10 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 ---
+
+{{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
@@ -902,4 +929,5 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+{{- end -}}
 {{- end -}}
