@@ -11,12 +11,16 @@ The restore cronjob is suspended to be started manually.
   - backupCron          The schedule expression "0 * * * *"
   - restoreTimestamp    The timestamp to use as restore archive
   - remotePath          The folder where the backup will be transfered (the filename is generated).
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the restore cronjob is not created (default false)
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
 */}}
 {{- define "kargo.mariadb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.host }}
-{{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".sql.gz" }}
+{{- $name := print .args.host (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -27,12 +31,13 @@ stringData:
   my.cnf: |-
     [client]
     password={{ .args.password }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.host }}
+  name: backup-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -52,7 +57,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.sql.gz &&
                   echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
                   mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} --lock-tables --all-databases --add-drop-database | gzip > /backup/$BACKUP_FILE
               volumeMounts:
@@ -69,7 +74,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.sql.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.sql.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -87,13 +92,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
----
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.host }}
+  name: restore-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -147,6 +153,7 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
 
@@ -163,12 +170,16 @@ The restore cronjob is suspended to be started manually.
   - backupCron          The schedule expression "0 * * * *"
   - remotePath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the restore cronjob is not created (default false)
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
 */}}
 {{- define "kargo.postgresql-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.host }}
-{{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".sql.gz" }}
+{{- $name := print .args.host (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -177,12 +188,13 @@ metadata:
 type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.host }}
+  name: backup-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -202,7 +214,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.sql.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.sql.gz &&
                   PGPASSFILE=/tmp/pgpass &&
                   cp /pgpass $PGPASSFILE &&
                   chown 1001 $PGPASSFILE &&
@@ -223,7 +235,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.sql.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.sql.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -241,13 +253,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
----
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.host }}
+  name: restore-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -305,6 +318,7 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
 
@@ -321,12 +335,16 @@ The restore cronjob is suspended to be started manually.
   - backupCron          The schedule expression "0 * * * *"
   - remotePath          The folder where the backup will be transfered (the filename is generated).
   - restoreTimestamp    The timestamp to use as restore archive
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the restore cronjob is not created (default false)
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
 */}}
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.host }}
-{{- $restoreFile := print .args.host "-" .args.restoreTimestamp ".gz" }}
+{{- $name := print .args.host (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -337,12 +355,13 @@ stringData:
   mongo-config.yml: |-
     password: {{ .args.password | default "" }}
     uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.host }}
+  name: backup-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -362,7 +381,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.host }}-$TIMESTAMP.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.gz &&
                   echo "Dumping {{ .args.host }} to $BACKUP_FILE ..." &&
                   mongodump --config=/mongo-config.yml --gzip --archive=/backup/$BACKUP_FILE
               volumeMounts:
@@ -379,7 +398,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.host }}-*.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -397,13 +416,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
----
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.host }}
+  name: restore-{{ $name }}
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -457,6 +477,7 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
 
@@ -476,12 +497,16 @@ When using the restore cronjob, the target database has to exist before running 
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
   - restoreTimestamp    The timestamp to use as restore archive
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the restore cronjob is not created (default false)
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
 */}}
 {{- define "kargo.mariadb-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.database }}
-{{- $restoreFile := print .args.database "-" .args.restoreTimestamp ".sql.gz" }}
+{{- $name := print .args.database (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name "-db" }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -492,12 +517,13 @@ stringData:
   my.cnf: |-
     [client]
     password={{ .args.password }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.database }}-db
+  name: backup-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -517,7 +543,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.database }}-$TIMESTAMP.sql.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.sql.gz &&
                   echo "Dumping {{ .args.database }} to $BACKUP_FILE ..." &&
                   mariadb-dump --defaults-extra-file=/kalisio/my.cnf --host={{ .args.host }} --user={{ .args.username }} {{ .args.database }} | gzip > /backup/$BACKUP_FILE
               volumeMounts:
@@ -534,7 +560,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.database }}-*.sql.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.sql.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -552,13 +578,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
----
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.database }}-db
+  name: restore-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -612,6 +639,7 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
 
@@ -631,12 +659,17 @@ When using the restore cronjob, the target database has to exist before running 
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
   - restoreTimestamp    The timestamp to use as restore archive
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the r
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+store cronjob is not created (default false)
 */}}
 {{- define "kargo.postgresql-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.database }}
-{{- $restoreFile := print .args.database "-" .args.restoreTimestamp ".sql.gz" }}
+{{- $name := print .args.database (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name "-db" }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".sql.gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -645,12 +678,13 @@ metadata:
 type: Opaque
 stringData:
   pgpass: {{ .args.host }}:5432:*:{{ .args.username }}:{{ .args.password }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.database }}-db
+  name: backup-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -670,7 +704,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.database }}-$TIMESTAMP.sql.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.sql.gz &&
                   PGPASSFILE=/tmp/pgpass &&
                   cp /pgpass $PGPASSFILE &&
                   chown 1001 $PGPASSFILE &&
@@ -691,7 +725,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.database }}-*.sql.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.sql.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -709,13 +743,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
----
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.database }}-db
+  name: restore-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -773,6 +808,7 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
 
@@ -790,14 +826,16 @@ The restore cronjob is suspended to be started manually.
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
   - restoreTimestamp    The timestamp to use as restore archive
-  - ignoreBackup        If true the backup cronjob is not created
-  - ignoreRestore       If true the restore cronjob is not created
+  - ignoreBackup        If true the backup cronjob is not created (default false)
+  - ignoreRestore       If true the restore cronjob is not created (default false)
+  - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
 */}}
 {{- define "kargo.mongodb-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $dbSecret := print "backup-restore-" .args.database }}
-{{- $restoreFile := print .args.database "-" .args.restoreTimestamp ".gz" }}
+{{- $name := print .args.database (.args.nameSuffix | default "") }}
+{{- $dbSecret := print "backup-restore-" $name "-db" }}
+{{- $restoreFile := print $name "-" .args.restoreTimestamp ".gz" }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -808,12 +846,13 @@ stringData:
   mongo-config.yml: |-
     password: {{ .args.password | default "" }}
     uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ .args.database }}
----
+
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: backup-{{ .args.database }}-db
+  name: backup-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   schedule: "{{ .args.backupCron }}"
@@ -833,7 +872,7 @@ spec:
                 - -c
                 - >-
                   TIMESTAMP=$(date +%Y%m%d-%H%M) &&
-                  BACKUP_FILE={{ .args.database }}-$TIMESTAMP.gz &&
+                  BACKUP_FILE={{ $name }}-$TIMESTAMP.gz &&
                   echo "Dumping {{ .args.database }} to $BACKUP_FILE ..." &&
                   mongodump --config=/mongo-config.yml --gzip --archive=/backup/$BACKUP_FILE
               volumeMounts:
@@ -850,7 +889,7 @@ spec:
                 - /bin/sh
               args:
                 - -c
-                - rclone copy /backup {{ $remotePath }} --progress --include "{{ .args.database }}-*.gz"
+                - rclone copy /backup {{ $remotePath }} --progress --include "{{ $name }}-*.gz"
               volumeMounts:
                 - mountPath: /backup
                   name: db-dump-temp
@@ -868,14 +907,14 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
-{{- end -}}
----
 
+{{- end -}}
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreRestore | default false) "context" .context) | trim | lower) "false" }}
+---
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
 kind: CronJob
 metadata:
-  name: restore-{{ .args.database }}-db
+  name: restore-{{ $name }}-db
   namespace: {{ .context.Release.Namespace | quote }}
 spec:
   suspend: true
@@ -929,5 +968,6 @@ spec:
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
+
 {{- end -}}
 {{- end -}}
