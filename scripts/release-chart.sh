@@ -54,8 +54,8 @@ helm lint charts/"$CHART"
 helm package charts/"$CHART" --destination "$TMP_PATH"
 
 # check if the rclone config file exists
-if [ ! -f "$RCLONE_CONFIG" ]; then
-    echo "$0: rclone config file $RCLONE_CONFIG does not exist"
+if [ ! -f "$KALISIO_RCLONE_CONFIG" ]; then
+    echo "$0: rclone config file $KALISIO_RCLONE_CONFIG does not exist"
     exit 1
 fi
 
