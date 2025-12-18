@@ -11,6 +11,8 @@ THIS_PATH=$(dirname "$THIS_FILE")
 KARGO_PATH=$(dirname "$THIS_PATH")
 TMP_PATH=$(mktemp -d -p "${XDG_RUNTIME_DIR:-}" kargo_charts.XXXXXX)
 
+KALISIO_RCLONE_CONFIG="$KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf"
+
 # get in root kargo folder
 cd "$KARGO_PATH"
 
@@ -41,9 +43,9 @@ for CHART in "$TMP_PATH"/*.tgz; do
 done
 
 # and on s3 backup storage (merge index.yaml before pushing)
-rclone copy kalisio_charts:index.yaml "$TMP_PATH"
+rclone --config "$KALISIO_RCLONE_CONFIG" copy kalisio_charts:index.yaml "$TMP_PATH"
 helm repo index "$TMP_PATH" --merge "$TMP_PATH"/index.yaml
-rclone copy "$TMP_PATH" kalisio_charts:
+rclone --config "$KALISIO_RCLONE_CONFIG" copy "$TMP_PATH" kalisio_charts:
 
 # cleanup
 rm -fR "$TMP_PATH"

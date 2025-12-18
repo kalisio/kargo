@@ -8,7 +8,7 @@ REMOTE="oci://harbor.portal.kalisio.com/kalisio/helm"
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_PATH=$(dirname "$THIS_FILE")
 KARGO_PATH=$(dirname "$THIS_PATH")
-RCLONE_CONFIG=$KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf
+KALISIO_RCLONE_CONFIG="$KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf"
 
 # get in root kargo folder
 cd "$KARGO_PATH"
@@ -63,10 +63,10 @@ fi
 helm push "$TMP_PATH"/"$CHART"*.tgz $REMOTE
 
 # and on s3 backup storage (merge index.yaml before pushing)
-rclone copy --config $KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf kalisio_charts:index.yaml "$TMP_PATH"
+rclone copy --config "$KALISIO_RCLONE_CONFIG" kalisio_charts:index.yaml "$TMP_PATH"
 
 helm repo index "$TMP_PATH" --merge "$TMP_PATH"/index.yaml
-rclone copy --config $KALISIO_DEVELOPMENT_DIR/development/rclone.dec.conf "$TMP_PATH" kalisio_charts:
+rclone copy --config "$KALISIO_RCLONE_CONFIG" "$TMP_PATH" kalisio_charts:
 
 # cleanup
 rm -fR "$TMP_PATH"
