@@ -16,7 +16,7 @@ commonLabel: {}
 replicaCount: 1
 
 image:
-  repository: kalisio/print
+  repository: kalisio/pdfme
   tag: ""
   pullPolicy: IfNotPresent
 
@@ -30,7 +30,7 @@ service:
   annotations: {}
 
 ingress:
-  enabled: true
+  enabled: false
   className: nginx
 
 # containerPort is the port used by the container
@@ -47,21 +47,3 @@ podSecurityContext:
 distribution:
   # enabled specifies whether or not to use distribution
   enabled: false
-
-env:
-  # appSecret specifies the application secret
-  appSecret: 
-    secret: ""
-    key: ""
-  # dbUrl specifies the application database connection string 
-  dbUrl:
-    secret: ""
-    key: ""
-  # keycloakClientId specifies the keycloak authentication client id
-  keycloakClientId: ""
-  # keycloakSecret specifies the keycloak authentication client secret
-  keycloakSecret:
-    secret: ""
-    key: ""
-  # debug specified the list of backend modules for which the output is enabled
-  debug: ""
