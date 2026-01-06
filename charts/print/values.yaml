@@ -26,15 +26,16 @@ forceRestart: false
 service:
   enabled: true
   type: ClusterIP
-  port: 8080
+  port: 8081 # port on which we expose service
   annotations: {}
 
 ingress:
   enabled: true
   className: nginx
 
-# containerPort is the port used by the container
-containerPort: 8080
+distribution:
+  # enabled specifies whether or not to use distribution
+  enabled: false
 
 # resources are resource requests and limits to be applied
 resources: {}
@@ -43,10 +44,6 @@ resources: {}
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
-
-distribution:
-  # enabled specifies whether or not to use distribution
-  enabled: false
 
 env:
   # appSecret specifies the application secret
