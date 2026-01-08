@@ -57,7 +57,7 @@ env:
   # keycloakClientId specifies the keycloak authentication client id
   keycloakClientId: ""
   # keycloakSecret specifies the keycloak authentication client secret
-  keycloakSecret:
+  keycloakClientSecret:
     secret: ""
     key: ""
   # debug specified the list of backend modules for which the output is enabled
