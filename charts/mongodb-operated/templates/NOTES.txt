@@ -1,0 +1,6 @@
+1. Get the name of mongo instance by running these commands:
+kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.metadata.name}" services {{ .Release.Name }}-mongodb-operated-svc
+2. Get the connection strings for the users defined:
+{{ range .Values.users }}
+    kubectl get secret {{ $.Release.Name }}-mongodb-operated-{{ .db }}-{{ .name }}  -o 'go-template={{ "{{" }} index .data "connectionString.standard" {{ "}}" }}' | base64 -d -w0
+{{ end }}

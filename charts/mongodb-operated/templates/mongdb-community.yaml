@@ -1,0 +1,67 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: {{ .Release.Name }}-mongodb-operated
+spec:
+  members: {{ .Values.replicaCount }}
+  type: ReplicaSet
+  # important: control the version of the mongodb
+  version: {{ .Values.version | default .Chart.AppVersion }}
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    {{- with .Values.users  -}}
+    {{ . | toYaml | nindent 4 }}
+    {{- end}}
+  statefulSet:
+    spec:
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: mongod
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- with .Values.resources }}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              volumeMounts:
+                - name: backup-volume-{{ .Release.Name }}
+                  mountPath: /backups
+                {{- if .Values.initdbScripts }}
+                - name: init-scripts
+                  mountPath: /docker-entrypoint-initdb.d
+                {{- end }}
+            - name: mongodb-agent
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- with .Values.agent.resources }}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+          volumes:
+            {{- if .Values.initdbScripts }}
+            - name: init-scripts
+              configMap:
+                name: {{ .Release.Name }}-init-scripts
+            {{- end }}
+      volumeClaimTemplates:
+        - metadata:
+            name: data-volume-{{ .Release.Name }}
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: {{ .Values.pvc.data.storageClass }}
+            resources:
+              requests:
+                storage: {{ .Values.pvc.data.size }}
+        - metadata:
+            name: backup-volume-{{ .Release.Name }}
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: {{ .Values.pvc.backup.storageClass }}
+            resources:
+              requests:
+                storage: {{ .Values.pvc.backup.size }}

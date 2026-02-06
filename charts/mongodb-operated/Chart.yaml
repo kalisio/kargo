@@ -1,0 +1,24 @@
+apiVersion: v2
+name: mongodb-operated
+description: A Helm chart to instanciate a mongodb from the community operator
+annotations:
+  category: database
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.2.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "7.0.29"
+home: https://github.com/mongodb/mongodb-kubernetes/tree/1.6.0/docs/mongodbcommunityhttps://github.com/mongodb/mongodb-kubernetes/tree/master/docs/mongodbcommunity
+keywords:
+  - mongodb
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
