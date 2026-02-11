@@ -22,6 +22,10 @@ spec:
           imagePullSecrets:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           containers:
             - name: mongod
               imagePullPolicy: {{ .Values.image.pullPolicy }}
