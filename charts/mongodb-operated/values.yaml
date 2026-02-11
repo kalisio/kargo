@@ -82,9 +82,6 @@ pvc:
   data:
     storageClass: ""
     size: 10Gi
-  backup:
-    storageClass: ""
-    size: 10Gi
 
 # user configuration
 # this fied is used to fill the `spec.users` field from the MongoDBCommunity
@@ -103,3 +100,11 @@ users:
 #   - name: clusterMonitor
 #     db: admin
 #    scramCredentialsSecretName: scram-user
+
+# volume configuration for the mongo pod
+# official references:
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#volume-claim-templates
+
+extraVolumeMounts: []
+extraVolumeClaimTemplates: []

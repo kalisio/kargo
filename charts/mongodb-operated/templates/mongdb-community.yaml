@@ -33,25 +33,16 @@ spec:
               resources:
                 {{- toYaml . | nindent 16 }}
               {{- end }}
+              {{- with .Values.extraVolumeMounts  }}
               volumeMounts:
-                - name: backup-volume-{{ .Release.Name }}
-                  mountPath: /backups
-                {{- if .Values.initdbScripts }}
-                - name: init-scripts
-                  mountPath: /docker-entrypoint-initdb.d
-                {{- end }}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
             - name: mongodb-agent
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               {{- with .Values.agent.resources }}
               resources:
                 {{- toYaml . | nindent 16 }}
               {{- end }}
-          volumes:
-            {{- if .Values.initdbScripts }}
-            - name: init-scripts
-              configMap:
-                name: {{ .Release.Name }}-init-scripts
-            {{- end }}
       volumeClaimTemplates:
         - metadata:
             name: data-volume-{{ .Release.Name }}
@@ -61,11 +52,6 @@ spec:
             resources:
               requests:
                 storage: {{ .Values.pvc.data.size }}
-        - metadata:
-            name: backup-volume-{{ .Release.Name }}
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            storageClassName: {{ .Values.pvc.backup.storageClass }}
-            resources:
-              requests:
-                storage: {{ .Values.pvc.backup.size }}
+        {{- with .Values.extraVolumeClaimTemplates }}
+          {{- toYaml . | nindent 8 }}
+        {{ end -}}
