@@ -1,5 +1,4 @@
 # create required Role, RoleBinding and Service account to run the mongo operator instance
-# Information from https://wiki.ul2i.fr/fr/kubernetes/operator-mongodb
 ---
 {{- if .Values.serviceAccount.create -}}
 # ServiceAccount for database

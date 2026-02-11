@@ -24,8 +24,10 @@ imagePullSecrets: []
 
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
-# currenty, at ASNR, a kyverno policy automatically created the service account
-# role and role binding
+# workaround for https://github.com/mongodb/mongodb-kubernetes/issues/489
+# create the role, SA and RoleBinding
+# ! warning it must be done only once per namespace
+# otherwise helm release will failed
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
