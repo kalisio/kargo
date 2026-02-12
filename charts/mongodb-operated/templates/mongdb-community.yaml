@@ -45,7 +45,7 @@ spec:
               {{- end }}
       volumeClaimTemplates:
         - metadata:
-            name: data-volume-{{ .Release.Name }}
+            name: data-volume
           spec:
             accessModes: ["ReadWriteOnce"]
             storageClassName: {{ .Values.pvc.data.storageClass }}
