@@ -343,7 +343,7 @@ The restore cronjob is suspended to be started manually.
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $name := print .args.host (.args.nameSuffix | default "") }}
+{{- $name := print (splitList "." .args.host| first ) (.args.nameSuffix | default "") }}
 {{- $dbSecret := print "backup-restore-" $name }}
 {{- $restoreFile := print $name "-" .args.restoreTimestamp ".gz" }}
 apiVersion: v1
