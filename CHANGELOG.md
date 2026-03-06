@@ -8,14 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-
-  - Added `kazarr` chart.
-
 ### Changed
 ### Deprecated
 ### Fixed
 ### Removed
 ### Security
+
+## kargo-1.0.12 [2026-03-06]
+
+### Added
+
+  - Added support for additional url parameters in mongodb connection string for db backup templates.
 
 ## kargo-1.0.11 (2025-12-01)
 
