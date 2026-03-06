@@ -331,6 +331,7 @@ The restore cronjob is suspended to be started manually.
   - host                The host where the dabatabase is running
   - username            The database username to use to perform the dump
   - password            The username password
+  - urlParams           Extra parameters for the url, ex replicaset name
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
   - remotePath          The folder where the backup will be transfered (the filename is generated).
@@ -354,7 +355,7 @@ type: Opaque
 stringData:
   mongo-config.yml: |-
     password: {{ .args.password | default "" }}
-    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}
+    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}{{ if hasKey .args "urlParams" }}?{{ .args.urlParams }}{{ end }}
 
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 ---
@@ -822,6 +823,7 @@ The restore cronjob is suspended to be started manually.
   - username            The database username to use to perform the dump
   - password            The username password
   - database            The database to dump
+  - urlParams           Extra parameters for the url, ex replicaset name
   - remotePath          The folder where the backup will be transfered (the filename is generated).
   - rcloneSecret        The name of the secret where rclone.conf can be found
   - backupCron          The schedule expression "0 * * * *"
@@ -845,7 +847,7 @@ type: Opaque
 stringData:
   mongo-config.yml: |-
     password: {{ .args.password | default "" }}
-    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ .args.database }}
+    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ .args.database }}{{ if hasKey .args "urlParams" }}?{{ .args.urlParams }}{{ end }}
 
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 ---
