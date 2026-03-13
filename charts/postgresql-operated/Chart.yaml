@@ -19,6 +19,10 @@ home: https://cloudnative-pg.io/
 keywords:
   - postgresql
   - postgis
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
 maintainers:
   - name: Kalisio
     email: contact@kalisio.com
