@@ -9,6 +9,8 @@ spec:
     {{- with .Values.podAnnotations }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
+    labels:
+{{ include "postgresql-operated.labels" . | indent 6 }}
   imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.version | default .Chart.AppVersion }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   imagePullSecrets:
