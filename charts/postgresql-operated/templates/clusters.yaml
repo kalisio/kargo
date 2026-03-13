@@ -10,8 +10,8 @@ spec:
       {{- toYaml . | nindent 6 }}
     {{- end }}
     labels:
-{{ include "postgresql-operated.labels" . | indent 6 }}
-  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ include "postgresql-operated.appVersion" . }}
+{{ include "kargo.labels.standard" . | indent 6 }}
+  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   imagePullSecrets:
   {{- with .Values.image.pullSecrets }}
