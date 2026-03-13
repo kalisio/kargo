@@ -1,0 +1,17 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+This chart simplifies the creation of a PostgreSQL or PostGIS database using the
+PostgreSQL operator https://cloudnative-pg.io/
+
+The database is accessible using the following urls:
+ - {{ .Values.bootstrap.initdb.database }}-postgis-operated-r
+ - {{ .Values.bootstrap.initdb.database }}-postgis-operated-ro
+ - {{ .Values.bootstrap.initdb.database }}-postgis-operated-rw
+If you have only one replica use the the service that ends with '-rw'.
