@@ -13,12 +13,21 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Define version app
+*/}}
+{{- define "postgresql-operated.appVersion" -}}
+{{- if .Values.image.version }}
+{{- printf "%s" .Values.image.version }}
+{{- else -}}
+{{- printf "%s" .Chart.AppVersion }}
+{{- end }}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "postgresql-operated.labels" -}}
 helm.sh/chart: {{ include "postgresql-operated.chart" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
+app.kubernetes.io/version: {{ include "postgresql-operated.appVersion" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
