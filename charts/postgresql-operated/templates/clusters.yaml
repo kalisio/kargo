@@ -11,7 +11,7 @@ spec:
     {{- end }}
     labels:
 {{ include "postgresql-operated.labels" . | indent 6 }}
-  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.version | default .Chart.AppVersion }}
+  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ include "postgresql-operated.appVersion" . }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   imagePullSecrets:
   {{- with .Values.image.pullSecrets }}
