@@ -339,6 +339,7 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - overrideSecretName  If defined, override the default secret name (generated from split the hostname)
 */}}
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -349,7 +350,7 @@ The restore cronjob is suspended to be started manually.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ $dbSecret }}
+  name: {{ .args.overrideSecretName | default $dbSecret }}
   namespace: {{ .context.Release.Namespace }}
 type: Opaque
 stringData:
@@ -413,7 +414,7 @@ spec:
               emptyDir: {}
             - name: db-secret
               secret:
-                secretName: {{ $dbSecret }}
+                secretName: {{ .args.overrideSecretName | default $dbSecret }}
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
@@ -474,7 +475,7 @@ spec:
               emptyDir: {}
             - name: db-secret
               secret:
-                secretName: {{ $dbSecret }}
+                secretName: {{ .args.overrideSecretName | default $dbSecret }}
             - name: rclone-config
               secret:
                 secretName: {{ $rcloneSecret }}
