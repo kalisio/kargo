@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# nameOverride allow user to override chart name
+nameOverride: ""
 
 image:
   # registry defines the prefix of the container image
