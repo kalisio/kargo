@@ -1,0 +1,44 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Release.Name }}-postgresql-operated
+spec:
+  inheritedMetadata:
+    annotations:
+    {{- with .Values.podAnnotations }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.version | default .Chart.AppVersion }}
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+  imagePullSecrets:
+  {{- with .Values.image.pullSecrets }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  instances: {{ .Values.replicaCount }}
+
+  storage:
+  {{- with .Values.storage }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  bootstrap:
+  {{- with .Values.bootstrap }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- if .Values.superuserSecretName }}
+  superuserSecret:
+    name: {{ .Values.superuserSecretName }}
+  enableSuperuserAccess: true
+  {{- end }}
+
+  {{- with .Values.resources }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.affinity }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
