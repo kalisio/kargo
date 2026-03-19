@@ -1,0 +1,25 @@
+# k-meteo-france-arpege-world-loader default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/k-meteofrance
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule (every hour)
+cron: "20 * * * *"
+
+# resources are resource requests and limits to be applied
+resources: {}
