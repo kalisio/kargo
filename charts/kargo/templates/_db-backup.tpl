@@ -356,7 +356,7 @@ type: Opaque
 stringData:
   mongo-config.yml: |-
     password: {{ .args.password | default "" }}
-    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}{{ if hasKey .args "urlParams" }}?{{ .args.urlParams }}{{ end }}
+    uri: mongodb://{{ if hasKey .args "username" }}{{ .args.username }}@{{ end }}{{ .args.host }}/{{ if hasKey .args "urlParams" }}?{{ .args.urlParams }}{{ end }}
 
 {{- if eq (include "kargo.tplvalues.render" (dict "value" (.args.ignoreBackup | default false) "context" .context) | trim | lower) "false" }}
 ---
