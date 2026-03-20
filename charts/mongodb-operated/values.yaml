@@ -111,3 +111,14 @@ users:
 
 extraVolumeMounts: []
 extraVolumeClaimTemplates: []
+
+# mongodbEnv parameter is a list to specify environment variables
+# this is only possible with the mongod container, and not the agent
+#
+# mongodbEnv:
+# - name: MONGO_TEST_USER
+#   valueFrom:
+#     secretKeyRef:
+#       name: mongodb-app-secret
+#       key: mongodb-user-name
+mongodbEnv: {}
