@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.13 [2026-03-20]
+
+### Added
+
+  - Added `nameOverride` parameter to `kargo.*-backup-restore-cronjobs`. Useful to override generated name.
+
 ## kargo-1.0.12 [2026-03-06]
 
 ### Added
