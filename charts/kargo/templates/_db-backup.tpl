@@ -339,12 +339,12 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
-  - nameOverride        Allow to override the name, used both for k8s name and filename (optionnal)
+  - nameOverride        Allow to override the name, used both for k8s name and filename (optionnal). It must be compliant with an RFC 1123 subdomain name
 */}}
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
 {{- $rcloneSecret := include "kargo.tplvalues.render" (dict "value" .args.rcloneSecret "context" .context) }}
-{{- $name := print ( default (splitList "." .args.host | first ) .args.nameOverride ) (.args.nameSuffix | default "") }}
+{{- $name := print ( default (splitList "." .args.host | first ) (.args.nameOverride| default "" | lower )) (.args.nameSuffix | default "") }}
 {{- $dbSecret := print "backup-restore-" $name }}
 {{- $restoreFile := print $name "-" .args.restoreTimestamp ".gz" }}
 apiVersion: v1
