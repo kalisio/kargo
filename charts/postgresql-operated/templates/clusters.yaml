@@ -24,6 +24,11 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 
+  {{- with .Values.postgresql }}
+  postgresql:
+    {{- toYaml . | nindent 4 }}
+  {{- end}}
+
   bootstrap:
   {{- with .Values.bootstrap }}
     {{- toYaml . | nindent 4 }}
@@ -41,6 +46,6 @@ spec:
   {{- end }}
 
   {{- with .Values.affinity }}
-  resources:
+  affinity:
     {{- toYaml . | nindent 4 }}
   {{- end }}
