@@ -8,11 +8,16 @@ on:
     paths:
       - 'charts/**'
   workflow_dispatch:
-    inputs:
-      chart:
-        description: "Chart to release (leave empty for automatic detection)"
-        required: false
-        default: ""
+  inputs:
+    chart:
+      description: "Chart to release (leave empty for automatic detection)"
+      required: false
+      default: ""
+    dev:
+      description: "Force dev release (0.0.0-dev) even if tag does not exist"
+      required: false
+      default: "false"
+      type: boolean
 
 jobs:
 
@@ -69,4 +74,5 @@ jobs:
       - name: Release charts
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+          FORCE_DEV: ${{ github.event.inputs.dev }}
         run: bash ./scripts/build_release.sh -p ${{ needs.detect.outputs.charts }}

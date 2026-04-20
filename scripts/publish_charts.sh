@@ -27,13 +27,35 @@ if [ "$CI" = true ]; then
 fi
 
 #  Release each chart 
+# for CHART in "$@"; do
+#     VERSION=$(sed -En 's/^version: (.*)$/\1/p' "charts/${CHART}/Chart.yaml")
+#     TAG_NAME="${CHART}-${VERSION}"
+
+#     begin_group "Publish ${CHART} (${VERSION})"
+
+#     if git show-ref --tags "${TAG_NAME}" --quiet; then
+#         echo "-> Tag ${TAG_NAME} already exists, releasing dev version (0.0.0-dev)"
+#         bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
+#     else
+#         echo "-> Tag ${TAG_NAME} not found, releasing production version (${VERSION})"
+#         bash "$THIS_DIR/release-chart.sh" "${CHART}"
+#     fi
+
+#     end_group "Publish ${CHART} (${VERSION})"
+# done
+
+FORCE_DEV="${FORCE_DEV:-false}"
+
 for CHART in "$@"; do
     VERSION=$(sed -En 's/^version: (.*)$/\1/p' "charts/${CHART}/Chart.yaml")
     TAG_NAME="${CHART}-${VERSION}"
 
     begin_group "Publish ${CHART} (${VERSION})"
 
-    if git show-ref --tags "${TAG_NAME}" --quiet; then
+    if [ "$FORCE_DEV" = "true" ]; then
+        echo "-> FORCE_DEV enabled, releasing dev version (0.0.0-dev)"
+        bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
+    elif git show-ref --tags "${TAG_NAME}" --quiet; then
         echo "-> Tag ${TAG_NAME} already exists, releasing dev version (0.0.0-dev)"
         bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
     else
