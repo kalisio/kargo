@@ -26,7 +26,7 @@ WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
 
 . "$THIS_DIR/kash/kash.sh"
 
-## Parse options 
+## Parse options
 ##
 begin_group "Setting up workspace ..."
 
@@ -54,6 +54,15 @@ if [ "$CI" != true ]; then
             "$WORKSPACE_DIR/kargo" \
             "${WORKSPACE_TAG:-${WORKSPACE_BRANCH:-}}"
     fi
+fi
+
+# Export KALISIO_DEVELOPMENT_DIR required by release-chart.sh and release-dev-chart.sh
+# to locate the decrypted rclone config (rclone.dec.conf)
+export KALISIO_DEVELOPMENT_DIR="$WORKSPACE_DIR"
+
+# In CI mode, persist the variable so subsequent steps can use it
+if [[ "${CI:-false}" == "true" ]]; then
+    echo "KALISIO_DEVELOPMENT_DIR=$WORKSPACE_DIR" >> "$GITHUB_ENV"
 fi
 
 # Clone development.git
