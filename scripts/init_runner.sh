@@ -16,7 +16,7 @@ init_github_detect() {
 }
 
 init_github_release_charts() {
-    install_reqs yq helm rclone
+    install_reqs yq helm rclone sops
 }
 
 ### Dev Mode
