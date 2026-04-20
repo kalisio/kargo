@@ -43,6 +43,7 @@ jobs:
         run: bash ./scripts/detect_charts.sh
 
   #  Release the detected charts 
+  release_charts:
     name: Release charts
     runs-on: ubuntu-22.04
     needs: detect
