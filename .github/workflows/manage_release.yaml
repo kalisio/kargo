@@ -1,0 +1,71 @@
+name: manage_release
+
+# Triggered on every push to master that touches charts/,
+# or manually via workflow_dispatch with an optional chart name.
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+    inputs:
+      chart:
+        description: "Chart to release (leave empty for automatic detection)"
+        required: false
+        default: ""
+
+jobs:
+
+  # Detect which charts need to be released
+  detect:
+    name: Detect charts
+    runs-on: ubuntu-22.04
+    outputs:
+      charts:     ${{ steps.compute.outputs.charts }}
+      has_charts: ${{ steps.compute.outputs.has_charts }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Init runner
+        run: bash ./scripts/init_runner.sh ${{ github.job }}
+
+      - name: Detect charts
+        id: compute
+        env:
+          GITHUB_EVENT_NAME:   ${{ github.event_name }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_AFTER:  ${{ github.event.after }}
+          INPUT_CHART:         ${{ github.event.inputs.chart }}
+        run: bash ./scripts/detect_charts.sh
+
+  #  Release the detected charts 
+    name: Release charts
+    runs-on: ubuntu-22.04
+    needs: detect
+    if: needs.detect.outputs.has_charts == 'true'
+    permissions:
+      contents: write  # required to create and push git tags
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Init runner
+        run: bash ./scripts/init_runner.sh ${{ github.job }}
+
+      - name: Setup workspace
+        env:
+          KALISIO_GITHUB_URL: ${{ secrets.KALISIO_GITHUB_URL }}
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        run: bash ./scripts/setup_workspace.sh
+
+      - name: Release charts
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        run: bash ./scripts/build_release.sh -p ${{ needs.detect.outputs.charts }}
