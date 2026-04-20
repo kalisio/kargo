@@ -19,9 +19,12 @@ THIS_DIR=$(dirname "$THIS_FILE")
 
 . "$THIS_DIR/kash/kash.sh"
 
-#  Git identity required to create and push tags 
-git config user.name  "github-actions[bot]"
-git config user.email "github-actions[bot]@users.noreply.github.com"
+
+# Set git identity for tag creation — CI mode only
+if [ "$CI" = true ]; then
+    git config user.name  "github-actions[bot]"
+    git config user.email "github-actions[bot]@users.noreply.github.com"
+fi
 
 #  Release each chart 
 for CHART in "$@"; do
