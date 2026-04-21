@@ -4,10 +4,13 @@ set -euo pipefail
 
 # Build and release Helm charts to Harbor OCI registry and S3 backup.
 # Decrypts Harbor and rclone credentials from the development repository,
-# logs into the registry, then delegates to publish_charts.sh.
+# logs into the registry, then releases each chart.
 #
 # Usage (CI mode):
 #   bash ./scripts/build_release.sh -p chart1 chart2
+#
+# Usage (CI mode, force dev release):
+#   FORCE_DEV=true bash ./scripts/build_release.sh -p chart1 chart2
 #
 # Usage (dev mode, no push):
 #   bash ./scripts/build_release.sh chart1
@@ -67,15 +70,37 @@ end_group "Setup rclone config"
 
 ## Release charts
 ##
-begin_group "Release charts"
+FORCE_DEV="${FORCE_DEV:-false}"
+
+# Set git identity for tag creation — CI mode only
+if [ "$CI" = true ]; then
+    git config user.name  "github-actions[bot]"
+    git config user.email "github-actions[bot]@users.noreply.github.com"
+fi
 
 if [ "$PUBLISH" = true ]; then
-    bash "$THIS_DIR/publish_charts.sh" "$@"
+    for CHART in "$@"; do
+        VERSION=$(sed -En 's/^version: (.*)$/\1/p' "charts/${CHART}/Chart.yaml")
+        TAG_NAME="${CHART}-${VERSION}"
+
+        begin_group "Release ${CHART} (${VERSION})"
+
+        if [ "$FORCE_DEV" = "true" ]; then
+            echo "-> FORCE_DEV enabled, releasing dev version (0.0.0-dev)"
+            bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
+        elif git show-ref --tags "${TAG_NAME}" --quiet; then
+            echo "-> Tag ${TAG_NAME} already exists, releasing dev version (0.0.0-dev)"
+            bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
+        else
+            echo "-> Tag ${TAG_NAME} not found, releasing production version (${VERSION})"
+            bash "$THIS_DIR/release-chart.sh" "${CHART}"
+        fi
+
+        end_group "Release ${CHART} (${VERSION})"
+    done
 else
     echo "-> Dry run mode: skipping publish (use -p to publish)"
 fi
-
-end_group "Release charts"
 
 ## Logout from Harbor OCI registry
 ##
