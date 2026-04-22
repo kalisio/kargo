@@ -18,6 +18,12 @@ on:
         required: false
         default: "false"
         type: boolean
+        
+# Ensure only one release pipeline runs at a time
+# to avoid concurrent writes to the S3 index.yaml
+concurrency:
+  group: manage_release
+  cancel-in-progress: false
 
 jobs:
 

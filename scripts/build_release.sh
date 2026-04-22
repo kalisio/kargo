@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Build and release Helm charts to Harbor OCI registry and S3 backup.
 # Decrypts Harbor and rclone credentials from the development repository,
-# logs into the registry, then releases each chart.
+# logs into the registry, then releases each chart using kash functions.
 #
 # Usage (CI mode):
 #   bash ./scripts/build_release.sh -p chart1 chart2
@@ -71,6 +71,7 @@ end_group "Setup rclone config"
 ## Release charts
 ##
 FORCE_DEV="${FORCE_DEV:-false}"
+RCLONE_REMOTE="kalisio_charts"
 
 # Set git identity for tag creation — CI mode only
 if [ "$CI" = true ]; then
@@ -79,25 +80,50 @@ if [ "$CI" = true ]; then
 fi
 
 if [ "$PUBLISH" = true ]; then
+    # Shared temp directory for all charts
+    TMP=$(mktemp -d)
+    PROD_TAGS=()
+
+    # Package all charts first
     for CHART in "$@"; do
-        VERSION=$(sed -En 's/^version: (.*)$/\1/p' "charts/${CHART}/Chart.yaml")
+        VERSION=$(get_yaml_value "$ROOT_DIR/charts/$CHART/Chart.yaml" "version")
         TAG_NAME="${CHART}-${VERSION}"
 
-        begin_group "Release ${CHART} (${VERSION})"
+        begin_group "Package ${CHART} (${VERSION})"
 
         if [ "$FORCE_DEV" = "true" ]; then
-            echo "-> FORCE_DEV enabled, releasing dev version (0.0.0-dev)"
-            bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
-        elif git show-ref --tags "${TAG_NAME}" --quiet; then
-            echo "-> Tag ${TAG_NAME} already exists, releasing dev version (0.0.0-dev)"
-            bash "$THIS_DIR/release-dev-chart.sh" "${CHART}"
+            echo "-> FORCE_DEV enabled, packaging dev version (0.0.0-dev)"
+            package_chart "$CHART" "$TMP" "0.0.0-dev" "$ROOT_DIR"
+        elif git_tag_exists "$TAG_NAME" "$ROOT_DIR"; then
+            echo "-> Tag ${TAG_NAME} exists, packaging dev version (0.0.0-dev)"
+            package_chart "$CHART" "$TMP" "0.0.0-dev" "$ROOT_DIR"
         else
-            echo "-> Tag ${TAG_NAME} not found, releasing production version (${VERSION})"
-            bash "$THIS_DIR/release-chart.sh" "${CHART}"
+            echo "-> Tag ${TAG_NAME} not found, packaging production version (${VERSION})"
+            package_chart "$CHART" "$TMP" "" "$ROOT_DIR"
+            PROD_TAGS+=("$TAG_NAME")
         fi
 
-        end_group "Release ${CHART} (${VERSION})"
+        end_group "Package ${CHART} (${VERSION})"
     done
+
+    # Push all charts to Harbor OCI — one single operation
+    begin_group "Push charts to Harbor OCI"
+    push_charts_oci "$TMP" "$KALISIO_HARBOR_URL/kalisio/helm"
+    end_group "Push charts to Harbor OCI"
+
+    # Push all charts to S3 + rebuild index.yaml once
+    begin_group "Push charts to S3"
+    push_charts_s3 "$TMP" "$RCLONE_REMOTE" "$RCLONE_DEC_CONF"
+    end_group "Push charts to S3"
+
+    # Create git tags for production releases only
+    for TAG_NAME in "${PROD_TAGS[@]:-}"; do
+        git tag "$TAG_NAME"
+        git push origin "$TAG_NAME"
+        echo "-> Tag ${TAG_NAME} created."
+    done
+
+    rm -rf "$TMP"
 else
     echo "-> Dry run mode: skipping publish (use -p to publish)"
 fi
