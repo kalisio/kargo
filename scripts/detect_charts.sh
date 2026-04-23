@@ -75,19 +75,21 @@ _add_chart() {
 
 begin_group "Detect charts" >&2
 
-# 1: chart provided manually 
+# 1: chart(s) provided manually with space-separated list supported
 if [[ -n "${INPUT_CHART}" ]]; then
-    echo "-> Chart provided manually: ${INPUT_CHART}" >&2
-    _add_chart "${INPUT_CHART}"
+    echo "-> Chart(s) provided manually: ${INPUT_CHART}" >&2
+    for CHART in ${INPUT_CHART}; do
+        _add_chart "$CHART"
+    done
 
-# 2: no diff range -> include all charts 
+# 2: no diff range -> include all charts
 elif [[ -z "${DIFF_RANGE}" ]]; then
     echo "-> No diff range: including all non-library charts" >&2
     for CHART_DIR in "${REPO_ROOT}"/charts/*/; do
         _add_chart "$(basename "${CHART_DIR}")"
     done
 
-# 3: normal push -> detect from git diff 
+# 3: normal push -> detect from git diff
 else
     CHANGED_FILES=$(git diff --name-only "${DIFF_RANGE}" \
         -- 'charts/' 2>/dev/null || true)

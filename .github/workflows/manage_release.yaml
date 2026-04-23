@@ -9,8 +9,8 @@ on:
       - 'charts/**'
   workflow_dispatch:
     inputs:
-      chart:
-        description: "Chart to release (leave empty for automatic detection)"
+      charts:
+        description: "Chart(s) to release, space-separated (eg: geokoder trakkar). Leave empty for automatic detection."
         required: false
         default: ""
       dev:
@@ -50,7 +50,7 @@ jobs:
           GITHUB_EVENT_NAME:   ${{ github.event_name }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_EVENT_AFTER:  ${{ github.event.after }}
-          INPUT_CHART:         ${{ github.event.inputs.chart }}
+          INPUT_CHART:         ${{ github.event.inputs.charts }}
         run: bash ./scripts/detect_charts.sh
 
   #  Release the detected charts 
