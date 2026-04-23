@@ -63,8 +63,8 @@ _add_chart() {
     [[ -z "${CHART}" ]]                     && return
     # [[ -d "${REPO_ROOT}/charts/${CHART}" ]] || return
     if [[ ! -d "${REPO_ROOT}/charts/${CHART}" ]]; then
-        echo "-> Warning: chart '${CHART}' not found" >&2
-        return
+        echo "->  Error: chart '${CHART}' not found, aborting" >&2
+        exit 1
     fi
     local TYPE
     TYPE=$(yq '.type // "application"' \
