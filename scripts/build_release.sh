@@ -117,11 +117,13 @@ if [ "$PUBLISH" = true ]; then
     end_group "Push charts to S3"
 
     # Create git tags for production releases only
-    for TAG_NAME in "${PROD_TAGS[@]:-}"; do
-        git tag "$TAG_NAME"
-        git push origin "$TAG_NAME"
-        echo "-> Tag ${TAG_NAME} created."
-    done
+    if [ "${#PROD_TAGS[@]}" -gt 0 ]; then
+        for TAG_NAME in "${PROD_TAGS[@]}"; do
+            git tag "$TAG_NAME"
+            git push origin "$TAG_NAME"
+            echo "-> Tag ${TAG_NAME} created."
+        done
+    fi
 
     rm -rf "$TMP"
 
