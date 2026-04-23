@@ -61,7 +61,11 @@ CHARTS=""
 _add_chart() {
     local CHART="$1"
     [[ -z "${CHART}" ]]                     && return
-    [[ -d "${REPO_ROOT}/charts/${CHART}" ]] || return
+    # [[ -d "${REPO_ROOT}/charts/${CHART}" ]] || return
+    if [[ ! -d "${REPO_ROOT}/charts/${CHART}" ]]; then
+        echo "-> Warning: chart '${CHART}' not found" >&2
+        return
+    fi
     local TYPE
     TYPE=$(yq '.type // "application"' \
         "${REPO_ROOT}/charts/${CHART}/Chart.yaml" 2>/dev/null \
