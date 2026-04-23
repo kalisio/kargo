@@ -71,6 +71,7 @@ end_group "Setup rclone config"
 ## Release charts
 ##
 FORCE_DEV="${FORCE_DEV:-false}"*
+echo "-> FORCE_DEV = '${FORCE_DEV}'" 
 RCLONE_REMOTE="kalisio_charts"
 
 # Set git identity for tag creation — CI mode only

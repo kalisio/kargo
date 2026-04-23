@@ -80,5 +80,5 @@ jobs:
       - name: Release charts
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-          FORCE_DEV: ${{ github.event.inputs.dev }}
+          FORCE_DEV: ${{ github.event.inputs.dev || 'false' }}
         run: bash ./scripts/build_release.sh -p ${{ needs.detect.outputs.charts }}
