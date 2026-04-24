@@ -10,6 +10,35 @@ _A K8S based solution to build and operate Geospatial Platforms_
 > The [Dowker swarm](https://docs.docker.com/engine/swarm/) version is no more supported. 
 The latest available version supporting **Docker Swarm** is the [v0.18.0](https://github.com/kalisio/kargo/releases/tag/v0.18.0).
 
+
+## CI/CD pipeline
+
+Chart releases are now automated via the `manage_release` GitHub Actions pipeline. The pipeline is triggered automatically on every push to `master` that touches files in `charts/**`, or manually via `workflow_dispatch`.
+
+### How it works
+
+For each modified chart, the pipeline automatically decides between a production release and a dev release:
+
+- **Tag `$CHART-$VERSION` absent** → new version → production release (Harbor OCI `:version` + S3 backup + git tag)
+- **Tag `$CHART-$VERSION` present** → version unchanged → dev release (Harbor OCI `:0.0.0-dev` + S3 backup, no git tag)
+
+### HOWTO trigger a release manually
+
+Go to **Actions → manage_release → Run workflow** and fill in the inputs:
+
+- **Chart(s)**: space-separated list of charts to release (eg. `geokoder trakkar`). Leave empty for automatic detection based on git diff.
+- **Force dev release**: check this box to force a `0.0.0-dev` release even if the tag does not exist yet.
+
+### HOWTO make a chart release
+
+1. Update the chart version in `charts/$CHART/Chart.yaml`
+2. Push your changes to `master`
+3. The pipeline triggers automatically and publishes the chart to Harbor OCI and S3
+
+> [!NOTE]
+> The pipeline ensures only one release runs at a time to avoid conflicts on the S3 `index.yaml`.
+> If you try to release manually using `release-chart.sh` after a push, you may get an error indicating the chart already exists on Harbor, this means the CI already published it.
+
 ## Helm charts management
 
 The chart management scripts (`release-dev-chart.sh` and `release-chart.sh`) both require :
