@@ -39,6 +39,8 @@ Go to **Actions → manage_release → Run workflow** and fill in the inputs:
 > The pipeline ensures only one release runs at a time to avoid conflicts on the S3 `index.yaml`.
 > If you try to release manually using `release-chart.sh` after a push, you may get an error indicating the chart already exists on Harbor, this means the CI already published it.
 
+> [Learn more about the pipeline](./docs/menage_release/ci-pipeline.md)
+
 ## Helm charts management
 
 The chart management scripts (`release-dev-chart.sh` and `release-chart.sh`) both require :
