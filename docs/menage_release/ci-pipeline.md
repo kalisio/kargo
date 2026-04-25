@@ -103,8 +103,8 @@ Installs the required tools for the current job. Follows the Kalisio pattern of 
 
 ```bash
 # CI mode
-init_github_detect()        → install_reqs yq
-init_github_release_charts() → install_reqs yq helm rclone sops
+init_github_detect()        : install_reqs yq
+init_github_release_charts() : install_reqs yq helm rclone sops
 
 ### `setup_workspace.sh`
 
@@ -250,4 +250,4 @@ Go to **Actions ->  manage_release ->  Run workflow**:
 Simply push your changes to `master`. If you modified files under `charts/**`, the pipeline triggers automatically. No manual action required.
 
 > [!NOTE]
-> If you try to run `release-chart.sh` manually after pushing, you may get an error saying the chart already exists on Harbor. This means the CI already published it — this is expected behaviour.
+> If you try to run `release-chart.sh` manually after pushing, you may get an error saying the chart already exists on Harbor. This means the CI already published it, this is expected behaviour.
