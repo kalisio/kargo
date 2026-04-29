@@ -1,0 +1,16 @@
+{{- if .Values.security.tls.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mongodb-external-cert
+  namespace: {{ .Release.Namespace }}
+spec:
+  secretName: {{ .Values.security.tls.secretName | default "mongodb-tls-secret" }}
+  issuerRef:
+    name: {{ .Values.security.tls.issuerName | default "mongodb-ca-issuer" }}
+    kind: Issuer
+  dnsNames:
+    {{- range .Values.security.tls.dnsNames }}
+    - {{ . | quote }}
+    {{- end }}
+{{- end }}

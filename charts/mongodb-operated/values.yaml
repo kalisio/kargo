@@ -5,6 +5,20 @@
 # number of replicas in the replicaset of mongodb
 replicaCount: 1
 
+externalAccess:
+  enabled: false
+  nodePorts: [] # example: [30017, 30018, 30019] 
+
+nameOverride: ""
+
+security:
+  tls:
+    enabled: false
+    issuerName: "mongodb-ca-issuer"
+    secretName: ""
+    dnsNames: [] 
+
+
 # overide mongodb version
 # ex version: appVersion: "7.0.14"
 version: ""

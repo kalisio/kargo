@@ -1,0 +1,21 @@
+{{- if .Values.externalAccess.enabled }}
+{{- $nodePorts := .Values.externalAccess.nodePorts }}
+{{- range $i := until (int .Values.replicaCount) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-node-{{ $i }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  type: NodePort
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ $.Release.Name }}-mongodb-operated-{{ $i }}
+  ports:
+    - name: mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+      nodePort: {{ index $nodePorts $i }}
+{{- end }}
+{{- end }}

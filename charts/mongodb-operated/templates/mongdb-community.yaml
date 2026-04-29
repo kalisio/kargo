@@ -1,15 +1,28 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: {{ .Release.Name }}-mongodb-operated
+  name: {{ .Values.nameOverride | default (printf "%s-mongodb-operated" .Release.Name) }}
 spec:
   members: {{ .Values.replicaCount }}
   type: ReplicaSet
+  
+  {{- if .Values.replicaSetHorizons }}
+  replicaSetHorizons:
+    {{- toYaml .Values.replicaSetHorizons | nindent 4 }}
+  {{- end }}
   # important: control the version of the mongodb
   version: {{ .Values.version | default .Chart.AppVersion }}
   security:
     authentication:
       modes: ["SCRAM"]
+    {{- if .Values.security.tls.enabled }}
+    tls:
+      caCertificateSecretRef:
+        name: {{ .Values.security.tls.secretName }}
+      certificateKeySecretRef:
+        name: {{ .Values.security.tls.secretName }}
+      enabled: true
+    {{- end }}
   users:
     {{- with .Values.users  -}}
     {{ . | toYaml | nindent 4 }}

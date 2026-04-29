@@ -1,0 +1,9 @@
+{{- if .Values.security.tls.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ .Values.security.tls.issuerName | default "mongodb-ca-issuer" }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selfSigned: {}
+{{- end }}
