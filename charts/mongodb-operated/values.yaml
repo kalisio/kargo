@@ -59,12 +59,12 @@ serviceAccount:
 resources:
   # resources value for the replicas must be adjusted given the environment
   # staging, preprod, prod
-  limits:
-    cpu: "2"
-    memory: 2Gi
-  requests:
-    cpu: 100m
-    memory: 200Mi
+  # limits:
+  #   cpu: "2"
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 100m
+  #   memory: 200Mi
 
 # configuration for container mongo-agent
 agent:
