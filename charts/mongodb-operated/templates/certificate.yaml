@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mongodb-external-cert
+  name: {{ .Values.security.tls.certName | default "mongodb-external-cert" }}
   namespace: {{ .Release.Namespace }}
 spec:
   secretName: {{ .Values.security.tls.secretName | default "mongodb-tls-secret" }}

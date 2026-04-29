@@ -10,7 +10,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    statefulset.kubernetes.io/pod-name: {{ $.Release.Name }}-mongodb-operated-{{ $i }}
+    statefulset.kubernetes.io/pod-name: {{ $.Values.nameOverride | default (printf "%s-mongodb-operated" $.Release.Name) }}-{{ $i }}
   ports:
     - name: mongodb
       protocol: TCP

@@ -6,7 +6,8 @@
 replicaCount: 1
 
 externalAccess:
-  enabled: false
+  # Will create a $replicaCount of NodePort services to expose each replica of the replicaset
+  enabled: false 
   nodePorts: [] # example: [30017, 30018, 30019] 
 
 nameOverride: ""
@@ -14,9 +15,10 @@ nameOverride: ""
 security:
   tls:
     enabled: false
-    issuerName: "mongodb-ca-issuer"
-    secretName: ""
-    dnsNames: [] 
+    issuerName: "mongodb-ca-issuer"   # name of the cert-manager issuer to use for generating the TLS certificate
+    certName: "mongodb-external-cert" # name of the cert-manager certificate to generate for TLS
+    secretName: ""            # Where the TLS secret will be stored
+    dnsNames: []            # List of DNS names to include in the TLS certificate. 
 
 
 # overide mongodb version
