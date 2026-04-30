@@ -73,6 +73,8 @@ serviceAccount:
   name: ""
 
 resources:
+  limits: {}
+  requests: {}
   # resources value for the replicas must be adjusted given the environment
   # staging, preprod, prod
   # limits:
