@@ -38,3 +38,9 @@ resources: {}
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
+
+global:
+  subdomain: ""
+  certIssuer: ""
+  secret: ""
+  imagePullSecrets: []
