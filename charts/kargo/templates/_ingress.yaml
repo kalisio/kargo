@@ -10,7 +10,7 @@ metadata:
     {{- include "kargo.tplvalues.render" (dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   annotations:
-    {{- if .Values.global.certIssuer }}
+    {{- if and .Values.global .Values.global.certIssuer }}
     cert-manager.io/cluster-issuer: {{ .Values.global.certIssuer }}
     {{- end }}
     {{- if .Values.ingress.annotations }}
