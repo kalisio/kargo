@@ -93,6 +93,8 @@ spec:
               port: {{ include "kargo.names.name" . | trunc 15 }}
             initialDelaySeconds: {{ .Values.livenessDelay | default 60 }}
             periodSeconds: {{ .Values.livenessPeriod | default 60 }}
+            timeoutSeconds: {{ .Values.livenessTimeout | default 1 }}
+            failureThreshold: {{ .Values.livenessFailureThreshold | default 3 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
