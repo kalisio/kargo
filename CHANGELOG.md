@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.14 [2026-05-07]
+
+### Added
+
+  - Added `affinity` parameter to `kdk-deployment` template to support pod affinity rules.
+  - Added `livenessTimeout` parameter to `kdk-deployment` template to configure the liveness probe `timeoutSeconds` (default `5`).
+  - Added `livenessFailureThreshold` parameter to `kdk-deployment` template to configure the liveness probe `failureThreshold` (default `3`).
+
 ## kargo-1.0.13 [2026-03-20]
 
 ### Added
