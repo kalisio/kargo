@@ -71,7 +71,7 @@ _add_chart() {
         "${REPO_ROOT}/charts/${CHART}/Chart.yaml" 2>/dev/null \
         || echo "application")
     # Skip library charts, they are released through their consumers
-    [[ "${TYPE}" == "library" ]] && return
+    # [[ "${TYPE}" == "library" ]] && return
     # Skip duplicates
     [[ " ${CHARTS} " =~ " ${CHART} " ]] && return
     CHARTS="${CHARTS} ${CHART}"
