@@ -15,6 +15,10 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels: {{- include "kargo.labels.matchLabels" . | nindent 6 }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       labels: {{- include "kargo.labels.standard" . | nindent 8 }}
