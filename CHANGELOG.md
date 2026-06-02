@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.15 [2026-06-02]
+
+### Added
+
+  - Added `affinity` parameter to `krawler-cronjob` template
+
 ## kargo-1.0.14 [2026-05-07]
 
 ### Added
