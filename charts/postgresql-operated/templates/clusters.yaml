@@ -49,3 +49,13 @@ spec:
   affinity:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+
+  {{- with .Values.backup }}
+  backup:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.plugins }}
+  plugins:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}

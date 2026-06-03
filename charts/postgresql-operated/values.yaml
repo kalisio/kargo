@@ -99,3 +99,18 @@ affinity: {}
 #     memory: 200Mi
 
 resources: {}
+
+# configure the continuous archiving (backup with Point In Time Recovery)
+# see fields reference
+# https://cloudnative-pg.io/docs/1.28/cloudnative-pg.v1#backupconfiguration
+# see PostgreSQL doc:
+# https://www.postgresql.org/docs/current/continuous-archiving.html
+# see operator blockstorage backup
+# https://cloudnative-pg.io/docs/1.28/appendixes/backup_barmanobjectstore#common-object-stores
+
+backup: {}
+
+# configure plugins (mostly for backup)
+# see reference https://cloudnative-pg.io/docs/1.28/cloudnative-pg.v1#pluginconfiguration
+
+plugins: []
