@@ -22,6 +22,8 @@ forceRestart: false
 cron: "12 * * * *"
 
 env:
+  # frequency is used in the MétéoFrance endpoint used to fetch packets
+  frequency: horaire
   # dburl specifies the mongodb connection string
   dbUrl:
     secret: ""
