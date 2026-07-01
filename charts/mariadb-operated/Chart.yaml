@@ -1,0 +1,28 @@
+apiVersion: v2
+name: mariadb-operated
+description: A Helm chart to instanciate a mariaDB using the MariaDB community operator.
+annotations:
+  category: database
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.0.1
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "11.4"
+home: https://github.com/mariadb-operator
+keywords:
+  - mariadb
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

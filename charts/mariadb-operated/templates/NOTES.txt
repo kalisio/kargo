@@ -1,0 +1,14 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+This chart simplifies the creation of a MariaDB database using the
+MariaDB operator https://github.com/mariadb-operator/mariadb-operator
+
+The database is accessible using the following urls:
+ - {{ .Values.nameOverride | default (printf "%s-mariadb-operated" .Release.Name) }}

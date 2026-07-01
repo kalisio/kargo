@@ -1,0 +1,48 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: {{ .Values.nameOverride | default (printf "%s-mariadb-operated" .Release.Name) }}
+
+spec:
+  database: {{ .Values.dbName | default "myapp" }}
+  username: {{ .Values.dbUserName | default "user"}}
+  image: {{ .Values.imageName | default "mariadb" }}
+  imagePullPolicy: {{ .Values.imagePullPolicy }}
+  {{- with .Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rootPasswordSecretKeyRef:
+    name: {{ .Values.dbRootPasswordSecretName | default "app-secret" }}
+    key: {{ .Values.dbRootPasswordSecretKey | default "app-secret-rootpassword-key" }}
+    generate: false
+  passwordSecretKeyRef:
+    name: {{ .Values.dbUserPasswordSecretName | default "app-secret" }}
+    key: {{ .Values.dbUserPasswordSecretKey | default "app-secret-userpassword-key" }}
+    generate: false
+  metadata:
+    {{- with .Values.labels }}
+    labels:
+      {{ toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with .Values.annotations }}
+    annotations:
+      {{ toYaml . | nindent 6 }}
+    {{- end }}
+
+  {{- with .Values.storage }}
+  storage:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.resources }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.metrics }}
+  metrics:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}

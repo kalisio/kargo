@@ -1,0 +1,90 @@
+# Default values for mariadb-operated Chart
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# nameOverride allow user to override chart name
+nameOverride: ""
+
+# main section
+# define the root credentials
+dbRootPasswordSecretName: ""
+dbrootPasswordSecretKey: ""
+# database to create when the instance start for the first time
+dbName: ""
+# define the user name and its credentials
+# the user  will have ALL PRIVILEGES in the above database
+dbUserName: ""
+dbUserPasswordSecretName: ""
+dbUserPasswordSecretKey: ""
+
+# The supported format is `<image>:<tag>`.
+# Only MariaDB official images are supported.
+# imageName: mariadb:11.4.4
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# pullPolicy allow to always download or not the container image
+imagePullPolicy: IfNotPresent
+
+# metadata section
+# allow to add label and annotations for the children objects created by the controller:
+# statefulset and pods
+# see reference https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/api_reference.md#metadata
+labels: {}
+annotations: {}
+
+
+# storage section
+# see reference https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/api_reference.md#storage
+#
+# storage:
+# size: 8Gi
+# resizeInUseVolumes: true
+# waitForVolumeResize: true
+# storageClassName: csi-cinder-high-speed
+
+storage:
+  size: 1Gi
+
+# metrics section
+# see reference https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/api_reference.md#mariadbmetrics
+
+# metrics:
+#   enabled: true
+#   serviceMonitor:
+#     prometheusRelease: prom
+metrics:
+  enabled: false
+
+
+# affinities can be used to schedule the mariadb on a particular node or
+# to run on a node with a specific pod
+# https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+#
+# affinity:
+#   podAntiAffinity:
+#     preferredDuringSchedulingIgnoredDuringExecution:
+#     - weigth: 100
+#       podAffinityTerm:
+#       labelSelector:
+#         matchExpressions:
+#         - key: app
+#           operator: In
+#           values:
+#           - appsdb-mariadb
+#         topologyKey: "kubernetes.io/hostname"
+
+affinity: {}
+
+# resources section to define limits and requests
+# https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+#
+# resources:
+#   limits:
+#     cpu: "2"
+#     memory: 2Gi
+#   requests:
+#     cpu: 100m
+#     memory: 200Mi
+
+resources: {}
