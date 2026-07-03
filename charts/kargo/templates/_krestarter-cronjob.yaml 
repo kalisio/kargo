@@ -1,0 +1,77 @@
+{{/*
+Builds a cronjob to restart specified workloads (deployments, statefulsets).
+Useful for services that silently lose their database connection and stay
+in Running state while being unusable.
+The restart is performed with `kubectl rollout restart`, so it follows the
+rolling update strategy of the workload (no downtime with several replicas).
+A dedicated ServiceAccount with a namespaced Role (get/patch on workloads)
+is created alongside the cronjob (least privilege, no kubeconfig needed).
+Note: this template emits 4 resources (ServiceAccount, Role, RoleBinding,
+CronJob) as the cronjob needs permissions on the Kubernetes API to perform
+the rollout restart.
+@param .context   The caller's context
+@param .args      The parameters for the restarter cronjob. The template expects the following:
+  - name            The name to give to the cronjob
+  - cron            The schedule expression "0 6 * * *"
+  - suspend         True to make a suspended by default cronjob (false if not provided)
+  - targets         A string with all the workloads to restart, eg "deployment/kano statefulset/mongo" (can be template)
+  - dryRun          A bool to enable dryrun restart (will only print the restart commands)
+  - image           An object defining the image to pull, cf. kargo.images.image template
+*/}}
+{{- define "kargo.krestarter-cronjob" -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .args.name }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ .args.name }}
+    namespace: {{ .context.Release.Namespace }}
+---
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: {{ .args.suspend | default false }}
+  schedule: "{{ .args.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
+          serviceAccountName: {{ .args.name }}
+          containers:
+            - name: {{ .args.name }}
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - for TARGET in {{ include "kargo.tplvalues.render" ( dict "value" .args.targets "context" .context) }}; do {{ if default false .args.dryRun }}echo would restart $TARGET{{ else }}kubectl rollout restart $TARGET{{ end }}; done
+          restartPolicy: Never
+{{- end -}}
