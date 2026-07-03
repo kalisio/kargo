@@ -17,6 +17,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 ### Security
 
+## kargo-1.0.16 [2026-07-03]
+
+### Added
+
+  - Added `krestarter-cronjob` template to restart specified workloads (deployments, statefulsets) on a schedule, as a mitigation for services that silently lose their database connection. The template emits a dedicated `ServiceAccount` bound to a namespaced `Role` limited to `get`/`patch` on workloads, so no kubeconfig is required
+  - Added `strategy` parameter to `kdk-deployment` template to support deployment strategies.
+
+
 ## kargo-1.0.15 [2026-06-02]
 
 ### Added
