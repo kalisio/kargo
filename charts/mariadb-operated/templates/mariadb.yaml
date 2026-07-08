@@ -20,7 +20,7 @@ spec:
     name: {{ .Values.dbUserPasswordSecretName | default "app-secret" }}
     key: {{ .Values.dbUserPasswordSecretKey | default "app-secret-userpassword-key" }}
     generate: false
-  metadata:
+  podMetadata:
     {{- with .Values.labels }}
     labels:
       {{ toYaml . | nindent 6 }}
