@@ -19,12 +19,12 @@ Chart releases are now automated via the `manage_release` GitHub Actions pipelin
 
 For each modified chart, the pipeline automatically decides between a production release and a dev release:
 
-- **Tag `$CHART-$VERSION` absent** → new version → production release (Harbor OCI `:version` + S3 backup + git tag)
-- **Tag `$CHART-$VERSION` present** → version unchanged → dev release (Harbor OCI `:0.0.0-dev` + S3 backup, no git tag)
+- **Tag `$CHART-$VERSION` absent** -> new version ->  production release (Harbor OCI `:version` + S3 backup + git tag)
+- **Tag `$CHART-$VERSION` present** ->  version unchanged ->  dev release (Harbor OCI `:0.0.0-dev` + S3 backup, no git tag)
 
 ### HOWTO trigger a release manually
 
-Go to **Actions → manage_release → Run workflow** and fill in the inputs:
+Go to **Actions ->  manage_release ->  Run workflow** and fill in the inputs:
 
 - **Chart(s)**: space-separated list of charts to release (eg. `geokoder trakkar`). Leave empty for automatic detection based on git diff.
 - **Force dev release**: check this box to force a `0.0.0-dev` release even if the tag does not exist yet.
