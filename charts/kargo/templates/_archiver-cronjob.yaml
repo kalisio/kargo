@@ -1,0 +1,55 @@
+{{/*
+Builds a cronjob to archive object storage data from a hot zone to a cold zone.
+For each path, it copies data newer than a given age from the input remote to
+the output remote, then sets the target storage class on the copied objects.
+The data is written under a dedicated path so that the kleaner does not remove it.
+@param .context   The caller's context
+@param .args      The parameters for the archiver cronjob. The template expects the following:
+  - name            The name to give to the cronjob
+  - cron            The schedule expression "0 * * * *"
+  - suspend         True to make a suspended by default cronjob (false if not provided)
+  - rcloneSecret    The name of the secret where rclone.conf can be found
+  - copyFromPath    Path to read from on the input (hot) remote, eg "wft-staging:wft/turbulence"
+  - copyToPath      Path to write to on the output (cold) remote, eg "wft-staging-cold:wft/turbulence"
+  - newerThanDays   Only data newer than this number of days is copied
+  - storageClass    The target storage class to apply on the copied objects, eg "DEEP_ARCHIVE"
+  - dryRun          A bool to enable dryrun mode (will only print matching files)
+  - image           An object defining the image to pull, cf. kargo.images.image template
+*/}}
+{{- define "kargo.rclone-archiver-cronjob" -}}
+apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
+kind: CronJob
+metadata:
+  name: {{ .args.name }}
+  namespace: {{ .context.Release.Namespace | quote }}
+spec:
+  suspend: {{ .args.suspend | default false }}
+  schedule: "{{ .args.cron }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
+          containers:
+            - name: {{ .args.name }}
+              image: {{ include "kargo.images.image" ( dict "imageRoot" .args.image "global" .context ) }}
+              command:
+                - /bin/sh
+              args:
+                - -c
+                - >-
+                  rclone copy {{ include "kargo.tplvalues.render" ( dict "value" .args.copyFromPath "context" .context) }} {{ include "kargo.tplvalues.render" ( dict "value" .args.copyToPath "context" .context) }} --max-age {{ .args.newerThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} --verbose
+                  {{ if not (default false .args.dryRun) }}&& rclone settier {{ .args.storageClass }} {{ include "kargo.tplvalues.render" ( dict "value" .args.copyToPath "context" .context) }} --verbose{{ end }}
+              volumeMounts:
+                - mountPath: /config/rclone/rclone.conf
+                  name: rclone-config
+                  subPath: rclone.conf
+                  readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: rclone-config
+              secret:
+                secretName: {{ include "kargo.tplvalues.render" ( dict "value" .args.rcloneSecret "context" .context) }}
+{{- end -}}
