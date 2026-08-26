@@ -1,0 +1,93 @@
+# knowledge-ingestion default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+image:
+  repository: kalisio/knowledge-ingestion
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# cron specifies the job schedule -- nightly, once the day's commits are in
+cron: "0 3 * * *"
+
+# deadline stops a run that never finishes. Cloning the workspace and
+# embedding the corpus takes a while, hence the generous default.
+deadline: 10800
+
+# autoRemoveJobAfter removes a finished job after that many seconds
+autoRemoveJobAfter: 172800
+
+env:
+  # qdrant collections the job owns: it creates, fills and prunes them
+  qdrantUrl: "http://qdrant:6333"
+  qdrantCollectionCode: "kalisio_code"
+  qdrantCollectionMetadata: "knowledge_metadata"
+  # embeddingModel MUST match the one the API queries with
+  embeddingModel: "Qwen/Qwen3-Embedding-0.6B"
+  embeddingBatchSize: "8"
+  # which workspace k-clone clones and the job indexes
+  kliOrganization: "kalisio"
+  kliWorkspace: "apps"
+  # indexedRepositories narrows the scan to a few repositories by name;
+  # empty means every repository the workspace holds
+  indexedRepositories: ""
+  # k-clone needs a token to clone over https; without one it falls back to
+  # ssh, which would need a key mounted in the pod
+  kalisioGithubToken:
+    secret: ""
+    key: ""
+  logLevel: "INFO"
+  # the model is downloaded on first use into the workspace volume
+  hfHome: "/workspace/.cache/huggingface"
+  xdgCacheHome: "/workspace/.cache/xdg"
+  sentenceTransformersHome: "/workspace/.cache/sentence-transformers"
+
+# rawEnv holds the variables whose name is not the camelCase of an env var.
+rawEnv:
+  # k-clone reads these; the image sets them too, they are repeated here so
+  # a deployment can move the workspace without rebuilding the image
+  DEVELOPMENT_DIR: "/workspace"
+  KALISIO_DEVELOPMENT_DIR: "/workspace/kalisio"
+  KALISIO_DEVELOPMENT_JOBS_DIR: "/workspace/kalisio"
+  IRSN_DEVELOPMENT_DIR: "/workspace/irsn"
+  AIRBUS_DEVELOPMENT_DIR: "/workspace/airbus"
+
+# The workspace holds the cloned repositories and the model cache. It has to
+# survive between runs: re-cloning the whole ecosystem nightly would be slow
+# and pointless, and the incremental ingestion is built on finding the
+# previous checkout in place.
+persistence:
+  enabled: true
+  size: 20Gi
+  storageClass: ""
+
+# Where the workspace is mounted, and the claim the cronjob mounts. The
+# claim is the one templates/pvc.yaml creates -- the shared cronjob mounts a
+# volume but does not provision it.
+dataMountPath: /workspace
+dataVolume:
+  persistentVolumeClaim:
+    claimName: '{{ include "kargo.names.fullname" . }}-workspace'
+
+# resources are resource requests and limits to be applied
+resources:
+  requests:
+    cpu: "500m"
+    memory: "2Gi"
+
+# default security context, run as non root uid 57439 (mambauser)
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 57439
+  fsGroup: 57439
