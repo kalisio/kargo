@@ -1,0 +1,96 @@
+# knowledge-api default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonAnnotations: {}
+
+# commoneLabels are labels to be added to all resources (sub-charts are not considered). Evaluated as a template
+commonLabel: {}
+
+# replicatCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: kalisio/knowledge-api
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# the port the container listens to
+containerPort: 8187
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: "/health"
+
+distribution:
+  enabled: false
+
+service:
+  enabled: true
+  type: ClusterIP
+  # the service port; kargo.service targets containerPort behind it
+  port: 8080
+  annotations: {}
+
+# The api is the only part of the knowledge service meant to be reachable
+# from outside: qdrant and the ingestion job stay inside the namespace.
+# Disabled by default all the same -- a deployment either opens its own
+# ingress, or registers the service as an apisix upstream the way the other
+# Kalisio services do.
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
+  additionalHosts: []
+
+env:
+  # qdrant holds the corpus the ingestion job indexed; the API only reads it
+  qdrantUrl: "http://qdrant:6333"
+  qdrantCollectionCode: "kalisio_code"
+  qdrantCollectionMetadata: "knowledge_metadata"
+  # embeddingModel MUST match the one the ingestion job indexed with, or a
+  # query vector and a chunk vector are not comparable
+  embeddingModel: "Qwen/Qwen3-Embedding-0.6B"
+  # llm provider used by /ask (/search never calls it)
+  llmEndpoint: ""
+  llmModel: ""
+  llmApiKey:
+    secret: ""
+    key: ""
+  # jwt auth: appSecret is required unless knowledgeAuthEnabled is "false"
+  appSecret:
+    secret: ""
+    key: ""
+  jwtAudience: "kalisio"
+  jwtIssuer: "kalisio"
+  # host must be 0.0.0.0 for the service to reach the container
+  host: "0.0.0.0"
+  port: "8187"
+  logLevel: "INFO"
+  # the model is downloaded on first use into the cache volume below
+  hfHome: "/cache/huggingface"
+  xdgCacheHome: "/cache/xdg"
+  sentenceTransformersHome: "/cache/sentence-transformers"
+
+# The model weights are fetched at startup; without a writable cache they
+# would be downloaded again on every restart.
+extraVolumeMounts:
+  - mountPath: /cache
+    name: model-cache
+extraVolumes:
+  - name: model-cache
+    emptyDir:
+      sizeLimit: 4Gi
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 57439 (mambauser)
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 57439
