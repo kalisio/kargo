@@ -48,10 +48,6 @@ env:
     secret: ""
     key: ""
   logLevel: "INFO"
-  # the model is downloaded on first use into the workspace volume
-  hfHome: "/workspace/.cache/huggingface"
-  xdgCacheHome: "/workspace/.cache/xdg"
-  sentenceTransformersHome: "/workspace/.cache/sentence-transformers"
 
 # rawEnv holds the variables whose name is not the camelCase of an env var.
 rawEnv:
@@ -63,22 +59,18 @@ rawEnv:
   IRSN_DEVELOPMENT_DIR: "/workspace/irsn"
   AIRBUS_DEVELOPMENT_DIR: "/workspace/airbus"
 
-# The workspace holds the cloned repositories and the model cache. It has to
-# survive between runs: re-cloning the whole ecosystem nightly would be slow
-# and pointless, and the incremental ingestion is built on finding the
-# previous checkout in place.
-persistence:
-  enabled: true
-  size: 20Gi
-  storageClass: ""
-
-# Where the workspace is mounted, and the claim the cronjob mounts. The
-# claim is the one templates/pvc.yaml creates -- the shared cronjob mounts a
-# volume but does not provision it.
+# The workspace is wiped between runs, on purpose. `kli --clone` skips a
+# repository it already finds on disk -- it never fetches -- so a workspace
+# that survives freezes the corpus at whatever the first run cloned, and the
+# job would scan the same files forever.
+#
+# Starting empty costs a few minutes of cloning and nothing else: the whole
+# ecosystem is 1.6 GB, and what the job already indexed is remembered in
+# Qdrant, not here, so the embedding stays incremental.
 dataMountPath: /workspace
 dataVolume:
-  persistentVolumeClaim:
-    claimName: '{{ include "kargo.names.fullname" . }}-workspace'
+  emptyDir:
+    sizeLimit: 8Gi
 
 # resources are resource requests and limits to be applied
 resources:

@@ -72,20 +72,6 @@ env:
   host: "0.0.0.0"
   port: "8187"
   logLevel: "INFO"
-  # the model is downloaded on first use into the cache volume below
-  hfHome: "/cache/huggingface"
-  xdgCacheHome: "/cache/xdg"
-  sentenceTransformersHome: "/cache/sentence-transformers"
-
-# The model weights are fetched at startup; without a writable cache they
-# would be downloaded again on every restart.
-extraVolumeMounts:
-  - mountPath: /cache
-    name: model-cache
-extraVolumes:
-  - name: model-cache
-    emptyDir:
-      sizeLimit: 4Gi
 
 # resources are resource requests and limits to be applied
 resources: {}
