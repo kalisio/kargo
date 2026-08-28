@@ -11,5 +11,10 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.size }}
-  storageClassName: {{ .Values.persistence.storageClass | quote }}
+  {{- with .Values.persistence.storageClass }}
+  # Only set when asked for: an empty storageClassName is not "use the
+  # default", it is "use no class at all", which disables dynamic
+  # provisioning and leaves the claim Pending forever.
+  storageClassName: {{ . | quote }}
+  {{- end }}
 {{- end }}
