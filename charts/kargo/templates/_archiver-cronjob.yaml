@@ -40,8 +40,7 @@ spec:
               args:
                 - -c
                 - >-
-                  rclone copy {{ include "kargo.tplvalues.render" ( dict "value" .args.copyFromPath "context" .context) }} {{ include "kargo.tplvalues.render" ( dict "value" .args.copyToPath "context" .context) }} --max-age {{ .args.newerThanDays }}d {{ if default false .args.dryRun }}--dry-run{{ end }} --verbose
-                  {{ if not (default false .args.dryRun) }}&& rclone settier {{ .args.storageClass }} {{ include "kargo.tplvalues.render" ( dict "value" .args.copyToPath "context" .context) }} --verbose{{ end }}
+                  rclone copy {{ include "kargo.tplvalues.render" ( dict "value" .args.copyFromPath "context" .context) }} {{ include "kargo.tplvalues.render" ( dict "value" .args.copyToPath "context" .context) }} --max-age {{ .args.newerThanDays }}d {{ if not (default false .args.dryRun) }}--s3-storage-class {{ .args.storageClass }}{{ end }} {{ if default false .args.dryRun }}--dry-run{{ end }} --verbose
               volumeMounts:
                 - mountPath: /config/rclone/rclone.conf
                   name: rclone-config
