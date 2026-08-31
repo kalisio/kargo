@@ -7,7 +7,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$HERE/lib-unarchive.sh"
 parse_args "$@"
 
-log "REQUEST (Days=$RESTORE_DAYS) [$START_DATE..$END_DATE] $INPUT_PATH pattern='${INPUT_PATTERN:-*}'"
+log "REQUEST (Days=$AVAILABILITY_DAYS) [$START_DATE..$END_DATE] $INPUT_PATH pattern='${INPUT_PATTERN:-*}'"
 asked=0; skipped_hot=0; skipped_already=0
 while read -r key; do
     [ -z "$key" ] && continue
@@ -19,7 +19,7 @@ while read -r key; do
     fi
     aws s3api restore-object \
         --bucket "$COLD_BUCKET" --key "$key" \
-        --restore-request "{\"Days\":${RESTORE_DAYS}}" 2>/dev/null \
+        --restore-request "{\"Days\":${AVAILABILITY_DAYS}}" 2>/dev/null \
         && log "  requested: $key" \
         || log "  request failed (maybe just started elsewhere): $key"
     asked=$((asked + 1))

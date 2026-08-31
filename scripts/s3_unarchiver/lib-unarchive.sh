@@ -27,7 +27,7 @@
 ##   HOT_STORAGE_CLASS  storage class applied on the hot copy (default EXPRESS_ONEZONE)
 ##
 ## Misc:
-##   RESTORE_DAYS       availability duration requested, billed upfront (default 7)
+##   AVAILABILITY_DAYS       availability duration requested, billed upfront (default 7)
 ##   POLL_SECONDS       delay between two checks in mode all (default 300)
 
 COLD_BUCKET="${COLD_BUCKET:?COLD_BUCKET must be set}"
@@ -35,7 +35,7 @@ COLD_REMOTE="${COLD_REMOTE:-wft-staging-cold}"
 HOT_REMOTE="${HOT_REMOTE:-wft-staging}"
 RCLONE_CONF="${RCLONE_CONF:?RCLONE_CONF must be set}"
 HOT_STORAGE_CLASS="${HOT_STORAGE_CLASS:-EXPRESS_ONEZONE}"
-RESTORE_DAYS="${RESTORE_DAYS:-7}"
+AVAILABILITY_DAYS="${AVAILABILITY_DAYS:-7}"
 POLL_SECONDS="${POLL_SECONDS:-300}"
 CACHE_DIR="${CACHE_DIR:-/dev/shm/unarchive-cache}"
 
