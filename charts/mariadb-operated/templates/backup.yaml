@@ -1,0 +1,10 @@
+{{- if .Values.backup  }}
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Backup
+metadata:
+  name: backup
+spec:
+{{- with .Values.backup }}
+{{- toYaml . | nindent 2}}
+{{- end }}
+{{- end }}

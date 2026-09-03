@@ -88,3 +88,32 @@ affinity: {}
 #     memory: 200Mi
 
 resources: {}
+
+# allow the definition of Custom Resquest resources Backup
+# https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/logical_backup.md#backup-cr
+#
+# backup:
+#   mariaDbRef:
+#     name: app-db
+#     kind: Mariadb
+#   args:
+#     - --single-transaction
+#     - --verbose
+#     - --all-databases
+#   compression: gzip
+#   storage:
+#     s3:
+#       bucket: mybucket
+#       endpoint: s3.eu-west-par.io.cloud.ovh.net
+#       region: eu-west-par
+#       prefix: app-db
+#       accessKeyIdSecretKeyRef:
+#         name: backup-mariadb-api-key
+#         key: ACCESS_KEY_ID
+#       secretAccessKeySecretKeyRef:
+#         name: backup-mariadb-api-key
+#         key: ACCESS_SECRET_KEY
+#       tls:
+#         enabled: true
+
+backup: {}
