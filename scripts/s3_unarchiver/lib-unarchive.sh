@@ -89,18 +89,22 @@ compute_objects() {
 list_objects() {
     local cache_file
     cache_file="$CACHE_DIR/$OUTPUT_PATH/objects-list"
- 
+    #log "CHECKING for cache file $cache_file"
+        
     # Cache hit: serve it directly, no network call.
     if [ -f "$cache_file" ]; then
+        #log "  cache hit"
         cat "$cache_file"
         return 0
     fi
  
     # Cache miss: compute to a temp file first.
+    #log "  cache miss"
     mkdir -p "$(dirname "$cache_file")"
     local tmp="$cache_file.tmp.$$"
  
     if compute_objects > "$tmp"; then
+        #log " cache written"
         # Success: commit the cache atomically, then serve it.
         mv "$tmp" "$cache_file"
         cat "$cache_file"

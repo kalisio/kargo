@@ -11,12 +11,16 @@ log "REQUEST (Days=$AVAILABILITY_DAYS) [$START_DATE..$END_DATE] $INPUT_PATH patt
 asked=0; skipped_hot=0; skipped_already=0
 while read -r key; do
     [ -z "$key" ] && continue
+    log " checking file request state for $key"
     if is_in_hot "$(dest_path "$key")"; then
+        log " skipping $key as already in hot zone"
         skipped_hot=$((skipped_hot + 1)); continue
     fi
     if was_requested "$key"; then
+        log " skipping $key as already requested"
         skipped_already=$((skipped_already + 1)); continue
     fi
+    log " requesting restore for $key"
     aws s3api restore-object \
         --bucket "$COLD_BUCKET" --key "$key" \
         --restore-request "{\"Days\":${AVAILABILITY_DAYS}}" 2>/dev/null \

@@ -12,11 +12,14 @@ log "MOVE to $HOT_REMOTE/$OUTPUT_PATH [$START_DATE..$END_DATE] pattern='${INPUT_
 moved=0; done_already=0; not_ready=0
 while read -r key; do
     [ -z "$key" ] && continue
+    log " checking file move state for $key"
     dest="$(dest_path "$key")"
     if is_in_hot "$dest"; then
+        log " skipping $key as already in hot zone"
         done_already=$((done_already + 1)); continue
     fi
     if ! is_restored "$key"; then
+        log " skipping $key as not yet restored"
         not_ready=$((not_ready + 1)); continue
     fi
     copy_to_hot "$key" "$dest"
