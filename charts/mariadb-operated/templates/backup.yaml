@@ -2,7 +2,7 @@
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Backup
 metadata:
-  name: backup
+  name: backup-{{ .Values.dbName | default "myapp" }}
 spec:
 {{- with .Values.backup }}
 {{- toYaml . | nindent 2}}

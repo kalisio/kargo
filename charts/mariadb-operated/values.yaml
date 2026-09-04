@@ -89,7 +89,7 @@ affinity: {}
 
 resources: {}
 
-# allow the definition of Custom Resquest resources Backup
+# allow the definition of the Custom Resource Backup for logical backup
 # https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/logical_backup.md#backup-cr
 #
 # backup:
