@@ -39,6 +39,24 @@ AVAILABILITY_DAYS="${AVAILABILITY_DAYS:-7}"
 POLL_SECONDS="${POLL_SECONDS:-300}"
 CACHE_DIR="${CACHE_DIR:-/dev/shm/unarchive-cache}"
 
+## Fail fast (exit 2, the same non-retriable code the 'unknown mode/verb' usage errors below use)
+## when a required tool or config file is missing, rather than letting every aws/rclone call site
+## silently fold that into their normal "not there yet" fallback (see eg. is_restored()) - both
+## look identical from the caller's point of view otherwise, and callers polling status scripts
+## with no overall deadline would just poll forever if a broken prerequisite went undetected.
+require_tool() {
+    command -v "$1" >/dev/null 2>&1 || {
+        echo "unarchive: required tool '$1' not found on PATH" >&2
+        exit 2
+    }
+}
+require_tool aws
+require_tool rclone
+[ -f "$RCLONE_CONF" ] || {
+    echo "unarchive: RCLONE_CONF '$RCLONE_CONF' not found" >&2
+    exit 2
+}
+
 ## Parse the five business arguments shared by all scripts.
 parse_args() {
     if [ "$#" -ne 5 ]; then
