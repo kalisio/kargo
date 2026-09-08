@@ -9,6 +9,10 @@ parse_args "$@"
 ongoing=0
 while read -r key; do
     [ -z "$key" ] && continue
+    # Already moved: done regardless of the cold copy's own restore state, which can have expired by the time this is re-checked
+    if is_in_hot "$(dest_path "$key")"; then
+        continue
+    fi
     if ! is_restored "$key"; then
         ongoing=1
         break
