@@ -60,29 +60,36 @@ log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
 ## 
 #
 compute_objects() {
-    local cur end_s
-    cur="$(date -u -d "$START_DATE" +%Y-%m-%d)"
-    end_s="$(date -u -d "$END_DATE" +%Y-%m-%d)"
+    local currrent end
+    currrent="$(date -u -d "$START_DATE" +%Y-%m-%d)"
+    end="$(date -u -d "$END_DATE" +%Y-%m-%d)"
+
+    if [ "$(date -u -d "$currrent" +%s)" -gt "$(date -u -d "$end" +%s)" ]; then
+        echo "START_DATE is after END_DATE" >&2
+        return 1
+    fi
  
     while :; do
         local day_path prefix
-        day_path="$(date -u -d "$cur" +%Y/%m/%d)"
+        day_path="$(date -u -d "$currrent" +%Y/%m/%d)"
         prefix="$INPUT_PATH/$day_path/"
  
+        # grep -v '^None$' is required in case of no matching objects
         aws s3api list-objects-v2 \
             --bucket "$COLD_BUCKET" \
             --prefix "$prefix" \
             --query 'Contents[].Key' \
             --output text 2>/dev/null \
         | tr '\t' '\n' \
+        | grep -v '^None$' \
         | if [ -n "$INPUT_PATTERN" ]; then
             awk -v pat="$INPUT_PATTERN" '{ n=$0; sub(/.*\//,"",n); if (n ~ pat) print }'
           else
             grep -v '^$' || true
           fi
  
-        [ "$cur" = "$end_s" ] && break
-        cur="$(date -u -d "$cur + 1 day" +%Y-%m-%d)"
+        [ "$currrent" = "$end" ] && break
+        currrent="$(date -u -d "$currrent + 1 day" +%Y-%m-%d)"
     done
 }
 
