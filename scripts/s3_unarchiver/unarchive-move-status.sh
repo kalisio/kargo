@@ -10,4 +10,7 @@ parse_args "$@"
 expected="$(count_expected)"
 in_hot="$(count_in_hot)"
 log "MOVE STATUS: $in_hot / $expected object(s) in the hot zone"
-[ "$expected" -gt 0 ] && [ "$in_hot" -ge "$expected" ]
+# expected == 0 is actually a legitimate outcome (nothing in the cold zone matches this date range/pattern),
+# not a sign that counting failed - treat it as done rather than as permanently "not ready"
+# [ "$expected" -gt 0 ] && [ "$in_hot" -ge "$expected" ]
+[ "$in_hot" -ge "$expected" ]

@@ -112,8 +112,11 @@ compute_objects() {
 }
 
 list_objects() {
-    local cache_file
-    cache_file="$CACHE_DIR/$OUTPUT_PATH/objects-list"
+    local cache_key cache_file
+    # OUTPUT_PATH alone is not a unique cache key: two distinct jobs can share
+    # the same output path while selecting different objects (different INPUT_PATTERN)
+    cache_key="$(printf '%s' "$INPUT_PATH::$INPUT_PATTERN::$START_DATE::$END_DATE" | md5sum | cut -d' ' -f1)"
+    cache_file="$CACHE_DIR/$OUTPUT_PATH/$cache_key/objects-list"
     #log "CHECKING for cache file $cache_file"
         
     # Cache hit: serve it directly, no network call.
