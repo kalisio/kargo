@@ -101,7 +101,10 @@ compute_objects() {
         | tr '\t' '\n' \
         | grep -v '^None$' \
         | if [ -n "$INPUT_PATTERN" ]; then
-            awk -v pat="$INPUT_PATTERN" '{ n=$0; sub(/.*\//,"",n); if (n ~ pat) print }'
+            # Matches the full key, not just the basename, so a pattern can reach path segments
+            # too (eg. a run-time folder) - all shape-specific knowledge lives in the pattern
+            # itself (app config), this stays deliberately unaware of what a timestamp looks like
+            awk -v pat="$INPUT_PATTERN" '{ if ($0 ~ pat) print }'
           else
             grep -v '^$' || true
           fi
@@ -192,8 +195,9 @@ is_in_hot() {
 ## Single-pass awk filter, same reason as list_objects.
 count_in_hot() {
     if [ -n "$INPUT_PATTERN" ]; then
+        # Full-key match, same reason as compute_objects() above
         rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
-        | awk -v pat="$INPUT_PATTERN" '{ n=$0; sub(/.*\//,"",n); if (n ~ pat) print }' \
+        | awk -v pat="$INPUT_PATTERN" '{ if ($0 ~ pat) print }' \
         | grep -c . || true
     else
         rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
