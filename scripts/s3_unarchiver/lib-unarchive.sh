@@ -195,9 +195,12 @@ is_in_hot() {
 ## Single-pass awk filter, same reason as list_objects.
 count_in_hot() {
     if [ -n "$INPUT_PATTERN" ]; then
-        # Full-key match, same reason as compute_objects() above
+        # rclone lsf returns paths relative to OUTPUT_PATH (ie. the same "rel" dest_path() computed
+        # by stripping INPUT_PATH off the cold key), but INPUT_PATTERN is built to match the full
+        # cold key (INPUT_PATH included, as compute_objects() lists it) - prepend INPUT_PATH back
+        # before matching so both sides compare the same key shape.
         rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
-        | awk -v pat="$INPUT_PATTERN" '{ if ($0 ~ pat) print }' \
+        | awk -v pat="$INPUT_PATTERN" -v prefix="$INPUT_PATH/" '{ if ((prefix $0) ~ pat) print }' \
         | grep -c . || true
     else
         rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
