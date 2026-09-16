@@ -2,8 +2,8 @@ apiVersion: v2
 name: k-weatherlink-observations
 description: >-
   A Krawler based service to download environmental observations from the WeatherLink service.
-version: 1.0.0
-appVersion: observations-1.0.0
+version: 1.1.0
+appVersion: observations-1.1.0
 home: https://github.com/kalisio/k-weatherlink
 annotations:
   category: KrawlerJob
