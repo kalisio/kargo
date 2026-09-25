@@ -1,0 +1,19 @@
+apiVersion: v2
+name: valhalla
+description: Valhalla routing engine serving prebuilt OpenStreetMap tiles
+version: 0.1.0
+appVersion: "3.9.0"
+home: https://github.com/valhalla/valhalla
+annotations:
+  category: Service
+keywords:
+  - routing
+  - openstreetmap
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

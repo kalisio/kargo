@@ -1,0 +1,64 @@
+# valhalla default values
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+# commonAnnotations are annotations to be added to all resources. Evaluated as a template
+commonAnnotations: {}
+
+# commonLabels are labels to be added to all resources. Evaluated as a template
+commonLabels: {}
+
+# replicaCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: ghcr.io/valhalla/valhalla
+  # defaults to the chart appVersion
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# the port the container listens to
+containerPort: 8002
+
+# args runs valhalla_service directly (the image has no entrypoint)
+# the last argument is the number of server threads
+args:
+  - valhalla_service
+  - /custom_files/valhalla.json
+  - "2"
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: "/status"
+
+# dataMountPath must match the paths written in valhalla.json by the tile build
+dataMountPath: /custom_files
+
+# dataSubPath is the folder holding valhalla.json and valhalla_tiles.tar
+# change it to switch to a new tileset (rolling update)
+dataSubPath: ""
+
+# dataVolume is the specification for the volume where the tiles lie
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8002
+  annotations: {}
+
+env: {}
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
