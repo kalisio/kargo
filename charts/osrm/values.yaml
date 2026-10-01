@@ -1,0 +1,70 @@
+# osrm default values
+
+global:
+  # secret where to share sensitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources. Evaluated as a template
+commonAnnotations: {}
+
+# commonLabels are labels to be added to all resources. Evaluated as a template
+commonLabels: {}
+
+# replicaCount is the number of replicas
+replicaCount: 1
+
+image:
+  repository: ghcr.io/project-osrm/osrm-backend
+  # defaults to the chart appVersion
+  tag: ""
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# the port the container listens to
+containerPort: 5000
+
+# args runs osrm-routed on the dataset prepared with the MLD pipeline.
+# Options must be written as --option=value: a bare --mmap swallows the next argument.
+# --mmap=false loads the dataset in memory, --mmap=true maps the files instead.
+args:
+  - osrm-routed
+  - --algorithm=mld
+  - --mmap=false
+  - /data/map.osrm
+
+# livenessEndpoint: osrm-routed has no health endpoint. The search radius is
+# unlimited by default, so nearest answers Ok for any point whatever the area.
+livenessEndpoint: "/nearest/v1/driving/0,0"
+
+# dataMountPath is where the dataset folder is mounted
+dataMountPath: /data
+
+# dataSubPath is the folder holding the map.osrm.* files of one dataset
+# change it to switch to a new dataset (rolling update)
+dataSubPath: ""
+
+# dataVolume is the specification for the volume where the dataset lies
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 5000
+  annotations: {}
+
+env: {}
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# default security context, run as non root uid 1000
+# the dataset files must be readable by everyone (chmod -R a+rX after the build)
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000

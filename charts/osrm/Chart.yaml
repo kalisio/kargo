@@ -1,0 +1,19 @@
+apiVersion: v2
+name: osrm
+description: OSRM routing engine serving prebuilt OpenStreetMap data
+version: 0.1.0
+appVersion: "v26.10.0-debian"
+home: https://github.com/Project-OSRM/osrm-backend
+annotations:
+  category: Service
+keywords:
+  - routing
+  - openstreetmap
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
