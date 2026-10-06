@@ -95,6 +95,8 @@ spec:
               port: {{ include "kargo.names.name" . | trunc 15 }}
             initialDelaySeconds: {{ .Values.readinessDelay | default 5 }}
             periodSeconds: {{ .Values.readinessPeriod | default 10 }}
+            timeoutSeconds: {{ .Values.readinessTimeout | default 1 }}
+            failureThreshold: {{ .Values.readinessFailureThreshold | default 3 }}
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessEndpoint | default "/healthcheck" }}
