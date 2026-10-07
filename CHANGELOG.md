@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 ### Changed
+
+## kargo-1.0.18 [2026-10-06]
+
+### Added
+
+  - Added `readinessTimeout` & `readinessFailureThreshold` parameters to the `deployment` and `kdk-deployment` templates to relax the readiness probe on services that slow down under load. Both keep the previous Kubernetes defaults.
+
+### Changed
 ### Deprecated
 ### Fixed
 ### Removed
