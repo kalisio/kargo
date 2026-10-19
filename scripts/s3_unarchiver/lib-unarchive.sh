@@ -1,219 +1,272 @@
 #!/usr/bin/env bash
 #
-# lib-unarchive.sh
+# lib-unarchive.sh - shared logic, sourced by unarchive.sh and unarchive-status.sh.
 #
-# Shared logic for the unarchive scripts. Sourced by the others, not run
-# directly. Holds the configuration, the argument parsing and the helpers.
+# Each run observes the real state with listings only (one per day in the cold
+# zone with RestoreStatus, one for the hot zone), classifies every selected object
+# as hot | restored | ongoing | archived (never requested or expired), then only
+# acts on what is left. No state is kept, so any mode can be replayed at any time.
 #
-# The two zones live on different endpoints, so the tools are split by role:
-#   - AWS CLI : everything that touches the COLD zone only (list, restore,
-#               restoration state). A single AWS endpoint is enough here.
-#   - rclone  : the copy between the two zones, and anything that touches the
-#               HOT zone, because rclone already knows both remotes and their
-#               own endpoints (same approach as the archiver).
+# Exit codes: 0 done, 1 not done yet, 2 usage/config error (do not retry),
+#             3 transient error (retry later)
 #
 
-
-## Cold zone, used by the AWS CLI :
-##   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-##   AWS_REGION         cold region, eg eu-west-par
-##   AWS_ENDPOINT_URL   cold endpoint, eg https://s3.eu-west-par.io.cloud.ovh.net
-##   COLD_BUCKET        cold bucket name for the AWS CLI, eg wft-staging-cold
-##
-## rclone remotes, used for the copy and the hot zone:
-##   COLD_REMOTE        rclone remote of the cold zone (default wft-staging-cold)
-##   HOT_REMOTE         rclone remote of the hot zone  (default wft-staging)
-##   RCLONE_CONF        path to the rclone config holding these remotes
-##   HOT_STORAGE_CLASS  storage class applied on the hot copy (default EXPRESS_ONEZONE)
-##
-## Misc:
-##   AVAILABILITY_DAYS       availability duration requested, billed upfront (default 7)
-##   POLL_SECONDS       delay between two checks in mode all (default 300)
-
-COLD_BUCKET="${COLD_BUCKET:?COLD_BUCKET must be set}"
+## Cold zone (AWS CLI): AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION,
+##                      AWS_ENDPOINT_URL, COLD_BUCKET
+## rclone:              RCLONE_CONF, COLD_REMOTE, HOT_REMOTE, HOT_STORAGE_CLASS
+## Tuning:              AVAILABILITY_DAYS (billed upfront), TRANSFERS, CHECKERS,
+##                      STATUS_MAX_DURATION, HEAL, POLL_SECONDS, DRY_RUN
 COLD_REMOTE="${COLD_REMOTE:-wft-staging-cold}"
 HOT_REMOTE="${HOT_REMOTE:-wft-staging}"
-RCLONE_CONF="${RCLONE_CONF:?RCLONE_CONF must be set}"
 HOT_STORAGE_CLASS="${HOT_STORAGE_CLASS:-EXPRESS_ONEZONE}"
 AVAILABILITY_DAYS="${AVAILABILITY_DAYS:-7}"
+TRANSFERS="${TRANSFERS:-8}"
+CHECKERS="${CHECKERS:-16}"
+STATUS_MAX_DURATION="${STATUS_MAX_DURATION:-10m}"
+HEAL="${HEAL:-true}"
 POLL_SECONDS="${POLL_SECONDS:-300}"
-CACHE_DIR="${CACHE_DIR:-/dev/shm/unarchive-cache}"
+DRY_RUN="${DRY_RUN:-false}"
 
-## Fail fast (exit 2, the same non-retriable code the 'unknown mode/verb' usage errors below use)
-## when a required tool or config file is missing, rather than letting every aws/rclone call site
-## silently fold that into their normal "not there yet" fallback (see eg. is_restored()) - both
-## look identical from the caller's point of view otherwise, and callers polling status scripts
-## with no overall deadline would just poll forever if a broken prerequisite went undetected.
-require_tool() {
-    command -v "$1" >/dev/null 2>&1 || {
-        echo "unarchive: required tool '$1' not found on PATH" >&2
-        exit 2
-    }
-}
-require_tool aws
-require_tool rclone
-[ -f "$RCLONE_CONF" ] || {
-    echo "unarchive: RCLONE_CONF '$RCLONE_CONF' not found" >&2
-    exit 2
+log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
+warn() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: $*" >&2; }
+## die <exit code> <message>
+die() {
+    local code="$1"; shift
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: $*" >&2
+    exit "$code"
 }
 
-## Parse the five business arguments shared by all scripts.
+## A broken setup must exit 2, otherwise callers would poll it forever.
+check_setup() {
+    local tool
+    for tool in aws rclone awk date mktemp; do
+        command -v "$tool" >/dev/null 2>&1 || die 2 "required tool '$tool' not found on PATH"
+    done
+    [ -n "${COLD_BUCKET:-}" ] || die 2 "COLD_BUCKET must be set"
+    [ -n "${RCLONE_CONF:-}" ] || die 2 "RCLONE_CONF must be set"
+    [ -f "$RCLONE_CONF" ] || die 2 "RCLONE_CONF '$RCLONE_CONF' not found"
+    case "$AVAILABILITY_DAYS$TRANSFERS$CHECKERS" in
+        *[!0-9]*) die 2 "AVAILABILITY_DAYS, TRANSFERS and CHECKERS must be integers" ;;
+    esac
+}
+
+## Bounded network calls: a dead connection must fail, not hang for hours.
+aws_cold() { aws --cli-connect-timeout 10 --cli-read-timeout 120 "$@"; }
+rc() { rclone --config "$RCLONE_CONF" --contimeout 30s --timeout 5m "$@"; }
+
 parse_args() {
     if [ "$#" -ne 5 ]; then
-        echo "Usage: $0 <start_date> <end_date> <input_path> <input_pattern> <output_path>" >&2
-        echo "  input_pattern: regex on the file name, use \"\" to match all files" >&2
-        exit 1
+        echo "Usage: $0 <mode> <start_date> <end_date> <input_path> <input_pattern> <output_path>" >&2
+        echo "  dates: anything GNU date understands, eg 2026-08-03 or 2026-08-03T12:00:00Z" >&2
+        echo "  input_pattern: extended regex on the full object key, use \"\" to match all" >&2
+        exit 2
     fi
     START_DATE="$1"
     END_DATE="$2"
     INPUT_PATH="${3%/}"
     INPUT_PATTERN="$4"
     OUTPUT_PATH="${5%/}"
+
+    START_DAY="$(date -u -d "$START_DATE" +%Y-%m-%d 2>/dev/null)" || die 2 "invalid start date '$START_DATE'"
+    END_DAY="$(date -u -d "$END_DATE" +%Y-%m-%d 2>/dev/null)" || die 2 "invalid end date '$END_DATE'"
+    [ "$(date -u -d "$START_DAY" +%s)" -le "$(date -u -d "$END_DAY" +%s)" ] \
+        || die 2 "start date $START_DATE is after end date $END_DATE"
+    [ -n "$INPUT_PATH" ] || die 2 "input path must not be empty"
+    [ -n "$OUTPUT_PATH" ] || die 2 "output path must not be empty"
+    check_pattern
 }
 
-log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
-
-## 
-## COLD ZONE helpers (AWS CLI)
-## 
-#
-compute_objects() {
-    local currrent end
-    currrent="$(date -u -d "$START_DATE" +%Y-%m-%d)"
-    end="$(date -u -d "$END_DATE" +%Y-%m-%d)"
-
-    if [ "$(date -u -d "$currrent" +%s)" -gt "$(date -u -d "$end" +%s)" ]; then
-        echo "START_DATE is after END_DATE" >&2
-        return 1
-    fi
- 
-    while :; do
-        local day_path prefix
-        day_path="$(date -u -d "$currrent" +%Y/%m/%d)"
-        prefix="$INPUT_PATH/$day_path/"
- 
-        # grep -v '^None$' is required in case of no matching objects
-        aws s3api list-objects-v2 \
-            --bucket "$COLD_BUCKET" \
-            --prefix "$prefix" \
-            --query 'Contents[].Key' \
-            --output text 2>/dev/null \
-        | tr '\t' '\n' \
-        | grep -v '^None$' \
-        | if [ -n "$INPUT_PATTERN" ]; then
-            # Matches the full key, not just the basename, so a pattern can reach path segments
-            # too (eg. a run-time folder) - all shape-specific knowledge lives in the pattern
-            # itself (app config), this stays deliberately unaware of what a timestamp looks like
-            awk -v pat="$INPUT_PATTERN" '{ if ($0 ~ pat) print }'
-          else
-            grep -v '^$' || true
-          fi
- 
-        [ "$currrent" = "$end" ] && break
-        currrent="$(date -u -d "$currrent + 1 day" +%Y-%m-%d)"
-    done
-}
-
-list_objects() {
-    local cache_key cache_file
-    # OUTPUT_PATH alone is not a unique cache key: two distinct jobs can share
-    # the same output path while selecting different objects (different INPUT_PATTERN)
-    cache_key="$(printf '%s' "$INPUT_PATH::$INPUT_PATTERN::$START_DATE::$END_DATE" | md5sum | cut -d' ' -f1)"
-    cache_file="$CACHE_DIR/$OUTPUT_PATH/$cache_key/objects-list"
-    #log "CHECKING for cache file $cache_file"
-        
-    # Cache hit: serve it directly, no network call.
-    if [ -f "$cache_file" ]; then
-        #log "  cache hit"
-        cat "$cache_file"
-        return 0
-    fi
- 
-    # Cache miss: compute to a temp file first.
-    #log "  cache miss"
-    mkdir -p "$(dirname "$cache_file")"
-    local tmp="$cache_file.tmp.$$"
- 
-    if compute_objects > "$tmp"; then
-        #log " cache written"
-        # Success: commit the cache atomically, then serve it.
-        mv "$tmp" "$cache_file"
-        cat "$cache_file"
-    else
-        cat "$tmp"
-        rm -f "$tmp"
-        return 1
-    fi
-}
-
-## Count the objects selected in the cold zone (expected total).
-count_expected() {
-    list_objects | grep -c . || true
-}
-
-## Return 0 if the object restoration is done (downloadable), 1 if still ongoing.
-is_restored() {
-    local key="$1" restore
-    restore="$(aws s3api head-object \
-        --bucket "$COLD_BUCKET" --key "$key" \
-        --query 'Restore' --output text 2>/dev/null || echo "None")"
-    case "$restore" in
-        *'ongoing-request="true"'*) return 1 ;;
-        *) return 0 ;;
+## mawk 1.3.4 20200120 (Debian bookworm) treats {n} as literal braces and would
+## silently match nothing, so such patterns are rejected on that awk.
+check_pattern() {
+    PAT="$INPUT_PATTERN" awk 'BEGIN { if ("" ~ ENVIRON["PAT"]) {} }' 2>/dev/null \
+        || die 2 "invalid input pattern '$INPUT_PATTERN'"
+    case "$INPUT_PATTERN" in
+        *\{[0-9]*)
+            echo aa | awk '/^a{2}$/ { found = 1 } END { exit !found }' \
+                || die 2 "input pattern uses {n} repetitions, unsupported by this awk ($(awk -W version 2>&1 | head -1))"
+            ;;
     esac
 }
 
-## Return 0 if a restoration was already requested (Restore field present).
-was_requested() {
-    local key="$1" restore
-    restore="$(aws s3api head-object \
-        --bucket "$COLD_BUCKET" --key "$key" \
-        --query 'Restore' --output text 2>/dev/null || echo "None")"
-    [ "$restore" != "None" ]
+list_days() {
+    local day="$START_DAY"
+    while :; do
+        date -u -d "$day" +%Y/%m/%d
+        [ "$day" = "$END_DAY" ] && break
+        day="$(date -u -d "$day + 1 day" +%Y-%m-%d)"
+    done
 }
 
-## ---------------------------------------------------------------------------
-## HOT ZONE helpers (rclone)
-## ---------------------------------------------------------------------------
-
-## Compute the destination path (without remote) for a given source key.
-## The structure below INPUT_PATH is preserved as-is under OUTPUT_PATH.
-dest_path() {
-    local key="$1" rel
-    rel="${key#"$INPUT_PATH"/}"
-    echo "$OUTPUT_PATH/$rel"
+## "<key>\t<IsRestoreInProgress>": True (ongoing), False (restored), None (archived).
+list_cold() {
+    local day
+    for day in $(list_days); do
+        aws_cold s3api list-objects-v2 --bucket "$COLD_BUCKET" \
+            --prefix "$INPUT_PATH/$day/" \
+            --optional-object-attributes RestoreStatus \
+            --query 'Contents[].[Key, RestoreStatus.IsRestoreInProgress]' \
+            --output text || return 1
+    done
 }
 
-## Return 0 if the destination object already exists in the hot zone.
-is_in_hot() {
-    local dest="$1"
-    [ -n "$(rclone --config "$RCLONE_CONF" lsf "$HOT_REMOTE:$dest" 2>/dev/null)" ]
+## Keys relative to OUTPUT_PATH. rclone exit 3 = output path not created yet.
+list_hot() {
+    local status=0
+    rc lsf -R --files-only --fast-list "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null || status=$?
+    [ "$status" -eq 0 ] || [ "$status" -eq 3 ]
 }
 
-## Count objects already present in the hot zone under the output path,
-## matching the same file name pattern. Cheap progress signal for the move.
-## Single-pass awk filter, same reason as list_objects.
-count_in_hot() {
-    if [ -n "$INPUT_PATTERN" ]; then
-        # rclone lsf returns paths relative to OUTPUT_PATH (ie. the same "rel" dest_path() computed
-        # by stripping INPUT_PATH off the cold key), but INPUT_PATTERN is built to match the full
-        # cold key (INPUT_PATH included, as compute_objects() lists it) - prepend INPUT_PATH back
-        # before matching so both sides compare the same key shape.
-        rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
-        | awk -v pat="$INPUT_PATTERN" -v prefix="$INPUT_PATH/" '{ if ((prefix $0) ~ pat) print }' \
-        | grep -c . || true
+## Fills $WORK_DIR/<state> with the selected keys, relative to INPUT_PATH.
+classify() {
+    WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/unarchive.XXXXXX")"
+    trap 'rm -rf "$WORK_DIR"' EXIT
+
+    list_cold > "$WORK_DIR/cold" || die 3 "cannot list the cold zone $COLD_BUCKET/$INPUT_PATH"
+    list_hot > "$WORK_DIR/hot.list" || die 3 "cannot list the hot zone $HOT_REMOTE:$OUTPUT_PATH"
+
+    # Pattern via ENVIRON, as -v would interpret its backslashes.
+    # FILENAME rather than NR == FNR, which breaks on an empty hot listing.
+    PAT="$INPUT_PATTERN" awk -F'\t' -v prefix="$INPUT_PATH/" -v dir="$WORK_DIR" '
+        FILENAME == ARGV[1] { hot[$0] = 1; next }
+        $1 == "" || $1 == "None" || substr($1, 1, length(prefix)) != prefix { next }
+        !($1 ~ ENVIRON["PAT"]) { next }
+        {
+            rel = substr($1, length(prefix) + 1)
+            if (rel in hot) state = "hot"
+            else if ($2 == "True") state = "ongoing"
+            else if ($2 == "False") state = "restored"
+            else state = "archived"
+            print rel > (dir "/" state)
+        }
+    ' "$WORK_DIR/hot.list" "$WORK_DIR/cold"
+
+    local state
+    for state in hot restored ongoing archived; do
+        touch "$WORK_DIR/$state"
+    done
+}
+
+## count <state|total>
+count() {
+    if [ "$1" = "total" ]; then
+        cat "$WORK_DIR/hot" "$WORK_DIR/restored" "$WORK_DIR/ongoing" "$WORK_DIR/archived" | wc -l | tr -d ' '
     else
-        rclone --config "$RCLONE_CONF" lsf --files-only -R "$HOT_REMOTE:$OUTPUT_PATH/" 2>/dev/null \
-        | grep -c . || true
+        wc -l < "$WORK_DIR/$1" | tr -d ' '
     fi
 }
 
-## Copy one restored object from the cold zone to the hot zone using rclone,
-## which handles the two different endpoints on its own. The hot storage class
-## (EXPRESS_ONEZONE by default) is applied directly during the copy.
-copy_to_hot() {
-    local key="$1" dest="$2"
-    rclone --config "$RCLONE_CONF" copyto \
-        --s3-storage-class "$HOT_STORAGE_CLASS" \
-        "$COLD_REMOTE:$key" "$HOT_REMOTE:$dest" 2>/dev/null
+summary() {
+    echo "total=$(count total) hot=$(count hot) restored=$(count restored) ongoing=$(count ongoing) archived=$(count archived)"
+}
+
+is_dry_run() { [ "$DRY_RUN" = "true" ]; }
+
+## A 409 means already being restored. Other failures stay archived and are
+## requested again by the next run.
+request_archived() {
+    local n out ok already failed
+    n="$(count archived)"
+    [ "$n" -gt 0 ] || return 0
+    if is_dry_run; then
+        log "DRY RUN: would request the restoration of $n object(s) for $AVAILABILITY_DAYS day(s)"
+        return 0
+    fi
+    out="$(rc backend restore "$COLD_REMOTE:$INPUT_PATH" \
+        --files-from-raw "$WORK_DIR/archived" --checkers "$CHECKERS" \
+        -o lifetime="$AVAILABILITY_DAYS")" || die 3 "restore request failed for $COLD_REMOTE:$INPUT_PATH"
+    ok="$(grep -c '"Status": "OK"' <<< "$out" || true)"
+    already="$(grep -c 'StatusCode: 409' <<< "$out" || true)"
+    failed=$((n - ok - already))
+    log "Restoration requested: $ok   already in progress: $already   failed: $failed"
+    if [ "$failed" -gt 0 ]; then
+        grep '"Status"' <<< "$out" | grep -v -e '"OK"' -e 'StatusCode: 409' | head -5 >&2 || true
+        [ $((ok + already)) -gt 0 ] || die 3 "every restore request failed"
+        warn "$failed restore request(s) failed, they will be requested again by the next run"
+    fi
+}
+
+## copy_restored [max_duration]: returns 0 when done, 10 when max_duration was
+## reached (rclone code), another code on error. Only missing objects are listed,
+## hence --no-check-dest.
+copy_restored() {
+    local max_duration="${1:-}" n status=0
+    n="$(count restored)"
+    [ "$n" -gt 0 ] || return 0
+    if is_dry_run; then
+        log "DRY RUN: would copy $n object(s) to $HOT_REMOTE:$OUTPUT_PATH as $HOT_STORAGE_CLASS"
+        return 0
+    fi
+    log "Copying $n object(s) to $HOT_REMOTE:$OUTPUT_PATH (transfers=$TRANSFERS)"
+    rc copy "$COLD_REMOTE:$INPUT_PATH" "$HOT_REMOTE:$OUTPUT_PATH" \
+        --files-from-raw "$WORK_DIR/restored" --no-traverse --no-check-dest \
+        --transfers "$TRANSFERS" --checkers "$CHECKERS" \
+        --s3-storage-class "$HOT_STORAGE_CLASS" --s3-no-check-bucket \
+        --retries 3 --low-level-retries 10 \
+        ${max_duration:+--max-duration "$max_duration" --cutoff-mode soft} \
+        --stats 0 --log-level NOTICE || status=$?
+    case "$status" in
+        0) log "Copied: $n" ;;
+        10) log "Copy paused after $max_duration, the next run will resume it" ;;
+    esac
+    return "$status"
+}
+
+run_request() {
+    classify
+    log "REQUEST [$START_DATE..$END_DATE] $INPUT_PATH pattern='$INPUT_PATTERN' days=$AVAILABILITY_DAYS: $(summary)"
+    [ "$(count total)" -gt 0 ] || warn "no object matches this period and pattern"
+    request_archived
+}
+
+## Exits 0 once the copy succeeded, even if some objects are not restored yet:
+## completion is reported by the move status.
+run_move() {
+    classify
+    log "MOVE [$START_DATE..$END_DATE] $INPUT_PATH -> $HOT_REMOTE:$OUTPUT_PATH: $(summary)"
+    copy_restored || die 3 "copy to $HOT_REMOTE:$OUTPUT_PATH failed"
+    if [ $(( $(count ongoing) + $(count archived) )) -gt 0 ]; then
+        log "Not ready yet: ongoing=$(count ongoing) archived=$(count archived), run again later"
+    fi
+}
+
+## Callers run request/move only once, so with HEAL the status runs resume what
+## is left (expired or failed restorations, interrupted copies).
+status_request() {
+    classify
+    log "RESTORE STATUS: $(summary)"
+    if [ "$(count archived)" -gt 0 ] && [ "$HEAL" = "true" ]; then
+        request_archived
+    fi
+    if [ $(( $(count ongoing) + $(count archived) )) -eq 0 ]; then
+        log "RESTORE STATUS: all selected objects are restored"
+        return 0
+    fi
+    log "RESTORE STATUS: restoration still ongoing"
+    return 1
+}
+
+status_move() {
+    local status=0
+    classify
+    log "MOVE STATUS: $(summary)"
+    if [ "$(count hot)" -eq "$(count total)" ]; then
+        log "MOVE STATUS: all selected objects are in the hot zone"
+        return 0
+    fi
+    if [ "$HEAL" = "true" ]; then
+        request_archived
+        # Bounded so that a status run stays under the caller's timeout
+        copy_restored "$STATUS_MAX_DURATION" || status=$?
+        case "$status" in
+            0) if ! is_dry_run && [ $(( $(count ongoing) + $(count archived) )) -eq 0 ]; then
+                   log "MOVE STATUS: all selected objects are in the hot zone"
+                   return 0
+               fi ;;
+            10) ;;
+            *) die 3 "copy to $HOT_REMOTE:$OUTPUT_PATH failed" ;;
+        esac
+    fi
+    log "MOVE STATUS: not complete yet"
+    return 1
 }
