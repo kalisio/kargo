@@ -14,7 +14,7 @@ commonLabel: {}
 replicaCount: 1
 
 image:
-  repository: kalisio/service-katalog
+  repository: kalisio/katalog
   tag: ""
   pullPolicy: IfNotPresent
 
