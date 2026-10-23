@@ -1,0 +1,18 @@
+{{- /*
+  Layer overrides configMap.
+
+  Generated only when additionalConfig is set in values. It packages every
+  file placed in this chart's files/layers/ folder into one configMap, using
+  the shared kargo helper. Each entry is then mounted over its target path in
+  the container through additionalConfig.fileMapping (subPath), so only the
+  overridden layer files are replaced and the image's other layers remain.
+
+  With additionalConfig empty (the default) no configMap is produced and the
+  image's layers are used as-is.
+*/ -}}
+{{- if .Values.additionalConfig }}
+{{- include "kargo.configMap.fromFolder" (dict
+      "context" $
+      "name" (printf "%s-layers" (include "kargo.names.name" $))
+      "folder" "files/layers") }}
+{{- end }}

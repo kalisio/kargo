@@ -1,0 +1,4 @@
+# Place layer override files (*.cjs) here, named after the file they replace,
+# e.g. awc-layers.cjs. They are packaged into a configMap and mounted over
+# their target path via additionalConfig.fileMapping in values. Leave empty
+# to use the image's default layers.

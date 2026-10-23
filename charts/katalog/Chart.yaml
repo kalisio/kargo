@@ -1,0 +1,20 @@
+apiVersion: v2
+name: katalog
+description: Catalog service for KDK-based applications
+version: 1.0.0
+appVersion: 0.0.0
+home: https://github.com/kalisio/service-ekosystem/tree/main/packages/service-katalog
+annotations:
+  category: Service
+keywords:
+  - katalog
+  - catalog
+  - kano
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com
