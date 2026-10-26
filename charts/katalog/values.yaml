@@ -51,24 +51,20 @@ containerPort: 8187
 livenessEndpoint: /api/healthcheck
 
 env:
-  # baseUrl is the base url of the server to be accessed
+  # baseUrl is the public URL of the API (BASE_URL)
   baseUrl: "http://planet-katalog:8187"
-
-# Layer overrides.
-#
-# By default katalog uses the layer files baked into its image
-# (config/layers/<theme>/<file>.cjs). To override a specific layer file for
-# a given environment without touching the others:
-#   1. Put the overriding .cjs file in this chart's files/layers/ folder.
-#   2. Enable additionalConfig below and map each file to its full path in
-#      the container. The subPath mount replaces only that file; all other
-#      layers from the image stay in place.
-#
-# Example (overriding weather/awc-layers.cjs):
-#   additionalConfig:
-#     configMap: '{{ include "kargo.names.name" . }}-layers'
-#     fileMapping:
-#       awc-layers.cjs: /app/packages/service-katalog/config/layers/weather/awc-layers.cjs
+  # apiGatewayUrl makes all map layer URLs derive from this single
+  # gateway instead of per-service hosts (API_GATEWAY_URL).
+  # Set per namespace; empty falls back to SUBDOMAIN-based URLs.
+  apiGatewayUrl: ""
+  # layersFilter selects which layers load (LAYERS_FILTER)
+  layersFilter: "*"
+  # k2Url overrides the K2 endpoint (K2_URL)
+  k2Url: ""
+  # s3Url overrides the S3 endpoint (S3_URL)
+  s3Url: ""
+  # debug enables debug output for the given namespaces
+  debug: ""
 additionalConfig: {}
 
 # resources are resource requests and limits to be applied
