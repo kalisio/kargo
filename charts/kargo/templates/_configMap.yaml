@@ -3,6 +3,7 @@ Builds a config map from all the files in a folder. Files can be templated.
 @parap .context   The caller's context
 @param .name      The name for the created config map
 @param .folder    The folder to scan to create the config map
+@param .tpl       Render files as Helm templates (default true)
 */}}
 {{- define "kargo.configMap.fromFolder" -}}
 apiVersion: v1
@@ -13,7 +14,11 @@ metadata:
 data:
 {{- range $path, $_ := (.context.Files.Glob (printf "%s/*" .folder)) }}
   {{ trimPrefix (printf "%s/" $.folder) $path }}: |
+    {{- if and (hasKey $ "tpl") (not $.tpl) }}
+    {{- $.context.Files.Get $path | nindent 4 }}
+    {{- else }}
     {{- tpl ($.context.Files.Get $path) $.context | nindent 4 }}
+    {{- end }}
 {{- end }}
 {{- end -}}
 
