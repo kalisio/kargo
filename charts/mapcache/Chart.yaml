@@ -3,7 +3,7 @@ name: mapcache
 description: A server that implements tile caching to speed up access to WMS layers
 annotations:
   category: ows
-version: 1.5.1
+version: 1.5.2
 keywords:
   - mapcache
 sources:
