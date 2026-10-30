@@ -15,6 +15,7 @@ The data is written under a dedicated path so that the kleaner does not remove i
   - storageClass    The target storage class to apply on the copied objects, eg "DEEP_ARCHIVE"
   - dryRun          A bool to enable dryrun mode (will only print matching files)
   - image           An object defining the image to pull, cf. kargo.images.image template
+  - affinity        An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.rclone-archiver-cronjob" -}}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
@@ -31,6 +32,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
           containers:
             - name: {{ .args.name }}

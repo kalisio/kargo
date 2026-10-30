@@ -6,7 +6,8 @@ Builds a cronjob to run e2e tests.
   - cron                The schedule expression "0 * * * *"
   - suspend             True to make a suspended by default cronjob (false if not provided)
   - rcloneSecret        The name of the secret where rclone.conf can be found
-  - image               An object defining the image to pull, cf. kargo.images.image template              
+  - image               An object defining the image to pull, cf. kargo.images.image template
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.e2e-tests-cronjob" -}}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
@@ -24,6 +25,10 @@ spec:
       ttlSecondsAfterFinished: 43200
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
           containers:
             - name: {{ .args.name }}

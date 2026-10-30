@@ -17,6 +17,7 @@ the rollout restart.
   - targets         A string with all the workloads to restart, eg "deployment/kano statefulset/mongo" (can be template)
   - dryRun          A bool to enable dryrun restart (will only print the restart commands)
   - image           An object defining the image to pull, cf. kargo.images.image template
+  - affinity        An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.krestarter-cronjob" -}}
 apiVersion: v1
@@ -63,6 +64,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
           serviceAccountName: {{ .args.name }}
           containers:

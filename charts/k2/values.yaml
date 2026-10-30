@@ -47,6 +47,9 @@ dataVolume: {}
 # extraVolumes are additional volumes to add to the deployment
 extraVolumes: {}
 
+# affinity constrains which nodes the pods are eligible to be scheduled on
+affinity: {}
+
 # default security context, run as non root uid 1000
 podSecurityContext:
   runAsNonRoot: true

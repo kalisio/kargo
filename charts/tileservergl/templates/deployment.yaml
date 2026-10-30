@@ -30,6 +30,10 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         {{- if .Values.rcloneConfig.enabled }}
         {{- include "kargo.rcloneConfig.renderInitContainer" ( dict "args" .Values.rcloneConfig "context" $ ) | nindent 8 }}

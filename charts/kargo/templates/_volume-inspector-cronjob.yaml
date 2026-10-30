@@ -6,6 +6,7 @@ Builds a suspended cronjob to inspect k8s volumes.
   - volumeMounts    The list of volumeMounts for the container
   - volumes         The list of volumes to back volumeMounts
   - image           An object defining the image to pull, cf. kargo.images.image template
+  - affinity        An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.volume-inspector-cronjob" -}}
 apiVersion: {{ .context.Capabilities.APIVersions.Has "batch/v1" | ternary "batch/v1" "batch/v1beta1" }}
@@ -22,6 +23,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- include "kargo.images.pullSecrets" (dict "images" (list .args.image) "context" .context) | indent 10 }}
           containers:
             - name: {{ .args.name }}

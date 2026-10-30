@@ -14,6 +14,7 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.mariadb-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -47,6 +48,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -110,6 +115,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump
@@ -173,6 +182,7 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.postgresql-backup-restore-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -204,6 +214,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -271,6 +285,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump
@@ -339,6 +357,7 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
   - nameOverride        Allow to override the name, used both for k8s name and filename (optionnal). It must be compliant with an RFC 1123 subdomain name
 */}}
 {{- define "kargo.mongodb-backup-restore-cronjobs" -}}
@@ -373,6 +392,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -436,6 +459,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump
@@ -502,6 +529,7 @@ When using the restore cronjob, the target database has to exist before running 
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.mariadb-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -535,6 +563,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -598,6 +630,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump
@@ -664,6 +700,7 @@ When using the restore cronjob, the target database has to exist before running 
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the r
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 store cronjob is not created (default false)
 */}}
 {{- define "kargo.postgresql-backup-restore-db-cronjobs" -}}
@@ -696,6 +733,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -763,6 +804,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump
@@ -832,6 +877,7 @@ The restore cronjob is suspended to be started manually.
   - ignoreBackup        If true the backup cronjob is not created (default false)
   - ignoreRestore       If true the restore cronjob is not created (default false)
   - nameSuffix          If defined, this suffix will be added to the backup filename (and to the cronjob names) (default "")
+  - affinity            An optional affinity spec to constrain the pods to specific nodes
 */}}
 {{- define "kargo.mongodb-backup-restore-db-cronjobs" -}}
 {{- $remotePath := include "kargo.tplvalues.render" (dict "value" .args.remotePath "context" .context) }}
@@ -865,6 +911,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: db-dump
@@ -928,6 +978,10 @@ spec:
       ttlSecondsAfterFinished: 3600
       template:
         spec:
+          {{- with .args.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           initContainers:
             - name: rclone-dump

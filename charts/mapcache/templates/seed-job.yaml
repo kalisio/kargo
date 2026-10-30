@@ -22,6 +22,10 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           initContainers:
             {{- if .Values.envsubstConfig.enabled }}
             {{- include "kargo.envsubstConfig.renderInitContainer" ( dict "args" .Values.envsubstConfig "context" $ ) | nindent 12 }}

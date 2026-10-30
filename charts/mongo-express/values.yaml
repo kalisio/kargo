@@ -51,6 +51,9 @@ env:
 # resources are resource requests and limits to be applied
 resources: {}
 
+# affinity constrains which nodes the pods are eligible to be scheduled on
+affinity: {}
+
 # default security context, run as non root uid 1000
 podSecurityContext:
   runAsNonRoot: true
