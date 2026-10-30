@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 ### Changed
 
+## kargo-1.0.19 [2026-10-30]
+
+### Added
+
+  - Added `affinity` parameter to the `deployment` template and to the `kleaner`, `archiver`, `krestarter`, `e2e-tests`, `volume-inspector` and `db-backup-restore` cronjob templates, so that every workload can be constrained to a given set of nodes. The `kdk-deployment` and `krawler-cronjob` templates already supported it.
+
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
 ## kargo-1.0.18 [2026-10-06]
 
 ### Added
