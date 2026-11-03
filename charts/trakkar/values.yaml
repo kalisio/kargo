@@ -41,9 +41,9 @@ distribution:
   # enabled specifies whether or not to use distribution
   enabled: true
   # basePort specifies the starting port of the port range
-  basePort: 10030
+  basePort: 10060
   # highestPort specifies the ending port of the port range
-  highestPort: 10039
+  highestPort: 10069
   # delay specifies the time to wait before starting service discovery
   startDelay: "20000"
   # redisUrl specifies the redis connection string
