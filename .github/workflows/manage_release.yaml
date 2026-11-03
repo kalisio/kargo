@@ -36,7 +36,7 @@ jobs:
       has_charts: ${{ steps.compute.outputs.has_charts }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           submodules: true
@@ -63,7 +63,7 @@ jobs:
       contents: write  # required to create and push git tags
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           submodules: true
