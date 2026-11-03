@@ -1,8 +1,8 @@
 apiVersion: v2
 name: katalog
 description: Catalog service for KDK-based applications
-version: 1.0.0
-appVersion: 0.0.0
+version: 0.1.0
+appVersion: 1.0.0
 home: https://github.com/kalisio/service-ekosystem/tree/master/packages/service-katalog
 annotations:
   category: Service
