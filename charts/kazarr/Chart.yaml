@@ -1,8 +1,8 @@
 apiVersion: v2
 name: kazarr
 description: Lightweight service for reading and transforming Zarr data
-version: 1.0.1
-appVersion: 1.0.0
+version: 1.0.2
+appVersion: 1.1.1
 home: https://github.com/kalisio/kazarr
 annotations:
   category: Service
