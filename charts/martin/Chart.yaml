@@ -1,0 +1,22 @@
+apiVersion: v2
+name: martin
+description: Tile server for PostGIS, MBTiles, PMTiles, COG and GeoParquet sources
+version: 0.1.0
+appVersion: "2.0.0-beta.7"
+home: https://github.com/maplibre/martin
+annotations:
+  category: ows
+keywords:
+  - martin
+  - tiles
+  - mvt
+  - pmtiles
+  - geoparquet
+dependencies:
+  - name: kargo
+    version: x.x.x
+    repository: file://../kargo
+maintainers:
+  - name: Kalisio
+    email: contact@kalisio.com
+    url: https://kalisio.com

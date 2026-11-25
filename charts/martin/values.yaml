@@ -1,0 +1,106 @@
+# martin default values
+
+global:
+  # secret where to share sentitive environment variables
+  secret: ""
+
+# commonAnnotations are annotations to be added to all resources. Evaluated as a template
+commonAnnotations: {}
+
+# commonLabels are labels to be added to all resources. Evaluated as a template
+commonLabels: {}
+
+# replicaCount is the number of replicas
+replicaCount: 1
+
+image:
+  # The official image ghcr.io/maplibre/martin does NOT embed the DuckDB/GeoParquet
+  # backend: the feature is flagged unstable upstream and none of the released
+  # variants (latest, -full, -legacycpu) enable it. kalisio/martin:<version>-duckdb
+  # is built with --features unstable-duckdb, ships the spatial and httpfs DuckDB
+  # extensions (no download at startup).
+  # ghcr.io/maplibre/martin remains fine for PostGIS, MBTiles, PMTiles or COG only.
+  repository: kalisio/martin
+  tag: "2.0.0-beta.7-duckdb"
+  pullPolicy: IfNotPresent
+
+# forceRestart forces the pod to be restarted when upgrading the chart
+forceRestart: false
+
+# the port the container listens to, martin defaults to 0.0.0.0:3000
+containerPort: 3000
+
+# args are passed to the martin binary. Martin needs a config file for most sources
+# (DuckDB/GeoParquet endpoint, layer_id, zooms...): provide it as a config map
+# mounted through extraVolumes / extraVolumeMounts, see below.
+args:
+  - --config
+  - /etc/martin/config.yaml
+
+# livenessEndpoint is the endpoint to use with liveness probe
+livenessEndpoint: "/health"
+
+# dataMountPath is where the tile archives are mounted
+dataMountPath: /mnt/data
+
+# dataSubPath is the subpath in the dataVolume to mount
+dataSubPath: ""
+
+# dataVolume is the specification for the volume where local mbtiles/pmtiles lie.
+# Not needed when every source is remote (S3, http).
+dataVolume: {}
+#  nfs:
+#    server: "host or ip"
+#    path: "/zpool-foo/partition"
+#    readOnly: true
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 3000
+  annotations: {}
+
+ingress:
+  enabled: false
+
+# env holds the environment variables, keys are snake cased and upper cased.
+# A map value is read from a secret, see kargo.environment.render.
+env: {}
+  # S3 credentials: martin reads AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,
+  # AWS_SESSION_TOKEN and AWS_REGION, but NOT AWS_ENDPOINT_URL: outside AWS, the
+  # endpoint goes in config (duckdb.endpoint or pmtiles.endpoint).
+  # awsAccessKeyId:
+  #   key: s3-access-key
+  # awsSecretAccessKey:
+  #   key: s3-secret-access-key
+  # awsRegion: "gra"
+  # rustLog: "info"
+
+# rawEnv holds environment variables whose name is used as is
+rawEnv: {}
+
+# extraVolumes are additional volumes to add to the deployment, typically the
+# config map holding config.yaml. See https://maplibre.org/martin/config-file/
+# For S3 GeoParquet sources outside AWS, the endpoint goes in that file
+# (duckdb.endpoint): martin turns it into the DuckDB S3 secret together with the
+# AWS_* keys from env.
+extraVolumes: []
+#  - name: config
+#    configMap:
+#      name: martin-config
+
+# extraVolumeMounts are additional volume mounts to add to the container
+extraVolumeMounts: []
+#  - name: config
+#    mountPath: /etc/martin
+#    readOnly: true
+
+# resources are resource requests and limits to be applied
+resources: {}
+
+# affinity constrains which nodes the pods are eligible to be scheduled on
+affinity: {}
+
+# podSecurityContext is left empty: check which uid the image runs as before
+# enforcing one, a wrong value prevents the container from starting.
+podSecurityContext: {}
