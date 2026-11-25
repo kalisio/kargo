@@ -1,8 +1,24 @@
+{{- if and .Values.barmanCloud.enabled .Values.backup }}
+{{- fail "barmanCloud and the legacy backup section cannot be enabled together: both archive WAL files" }}
+{{- end }}
+{{- $bootstrap := deepCopy (.Values.bootstrap | default dict) }}
+{{- /* Helm merges the default initdb with user values: only one bootstrap method is allowed */}}
+{{- if or (hasKey $bootstrap "recovery") (hasKey $bootstrap "pg_basebackup") }}
+{{- $_ := unset $bootstrap "initdb" }}
+{{- end }}
+{{- if and .Values.ownerCredentials.password (hasKey $bootstrap "initdb") }}
+{{- $initdb := get $bootstrap "initdb" }}
+{{- if not (hasKey $initdb "secret") }}
+{{- $_ := set $initdb "secret" (dict "name" (include "postgresql-operated.ownerSecretName" .)) }}
+{{- end }}
+{{- end }}
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: {{ .Release.Name }}-postgresql-operated
+  name: {{ include "postgresql-operated.clusterName" . }}
+  labels:
+{{ include "kargo.labels.standard" . | indent 4 }}
 spec:
   inheritedMetadata:
     annotations:
@@ -11,13 +27,19 @@ spec:
     {{- end }}
     labels:
 {{ include "kargo.labels.standard" . | indent 6 }}
-  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+  imageName: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ include "postgresql-operated.imageTag" . }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
-  imagePullSecrets:
   {{- with .Values.image.pullSecrets }}
+  imagePullSecrets:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   instances: {{ .Values.replicaCount }}
+  {{- with .Values.primaryUpdateStrategy }}
+  primaryUpdateStrategy: {{ . }}
+  {{- end }}
+  {{- with .Values.primaryUpdateMethod }}
+  primaryUpdateMethod: {{ . }}
+  {{- end }}
 
   storage:
   {{- with .Values.storage }}
@@ -30,7 +52,17 @@ spec:
   {{- end}}
 
   bootstrap:
-  {{- with .Values.bootstrap }}
+  {{- with $bootstrap }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.externalClusters }}
+  externalClusters:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+  {{- with .Values.managed }}
+  managed:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 
@@ -55,7 +87,19 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 
-  {{- with .Values.plugins }}
+  {{- if or .Values.barmanCloud.enabled .Values.plugins }}
   plugins:
+    {{- if .Values.barmanCloud.enabled }}
+    # Continuous WAL archiving to the ObjectStore
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: {{ include "postgresql-operated.objectStoreName" . }}
+        {{- with .Values.barmanCloud.serverName }}
+        serverName: {{ . }}
+        {{- end }}
+    {{- end }}
+    {{- with .Values.plugins }}
     {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- end }}

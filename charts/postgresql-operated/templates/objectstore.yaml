@@ -1,0 +1,37 @@
+{{- if .Values.barmanCloud.enabled }}
+{{- $s3Secret := include "postgresql-operated.s3Secret" . }}
+---
+# Destination of the barman-cloud backups (S3)
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: {{ include "postgresql-operated.objectStoreName" . }}
+  labels:
+{{ include "kargo.labels.standard" . | indent 4 }}
+spec:
+  configuration:
+    endpointURL: {{ .Values.barmanCloud.endpointURL | quote }}
+    destinationPath: {{ default (printf "s3://cnpg-backups/%s" .Release.Namespace) .Values.barmanCloud.destinationPath | quote }}
+    s3Credentials:
+      accessKeyId:
+        name: {{ $s3Secret }}
+        key: {{ .Values.barmanCloud.accessKeyIdKey }}
+      secretAccessKey:
+        name: {{ $s3Secret }}
+        key: {{ .Values.barmanCloud.secretAccessKeyKey }}
+    {{- with .Values.barmanCloud.compression }}
+    data:
+      compression: {{ . }}
+    wal:
+      compression: {{ . }}
+    {{- end }}
+  {{- with .Values.barmanCloud.retentionPolicy }}
+  retentionPolicy: {{ . | quote }}
+  {{- end }}
+  {{- with .Values.barmanCloud.region }}
+  instanceSidecarConfiguration:
+    env:
+      - name: AWS_DEFAULT_REGION
+        value: {{ . | quote }}
+  {{- end }}
+{{- end }}

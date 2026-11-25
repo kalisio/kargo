@@ -1,3 +1,4 @@
+{{- $cluster := include "postgresql-operated.clusterName" . -}}
 Thank you for installing {{ .Chart.Name }}.
 
 Your release is named {{ .Release.Name }}.
@@ -6,12 +7,18 @@ To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
   $ helm get all {{ .Release.Name }}
+  $ kubectl cnpg status {{ $cluster }} -n {{ .Release.Namespace }}
 
 This chart simplifies the creation of a PostgreSQL or PostGIS database using the
 PostgreSQL operator https://cloudnative-pg.io/
 
-The database is accessible using the following urls:
- - {{ .Values.bootstrap.initdb.database }}-postgis-operated-r
- - {{ .Values.bootstrap.initdb.database }}-postgis-operated-ro
- - {{ .Values.bootstrap.initdb.database }}-postgis-operated-rw
-If you have only one replica use the the service that ends with '-rw'.
+The database is accessible using the following services:
+ - {{ $cluster }}-rw (read/write, primary instance)
+ - {{ $cluster }}-ro (read only, replicas)
+ - {{ $cluster }}-r  (read, any instance)
+If you have only one replica use the service that ends with '-rw'.
+{{- if .Values.barmanCloud.enabled }}
+
+Backups are stored by the barman-cloud plugin in the ObjectStore {{ include "postgresql-operated.objectStoreName" . }}
+({{ default (printf "s3://cnpg-backups/%s" .Release.Namespace) .Values.barmanCloud.destinationPath }}/{{ default $cluster .Values.barmanCloud.serverName }}).
+{{- end }}

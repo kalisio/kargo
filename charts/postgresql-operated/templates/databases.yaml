@@ -1,0 +1,15 @@
+{{- $cluster := include "postgresql-operated.clusterName" . }}
+{{- range .Values.databases }}
+---
+# Database managed declaratively by the operator
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: {{ printf "%s-%s" $cluster (.name | replace "_" "-" | lower) | trunc 63 | trimSuffix "-" }}
+  labels:
+{{ include "kargo.labels.standard" $ | indent 4 }}
+spec:
+  cluster:
+    name: {{ $cluster }}
+  {{- toYaml . | nindent 2 }}
+{{- end }}

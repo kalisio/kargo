@@ -1,0 +1,20 @@
+{{- if and .Values.barmanCloud.enabled .Values.barmanCloud.scheduledBackup.enabled }}
+{{- $cluster := include "postgresql-operated.clusterName" . }}
+---
+# Scheduled base backup through the barman-cloud plugin
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: {{ $cluster }}-scheduled-backup
+  labels:
+{{ include "kargo.labels.standard" . | indent 4 }}
+spec:
+  cluster:
+    name: {{ $cluster }}
+  schedule: {{ .Values.barmanCloud.scheduledBackup.schedule | quote }}
+  immediate: {{ .Values.barmanCloud.scheduledBackup.immediate }}
+  backupOwnerReference: {{ .Values.barmanCloud.scheduledBackup.backupOwnerReference }}
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+{{- end }}
