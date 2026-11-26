@@ -1,7 +1,9 @@
 ARG KUBECTL_VERSION=1.31.4
+ARG DEBIAN_VERSION=trixie
+
 FROM registry.k8s.io/kubectl:v${KUBECTL_VERSION} AS kubectl
 
-FROM debian:bookworm-slim
+FROM debian:${DEBIAN_VERSION}-slim
 LABEL maintainer "contact@kalisio.com"
 
 # gettext-base contains envsubst
